@@ -1,0 +1,4 @@
+Boss2	You're interrupting our ceremony...
+Morale	Is it you who's laying all these webs?
+Morale	I'm getting sticky!
+Boss2	It makes it much easier to eat you!	
