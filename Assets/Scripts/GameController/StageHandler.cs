@@ -43,14 +43,13 @@ public class StageHandler : MonoBehaviour {
 		case 1:
 			while (g.scene == null) yield return null;
 			while (stageTimer < 4f) yield return null;
-			g.scene.SetPlaneSpeed (3f);
 			while (stageTimer < 8f) yield return null;
-
+			g.scene.SetPlaneSpeed (10f);
 			g.scene.RotateCamera (35, 0, 0);
 
 			while (stageTimer < 14f) yield return null;
 			g.scene.RotateCamera (35, 0, -5);
-
+			g.scene.SetPlaneSpeed (1f);
 			while (stageTimer < 24f) yield return null;
 			g.ui.UpdateStageText (currentStage);
 
@@ -67,6 +66,7 @@ public class StageHandler : MonoBehaviour {
 			g.scene.SetPlaneSpeed (15f);
 
 			while (stageTimer < 96f) yield return null;
+			g.scene.SetPlaneSpeed (3f);
 			yield return new WaitForSeconds (3f);
 			g.sound.PlayMusic ("Boss1");
 

@@ -458,7 +458,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: fdd331338cd64ae44ba3dae99ac2b1a4, type: 2}
+  - {fileID: 2100000, guid: fcdb1a9fc968bd9498a6023f6e015c75, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -556,8 +556,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfae2d87ba1c8824f81c839ece86a044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 1
-  targetSpeed: 1
+  scrollSpeed: 3
+  targetSpeed: 3
   tileSize: 48
   moving: 1
   updatingSpeed: 0
