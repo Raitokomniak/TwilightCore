@@ -67,7 +67,7 @@ public class StageHandler : MonoBehaviour {
 			g.scene.SetPlaneSpeed (15f);
 
 			while (stageTimer < 96f) yield return null;
-			while (g.dialog.handlingDialog) yield return null;
+			yield return new WaitForSeconds (3f);
 			g.sound.PlayMusic ("Boss1");
 
 			break;

@@ -11,7 +11,6 @@ public class EnemySpawner : MonoBehaviour {
 	IEnumerator spawn;
 
 	void Awake(){
-		Debug.Log ("spawner awake");
 		started = false;
 		DestroyAllEnemies ();
 		DestroyAllProjectiles ();

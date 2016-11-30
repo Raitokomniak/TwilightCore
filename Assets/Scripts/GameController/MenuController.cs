@@ -45,7 +45,6 @@ public class MenuController : MonoBehaviour
 		if (GameController.gameControl.scene.GetCurrentScene () == "MainMenu") {
 			context = "MainMenu";
 			selectedList = mainMenuItems;
-			Debug.Log ("main");
 		} else if (GameController.gameControl.scene.GetCurrentScene () == "CharSelect") {
 			context = "CharSelect";
 			selectedList = charSelectItems;
@@ -60,7 +59,6 @@ public class MenuController : MonoBehaviour
 		if (context != "") {
 			GameController.gameControl.ui.UpdateMenuSelection (context, selectedIndex);
 		}
-		Debug.Log (selectedList);
 	}
 
 	public void InitMenu(){

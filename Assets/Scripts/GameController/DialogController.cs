@@ -45,7 +45,7 @@ public class DialogController : MonoBehaviour {
 		handlingDialog = false;
 		init = true;
 
-		autoDialog = AutoDialog ();
+
 	}
 
 
@@ -91,6 +91,7 @@ public class DialogController : MonoBehaviour {
 		//EndDialog ();
 
 		//CheckForDialogue ();
+		autoDialog = AutoDialog ();
 		StartCoroutine(autoDialog);
 	}
 
@@ -112,8 +113,7 @@ public class DialogController : MonoBehaviour {
 	{
 //		Debug.Log ("autodialog " + auto);
 		yield return new WaitForSeconds (1);
-		//if(!auto) yield return new WaitForSeconds (2);
-		Debug.Log ("check");
+		if(!auto) yield return new WaitForSeconds (2);
 		CheckForDialogue ();
 	}
 

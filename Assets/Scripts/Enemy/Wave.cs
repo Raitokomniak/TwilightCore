@@ -110,7 +110,6 @@ public class Wave
 				enemy.tag = "MidBoss";
 				enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0f);
 			}
-			Debug.Log ("from wave next phase");
 			enemy.GetComponent<EnemyShoot> ().NextBossPhase ();
 			GameController.gameControl.ui.ToggleBossHealthSlider (true, enemy.GetComponent<EnemyLife> ().maxHealth, bossName);
 
