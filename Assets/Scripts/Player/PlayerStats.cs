@@ -40,15 +40,6 @@ public class PlayerStats : MonoBehaviour {
 	public int scaleCap;
 
 
-	void Awake(){
-		
-
-
-
-		//InitShoot ();
-
-	}
-
 	public void Init(){
 		damageMin = 1f;
 
@@ -79,11 +70,6 @@ public class PlayerStats : MonoBehaviour {
 		playerShoot.InitShoot ();
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-
-	}
 
 	public void GainCoreCharge(string core, int gainedCharge)
 	{

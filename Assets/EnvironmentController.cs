@@ -11,16 +11,8 @@ public class EnvironmentController : MonoBehaviour {
 	Vector3 startPosition;
 
 	public bool moving;
-	public bool init;
 	public bool updatingSpeed;
 
-
-	void Awake () {
-		init = false;
-		//startPosition = transform.position;
-		//startPosition = transform.position;
-		//moving = true;
-	}
 
 	void Update () {
 		moving = !GameController.gameControl.pause.paused;

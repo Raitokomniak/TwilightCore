@@ -4,7 +4,6 @@ using System.Collections;
 
 public class MenuController : MonoBehaviour
 {
-
 	public ArrayList mainMenuItems;
 	public ArrayList pauseMenuItems;
 	ArrayList selectedList;

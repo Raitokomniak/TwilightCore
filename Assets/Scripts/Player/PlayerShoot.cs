@@ -23,8 +23,6 @@ public class PlayerShoot : MonoBehaviour {
 		coolDownTimer = 0f;
 		coolDown = .1f;
 		bulletScale = 1f;
-
-
 	}
 
 	public void InitShoot(){
@@ -58,7 +56,6 @@ public class PlayerShoot : MonoBehaviour {
 
 
 		weaponsInUse.Add ((GameObject)weapons [0]);
-
 		UpdateShootLevel ();
 	}
 

@@ -3,12 +3,7 @@ using System.Collections;
 
 public class AnimationController : MonoBehaviour {
 	public GameObject parentObject;
-
 	public bool rotating;
-	// Use this for initialization
-	void Start () {
-	
-	}
 
 	void Awake(){
 		rotating = false;
@@ -16,7 +11,6 @@ public class AnimationController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
 		if (rotating) {
 			transform.Rotate (0, 0, Time.deltaTime * 200);
 		}

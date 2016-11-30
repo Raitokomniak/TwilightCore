@@ -7,15 +7,6 @@ public class PlayerLife : MonoBehaviour {
 	public int lives;
 	public bool invulnerable;
 
-	void Update(){
-		
-
-	}
-
-	void Awake(){
-		
-	}
-
 	public void InitLife(){
 		lives = GameController.gameControl.stats.lives;
 		GameController.gameControl.ui.UpdateStatPanel("Lives", lives);
@@ -25,7 +16,6 @@ public class PlayerLife : MonoBehaviour {
 
 
 	//Handles collision with enemy and exp points
-
 	void OnTriggerEnter2D(Collider2D c)
 	{
 		if(c.gameObject.tag == "ExpPoint") {

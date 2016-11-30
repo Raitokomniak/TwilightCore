@@ -3,9 +3,6 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour {
 	ArrayList waves;
-	float enemyCounter;
-	float spawnDelay;
-
 	public int currentWave;
 	Wave curWave;
 	public Wave bossWave;
@@ -24,7 +21,7 @@ public class EnemySpawner : MonoBehaviour {
 		if (started) {
 			foreach (Wave wave in waves) {
 				if (GameController.gameControl.stage.stageTimer >= wave.spawnTime && !wave.spawned) {
-					curWave.spawned = true;
+					wave.spawned = true;
 					if (wave.isBoss)
 						DestroyAllProjectiles ();
 					else InitializeWave ();
@@ -58,13 +55,14 @@ public class EnemySpawner : MonoBehaviour {
 		started = true;
 	}
 
-	public void StopSpawner(){
-		
+	void InitializeWave(){	
+		currentWave++;
+		curWave = waves [currentWave] as Wave;
+		GameController.gameControl.ui.UpdateStatPanel ("Wave", currentWave);
 	}
 
 	IEnumerator Spawn(Wave wave){
 		while (started && wave.enemyCounter != 0) {
-//			Debug.Log ("spawn " + wave.enemyCounter + " started " + started);
 			wave.enemyCounter -= 1;
 			wave.Spawn ();
 			yield return new WaitForSeconds (1f);
@@ -76,15 +74,10 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 
-	void InitializeWave(){	
-		currentWave++;
-		enemyCounter = 0;
-		curWave = waves [currentWave] as Wave;
-		GameController.gameControl.ui.UpdateStatPanel ("Wave", currentWave);
-	}
 
 
-	/// 
+
+	/////////////////////////////////
 	/// Destruction functions
 	///
 

@@ -9,7 +9,6 @@ public class UIController : MonoBehaviour {
 	EnemyLife bossLife;
 
 
-
 	public Canvas mainMenuCanvas;
 	public GameObject mainMenuPanel;
 	public Canvas charSelectCanvas;

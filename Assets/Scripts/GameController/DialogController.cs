@@ -24,16 +24,11 @@ public class DialogController : MonoBehaviour {
 	bool init;
 	IEnumerator autoDialog;
 
-	// Use this for initialization
-	void Awake () {
-
-	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(handlingDialog){
-			if (Input.GetKeyDown (KeyCode.Z) && !auto)
-			{
+			if (Input.GetKeyDown (KeyCode.Z) && !auto){
 				StopCoroutine (autoDialog);
 				CheckForDialogue ();	
 			}

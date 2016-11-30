@@ -17,7 +17,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 	void Awake(){
 		starLightBomb = Resources.Load ("StarLightBomb") as GameObject;
 	}
-	// Update is called once per frame
+
 	void Update () {
 		if(!specialAttack && Input.GetKeyDown(KeyCode.X) && !GameController.gameControl.dialog.handlingDialog)
 		{

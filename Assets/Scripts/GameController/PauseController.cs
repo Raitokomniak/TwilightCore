@@ -21,7 +21,6 @@ public class PauseController : MonoBehaviour {
 
 	public void HandlePause()
 	{
-
 		if(!paused)
 		{
 			GameController.gameControl.sound.PauseMusic ();
