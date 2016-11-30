@@ -6,7 +6,10 @@ public class MenuController : MonoBehaviour
 {
 	public ArrayList mainMenuItems;
 	public ArrayList pauseMenuItems;
+	public ArrayList charSelectItems;
+
 	ArrayList selectedList;
+
 
 	int selectedIndex;
 	string selection;
@@ -21,10 +24,13 @@ public class MenuController : MonoBehaviour
 		mainMenuItems.Add ("Start Game");
 		mainMenuItems.Add ("Quit Game");
 
+		charSelectItems = new ArrayList ();
+		charSelectItems.Add ("1");
+
 		pauseMenuItems = new ArrayList ();
 		pauseMenuItems.Add ("Restart");
 		pauseMenuItems.Add ("MainMenu");
-		selectedIndex = 0;
+
 	}
 	
 	// Update is called once per frame
@@ -48,16 +54,22 @@ public class MenuController : MonoBehaviour
 		if (GameController.gameControl.scene.GetCurrentScene () == "MainMenu") {
 			context = "MainMenu";
 			selectedList = mainMenuItems;
+		} else if (GameController.gameControl.scene.GetCurrentScene () == "CharSelect") {
+			context = "CharSelect";
+			selectedList = charSelectItems;
 		}
+
 		if (GameController.gameControl.scene.GetCurrentScene () == "Level1") {
 			if (GameController.gameControl.pause.paused) {
 				context = "PauseMenu";
 				selectedList = pauseMenuItems;
 			}
 		}
+		GameController.gameControl.ui.UpdateMenuSelection (context, selectedIndex);
 	}
 	public void ToggleMenu(bool value)
 	{
+		selectedIndex = 0;
 		menuOn = value;
 		CheckMenu ();
 	}
@@ -110,14 +122,11 @@ public class MenuController : MonoBehaviour
 			}
 			break;
 		case "CharSelect":
-			selection = (string)mainMenuItems [selectedIndex];
+			selection = (string)charSelectItems [selectedIndex];
 
 			switch (selection) {
-			case "Start Game":
-				GameController.gameControl.scene.CharSelect ();
-				break;
-			case "Quit Game":
-				GameController.gameControl.QuitGame ();
+			case "1":
+				GameController.gameControl.scene.StartGame ();
 				break;
 			}
 			break;

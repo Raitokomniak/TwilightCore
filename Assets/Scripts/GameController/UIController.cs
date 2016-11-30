@@ -86,7 +86,7 @@ public class UIController : MonoBehaviour {
 
 		stageUI.SetActive (false);
 		stageWorldUI.SetActive (false);
-		mainMenuPanel.transform.GetChild (0).GetComponent<Text> ().fontStyle = FontStyle.Bold;
+		//mainMenuPanel.transform.GetChild (0).GetComponent<Text> ().fontStyle = FontStyle.Bold;
 	}
 
 	public void UpdateMenuSelection(string context, int index){

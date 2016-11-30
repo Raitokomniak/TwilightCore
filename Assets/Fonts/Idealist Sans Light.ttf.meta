@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 3dba66d46ca277545b94bbf38d36868d
+timeCreated: 1480489042
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Idealist Sans
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 12d06fd0964f38a42b5a800c576556f5, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

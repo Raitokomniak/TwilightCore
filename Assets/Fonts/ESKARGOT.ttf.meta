@@ -1,15 +1,16 @@
 fileFormatVersion: 2
-guid: 503bb1d7b25dbb540ad302f3fcea8909
-timeCreated: 1479915337
+guid: 6945e7dcdfa8bb1469621286b1574733
+timeCreated: 1480489042
 licenseType: Free
 TrueTypeFontImporter:
-  serializedVersion: 3
+  serializedVersion: 4
   fontSize: 16
   forceTextureCase: -2
-  characterSpacing: 1
-  characterPadding: 0
+  characterSpacing: 0
+  characterPadding: 1
   includeFontData: 1
-  fontNames: []
+  fontNames:
+  - Eskargot
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
