@@ -42,7 +42,7 @@ public class StageHandler : MonoBehaviour {
 		switch (currentStage) {
 		case 1:
 			while (g.scene == null && g.scene.planes.Count < 2) yield return null;
-			while (stageTimer < 2f) yield return null;
+			while (stageTimer < 4f) yield return null;
 			g.scene.SetPlaneSpeed (3f);
 			while (stageTimer < 8f) yield return null;
 

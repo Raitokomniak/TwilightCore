@@ -12,6 +12,10 @@ public class SoundController : MonoBehaviour {
 
 
 	void Awake(){
+		
+	}
+
+	public void InitSound(){
 		playerSoundFXSource = this.gameObject.AddComponent<AudioSource> ();
 		enemySoundFXSource = this.gameObject.AddComponent<AudioSource> ();
 		bgMusicSource = this.gameObject.AddComponent<AudioSource> ();
@@ -21,7 +25,6 @@ public class SoundController : MonoBehaviour {
 
 		bossMusicPlaying = false;
 	}
-
 
 
 	public void PlaySpellSound(string source){

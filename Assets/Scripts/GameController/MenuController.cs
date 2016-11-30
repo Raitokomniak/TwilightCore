@@ -15,21 +15,12 @@ public class MenuController : MonoBehaviour
 	string selection;
 	string context;
 
-	public bool menuOn;
+	public bool menuOn = false;
 
 	// Use this for initialization
 	void Awake ()
 	{
-		mainMenuItems = new ArrayList ();
-		mainMenuItems.Add ("Start Game");
-		mainMenuItems.Add ("Quit Game");
-
-		charSelectItems = new ArrayList ();
-		charSelectItems.Add ("1");
-
-		pauseMenuItems = new ArrayList ();
-		pauseMenuItems.Add ("Restart");
-		pauseMenuItems.Add ("MainMenu");
+		
 
 	}
 	
@@ -40,7 +31,7 @@ public class MenuController : MonoBehaviour
 			if (Input.GetKeyDown (KeyCode.UpArrow)) {
 				MoveUp ();
 			} else if (Input.GetKeyDown (KeyCode.DownArrow)) {
-				MoveUp ();
+				MoveDown ();
 			} else if (Input.GetKeyDown (KeyCode.Z)) {
 				CheckSelection ();	
 			} else if (Input.GetKeyDown (KeyCode.X)) {
@@ -54,6 +45,7 @@ public class MenuController : MonoBehaviour
 		if (GameController.gameControl.scene.GetCurrentScene () == "MainMenu") {
 			context = "MainMenu";
 			selectedList = mainMenuItems;
+			Debug.Log ("main");
 		} else if (GameController.gameControl.scene.GetCurrentScene () == "CharSelect") {
 			context = "CharSelect";
 			selectedList = charSelectItems;
@@ -65,8 +57,27 @@ public class MenuController : MonoBehaviour
 				selectedList = pauseMenuItems;
 			}
 		}
-		GameController.gameControl.ui.UpdateMenuSelection (context, selectedIndex);
+		if (context != "") {
+			GameController.gameControl.ui.UpdateMenuSelection (context, selectedIndex);
+		}
+		Debug.Log (selectedList);
 	}
+
+	public void InitMenu(){
+		mainMenuItems = new ArrayList ();
+		mainMenuItems.Add ("Start Game");
+		mainMenuItems.Add ("Quit Game");
+
+		charSelectItems = new ArrayList ();
+		charSelectItems.Add ("1");
+
+		pauseMenuItems = new ArrayList ();
+		pauseMenuItems.Add ("Restart");
+		pauseMenuItems.Add ("MainMenu");
+
+		selectedList = new ArrayList();
+	}
+
 	public void ToggleMenu(bool value)
 	{
 		selectedIndex = 0;

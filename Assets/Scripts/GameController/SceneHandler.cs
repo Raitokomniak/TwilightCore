@@ -24,7 +24,7 @@ public class SceneHandler : MonoBehaviour {
 
 	public void StartGame()
 	{
-		SceneManager.LoadScene("Level1");
+		SceneManager.LoadSceneAsync("Level1");
 		GameController.gameControl.sound.StopMusic ();
 	}
 
@@ -42,6 +42,7 @@ public class SceneHandler : MonoBehaviour {
 		else if (SceneManager.GetActiveScene ().name == "CharSelect") {
 			GameController.gameControl.ui.InitCharSelect ();
 			GameController.gameControl.stage.Player.SetActive (false);
+			GameController.gameControl.menu.ToggleMenu (true);
 		}
 		else {
 			if (!init) {
@@ -56,6 +57,10 @@ public class SceneHandler : MonoBehaviour {
 			
 	}
 
+	void OnLevelWasLoaded(){
+		CheckScene ();
+	}
+
 	public void DeConstructScene(){
 		
 	}
@@ -65,11 +70,11 @@ public class SceneHandler : MonoBehaviour {
 	/// ENVIRONMENT SETUP AND DELEGATION
 	/// 
 	void SetUpEnvironment(){
-		if (planes != null) {
+		/*if (planes != null) {
 			planes.Clear ();
-		}
+		}*/
 		planes = new ArrayList ();
-
+		Debug.Log ("setup envi");
 		environment = GameObject.Find ("Environment");
 		environment.GetComponent<EnvironmentController> ().SetStartPosition (new Vector3(40.5f, -13, 88.1f));
 

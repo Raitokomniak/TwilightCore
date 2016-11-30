@@ -50,6 +50,8 @@ public class GameController : MonoBehaviour {
 		sound = soundObject.GetComponent<SoundController> ();
 		menu = GetComponent<MenuController> ();
 
+		menu.InitMenu ();
+		sound.InitSound ();
 
 		scene.CheckScene ();
 

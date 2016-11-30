@@ -9,7 +9,7 @@ public class UIController : MonoBehaviour {
 	EnemyLife bossLife;
 
 
-	public Canvas mainMenuCanvas;
+	public GameObject mainMenuCanvas;
 	public GameObject mainMenuPanel;
 	public Canvas charSelectCanvas;
 	public Canvas UICanvas;
@@ -96,6 +96,9 @@ public class UIController : MonoBehaviour {
 		if (context == "MainMenu") {
 			allOptions = mainMenuPanel.transform.GetComponentsInChildren<Text> ();
 			panel = mainMenuPanel;
+		}else if (context == "CharSelect") {
+			allOptions = mainMenuPanel.transform.GetComponentsInChildren<Text> ();
+			panel = mainMenuPanel;
 		} else if (context == "PauseMenu") {
 			allOptions = pauseMenuPanel.transform.GetComponentsInChildren<Text> ();
 			panel = pauseMenuPanel;
@@ -118,6 +121,7 @@ public class UIController : MonoBehaviour {
 
 	public void InitStage(){
 		charSelectCanvas.gameObject.SetActive (false);
+		mainMenuCanvas.SetActive (false);
 
 		stageWorldUI.SetActive (true);
 		stageUI.SetActive (true);
