@@ -7,6 +7,11 @@ public class CameraController : MonoBehaviour {
 	Vector3 targetPosition;
 	bool moving;
 
+	void Awake(){
+		transform.position = new Vector3 (50, 5, 72);
+		transform.rotation = Quaternion.Euler (40, 0, 5);
+	}
+
 	// Update is called once per frame
 	void Update () {
 		if (rotating) {

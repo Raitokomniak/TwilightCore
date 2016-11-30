@@ -129,6 +129,22 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 22496548, guid: 2d8192533229f2c40b277f8ef9fbcfbf, type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22496548, guid: 2d8192533229f2c40b277f8ef9fbcfbf, type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22436042, guid: 2d8192533229f2c40b277f8ef9fbcfbf, type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22451504, guid: 2d8192533229f2c40b277f8ef9fbcfbf, type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 22486036, guid: 2d8192533229f2c40b277f8ef9fbcfbf, type: 2}
       propertyPath: m_AnchorMin.x
       value: 1
@@ -141,35 +157,14 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 22436580, guid: 2d8192533229f2c40b277f8ef9fbcfbf, type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 22496548, guid: 2d8192533229f2c40b277f8ef9fbcfbf, type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 22496548, guid: 2d8192533229f2c40b277f8ef9fbcfbf, type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 22429774, guid: 2d8192533229f2c40b277f8ef9fbcfbf, type: 2}
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 22436042, guid: 2d8192533229f2c40b277f8ef9fbcfbf, type: 2}
+    - target: {fileID: 22436580, guid: 2d8192533229f2c40b277f8ef9fbcfbf, type: 2}
       propertyPath: m_AnchorMax.x
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 22451504, guid: 2d8192533229f2c40b277f8ef9fbcfbf, type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11498334, guid: 2d8192533229f2c40b277f8ef9fbcfbf, type: 2}
-      propertyPath: m_FontData.m_Font
-      value: 
-      objectReference: {fileID: 12800000, guid: 3dba66d46ca277545b94bbf38d36868d,
-        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2d8192533229f2c40b277f8ef9fbcfbf, type: 2}
   m_IsPrefabParent: 0

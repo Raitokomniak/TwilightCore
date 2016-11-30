@@ -8,9 +8,15 @@ public class SceneHandler : MonoBehaviour
 	public GameObject environment;
 	public GameObject parent;
 	public Camera environmentCamera;
-	public ArrayList planes;
+	public GameObject[] planes;
 
 	public bool init;
+
+
+
+	void Awake(){
+		
+	}
 
 	/////////////////////
 	/// SCENE TRANSITIONING
@@ -25,10 +31,15 @@ public class SceneHandler : MonoBehaviour
 		SceneManager.LoadScene ("CharSelect");
 	}
 
-	public void StartGame ()
+	public IEnumerator StartGame ()
 	{
-		SceneManager.LoadSceneAsync ("Level1");
+		AsyncOperation async = SceneManager.LoadSceneAsync ("Level1");
+
 		GameController.gameControl.sound.StopMusic ();
+
+		yield return async;
+		Debug.Log("Loading complete");
+		//CheckScene ();
 	}
 
 	public string GetCurrentScene ()
@@ -50,12 +61,12 @@ public class SceneHandler : MonoBehaviour
 		} else {
 			if (!init) {
 				GameController.gameControl.stage.InitStage (true);
-				SetUpEnvironment ();
+
 				init = true;
 				GameController.gameControl.menu.ToggleMenu (false);
 			}
 
-
+			SetUpEnvironment ();
 		}
 			
 	}
@@ -76,41 +87,46 @@ public class SceneHandler : MonoBehaviour
 	/// 
 	void SetUpEnvironment ()
 	{
-		if (planes != null) {
-			planes.Clear ();
-		}
-		planes = new ArrayList ();
-		environment = GameObject.Find ("Environment");
-		environment.GetComponent<EnvironmentController> ().SetStartPosition (new Vector3 (40.5f, -13, 88.1f));
+		Debug.Log ("setup");
+		planes = new GameObject[3];
+		parent = GameObject.Find ("EnvironmentParent");
 
-		GameObject environmentClone = null;
-		GameObject environmentClone2 = null;
+		if (!GameObject.Find ("Environment")) {
+			environment = (GameObject)Instantiate (Resources.Load ("Environment/Environment"));
+			environment.transform.SetParent (parent.transform);
+			environment.GetComponent<EnvironmentController> ().SetStartPosition (new Vector3 (40.5f, -13, 88.1f));
+			environment.name = "Environment";
+		}
+
+
 		if (!GameObject.Find ("Environment2")) {
-			environmentClone = (GameObject)Instantiate (environment, environment.transform.position + new Vector3 (0, 0, 47.9f), environment.transform.rotation);
+			GameObject environmentClone = (GameObject)Instantiate (environment, environment.transform.position + new Vector3 (0, 0, 47.9f), environment.transform.rotation);
 			environmentClone.transform.SetParent (environment.transform.parent);
 			environmentClone.name = "Environment2";
 			environmentClone.GetComponent<EnvironmentController> ().SetStartPosition (environment.transform.position + new Vector3 (0, 0, 47.9f));
+			environmentClone = GameObject.Find ("Environment2");
 		}
 		if (!GameObject.Find ("Environment3")) {
-			environmentClone2 = (GameObject)Instantiate (environment, environment.transform.position + new Vector3 (0, 0, 95.8f), environment.transform.rotation);
+			GameObject environmentClone2 = (GameObject)Instantiate (environment, environment.transform.position + new Vector3 (0, 0, 95.8f), environment.transform.rotation);
 			environmentClone2.transform.SetParent (environment.transform.parent);
 			environmentClone2.name = "Environment3";
 			environmentClone2.GetComponent<EnvironmentController> ().SetStartPosition (environment.transform.position + new Vector3 (0, 0, 95.8f));
+			environmentClone2 = GameObject.Find ("Environment");
 		}
-		planes.Add (environment);
-		planes.Add (environmentClone);
-		planes.Add (environmentClone2);
+		environment = GameObject.Find ("Environment");
 
-		environment = (GameObject)planes [0];
-		environmentClone = (GameObject)planes [1];
-		environmentClone2 = (GameObject)planes [2];
+		planes [0] = GameObject.Find ("Environment");
+		planes [1] = GameObject.Find ("Environment2");
+		planes [2] = GameObject.Find ("Environment3");
+
+		environmentCamera = GameObject.Find ("EnvironmentCamera").GetComponent<Camera>();
 	}
 
 	public void SetPlaneSpeed (float speed)
 	{
-		planes [0] = GameObject.Find ("Environment");
-		planes [1] = GameObject.Find ("Environment2");
-		planes [2] = GameObject.Find ("Environment3");
+		//planes [0] = GameObject.Find ("Environment");
+		//planes [1] = GameObject.Find ("Environment2");
+		//planes [2] = GameObject.Find ("Environment3");
 		foreach (GameObject plane in planes) {
 			//if (!plane.GetComponent<EnvironmentController> ().init)
 			//	plane.GetComponent<EnvironmentController> ().Init ();
