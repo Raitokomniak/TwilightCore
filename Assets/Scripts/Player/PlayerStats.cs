@@ -5,6 +5,7 @@ public class PlayerStats : MonoBehaviour {
 
 	public PlayerShoot playerShoot;
 	public PlayerMovement playerMovement;
+	public PlayerLife playerLife;
 
 	public int lives;
 	public int xp;
@@ -39,23 +40,32 @@ public class PlayerStats : MonoBehaviour {
 	public int scaleCap;
 
 
+	void Awake(){
+		
+
+
+
+		//InitShoot ();
+
+	}
+
 	public void Init(){
+		damageMin = 1f;
+
 		lives = 3;
 		xpCap = 5;
 		xp = 0;
 		level = 1;
-		damageMin = 1f;
 		damage = damageMin;
 		bulletScaleMin = 1f;
 		bulletScale = bulletScaleMin;
 
-		upgradePoints = 0;
+
 		movementSpeed = 0.2f;
 		shootSpeed = .1f;
-
-	
 		shootLevel = 0;
 
+		upgradePoints = 0;
 		dayCoreLevel = 0;
 		dayCorePoints = 0;
 		nightCoreLevel = 0;
@@ -65,9 +75,7 @@ public class PlayerStats : MonoBehaviour {
 		dayCoreThreshold = 20;
 		nightCoreThreshold = 20;
 
-		GameController.gameControl.ui.UpdateCoreCharge ("Day", dayCorePoints);
-		GameController.gameControl.ui.UpdateCoreCharge ("Night", nightCorePoints);
-
+		playerLife.InitLife ();
 		playerShoot.InitShoot ();
 	}
 

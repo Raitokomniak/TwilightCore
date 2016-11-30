@@ -47,12 +47,7 @@ public class EnemyLib : MonoBehaviour
 	Wave boss2;
 
 
-	void Update()
-	{
-		
-	}
-
-	public void InitEnemyLib(){
+	void Awake(){
 		centerX = -6f;
 		centerY = 0f;
 		farLeft = -22f;
@@ -64,7 +59,18 @@ public class EnemyLib : MonoBehaviour
 		leftTop = new Vector3 (-18, 12f, 0f);
 		rightTop = new Vector3 (0, 12f, 0f);
 
+
+
+	}
+
+	void Update()
+	{
+		
+	}
+
+	public void InitEnemyLib(){
 		spriteLib = GameController.gameControl.spriteLib;
+
 		CreateMovementPatterns();
 		CreatePatterns();
 		CreateBosses();
@@ -116,7 +122,7 @@ public class EnemyLib : MonoBehaviour
 			p = new Pattern (singleHoming);
 			p.Customize (new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
 			p.SetSprite ("Circle", "Big", "Red");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (2f, mp, p, 5, false, 0, false, .6f, 0), new ArrayList { rightTop });
+			NewWave (stageWaves, new Wave (1f, mp, p, 5, false, 0, false, .6f, 0), new ArrayList { rightTop });
 
 			mp = new EnemyMovementPattern (enterLeave);
 			mp.Customize ("LeaveDir", "Left");
@@ -133,7 +139,7 @@ public class EnemyLib : MonoBehaviour
 			p = new Pattern (singleHoming);
 			p.Customize (new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
 			p.SetSprite ("Circle", "Big", "Red");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (14f, mp, p, 5, false, 0, false, .6f, 0), new ArrayList { rightTop });
+			NewWave (stageWaves, new Wave (4f, mp, p, 5, false, 0, false, .6f, 0), new ArrayList { rightTop });
 
 			mp = new EnemyMovementPattern (enterLeave);
 			mp.Customize ("LeaveDir", "Left");

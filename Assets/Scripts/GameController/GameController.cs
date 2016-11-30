@@ -6,6 +6,8 @@ public class GameController : MonoBehaviour {
 
 
 	public static GameController gameControl;
+	public static bool paused;
+
 	[SerializeField] public UIController ui;
 	[SerializeField] public DialogController dialog;
 	[SerializeField] public GameEndHandler gameEnd;

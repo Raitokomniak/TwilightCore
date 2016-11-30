@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
-
 public class EnemySpawner : MonoBehaviour {
 	ArrayList waves;
 	float enemyCounter;
@@ -13,14 +11,39 @@ public class EnemySpawner : MonoBehaviour {
 	public Wave bossWave;
 	public Wave midBossWave;
 	bool started;
+	IEnumerator spawn;
 
+	void Awake(){
+		Debug.Log ("spawner awake");
+		started = false;
+		DestroyAllEnemies ();
+		DestroyAllProjectiles ();
+	}
 
 	void Update () {
-		
+		if (started) {
+			foreach (Wave wave in waves) {
+				if (GameController.gameControl.stage.stageTimer >= wave.spawnTime && !wave.spawned) {
+					curWave.spawned = true;
+					if (wave.isBoss)
+						DestroyAllProjectiles ();
+					else InitializeWave ();
+					spawn = Spawn (wave);
+					StartCoroutine (spawn);
+				}
+			}
+
+			if (curWave == midBossWave) {
+				if (midBossWave.dead) {
+					InitializeWave ();
+				}
+			}
+		}
 	}
 		
 	public void StartSpawner()
 	{
+		started = false;
 		GameController.gameControl.enemyLib.InitWaves (GameController.gameControl.stage.currentStage);
 		currentWave = -1;
 		waves = GameController.gameControl.enemyLib.stageWaves;
@@ -33,39 +56,19 @@ public class EnemySpawner : MonoBehaviour {
 		}
 		InitializeWave();
 		started = true;
-		StartCoroutine (Spawner ());
 	}
 
-	IEnumerator Spawner(){
-		foreach (Wave wave in waves) {
-			yield return new WaitUntil(() => GameController.gameControl.stage.stageTimer >= curWave.spawnTime && !curWave.spawned);
-			StartCoroutine(Spawn(wave));
-		}
-
+	public void StopSpawner(){
+		
 	}
 
 	IEnumerator Spawn(Wave wave){
-		curWave.spawned = true;
-
-		if (wave.isBoss)
-			DestroyAllProjectiles ();
-		else InitializeWave ();
-		
 		while (started && wave.enemyCounter != 0) {
-//			Debug.Log (wave.enemyCounter);
+//			Debug.Log ("spawn " + wave.enemyCounter + " started " + started);
 			wave.enemyCounter -= 1;
 			wave.Spawn ();
 			yield return new WaitForSeconds (1f);
 		}
-
-		if (wave == midBossWave) {
-			yield return new WaitUntil (() => curWave.dead == true);
-			InitializeWave ();
-		}
-	}
-
-	public void InitSpawner(){
-		started = false;
 	}
 
 	public Wave GetCurrentWave(){
@@ -73,8 +76,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 
-	void InitializeWave()
-	{	
+	void InitializeWave(){	
 		currentWave++;
 		enemyCounter = 0;
 		curWave = waves [currentWave] as Wave;

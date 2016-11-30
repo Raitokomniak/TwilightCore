@@ -17,7 +17,7 @@ public class EnvironmentController : MonoBehaviour {
 
 	void Awake () {
 		init = false;
-		startPosition = transform.position;
+		//startPosition = transform.position;
 		//startPosition = transform.position;
 		//moving = true;
 	}
@@ -31,6 +31,11 @@ public class EnvironmentController : MonoBehaviour {
 			transform.position = startPosition + Vector3.back * newPosition;
 		}
 
+	}
+
+	public void SetStartPosition(Vector3 startPos){
+		startPosition = startPos;
+		transform.position = startPosition;
 	}
 
 	public void SetScrollSpeed(float speed){

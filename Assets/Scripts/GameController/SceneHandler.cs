@@ -7,12 +7,29 @@ public class SceneHandler : MonoBehaviour {
 	public GameObject environment;
 	public GameObject parent;
 	public Camera environmentCamera;
-
 	public ArrayList planes;
 
+	public bool init;
 
-	void Awake(){
+	/////////////////////
+	/// SCENE TRANSITIONING
+	/// 
+	public void MainMenu(){
+		SceneManager.LoadScene("MainMenu");
+	}
 
+	public void CharSelect(){
+		SceneManager.LoadScene("CharSelect");
+	}
+
+	public void StartGame()
+	{
+		SceneManager.LoadScene("Level1");
+		GameController.gameControl.sound.StopMusic ();
+	}
+
+	public string GetCurrentScene(){
+		return SceneManager.GetActiveScene ().name;
 	}
 
 	public void CheckScene(){
@@ -27,26 +44,44 @@ public class SceneHandler : MonoBehaviour {
 			GameController.gameControl.stage.Player.SetActive (false);
 		}
 		else {
-			GameController.gameControl.stage.currentStage = -1;
-			GameController.gameControl.menu.ToggleMenu (false);
-			GameController.gameControl.stage.InitStage ();
-			SetUpEnvironment ();
-			//GameController.gameControl.dialog.StartDialog("Stage1");
+			if (!init) {
+				GameController.gameControl.stage.InitStage (true);
+				SetUpEnvironment ();
+				init = true;
+				GameController.gameControl.menu.ToggleMenu (false);
+			}
+
+
 		}
 			
 	}
 
+	public void DeConstructScene(){
+		
+	}
+
+
+	/////////////////////
+	/// ENVIRONMENT SETUP AND DELEGATION
+	/// 
 	void SetUpEnvironment(){
+		if (planes != null) {
+			planes.Clear ();
+		}
 		planes = new ArrayList ();
 
 		environment = GameObject.Find ("Environment");
+		environment.GetComponent<EnvironmentController> ().SetStartPosition (new Vector3(40.5f, -13, 88.1f));
+
 		GameObject environmentClone = (GameObject)Instantiate (environment, environment.transform.position + new Vector3 (0, 0, 47.9f), environment.transform.rotation);
 		environmentClone.transform.SetParent (environment.transform.parent);
 		environmentClone.name = "Environment2";
+		environmentClone.GetComponent<EnvironmentController> ().SetStartPosition (environment.transform.position + new Vector3 (0, 0, 47.9f));
 
 		GameObject environmentClone2 = (GameObject)Instantiate (environment, environment.transform.position + new Vector3 (0, 0, 95.8f), environment.transform.rotation);
 		environmentClone2.transform.SetParent (environment.transform.parent);
 		environmentClone2.name = "Environment3";
+		environmentClone2.GetComponent<EnvironmentController> ().SetStartPosition (environment.transform.position + new Vector3 (0, 0, 95.8f));
 
 		planes.Add(environment);
 		planes.Add (environmentClone);
@@ -82,28 +117,8 @@ public class SceneHandler : MonoBehaviour {
 		environmentCamera.GetComponent<CameraController> ().Move (newPosition);
 	}
 
-	void Start(){
-		
-	}
-
-	public string GetCurrentScene(){
-		return SceneManager.GetActiveScene ().name;
-	}
-
-	public void MainMenu(){
-		SceneManager.LoadScene("MainMenu");
-
-	}
 
 
-	public void CharSelect(){
-		SceneManager.LoadScene("CharSelect");
-	}
 
-	public void StartGame()
-	{
-		SceneManager.LoadScene("Level1");
-		GameController.gameControl.sound.StopMusic ();
-	}
 
 }

@@ -97,8 +97,8 @@ public class MenuController : MonoBehaviour
 	{
 		menuOn = false;
 		selection = (string)selectedList [selectedIndex];
-		Debug.Log(context);
-		Debug.Log (selection);
+//		Debug.Log(context);
+//		Debug.Log (selection);
 		switch (context) {
 		case "MainMenu":
 			switch (selection) {

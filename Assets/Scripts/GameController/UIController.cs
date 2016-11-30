@@ -39,7 +39,6 @@ public class UIController : MonoBehaviour {
 	public Text bossTimer;
 
 	//Level
-	public float levelTimerValue;
 	public Text levelTimer;
 	public Text lives;
 	public Text xp;
@@ -130,6 +129,8 @@ public class UIController : MonoBehaviour {
 		playAreaBottomWall = GameController.gameControl.ui.stageWorldUI.transform.GetChild (2).GetChild (3).gameObject;
 
 		special = GameObject.Find("Player").GetComponent<PlayerSpecialAttack>();
+		UpdateCoreCharge ("Day", 0);
+		UpdateCoreCharge ("Night", 0);
 
 		stageUI.SetActive (true);
 		bossHealthSlider.gameObject.SetActive(false);
@@ -155,13 +156,11 @@ public class UIController : MonoBehaviour {
 
 
 	void Update () {
-		if (GameController.gameControl.stage.started) {
-			levelTimer.text = levelTimerValue.ToString ("F2");
+	}
 
-			if (bossTimer.isActiveAndEnabled) {
-				bossTimer.text = "Time left: " + levelTimerValue.ToString ("F1");
-			}
-		}
+
+	public void UpdateTimer(float value){
+		levelTimer.text = value.ToString ("F2");
 	}
 
 	////////////////

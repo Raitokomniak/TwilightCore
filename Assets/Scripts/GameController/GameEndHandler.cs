@@ -66,7 +66,7 @@ public class GameEndHandler : MonoBehaviour {
 	void NextStage(){
 		GameController.gameControl.ui.StageCompleted(false);
 		stageCompleted = false;
-		GameController.gameControl.stage.InitStage ();
+		GameController.gameControl.stage.InitStage (false);
 	}
 
 	//If time is up, boss leaves the screen and stage is completed
@@ -86,9 +86,14 @@ public class GameEndHandler : MonoBehaviour {
 
 	public void Restart()
 	{
-		gameOver = false;
-		GameController.gameControl.pause.Unpause ();
-		GameController.gameControl.ui.GameOverScreen(false);
+		//gameOver = false;
+		//GameController.gameControl.pause.Unpause ();
+		//GameController.gameControl.ui.GameOverScreen(false);
+		GameController.gameControl.enemySpawner.StopAllCoroutines();
+		GameController.gameControl.stage.StopAllCoroutines ();
+		GameController.gameControl.scene.DeConstructScene ();
+		GameController.gameControl.stage.StopStageHandling ();
+		//GameController.gameControl.stage.InitStage (true);
 		SceneManager.LoadScene ("Level1");
 	}
 }

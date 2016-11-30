@@ -7,13 +7,22 @@ public class PlayerLife : MonoBehaviour {
 	public int lives;
 	public bool invulnerable;
 
+	void Update(){
+		
+
+	}
+
+	void Awake(){
+		
+	}
+
 	public void InitLife(){
 		lives = GameController.gameControl.stats.lives;
 		GameController.gameControl.ui.UpdateStatPanel("Lives", lives);
 		GetComponent<SpriteRenderer> ().enabled = true;
 		invulnerable = false;
 	}
-		
+
 
 	//Handles collision with enemy and exp points
 

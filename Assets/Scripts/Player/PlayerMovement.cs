@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
 	void Update ()
 	{
 		FocusMode (Input.GetKey (KeyCode.LeftShift));
+
 		float hor = Input.GetAxisRaw ("Horizontal");
 		float ver = Input.GetAxisRaw ("Vertical");
 
@@ -53,8 +54,8 @@ public class PlayerMovement : MonoBehaviour
 		if (ver < 0) {
 			if (transform.position.y >= bottomWallY) {
 				Move (0, ver);
+				}
 			}
-		}
 	}
 
 	public void FocusMode (bool focus)

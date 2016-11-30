@@ -37,13 +37,10 @@ public class SoundController : MonoBehaviour {
 		playerSoundFXSource.volume = 0.1f;
 		enemySoundFXSource.volume = 0.1f;
 
-
-
-	}
-
-	public void InitSound(){
 		bossMusicPlaying = false;
+
 	}
+
 
 	// Update is called once per frame
 	void Update () {

@@ -3332,7 +3332,6 @@ MonoBehaviour:
   bossPattern: {fileID: 193408}
   bossPatternText: {fileID: 11479406}
   bossTimer: {fileID: 11489746}
-  levelTimerValue: 0
   levelTimer: {fileID: 11445686}
   lives: {fileID: 11451746}
   xp: {fileID: 11465754}
@@ -4451,7 +4450,6 @@ MonoBehaviour:
   stageTime: 0
   stageTimer: 0
   currentStage: 0
-  started: 0
   timer: 0
   Player: {fileID: 118724}
 --- !u!114 &11451448
@@ -5612,21 +5610,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerShoot: {fileID: 11473712}
   playerMovement: {fileID: 11437100}
-  lives: 0
+  playerLife: {fileID: 11436578}
+  lives: 3
   xp: 0
-  xpCap: 0
-  level: 0
+  xpCap: 5
+  level: 1
   upgradePoints: 0
   dayCorePoints: 0
   dayCoreLevel: 0
   nightCorePoints: 0
   nightCoreLevel: 0
-  coreCap: 0
-  dayCoreThreshold: 0
-  nightCoreThreshold: 0
-  movementSpeed: 0
-  damage: 0
-  shootSpeed: 0
+  coreCap: 100
+  dayCoreThreshold: 20
+  nightCoreThreshold: 20
+  movementSpeed: 0.2
+  damage: 1
+  shootSpeed: 0.1
   bulletScale: 0
   shootLevel: 0
   damagePoints: 0
