@@ -45,7 +45,7 @@ public class EnemySpawner : MonoBehaviour {
 		waves = GameController.gameControl.enemyLib.stageWaves;
 		bossWave = (Wave)waves [waves.Count - 1];
 		foreach (Wave w in waves) {
-			if (w.isBoss) {
+			if (w.isMidBoss) {
 				midBossWave = w;
 				break;
 			}
@@ -55,9 +55,11 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	void InitializeWave(){	
-		currentWave++;
-		curWave = waves [currentWave] as Wave;
-		GameController.gameControl.ui.UpdateStatPanel ("Wave", currentWave);
+		if (currentWave < waves.Count) {
+			currentWave++;
+			curWave = waves [currentWave] as Wave;
+			GameController.gameControl.ui.UpdateStatPanel ("Wave", currentWave);
+		}
 	}
 
 	IEnumerator Spawn(Wave wave){

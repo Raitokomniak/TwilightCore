@@ -381,7 +381,6 @@ public class UIController : MonoBehaviour {
 
 	IEnumerator StageText()
 	{
-		yield return new WaitUntil (() => GameController.gameControl.stage.stageTimer >= 24);
 		stagePanel.SetActive (true);
 		yield return new WaitForSeconds(2);
 		stagePanel.gameObject.SetActive(false);

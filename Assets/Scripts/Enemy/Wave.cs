@@ -12,6 +12,7 @@ public class Wave
 	public int health;
 	public int healthBars;
 	public bool isBoss;
+	public bool isMidBoss;
 	public float shootSpeed;
 	public bool simultaneous;
 	public ArrayList spawnPositions;

@@ -71,7 +71,12 @@ public class StageHandler : MonoBehaviour {
 			g.sound.PlayMusic ("Boss1");
 
 			break;
+		case 2:
+			yield return new WaitForSeconds (2f);
+			Debug.Log ("stage2");
+			break;
 		}
+
 		
 	}
 
@@ -83,12 +88,10 @@ public class StageHandler : MonoBehaviour {
 		if (fullReset) {
 			Debug.Log ("FULL RESET");
 			StopCoroutine (stageHandler);
-	
 			currentStage = 0;
-			//GameController.gameControl.stats.Init ();
 			GameController.gameControl.ui.InitStage ();
 			GameController.gameControl.stats.Init ();
-			GameController.gameControl.stage.Player.SetActive (true);
+			Player.SetActive (true);
 			if (GameController.gameControl.pause.paused)
 				GameController.gameControl.pause.Unpause ();
 			GameController.gameControl.enemyLib.InitEnemyLib ();
@@ -100,7 +103,13 @@ public class StageHandler : MonoBehaviour {
 
 			GameController.gameControl.enemySpawner.StartSpawner ();
 			StartCoroutine (stageHandler);
-
+		} else {
+			StopCoroutine (stageHandler);
+			currentStage += 1;
+			ToggleTimer (true);
+			GameController.gameControl.sound.PlayMusic ("Stage" + currentStage);
+			GameController.gameControl.enemySpawner.StartSpawner ();
+			StartCoroutine (stageHandler);
 		}
 
 	}

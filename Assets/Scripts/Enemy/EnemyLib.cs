@@ -279,6 +279,7 @@ public class EnemyLib : MonoBehaviour
 			NewWave (stageWaves, new Wave (90.5f, mp, p, 3, false, 40, false, .6f, 0), new ArrayList { leftTop });
 
 
+
 			NewWave (stageWaves, boss1, new ArrayList { middleTop });
 
 
@@ -345,8 +346,9 @@ public class EnemyLib : MonoBehaviour
 		EnemyMovementPattern mp = new EnemyMovementPattern (enterLeave);
 		mp.Customize ("StayTime", 27f);
 		mp.Customize ("LeaveDir", "Up");
-		bossMid1 = new Wave(55f, mp, null, 1,  false, 150, true, 3f, 1);
+		bossMid1 = new Wave(55f, mp, null, 1,  false, 150, false, 3f, 1);
 		bossMid1.SetUpBoss (0.5f, "Asura");
+		bossMid1.isMidBoss = true;
 
 		mp = new EnemyMovementPattern (enterLeave);
 		mp.Customize ("StayTime", 0);

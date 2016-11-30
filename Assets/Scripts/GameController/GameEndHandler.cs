@@ -59,8 +59,8 @@ public class GameEndHandler : MonoBehaviour
 		GameController.gameControl.ui.StageCompleted (true);
 		yield return new WaitForSeconds (2);
 
-		GameController.gameControl.scene.MainMenu ();
-		//NextStage ();
+		//GameController.gameControl.scene.MainMenu ();
+		NextStage ();
 	}
 
 	void NextStage ()
