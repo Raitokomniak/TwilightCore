@@ -63,6 +63,16 @@ public class DialogController : MonoBehaviour {
 		GameController.gameControl.ui.ToggleDialog(true);
 
 		GameController.gameControl.ui.InitSpeakers ("Morale", _phase, index);
+		if (_phase == "Boss") {
+			switch(Mathf.RoundToInt(index))
+			{
+			case 1:
+				GameController.gameControl.ui.UpdateBossInfo ("Maya", "Friendly Huldra");
+				break;
+			}
+		}
+
+
 
 		chains = new ArrayList ();
 		delimiterChar = '=';

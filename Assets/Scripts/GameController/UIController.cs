@@ -32,6 +32,7 @@ public class UIController : MonoBehaviour {
 	List<GameObject> bars;
 	public GameObject bossNamePanel;
 	public Text bossName;
+
 	public GameObject bossX;
 	public GameObject bossPattern;
 	public Text bossPatternText;
@@ -43,7 +44,7 @@ public class UIController : MonoBehaviour {
 	public Text xp;
 	public Text wave;
 	public Text specialText;
-	public Text stageCompletedText;
+	public GameObject stageEndPanel;
 	public Text stageText;
 	public GameObject stagePanel;
 	public Text toast;
@@ -58,6 +59,8 @@ public class UIController : MonoBehaviour {
 	public Slider SPDstatSlider;
 	public Slider SCAstatSlider;
 
+	public Text hiScore;
+	public Text score;
 
 	//Special
 	public Slider dayCoreSlider;
@@ -77,7 +80,8 @@ public class UIController : MonoBehaviour {
 	public Text dialogContent;
 	public Image dialogRightChar;
 	public Image dialogLeftChar;
-
+	public Text bossDialogName;
+	public Text bossDialogDescription;
 
 	public void InitMainMenu(){
 		//GameObject.Instantiate (mainMenuCanvas);
@@ -139,7 +143,7 @@ public class UIController : MonoBehaviour {
 		bossHealthSlider.gameObject.SetActive(false);
 		bossTimer.gameObject.SetActive(false);
 		bossNamePanel.SetActive (false);
-		stageCompletedText.gameObject.SetActive(false);
+		stageEndPanel.SetActive(false);
 
 		gameOver.SetActive(false);
 		pauseScreen.SetActive(false);
@@ -390,7 +394,7 @@ public class UIController : MonoBehaviour {
 	public void StageCompleted(bool value)
 	{
 		ToggleBossTimer(false);
-		stageCompletedText.gameObject.SetActive(value);
+		stageEndPanel.SetActive(value);
 	}
 
 	public void GameOverScreen(bool value){
@@ -526,6 +530,13 @@ public class UIController : MonoBehaviour {
 		}
 	}
 
+	public void UpdateScore(long _score){
+		score.text = "Score: " + _score.ToString();
+	}
+	public void UpdateHiScore(long _hiScore){
+		hiScore.text = "HiScore: " + _hiScore.ToString();
+	}
+
 	//////////////////////////
 	// DIALOG
 
@@ -549,9 +560,12 @@ public class UIController : MonoBehaviour {
 
 		if (boss.Contains ("Boss")) {
 			if (index != 0.5) {
+				bossDialogName.transform.parent.gameObject.SetActive (true);
 				dialogLeftChar.gameObject.SetActive (true);
 				dialogLeftChar.sprite = Resources.Load<Sprite> ("Images/DialogCharacters/Boss" + index);
 			}
+		} else {
+			bossDialogName.transform.parent.gameObject.SetActive (false);
 		}
 	}
 
@@ -587,6 +601,12 @@ public class UIController : MonoBehaviour {
 		}
 
 
+	}
+
+	public void UpdateBossInfo(string name, string description){
+		bossDialogName.transform.parent.gameObject.SetActive (true);
+		bossDialogName.text = name;
+		bossDialogDescription.text = description;
 	}
 
 

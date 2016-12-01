@@ -39,6 +39,8 @@ public class PlayerStats : MonoBehaviour {
 	public int speedCap;
 	public int scaleCap;
 
+	long score;
+	long hiScore;
 
 	public void Init(){
 		damageMin = 1f;
@@ -73,6 +75,15 @@ public class PlayerStats : MonoBehaviour {
 
 	public void GainCoreCharge(string core, int gainedCharge)
 	{
+		int multiplier = 0;
+		if (core == "Day")
+			multiplier = dayCoreLevel + 1;
+		else if (core == "Night")
+			multiplier = nightCoreLevel + 1;
+
+
+		GainScore (100 * multiplier);
+
 		int corePoints = 0;
 
 		if (core == "Day") {
@@ -194,6 +205,14 @@ public class PlayerStats : MonoBehaviour {
 	}
 
 
+	public void GainScore(int gained){
+		score += gained;
+		if (score >= hiScore) {
+			hiScore = score;
+			GameController.gameControl.ui.UpdateHiScore (hiScore);
+		}
+		GameController.gameControl.ui.UpdateScore (score);
+	}
 
 	//////////////////////////////////////////////////
 	//////////////////////////////////////////////////

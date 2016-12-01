@@ -114,7 +114,7 @@ public class EnemyLib : MonoBehaviour
 		{
 		case 1:
 			//											
-			/*
+
 			//1ST PHASE
 			mp = new EnemyMovementPattern (enterLeave);
 			mp.Customize ("LeaveDir", "Right");
@@ -278,7 +278,7 @@ public class EnemyLib : MonoBehaviour
 			p.SetSprite ("Circle", "Glow", "Yellow");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
 			NewWave (stageWaves, new Wave (90.5f, mp, p, 3, false, 40, false, .6f, 0), new ArrayList { leftTop });
 
-			*/
+
 
 			NewWave (stageWaves, boss1, new ArrayList { middleTop });
 
@@ -333,7 +333,7 @@ public class EnemyLib : MonoBehaviour
 	void NewWave(ArrayList stage, Wave w, ArrayList spawnPositions){
 		w.SetSpawnPositions (spawnPositions);
 
-		if (w.isBoss) {
+		if (w.isBoss || w.isMidBoss) {
 //			Debug.Log ("create boss wave");
 			w.sprite =spriteLib.SetCharacterSprite ("Boss" + w.bossIndex);
 		}
@@ -352,7 +352,7 @@ public class EnemyLib : MonoBehaviour
 
 		mp = new EnemyMovementPattern (enterLeave);
 		mp.Customize ("StayTime", 0);
-		boss1 = new Wave(2f, mp, null, 1,  false, 200, true, 3f, 2);
+		boss1 = new Wave(96f, mp, null, 1,  false, 200, true, 3f, 2);
 		boss1.SetUpBoss (1, "Forest Guardian");
 
 		boss2 = new Wave(30f, null, null, 1,  false, 200, true, 3f, 2);

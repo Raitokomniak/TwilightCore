@@ -14,6 +14,12 @@ public class GameEndHandler : MonoBehaviour
 		gameOver = false;
 	}
 
+	void Update(){
+		if (stageCompleted && Input.GetKeyDown (KeyCode.Z)) {
+			GameController.gameControl.ui.StageCompleted (false);
+			NextStage ();
+		}
+	}
 
 	//Checks the type of ending event
 	public void EndHandler (string endType)
@@ -59,15 +65,17 @@ public class GameEndHandler : MonoBehaviour
 		GameController.gameControl.ui.StageCompleted (true);
 		yield return new WaitForSeconds (2);
 
-		//GameController.gameControl.scene.MainMenu ();
-		NextStage ();
+
+		//NextStage ();
 	}
 
 	void NextStage ()
 	{
-		GameController.gameControl.ui.StageCompleted (false);
+		GameController.gameControl.scene.MainMenu ();
+		/*GameController.gameControl.ui.StageCompleted (false);
 		stageCompleted = false;
 		GameController.gameControl.stage.InitStage (false);
+		*/
 	}
 
 	//If time is up, boss leaves the screen and stage is completed

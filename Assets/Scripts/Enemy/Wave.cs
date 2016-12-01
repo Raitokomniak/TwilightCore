@@ -97,7 +97,7 @@ public class Wave
 		enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0);
 		enemy.GetComponent<EnemyMovement> ().SetUpPatternAndMove (new EnemyMovementPattern(movementPattern));
 
-		if (isBoss) {
+		if (isBoss || isMidBoss) {
 			
 
 			enemy.GetComponent<SpriteRenderer> ().sprite = sprite;

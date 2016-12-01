@@ -24,7 +24,7 @@ public class EnemyShoot : MonoBehaviour {
 
 		bulletsShot = new ArrayList ();
 
-		if (wave.isBoss) {
+		if (wave.isBoss || wave.isMidBoss) {
 			phase = gameObject.AddComponent<Phase> ();
 			phase.endOfPhase = true;
 		}
@@ -44,7 +44,7 @@ public class EnemyShoot : MonoBehaviour {
 	IEnumerator Shoot(Pattern pattern){
 
 		while (!enemyLife.GetInvulnerableState ()) {
-			if (pattern.tempMagnitude > 0 && !enemyLife.GetInvulnerableState ()) {
+			if (!enemyLife.GetInvulnerableState ()) {
 				
 				StartCoroutine (pattern.Execute (enemyBullet, transform.position, transform.rotation, this));
 			}	

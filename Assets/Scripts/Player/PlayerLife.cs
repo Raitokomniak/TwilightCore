@@ -44,7 +44,7 @@ public class PlayerLife : MonoBehaviour {
 			lives -= 1;
 			GameController.gameControl.ui.UpdateStatPanel("Lives", lives);
 			StartCoroutine(AnimateInvulnerability());
-			//GameController.gameControl.stats.DepleteCore (false);
+			GameController.gameControl.stats.DepleteCore (false);
 		}
 
 		else if(lives <= 0) {
