@@ -72,6 +72,7 @@ public class GameEndHandler : MonoBehaviour
 	void NextStage ()
 	{
 		GameController.gameControl.scene.MainMenu ();
+		stageCompleted = false;
 		/*GameController.gameControl.ui.StageCompleted (false);
 		stageCompleted = false;
 		GameController.gameControl.stage.InitStage (false);
