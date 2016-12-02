@@ -24,7 +24,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 116238}
-  m_LocalRotation: {x: 0, y: 0, z: 0.9255943, w: -0.37851718}
+  m_LocalRotation: {x: -0, y: 0, z: -0.6013814, w: 0.79896206}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   piercing: 0
   homing: 1
-  targetPos: {x: 0, y: 1, z: 0}
+  targetPos: {x: -12.837755, y: 6.0000014, z: 0}
 --- !u!212 &21264430
 SpriteRenderer:
   m_ObjectHideFlags: 1

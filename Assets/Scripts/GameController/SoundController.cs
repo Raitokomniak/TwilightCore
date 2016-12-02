@@ -10,9 +10,24 @@ public class SoundController : MonoBehaviour {
 	AudioSource bgMusicSource;
 	public bool bossMusicPlaying;
 
+	//Music
+	AudioClip mainmenu;
+	AudioClip stage1;
+	AudioClip boss1;
+
+	//Sound
+	AudioClip shoot;
+	AudioClip enemyDie;
+	AudioClip takeHit;
 
 	void Awake(){
-		
+		mainmenu = Resources.Load ("Sound/Music/MainMenu") as AudioClip;
+		stage1 = Resources.Load ("Sound/Music/Stage1") as AudioClip;
+		boss1 = Resources.Load ("Sound/Music/Boss1") as AudioClip;
+
+		shoot = Resources.Load ("Sound/Shoot") as AudioClip;
+		takeHit = Resources.Load ("Sound/TakeHit") as AudioClip;
+		enemyDie = Resources.Load ("Sound/Die") as AudioClip;
 	}
 
 	public void InitSound(){
@@ -43,8 +58,20 @@ public class SoundController : MonoBehaviour {
 
 	public void PlaySound(string source, string sound, bool oneShot)
 	{
-		AudioSource s = new AudioSource();
-		AudioClip c = Resources.Load ("Sound/" + sound) as AudioClip;
+		AudioSource s = null;
+		AudioClip c = null;
+
+		switch (sound) {
+		case "Shoot":
+			c = shoot;
+			break;
+		case "Die":
+			c = enemyDie;
+			break;
+		case "TakeHit":
+			c = takeHit;
+			break;
+		}
 
 		if(source == "Player")
 			s = playerSoundFXSource;
@@ -77,7 +104,21 @@ public class SoundController : MonoBehaviour {
 		if (music.Contains ("Boss")) {
 			bossMusicPlaying = true;
 		}
-		bgMusicSource.clip = Resources.Load ("Sound/" + music) as AudioClip;
+
+		AudioClip c = null;
+
+		switch (music) {
+		case "MainMenu":
+			c = mainmenu;
+			break;
+		case "Stage1":
+			c = stage1;
+			break;
+		case "Boss1":
+			c = boss1;
+			break;
+		}
+		bgMusicSource.clip = c;
 		if (music == "MainMenu") {
 			bgMusicSource.loop = true;
 		}
