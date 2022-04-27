@@ -54,7 +54,7 @@ public class PlayerStats : MonoBehaviour {
 		bulletScale = bulletScaleMin;
 
 
-		movementSpeed = 0.2f;
+		movementSpeed = 0.05f;
 		shootSpeed = .1f;
 		shootLevel = 0;
 

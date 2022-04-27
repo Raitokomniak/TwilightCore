@@ -10,6 +10,7 @@ public class SceneHandler : MonoBehaviour
 	public Camera environmentCamera;
 	public GameObject[] planes;
 
+	IEnumerator startGameRoutine;
 	public bool init;
 
 
@@ -31,7 +32,12 @@ public class SceneHandler : MonoBehaviour
 		SceneManager.LoadScene ("CharSelect");
 	}
 
-	public IEnumerator StartGame ()
+	public void StartGame(){
+		startGameRoutine = StartGameRoutine();
+		StartCoroutine(startGameRoutine);
+	}
+
+	public IEnumerator StartGameRoutine ()
 	{
 		AsyncOperation async = SceneManager.LoadSceneAsync ("Level1");
 

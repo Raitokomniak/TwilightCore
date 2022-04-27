@@ -135,7 +135,7 @@ public class MenuController : MonoBehaviour
 
 			switch (selection) {
 			case "1":
-				StartCoroutine(GameController.gameControl.scene.StartGame ());
+				GameController.gameControl.scene.StartGame();
 				break;
 			}
 			break;
