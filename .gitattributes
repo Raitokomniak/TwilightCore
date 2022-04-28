@@ -19,3 +19,4 @@
 *.pdf filter=lfs diff=lfs merge=lfs -text
 *.shader filter=lfs diff=lfs merge=lfs -text
 *.cginc filter=lfs diff=lfs merge=lfs -text
+*.settings filter=lfs diff=lfs merge=lfs -text
