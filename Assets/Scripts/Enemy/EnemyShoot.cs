@@ -1,3 +1,45 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d682e486b31b7972ef3d59c6a873dedb22e618613b8e90195dc1483e107aca73
-size 1116
+﻿using UnityEngine;
+using System.Collections;
+
+public class EnemyShoot : MonoBehaviour {
+	EnemyLife enemyLife;
+	public Phaser phaser;
+	public Wave wave;
+	GameObject enemyBullet;
+	public ArrayList bulletsShot;
+	float coolDown;
+
+
+	void Awake () {
+		enemyBullet = Resources.Load("enemyBullet") as GameObject;
+		enemyLife = GetComponent<EnemyLife>();
+
+		wave = Game.control.enemySpawner.curWave;
+		bulletsShot = new ArrayList ();
+
+		if (wave.isBoss || wave.isMidBoss) {
+			phaser = gameObject.AddComponent<Phaser> ();
+			phaser.Init(wave.bossIndex, wave);
+		}
+	}
+
+	public Vector3 GetLocalPosition(){
+		return transform.position;
+	}
+	
+	public void SetUpAndShoot(Pattern p, float cd){
+		coolDown = cd;
+		StartCoroutine (ShootRoutine (p));
+	}
+
+	IEnumerator ShootRoutine(Pattern pattern){
+		while (!enemyLife.GetInvulnerableState ()) {
+			StartCoroutine (pattern.Execute (enemyBullet, transform.position, transform.rotation, this));
+			yield return new WaitForSeconds (coolDown);
+		}
+	}
+
+	public void BossShoot(Pattern pat){
+		StartCoroutine (pat.Execute (enemyBullet, transform.position, transform.rotation, this));
+	}
+}

@@ -1,3 +1,25 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f1bf116877573b01ad7b2874367b02208bf1cd8f9d1ef65e05d56ed5d5912292
-size 561
+﻿using UnityEngine;
+using System.Collections;
+
+public class SpriteLibrary : MonoBehaviour {
+
+	public ArrayList allSprites;
+
+	void Awake () {
+		allSprites = new ArrayList ();
+	}
+	public Sprite SetBulletSprite(string shape, string effect, string color){
+		string path = "BulletSprites/" + shape + "_" + effect + "_" + color;
+		Sprite sprite = Resources.Load<Sprite> (path);
+		return sprite;
+	}
+
+
+	public Sprite SetCharacterSprite(string name){
+		string path = "CharacterSprites/" + name;
+		Sprite sprite = Resources.Load<Sprite> (path);
+		return sprite;
+	}
+
+
+}

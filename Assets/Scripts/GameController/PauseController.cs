@@ -1,3 +1,55 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:fdea6336fcc676515a557e2069e0e79704a7a3da3e1878169dcdf6e65a30c3d4
-size 899
+﻿using UnityEngine;
+using System.Collections;
+
+public class PauseController : MonoBehaviour {
+	public bool paused;
+
+	float initialTime;
+
+	// Use this for initialization
+	void Awake () {
+		paused = false;
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			HandlePause();
+		}
+	}
+
+	public void HandlePause()
+	{
+		if(!paused)
+		{
+			Game.control.sound.PauseMusic ();
+			paused = true;
+			Game.control.ui.PauseScreen(true);
+
+			ResetTimeScale (false);
+		}
+		else
+		{
+			Unpause ();
+		}
+		Game.control.menu.ToggleMenu (paused);
+	}
+
+	public void Unpause(){
+		Game.control.sound.ResumeMusic ();
+		paused = false;
+		Game.control.ui.PauseScreen(false);
+		ResetTimeScale (true);
+	}
+
+	public void ResetTimeScale(bool toggled)
+	{
+		if (toggled) {
+			Time.timeScale = initialTime;
+		} else {
+			initialTime = Time.timeScale;
+			Time.timeScale = 0;
+		}
+	}
+}

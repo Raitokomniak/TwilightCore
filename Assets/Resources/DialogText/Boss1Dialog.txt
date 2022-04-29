@@ -1,3 +1,10 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0e7184e083c64f613e7aa34af18136ba6df04667d2d3726c8209d34eaf56bef7
-size 378
+Boss1	Who are you? What are you doing here?
+Morale	I'm from the village
+Morale	I was following an asura into the forest
+Boss1	I didn't see anything
+Morale	It went right past you...
+Boss1	Nobody can enter the forest, it's a sacred place.
+Morale	And you are the guard?
+Boss1	Yes, an ordinary human, just like you.
+Morale	But don't you have a tail?
+Boss1	Don't talk about my tail!	

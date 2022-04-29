@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:818e8ec4d3885bc8b0bf665fa99f880266ceb8e37903a90ef05b27ec01e090a1
-size 157
+Boss2	You're interrupting our ceremony...
+Morale	Is it you who's laying all these webs?
+Morale	I'm getting sticky!
+Boss2	It makes it much easier to eat you!	

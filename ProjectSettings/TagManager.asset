@@ -1,3 +1,57 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:41be284efc05b759780bba7c91a409c625fd17e17fda53dd444744242bf851c5
-size 596
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  - PlayerProjectile
+  - EnemyProjectile
+  - ExpPoint
+  - Boss
+  - BulletsRepo
+  - MiniHealthBar
+  - DayCorePoint
+  - MagneticRange
+  - Wall
+  - MidBoss
+  - NullField
+  - NightCorePoint
+  - CorePoint
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

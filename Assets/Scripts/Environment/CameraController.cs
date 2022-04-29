@@ -1,3 +1,34 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:55d2be52fb24396ada5fe977e6ddb81b457e74d5c9898377f70d009489c1f442
-size 730
+﻿using UnityEngine;
+using System.Collections;
+
+public class CameraController : MonoBehaviour {
+	bool rotating;
+	Quaternion targetRotation;
+	Vector3 targetPosition;
+	bool moving;
+
+	void Awake(){
+		transform.position = new Vector3 (50, 5, 72);
+		transform.rotation = Quaternion.Euler (40, 0, 5);
+	}
+
+	void Update () {
+		if (rotating)
+			transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime);
+			
+		if(moving)
+			transform.position = Vector3.Lerp (transform.position, targetPosition, Time.deltaTime);
+	}
+
+	public void Rotate(Quaternion targetRot)
+	{
+		targetRotation = targetRot;
+		rotating = true;
+	}
+
+	public void Move(Vector3 targetPos)
+	{
+		targetPosition = targetPos;
+		moving = true;
+	}
+}

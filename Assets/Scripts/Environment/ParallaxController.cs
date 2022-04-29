@@ -1,3 +1,26 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a1afa3635a29a175876f967184c033a5b06b6dbf5a87e94961993777d91bb201
-size 485
+﻿using UnityEngine;
+using System.Collections;
+public class ParallaxController : MonoBehaviour {
+
+	public float scrollSpeed;
+	public float tileSize;
+
+	Vector2 startPosition;
+
+	public bool moving;
+
+	void Awake () {
+		startPosition = transform.position;
+	}
+	
+	public void Init(){
+		moving = true;
+	}
+
+	void Update () {
+		if (moving) {
+			float newPosition = Mathf.Repeat (Time.time * scrollSpeed, tileSize);;
+			transform.position = startPosition + Vector2.down * newPosition;
+		}
+	}
+}
