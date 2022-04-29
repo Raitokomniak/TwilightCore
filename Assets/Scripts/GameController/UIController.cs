@@ -43,6 +43,7 @@ public class UIController : MonoBehaviour {
 	public TextMeshProUGUI wave;
 	public GameObject stageEndPanel;
 	public TextMeshProUGUI stageText;
+	public TextMeshProUGUI rightPanelStageText;
 	public GameObject stagePanel;
 	public TextMeshProUGUI toast;
 
@@ -358,9 +359,13 @@ public class UIController : MonoBehaviour {
 	public void UpdateStageText(int stageID)
 	{
 		stageText.text = "Stage " + stageID.ToString();
-		StartCoroutine(StageText());
+		if(stageID==1) rightPanelStageText.text = "Asura's Path";
 	}
 
+	public void ShowStageText(){
+		IEnumerator stageText = StageText();
+		StartCoroutine(stageText);
+	}
 
 	IEnumerator StageText()
 	{

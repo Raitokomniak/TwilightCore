@@ -42,6 +42,7 @@ public class StageHandler : MonoBehaviour {
 
 	IEnumerator StageHandlerRoutine(){
 		SceneHandler scene = Game.control.scene;
+		Game.control.ui.UpdateStageText (currentStage);
 
 		switch (currentStage) {
 		case 1:
@@ -55,7 +56,7 @@ public class StageHandler : MonoBehaviour {
 			scene.RotateCamera (35, 0, -5);
 			scene.SetPlaneSpeed (1f);
 			while (stageTimer < 24f) yield return null;
-			Game.control.ui.UpdateStageText (currentStage);
+			Game.control.ui.ShowStageText();
 
 			scene.MoveCamera (50, 0, 72);
 			scene.RotateCamera (25, 0, 5);
