@@ -257,43 +257,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 299721261}
   m_CullTransparentMesh: 1
---- !u!1 &464875746 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4442655861058145966, guid: 2d8192533229f2c40b277f8ef9fbcfbf,
-    type: 3}
-  m_PrefabInstance: {fileID: 5500492051172239084}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &464875747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 464875746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be7bfd4cccb973144a64f2d136938f35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainMenuUI: {fileID: 0}
-  ui: {fileID: 0}
-  dialog: {fileID: 0}
-  stage: {fileID: 0}
-  scene: {fileID: 0}
-  enemySpawner: {fileID: 0}
-  enemyLib: {fileID: 0}
-  pause: {fileID: 0}
-  player: {fileID: 0}
-  spriteLib: {fileID: 0}
-  menu: {fileID: 0}
-  soundObject: {fileID: 591444379}
-  sound: {fileID: 0}
---- !u!1 &591444379 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4442655862132054638, guid: 2d8192533229f2c40b277f8ef9fbcfbf,
-    type: 3}
-  m_PrefabInstance: {fileID: 5500492051172239084}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &676865529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,18 +1126,13 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2107934856}
   m_CullTransparentMesh: 1
---- !u!1001 &5500492051172239084
+--- !u!1001 &355109043901052567
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4442655861058145957, guid: 2d8192533229f2c40b277f8ef9fbcfbf,
-        type: 3}
-      propertyPath: mainMenuUI
-      value: 
-      objectReference: {fileID: 1429049065}
     - target: {fileID: 4442655861058145966, guid: 2d8192533229f2c40b277f8ef9fbcfbf,
         type: 3}
       propertyPath: m_Name
@@ -1235,11 +1193,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4442655862132054637, guid: 2d8192533229f2c40b277f8ef9fbcfbf,
-        type: 3}
-      propertyPath: disableMusic
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4442655861058145957, guid: 2d8192533229f2c40b277f8ef9fbcfbf, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d8192533229f2c40b277f8ef9fbcfbf, type: 3}

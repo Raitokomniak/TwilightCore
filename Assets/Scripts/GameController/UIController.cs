@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
 
 public class UIController : MonoBehaviour {
 	EnemyLife bossLife;
@@ -20,29 +21,30 @@ public class UIController : MonoBehaviour {
 	public GameObject[] topLayers;
 	public GameObject[] bgs;
 
+	public GameObject bossInvulnerableImage;
+
 	//Boss
 	public Slider bossHealthSlider;
 	public GameObject bossMiniHealthBar;
 	GameObject miniHealthBar;
 	List<GameObject> bars;
 	public GameObject bossNamePanel;
-	public Text bossName;
+	public TextMeshProUGUI bossName;
 
 	public GameObject bossX;
 	public GameObject bossPattern;
-	public Text bossPatternText;
-	public Text bossTimer;
+	public TextMeshProUGUI bossPatternText;
+	public TextMeshProUGUI bossTimer;
 
 	//Level
-	public Text levelTimer;
-	public Text lives;
+	public TextMeshProUGUI levelTimer;
+	public TextMeshProUGUI lives;
 	public Text xp;
-	public Text wave;
-	public Text specialText;
+	public TextMeshProUGUI wave;
 	public GameObject stageEndPanel;
-	public Text stageText;
+	public TextMeshProUGUI stageText;
 	public GameObject stagePanel;
-	public Text toast;
+	public TextMeshProUGUI toast;
 
 	//Stats
 	public Text pointsToAssign;
@@ -54,14 +56,14 @@ public class UIController : MonoBehaviour {
 	public Slider SPDstatSlider;
 	public Slider SCAstatSlider;
 
-	public Text hiScore;
-	public Text score;
+	public TextMeshProUGUI hiScore;
+	public TextMeshProUGUI score;
 
 	//Special
 	public Slider dayCoreSlider;
 	public Slider nightCoreSlider;
 	public GameObject playerSpecialPanel;
-	public Text playerSpecialText;
+	public TextMeshProUGUI playerSpecialText;
 	IEnumerator depleteCoreChargeRoutine;
 
 	//Screens
@@ -73,12 +75,12 @@ public class UIController : MonoBehaviour {
 	//Dialog
 	public GameObject dialog;
 	public Image dialogBG;
-	public Text dialogName;
-	public Text dialogContent;
+	public TextMeshProUGUI dialogName;
+	public TextMeshProUGUI dialogContent;
 	public Image dialogRightChar;
 	public Image dialogLeftChar;
-	public Text bossDialogName;
-	public Text bossDialogDescription;
+	public TextMeshProUGUI bossDialogName;
+	public TextMeshProUGUI bossDialogDescription;
 
 
 	void Awake(){
@@ -172,6 +174,11 @@ public class UIController : MonoBehaviour {
 		bossHealthSlider.value = h;
 	}
 
+	public void ToggleInvulnerable(bool toggle){
+		Debug.Log("set invul " + toggle);
+		bossInvulnerableImage.SetActive(toggle);
+	}
+
 	public void UpdateBossHealthBars(int h){
 		if (h > 1) {
 			if (miniHealthBar == null)
@@ -201,7 +208,7 @@ public class UIController : MonoBehaviour {
 
 	IEnumerator _ShowActivatedPhase(string target, string text){
 		GameObject targetPanel;
-		Text targetText;
+		TextMeshProUGUI targetText;
 
 		if (target == "Boss") {
 			targetPanel = bossPattern;
@@ -451,11 +458,6 @@ public class UIController : MonoBehaviour {
 	//////////////////////////
 	// PLAYER SPECIAL
 
-	IEnumerator SpecialText()
-	{
-		yield return new WaitForSeconds(2);
-		specialText.gameObject.SetActive(false);
-	}
 
 	public void CoreInUse(string core)
 	{

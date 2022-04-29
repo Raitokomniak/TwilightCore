@@ -41,7 +41,7 @@ public class PlayerStats {
 		bulletScaleMin = 1f;
 		bulletScale = bulletScaleMin;
 
-		movementSpeed = 0.2f;
+		movementSpeed = 0.04f;
 		shootSpeed = .1f;
 
 		upgradePoints = 0;

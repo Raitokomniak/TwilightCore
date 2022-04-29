@@ -112,6 +112,7 @@ public class Wave
 			} else {
 				enemy.tag = "MidBoss";
 				enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0f);
+				
 			}
 			
 			enemy.GetComponent<EnemyShoot> ().phaser.NextBossPhase ();

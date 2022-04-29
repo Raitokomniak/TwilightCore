@@ -53,6 +53,7 @@ public class MenuController : MonoBehaviour
 	}
 
 	public void InitMenu(){
+		//INSTEAD OF ITEMS, JUST FOLLOW INDEX
 		mainMenuItems = new ArrayList ();
 		mainMenuItems.Add ("Start Game");
 		mainMenuItems.Add ("Quit Game");
@@ -63,7 +64,7 @@ public class MenuController : MonoBehaviour
 		pauseMenuItems = new ArrayList ();
 		pauseMenuItems.Add ("Resume");
 		pauseMenuItems.Add ("Restart");
-		pauseMenuItems.Add ("MainMenu");
+		pauseMenuItems.Add ("Quit");
 
 		selectedList = new ArrayList();
 	}

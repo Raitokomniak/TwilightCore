@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 4442655861058145958}
   - component: {fileID: 4442655861058145959}
   - component: {fileID: 4442655861058145952}
-  - component: {fileID: 4442655861058145957}
   - component: {fileID: 4442655861058145954}
   - component: {fileID: 4442655861058145955}
   - component: {fileID: 4442655861058145964}
   - component: {fileID: 4442655861058145965}
+  - component: {fileID: 355109044298794612}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -84,7 +84,6 @@ MonoBehaviour:
   stageTimer: 0
   currentStage: 0
   timer: 0
-  PlayerObject: {fileID: 0}
 --- !u!114 &4442655861058145952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,31 +98,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueText: {fileID: 0}
   handlingDialog: 0
---- !u!114 &4442655861058145957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4442655861058145966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d0644f368f52df45ad590bae4fb00f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainMenuUI: {fileID: 0}
-  ui: {fileID: 0}
-  dialog: {fileID: 0}
-  stage: {fileID: 0}
-  scene: {fileID: 0}
-  enemySpawner: {fileID: 0}
-  enemyLib: {fileID: 0}
-  pause: {fileID: 0}
-  player: {fileID: 0}
-  spriteLib: {fileID: 0}
-  menu: {fileID: 0}
-  soundObject: {fileID: 4442655862132054638}
-  sound: {fileID: 0}
 --- !u!114 &4442655861058145954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +159,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuOn: 0
+--- !u!114 &355109044298794612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4442655861058145966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7bfd4cccb973144a64f2d136938f35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainMenuUI: {fileID: 0}
+  ui: {fileID: 0}
+  dialog: {fileID: 0}
+  stage: {fileID: 0}
+  scene: {fileID: 0}
+  enemySpawner: {fileID: 0}
+  enemyLib: {fileID: 0}
+  pause: {fileID: 0}
+  player: {fileID: 0}
+  spriteLib: {fileID: 0}
+  menu: {fileID: 0}
+  soundObject: {fileID: 4442655862132054638}
+  sound: {fileID: 0}
 --- !u!1 &4442655862132054638
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,5 +227,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd272b1fd081f3479b06fe099ca2518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableMusic: 1
+  disableMusic: 0
   bossMusicPlaying: 0
