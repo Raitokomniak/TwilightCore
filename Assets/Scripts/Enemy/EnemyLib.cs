@@ -35,15 +35,15 @@ public class EnemyLib : MonoBehaviour
 	public float farRight;
 	public float farLeft;
 
-	Vector3 middleTop;
-	Vector3 topRight;
+	public Vector3 middleTop;
+	public Vector3 topRight;
 	public Vector3 leftTop;
 	public Vector3 rightTop;
 	public Vector3 topLeft;
 
-	Wave bossMid1;
-	Wave boss1;
-	Wave boss2;
+	public Wave bossMid1;
+	public Wave boss1;
+	public Wave boss2;
 
 
 	void Awake(){
@@ -95,234 +95,16 @@ public class EnemyLib : MonoBehaviour
 		curtain = new Pattern ("Curtain", false, 8, 0f, .1f, 0, 10);
 	}
 
-	public void InitWaves(int stage)
-	{
-		stageWaves.Clear ();
-		Pattern p;
-		EnemyMovementPattern mp;
-
-		switch(stage)
-		{
-		case 1:								
-			//1ST PHASE
-			mp = new EnemyMovementPattern (enterLeave);
-			mp.Customize ("LeaveDir", "Right");
-			mp.Customize ("StayTime", .5f);
-			p = new Pattern (singleHoming);
-			p.Customize (new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
-			p.SetSprite ("Circle", "Big", "Red");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (1f, mp, p, 5, false, 0, false, .6f, 0), new ArrayList { rightTop });
-			
-			mp = new EnemyMovementPattern (enterLeave);
-			mp.Customize ("LeaveDir", "Left");
-			mp.Customize ("StayTime", 2f);
-			p = new Pattern (singleHoming);
-			p.Customize (new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
-			p.SetSprite ("Circle", "Big", "Red");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (3f, mp, p, 5, false, 0, false, .6f, 0), new ArrayList { leftTop });
-			
-			
-			//2ND PHASE
-			mp = new EnemyMovementPattern (enterLeave);
-			mp.Customize ("LeaveDir", "Right");
-			mp.Customize ("StayTime", .5f);
-			p = new Pattern (singleHoming);
-			p.Customize (new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
-			p.SetSprite ("Circle", "Big", "Red");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (4f, mp, p, 5, false, 0, false, .6f, 0), new ArrayList { rightTop });
-
-			mp = new EnemyMovementPattern (enterLeave);
-			mp.Customize ("LeaveDir", "Left");
-			mp.Customize ("StayTime", 2f);
-			p = new Pattern (singleHoming);
-			p.Customize (new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
-			p.SetSprite ("Circle", "Big", "Red");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (15f, mp, p, 5, false, 0, false, .6f, 0), new ArrayList { leftTop });
-
-			mp = new EnemyMovementPattern (zigZag);
-			p = new Pattern (circle);
-			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (16f, mp, p, 5, false, 0, false, .6f, 0), new ArrayList { rightTop });
-
-			mp = new EnemyMovementPattern (stopOnce);
-			mp.Customize ("LeaveDir", "Right");
-			p = new Pattern (circle);
-			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (17f, mp, p, 5, false, 0, false, .6f, 0), new ArrayList { topLeft });
-
-
-			//PHASE3
-
-			mp = new EnemyMovementPattern (stopOnce);
-			mp.Customize ("LeaveDir", "Right");
-			//mp.targetPos = new Vector3 (-14, 7, 0);
-			p = new Pattern (circle);
-			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (28f, mp, p, 5, false, 0, false, .6f, 0), new ArrayList { topLeft });
-
-			mp = new EnemyMovementPattern (stopOnce);
-			mp.Customize ("LeaveDir", "Left");
-			mp.targetPos = new Vector3 (1, 6, 0);
-			p = new Pattern (circle);
-			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (31f, mp, p, 5, false, 0, false, .6f, 0), new ArrayList { topRight });
-
-			mp = new EnemyMovementPattern (stopOnce);
-			mp.Customize ("LeaveDir", "Right");
-			//mp.targetPos = new Vector3 (-14, 7, 0);
-			p = new Pattern (circle);
-			p.Customize ("BulletCount", 10);
-			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (33f, mp, p, 3, false, 0, false, .6f, 0), new ArrayList { topRight });
-
-			mp = new EnemyMovementPattern (stopOnce);
-			mp.Customize ("LeaveDir", "Left");
-			mp.targetPos = new Vector3 (1, 6, 0);
-			p = new Pattern (circle);
-			p.Customize ("BulletCount", 10);
-			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (36f, mp, p, 3, false, 0, false, .6f, 0), new ArrayList { topLeft });
-
-
-			mp = new EnemyMovementPattern (enterLeave);
-			mp.targetPos = new Vector3 (0, 7, 0);
-			mp.speed = 2f;
-			mp.Customize ("LeaveDir", "Right");
-			mp.Customize ("StayTime", 2f);
-			p = new Pattern (circle);
-			p.Customize ("BulletCount", 20);
-			p.Customize (new BulletMovementPattern (false, "Explode", 11f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (41f, mp, p, 3, false, 40, false, .6f, 0), new ArrayList { rightTop });
-
-			mp = new EnemyMovementPattern (enterLeave);
-			mp.targetPos = new Vector3 (-14, 7, 0);
-			mp.speed = 2f;
-			mp.Customize ("LeaveDir", "Left");
-			mp.Customize ("StayTime", 2f);
-			p = new Pattern (circle);
-			p.Customize ("BulletCount", 20);
-			p.Customize (new BulletMovementPattern (false, "Explode", 11f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Yellow");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (41.5f, mp, p, 3, false, 40, false, .6f, 0), new ArrayList { leftTop });
-
-
-
-			//MID-BOSS
-
-			NewWave (stageWaves, bossMid1, new ArrayList { middleTop });
-
-
-			//CONTD
-			mp = new EnemyMovementPattern (stopOnce);
-			mp.Customize ("LeaveDir", "Left");
-			mp.targetPos = new Vector3 (1, 6, 0);
-			p = new Pattern (circle);
-			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (82f, mp, p, 5, false, 0, false, .6f, 0), new ArrayList { topRight });
-
-
-			mp = new EnemyMovementPattern (stopOnce);
-			mp.Customize ("LeaveDir", "Right");
-			//mp.targetPos = new Vector3 (-14, 7, 0);
-			p = new Pattern (circle);
-			p.Customize ("BulletCount", 10);
-			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (87f, mp, p, 3, false, 0, false, .6f, 0), new ArrayList { topRight });
-
-			mp = new EnemyMovementPattern (stopOnce);
-			mp.Customize ("LeaveDir", "Left");
-			mp.targetPos = new Vector3 (1, 6, 0);
-			p = new Pattern (circle);
-			p.Customize ("BulletCount", 10);
-			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (90f, mp, p, 3, false, 0, false, .6f, 0), new ArrayList { topLeft });
-
-			mp = new EnemyMovementPattern (enterLeave);
-			mp.targetPos = new Vector3 (0, 7, 0);
-			mp.speed = 2f;
-			mp.Customize ("LeaveDir", "Right");
-			mp.Customize ("StayTime", 2f);
-			p = new Pattern (circle);
-			p.Customize ("BulletCount", 20);
-			p.Customize (new BulletMovementPattern (false, "Explode", 11f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (90f, mp, p, 3, false, 40, false, .6f, 0), new ArrayList { rightTop });
-
-			mp = new EnemyMovementPattern (enterLeave);
-			mp.targetPos = new Vector3 (-14, 7, 0);
-			mp.speed = 2f;
-			mp.Customize ("LeaveDir", "Left");
-			mp.Customize ("StayTime", 2f);
-			p = new Pattern (circle);
-			p.Customize ("BulletCount", 20);
-			p.Customize (new BulletMovementPattern (false, "Explode", 11f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Yellow");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			NewWave (stageWaves, new Wave (90.5f, mp, p, 3, false, 40, false, .6f, 0), new ArrayList { leftTop });
-
-
-			// BIG BOSS
-
-			NewWave (stageWaves, boss1, new ArrayList { middleTop });
-			break;
-		case 2:
-
-		//															enmyCnt simul hlth 	isBoss, cd, hlthBars, spawnPositions
-			p = new Pattern (singleHoming);
-			p.Customize(new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
-			p.SetSprite("Circle", "Big", "Red");
-			NewWave (stageWaves, new Wave (2f, zigZag, p, 5, false, 0, false, 1f, 0), new ArrayList { middleTop });
-			/*w = (Wave)stage1Waves [stage1Waves.Count - 1];
-			w.shootPattern.Customize(new BulletMovementPattern (true, null, 0.5f, w.shootPattern, 0, 14));
-			w.shootPattern.SetSprite("Circle", "Big", "Red");
-
-*/
-
-			p = new Pattern (circle);
-			p.Customize(new BulletMovementPattern (true, "Explode", 2f, p, 0, 14));
-			p.SetSprite("Circle", "Glow", "Green");
-			NewWave (stageWaves, new Wave (3f, stopOnce, p, 6, false, 0, false, 1f, 0), new ArrayList { topRight });
-
-			//NewWave (stage1Waves, new Wave (6f, zigZag, singleHoming, 6, false, 0, false, 1f,	0), new ArrayList { middleTop });
-			//NewWave (stage1Waves, new Wave (10f, zigZag, circle, 6, false, 0, false, 1f,	0), new ArrayList { middleTop });
-			p = new Pattern (circle);
-			p.Customize(new BulletMovementPattern (true, "Explode", 6f, p, 0, 14));
-			p.SetSprite("Circle", "Glow", "Yellow");
-			NewWave (stageWaves, new Wave (10f, stopOnce, p, 6, false, 0, false, 1f, 0), new ArrayList { topRight });
-
-
-
-
-			//p = new Pattern (laser);
-
-			/*NewWave (stage1Waves, new Wave (25f, enterAndLeave, p, 2, true, 10, false,	1f, 0), new ArrayList {
-				rightTop,
-				leftTop
-			});*/
-
-			p = new Pattern (singleHoming);
-			p.Customize(new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
-			p.SetSprite("Circle", "Big", "Red");
-			NewWave (stageWaves, new Wave (15f, zigZag, p, 5, false, 0, false, 1f, 0), new ArrayList { middleTop });
-			NewWave (stageWaves, new Wave (20f, stopOnce, p, 6, false, 0, false, 2f,	0), new ArrayList { topRight });
-
-			NewWave (stageWaves, new Wave (boss2), new ArrayList { middleTop });
-
-			break;
-			
+	public void InitWaves(int stage){
+		if(stage == 1){
+			gameObject.AddComponent<Stage1>();
 		}
+		else if(stage == 2){
+			gameObject.AddComponent<Stage2>();
+		} 
 	}
 
-	void NewWave(ArrayList stage, Wave w, ArrayList spawnPositions){
+	public void NewWave(ArrayList stage, Wave w, ArrayList spawnPositions){
 		w.SetSpawnPositions (spawnPositions);
 
 		if (w.isBoss || w.isMidBoss) {
