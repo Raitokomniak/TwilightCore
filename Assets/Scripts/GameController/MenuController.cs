@@ -6,6 +6,8 @@ public class MenuController : MonoBehaviour
 {
 	public ArrayList mainMenuItems;
 	public ArrayList pauseMenuItems;
+	public ArrayList difficultyMenuItems;
+
 	public ArrayList charSelectItems;
 
 	ArrayList selectedList;
@@ -23,10 +25,11 @@ public class MenuController : MonoBehaviour
 	{
 		if (menuOn) {
 			if (Input.GetKeyDown (KeyCode.UpArrow)) {
-				if(context == "MainMenu") Game.control.mainMenuUI.UpdateMenuSelection (MoveUp ());
+				if(context == "MainMenu" || context == "DifficultyMenu") Game.control.mainMenuUI.UpdateMenuSelection (context, MoveUp ());
 				else if(context == "PauseMenu") Game.control.ui.UpdateMenuSelection ("PauseMenu", MoveUp ());
+
 			} else if (Input.GetKeyDown (KeyCode.DownArrow)) {
-				if(context == "MainMenu") Game.control.mainMenuUI.UpdateMenuSelection (MoveDown ());
+				if(context == "MainMenu" || context == "DifficultyMenu") Game.control.mainMenuUI.UpdateMenuSelection (context, MoveDown ());
 				else if(context == "PauseMenu") Game.control.ui.UpdateMenuSelection ("PauseMenu", MoveDown ());
 			} else if (Input.GetKeyDown (KeyCode.Z)) {
 				CheckSelection ();	
@@ -41,7 +44,7 @@ public class MenuController : MonoBehaviour
 		if (Game.control.GetCurrentScene () == "MainMenu") {
 			context = "MainMenu";
 			selectedList = mainMenuItems;
-			Game.control.mainMenuUI.UpdateMenuSelection (0);
+			Game.control.mainMenuUI.UpdateMenuSelection ("MainMenu", 0);
 		}
 		if (Game.control.GetCurrentScene () == "Level1") {
 			if (Game.control.pause.paused) {
@@ -58,6 +61,12 @@ public class MenuController : MonoBehaviour
 		mainMenuItems.Add ("Start Game");
 		mainMenuItems.Add ("Quit Game");
 
+		difficultyMenuItems = new ArrayList();
+		difficultyMenuItems.Add("Easy");
+		difficultyMenuItems.Add("Normal");
+		difficultyMenuItems.Add("Hard");
+		difficultyMenuItems.Add("Nightmare");
+
 		charSelectItems = new ArrayList ();
 		charSelectItems.Add ("1");
 
@@ -65,6 +74,8 @@ public class MenuController : MonoBehaviour
 		pauseMenuItems.Add ("Resume");
 		pauseMenuItems.Add ("Restart");
 		pauseMenuItems.Add ("Quit");
+
+		
 
 		selectedList = new ArrayList();
 	}
@@ -107,21 +118,41 @@ public class MenuController : MonoBehaviour
 
 	void CheckSelection ()
 	{
-		menuOn = false;
 		selection = (string)selectedList [selectedIndex];
 
-		switch (context) {
-		case "MainMenu":
+		if(context == "MainMenu"){
 			switch (selection) {
 			case "Start Game":
-				Game.control.StartGame ();
+				Game.control.mainMenuUI.ToggleDifficultySelection(true);
+				context = "DifficultyMenu";
+				selectedList = difficultyMenuItems;
+				Game.control.mainMenuUI.UpdateMenuSelection ("DifficultyMenu", 0);
 				break;
 			case "Quit Game":
 				Application.Quit();
 				break;
 			}
-			break;
-		case "PauseMenu":
+		}
+		else if(context == "DifficultyMenu"){
+			
+			switch (selection) {
+			case "Easy":
+				Game.control.stage.difficultyMultiplier = 1;
+				break;
+			case "Normal":
+				Game.control.stage.difficultyMultiplier = 3;
+				break;
+			case "Hard":
+				Game.control.stage.difficultyMultiplier = 5;
+				break;
+			case "Nightmare":
+				Game.control.stage.difficultyMultiplier = 7;
+				break;
+			}
+			menuOn = false;
+			Game.control.StartGame ();
+		}
+		else if(context == "PauseMenu"){
 			switch (selection) {
 			case "Resume":
 				Game.control.pause.HandlePause();
@@ -133,7 +164,6 @@ public class MenuController : MonoBehaviour
 				Application.Quit();
 				break;
 			}
-			break;
 		}
 	}
 

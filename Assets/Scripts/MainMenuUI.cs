@@ -6,17 +6,36 @@ using TMPro;
 
 public class MainMenuUI : MonoBehaviour
 {
-	public TextMeshProUGUI[] menuTexts;
+	public List<TextMeshProUGUI> mainMenuTexts;
+	public List<TextMeshProUGUI> difficultyMenuTexts;
+
+	public Transform mainMenuPanel;
+	public Transform difficultyPanel;
 
    	public void InitMainMenu(){
         gameObject.SetActive(true);
-        menuTexts[0].fontStyle = FontStyles.Bold;
+		ToggleMainMenu(true);
 	}
 
-    public void UpdateMenuSelection(int index){
+	public void UpdateMenuSelection(string context, int index){
+		List<TextMeshProUGUI> menuTexts = new List<TextMeshProUGUI>();
+		if(context == "MainMenu") menuTexts = mainMenuTexts;
+		else if(context == "DifficultyMenu") menuTexts = difficultyMenuTexts;
+
 		foreach (TextMeshProUGUI textObject in menuTexts) {
 			textObject.fontStyle = FontStyles.Normal;
 		}
 		menuTexts[index].fontStyle = FontStyles.Bold;
+	}
+
+	public void ToggleMainMenu(bool toggle){
+		difficultyPanel.gameObject.SetActive(false);
+		mainMenuTexts[0].fontStyle = FontStyles.Bold;
+		mainMenuPanel.gameObject.SetActive(toggle);
+	}
+
+	public void ToggleDifficultySelection(bool toggle){
+		difficultyPanel.gameObject.SetActive(toggle);
+		mainMenuPanel.gameObject.SetActive(false);
 	}
 }

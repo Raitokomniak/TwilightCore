@@ -42,12 +42,12 @@ public class SoundController : MonoBehaviour {
 		enemySoundFXSource.volume = 0.1f;
 
 		bossMusicPlaying = false;
-/*
+
 		if(disableSound){
 			playerSoundFXSource.volume = 0;
 			enemySoundFXSource.volume = 0;
 			bgMusicSource.volume = 0;
-		}*/
+		}
 	}
 
 
