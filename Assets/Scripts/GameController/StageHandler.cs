@@ -27,7 +27,9 @@ public class StageHandler : MonoBehaviour {
 	}
 
 	void Update () {
-		if(timer) stageTimer += Time.deltaTime;
+		if(timer) {stageTimer += Time.deltaTime;
+			Game.control.ui.UpdateTimer(stageTimer);
+		}
 //		if(Game.control.ui != null) Game.control.ui.UpdateTimer (stageTimer);
 
 		if (stageCompleted && Input.GetKeyDown (KeyCode.Z)) {

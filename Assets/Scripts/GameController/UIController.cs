@@ -142,7 +142,7 @@ public class UIController : MonoBehaviour {
 	}
 
 	public void UpdateTimer(float value){
-		levelTimer.text = value.ToString ("F2");
+		levelTimer.text = "Level Time: " + value.ToString ("F2");
 	}
 
 	////////////////

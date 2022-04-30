@@ -31,9 +31,9 @@ public class PlayerStats {
 	public long hiScore;
 
 	public PlayerStats(){
-		damageMin = 1f;
+		damageMin = 1.3f;
 
-		maxLives = 10;
+		maxLives = 5;
 		xpCap = 5;
 		xp = 0;
 		level = 1;
