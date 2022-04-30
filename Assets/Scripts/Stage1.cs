@@ -196,7 +196,7 @@ public class Stage1 : MonoBehaviour
 				
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.Customize ("StayTime", 0);
-			Wave boss1 = new Wave(96f, mp, null, 1,  false, 15, true, 3f, 2);
+			Wave boss1 = new Wave(96f, mp, null, 1,  false, 15 * Mathf.CeilToInt(difficultyMultiplier / 2) , true, 3f, 2);
 
 			boss1.SetUpBoss (1, "Forest Guardian", false);
 			lib.NewWave (lib.stageWaves, boss1, new ArrayList { lib.middleTop });

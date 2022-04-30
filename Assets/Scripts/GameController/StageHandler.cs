@@ -23,7 +23,7 @@ public class StageHandler : MonoBehaviour {
 	void Awake(){
 		stageHandlerRoutine = StageHandlerRoutine ();
 		gameOver = false;
-		difficultyMultiplier = 1;
+		difficultyMultiplier = 8;
 	}
 
 	void Update () {
