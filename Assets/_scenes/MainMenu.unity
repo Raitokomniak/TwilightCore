@@ -2494,7 +2494,7 @@ PrefabInstance:
     - target: {fileID: 4442655862132054637, guid: 2d8192533229f2c40b277f8ef9fbcfbf,
         type: 3}
       propertyPath: disableSound
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d8192533229f2c40b277f8ef9fbcfbf, type: 3}
