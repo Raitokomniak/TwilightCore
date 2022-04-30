@@ -28,7 +28,6 @@ public class EnemyLife : MonoBehaviour {
 	}
 
 	public void SetInvulnerable(bool value){
-		
 		invulnerable = value;
 		Game.control.ui.ToggleInvulnerable(invulnerable);
 	}

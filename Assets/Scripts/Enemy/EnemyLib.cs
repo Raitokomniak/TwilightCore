@@ -41,8 +41,6 @@ public class EnemyLib : MonoBehaviour
 	public Vector3 rightTop;
 	public Vector3 topLeft;
 
-	public Wave bossMid1;
-	public Wave boss1;
 	public Wave boss2;
 
 
@@ -118,20 +116,18 @@ public class EnemyLib : MonoBehaviour
 	{
 		EnemyMovementPattern mp = new EnemyMovementPattern (enterLeave);
 
+/*
 		mp = new EnemyMovementPattern (enterLeave);
 		mp.Customize ("StayTime", 27f);
 		mp.Customize ("LeaveDir", "Up");
-		bossMid1 = new Wave(55f, mp, null, 1,  false, 150, false, 3f, 1);
-		bossMid1.SetUpBoss (0.5f, "Asura");
-		bossMid1.isMidBoss = true;
-	
-		mp = new EnemyMovementPattern (enterLeave);
-		mp.Customize ("StayTime", 0);
-		boss1 = new Wave(96f, mp, null, 1,  false, 100, true, 3f, 2);
-		boss1.SetUpBoss (1, "Forest Guardian");
+		//bossMid1 = new Wave(55f, mp, null, 1,  false, 150, false, 3f, 1);
+		bossMid1 = new Wave(1f, mp, null, 1,  false, 150, false, 3f, 1); //for spawning immediately
+		bossMid1.SetUpBoss (0.5f, "Asura", true);
+		bossMid1.isMidBoss = true;*/
+
 		
 		boss2 = new Wave(30f, null, null, 1,  false, 200, true, 3f, 2);
-		boss2.SetUpBoss (2, "Spider Queen");
+		boss2.SetUpBoss (2, "Spider Queen", false);
 		boss2.movementPattern = enterFromTop;
 	}
 }

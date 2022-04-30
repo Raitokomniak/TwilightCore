@@ -262,7 +262,7 @@ public class BulletMovementPattern
 		rotation = Quaternion.Euler (0f, 0f, (p.bullets.Count - 1) * (360 / p.bulletCount));
 	}
 
-	private void Explode(bool animate, GameObject bullet, float targetM, float targetScale)
+	private void Explode(bool animate, GameObject bullet, float _targetMagnitude, float targetScale)
 	{
 		centerPoint = bullet.transform.position;
 		if (animate){
@@ -271,7 +271,7 @@ public class BulletMovementPattern
 		}
 		isMoving = true;
 		isHoming = false;
-		targetMagnitude = targetM;
+		targetMagnitude = _targetMagnitude;
 		//movementSpeed = movementSpeed;
 	}
 

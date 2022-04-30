@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class StageHandler : MonoBehaviour {
 	
+	public int difficultyMultiplier;
 	public bool gameOver;
 	public bool stageCompleted;
 	public float stageTime;
@@ -17,9 +18,12 @@ public class StageHandler : MonoBehaviour {
 	IEnumerator stageCompleteRoutine;
 	IEnumerator timeUpRoutine;
 
+	
+
 	void Awake(){
 		stageHandlerRoutine = StageHandlerRoutine ();
 		gameOver = false;
+		difficultyMultiplier = 1;
 	}
 
 	void Update () {

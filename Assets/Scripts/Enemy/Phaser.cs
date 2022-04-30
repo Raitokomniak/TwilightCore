@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Phaser : MonoBehaviour {
+	public int difficultyMultiplier;
 	public EnemyShoot enemy;
     public EnemyMovement enemyMove;
 	public List<EnemyMovementPattern> movementPatterns;
@@ -39,15 +40,20 @@ public class Phaser : MonoBehaviour {
 	void Awake(){
 		enemy = GetComponent<EnemyShoot>();
         enemyMove = GetComponent<EnemyMovement>();
+	}
+	public void Init(float bossIndex, Wave _wave){
+		
 		lib = Game.control.enemyLib;
 		movementPatterns = new List<EnemyMovementPattern> ();
 		patterns = new List<Pattern> ();
 		bossPhase = -1;
-	}
-	public void Init(float bossIndex, Wave _wave){
+		Debug.Log("phaser awake");
+
 		wave = _wave;
 		if(bossIndex == 0.5f) boss = gameObject.AddComponent<Boss05>();
 		if(bossIndex == 1) boss = gameObject.AddComponent<Boss1>();
+
+		boss.difficultyMultiplier = Game.control.stage.difficultyMultiplier;
 	}
 
 	void LateUpdate(){

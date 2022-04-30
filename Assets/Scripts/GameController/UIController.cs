@@ -176,7 +176,6 @@ public class UIController : MonoBehaviour {
 	}
 
 	public void ToggleInvulnerable(bool toggle){
-		Debug.Log("set invul " + toggle);
 		bossInvulnerableImage.SetActive(toggle);
 	}
 

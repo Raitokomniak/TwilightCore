@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Boss05 : Phaser
 {
+
    public override void StopCoro(){
 		if(numerator != null) StopCoroutine (numerator);
 		routineOver = true;
@@ -14,12 +15,10 @@ public class Boss05 : Phaser
 		StartCoroutine (numerator);
     }
 
-	void Update(){
-		
-	}
     IEnumerator Execute(int phase, Phaser phaser){
-		patterns.Clear();
-		movementPatterns.Clear();
+		patterns = new List<Pattern>();
+		movementPatterns = new List<EnemyMovementPattern>();
+
 		 switch(phase)
 			{
 			case 0:
@@ -30,21 +29,18 @@ public class Boss05 : Phaser
 
 			    GetComponent<EnemyLife>().SetInvulnerable (true);
 
-				patterns.Add(new Pattern (lib.spiral));
-				patterns[0].Customize (new BulletMovementPattern (true, "WaitAndExplode", 5f, patterns[0], 0, 14));
-				patterns[0].Customize ("LoopCircles", 1440);
-				patterns[0].Customize ("BulletCount", 100);
+				patterns.Add(new Pattern (lib.maelStrom));
+				patterns[0].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14));
+				patterns[0].Customize ("BulletCount", Mathf.Ceil(4 * (difficultyMultiplier / 2f)));
+				patterns[0].Customize ("RotationDirection", 1);
 				patterns[0].SetSprite ("Circle", "Glow", "Green");
 
 				patterns.Add(new Pattern (lib.maelStrom));
-				patterns[1].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14));
-				patterns[1].Customize ("RotationDirection", 1);
-				patterns[1].SetSprite ("Circle", "Glow", "Green");
+				patterns[1].SetSprite ("Circle", "Glow", "Yellow");
+				patterns[1].Customize ("BulletCount", Mathf.Ceil(4 * (difficultyMultiplier / 2f)));
+				patterns[1].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[2], 0, 14));
+				patterns[1].Customize ("RotationDirection", -1);
 
-				patterns.Add(new Pattern (lib.maelStrom));
-				patterns[2].SetSprite ("Circle", "Glow", "Yellow");
-				patterns[2].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[2], 0, 14));
-				patterns[2].Customize ("RotationDirection", -1);
 
 				movementPatterns.Add(new EnemyMovementPattern (lib.centerHor));
 				movementPatterns[0].Customize ("Speed", 7f);
@@ -52,11 +48,11 @@ public class Boss05 : Phaser
 				enemyMove.SetUpPatternAndMove (movementPatterns[0]);
 				for (int i = 0; i < 5; i++) {
 					yield return new WaitForSeconds (2f);
+					enemy.BossShoot (patterns[0]);
 					enemy.BossShoot (patterns[1]);
-					enemy.BossShoot (patterns[2]);
 					yield return new WaitForSeconds (2.2f);
+					patterns[0].StopPattern();
 					patterns[1].StopPattern();
-					patterns[2].StopPattern();
 				}
 
 				movementPatterns[0] = new EnemyMovementPattern ("Leaving", new Vector3 (lib.centerX, 13, 0), false, 0);
@@ -65,8 +61,8 @@ public class Boss05 : Phaser
 				GetComponent<EnemyLife>().Die ();
 
 
+				patterns[0].StopPattern();
 				patterns[1].StopPattern();
-				patterns[2].StopPattern();
 
 
 				break;

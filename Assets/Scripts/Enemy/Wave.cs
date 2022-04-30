@@ -78,10 +78,10 @@ public class Wave
 		bossName = w.bossName;
 	}
 
-	public void SetUpBoss(float index, string name){
+	public void SetUpBoss(float index, string name, bool _isMidBoss){
 		bossIndex = index;
 		bossName = name;
-
+		isMidBoss = _isMidBoss;
 	}
 
 	public void Spawn(){

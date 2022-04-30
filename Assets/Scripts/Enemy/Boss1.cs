@@ -19,24 +19,28 @@ public class Boss1 : Phaser
 		
 	}
     IEnumerator Execute(int phase, Phaser phaser){
-		patterns.Clear();
-		movementPatterns.Clear();
+		patterns = new List<Pattern>();
+		movementPatterns = new List<EnemyMovementPattern>();
+		lib = Game.control.enemyLib;
+
 		switch (phase) {
 			case 0:
 				patterns.Add(new Pattern (lib.spiral));
 				patterns[0].Customize (new BulletMovementPattern (true, "WaitAndExplode", 5f, patterns[0], 0, 14));
-				patterns[0].Customize ("LoopCircles", 1440);
-				patterns[0].Customize ("BulletCount", 100);
+				patterns[0].Customize ("LoopCircles", 288 * difficultyMultiplier);
+				patterns[0].Customize ("BulletCount", 20 * difficultyMultiplier);
 				patterns[0].SetSprite ("Circle", "Glow", "Green");
 
 				patterns.Add(new Pattern (lib.maelStrom));
 				patterns[1].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14));
 				patterns[1].Customize ("RotationDirection", 1);
+				patterns[1].Customize ("BulletCount", 2 * difficultyMultiplier);
 				patterns[1].SetSprite ("Circle", "Glow", "Green");
 
 				patterns.Add(new Pattern (lib.maelStrom));
 				patterns[2].SetSprite ("Circle", "Glow", "Yellow");
 				patterns[2].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[2], 0, 14));
+				patterns[2].Customize ("BulletCount", 2 * difficultyMultiplier);
 				patterns[2].Customize ("RotationDirection", -1);
 
 				movementPatterns.Add(new EnemyMovementPattern (lib.centerHor));
@@ -91,19 +95,22 @@ public class Boss1 : Phaser
 				Game.control.ui.ShowActivatedPhase ("Boss", "Justice Seal: Ninetailed Spear");
 
 				patterns.Add(new Pattern (lib.curtain));
-				patterns[0].Customize ("BulletCount", 9);
+				patterns[0].Customize ("BulletCount", Mathf.Ceil(1.8f * difficultyMultiplier));  
 				patterns[0].SetSprite ("Circle", "Bevel", "Lilac");
 				patterns[0].Customize (new BulletMovementPattern (false, "TurnToSpears", 6f, patterns[0], 0, 14));
 
 				patterns.Add(new Pattern (lib.maelStrom));
 				patterns[1].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14));
 				patterns[1].Customize ("RotationDirection", 1);
+				patterns[1].Customize("BulletCount", 2 * difficultyMultiplier);
 				patterns[1].SetSprite ("Circle", "Glow", "Green");
+				
 
 				patterns.Add(new Pattern (lib.maelStrom));
 				patterns[2].SetSprite ("Circle", "Glow", "Yellow");
 				patterns[2].Customize (new BulletMovementPattern (true, "Explode", 4f, patterns[2], 0, 14));
 				patterns[2].Customize ("RotationDirection", -1);
+				patterns[2].Customize("BulletCount", 2 * difficultyMultiplier);
 
 				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (-15, 6f, 0f), false, 0));
 				movementPatterns[0].Customize ("Speed", 7f);
@@ -149,6 +156,12 @@ public class Boss1 : Phaser
 				break;
 			
 			case 2:
+				patterns.Add(new Pattern (lib.spiral));
+				patterns[0].Customize (new BulletMovementPattern (true, "WaitAndExplode", 5f, patterns[0], 0, 14));
+				patterns[0].Customize ("LoopCircles", 288 * difficultyMultiplier);
+				patterns[0].Customize ("BulletCount", 20 * difficultyMultiplier);
+				patterns[0].SetSprite ("Circle", "Glow", "Green");
+
 				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (lib.centerX + 4f, enemy.transform.position.y, 0), false, 0));
 				movementPatterns[0].Customize ("Teleport", 1);
 				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (lib.centerX - 4f, enemy.transform.position.y, 0), false, 0));
@@ -156,9 +169,11 @@ public class Boss1 : Phaser
 
 				while (!phaser.endOfPhase) {
 					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
+					enemy.BossShoot(patterns[0]);
 					WaitForSecondsFloat(5f);
 					yield return new WaitUntil(() => timerDone == true);
 					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
+					enemy.BossShoot(patterns[0]);
 					WaitForSecondsFloat(5f);
 					yield return new WaitUntil(() => timerDone == true);
 				}
@@ -166,15 +181,16 @@ public class Boss1 : Phaser
 			case 3:
 				Game.control.ui.ShowActivatedPhase ("Boss", "Guardian Seal: Fox Fires");
 
-				patterns.Add(new Pattern ("Cluster", true, 150, 0, 0.01f, 0, 1f));
+				patterns.Add(new Pattern ("Cluster", true, 30 * difficultyMultiplier, 0, 0.05f / difficultyMultiplier, 0, 1f));
+																						//0.01f
 				patterns[0].SetSprite ("Fireball", "Glow", "Orange");
 
 				patterns.Add(new Pattern (lib.maelStrom));
 				patterns[1].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14));
 				patterns[1].Customize ("RotationDirection", 1);
 				patterns[1].SetSprite ("Circle", "Big", "Red");
-				patterns[1].Customize ("BulletCount", 6);
-				patterns[1].Customize ("CoolDown", .5f);
+				patterns[1].Customize ("BulletCount", Mathf.Ceil(1.2f * difficultyMultiplier));
+				patterns[1].Customize ("CoolDown", 2.5f / difficultyMultiplier);
 
 				movementPatterns.Add(new EnemyMovementPattern ("Swing", new Vector3 (-13, enemy.transform.position.y, 0), false, 0));
 				movementPatterns[0].Customize ("Speed", 5f);

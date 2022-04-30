@@ -59,7 +59,6 @@ public class EnemySpawner : MonoBehaviour {
 
 		foreach (Wave w in waves) {
 			if (w.isMidBoss) {
-				Debug.Log("is midboss");
 				midBossWave = w;
 			}
 			if (w.isBoss) {
