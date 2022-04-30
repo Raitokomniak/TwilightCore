@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Stage1 : MonoBehaviour
 {
-
     void Awake(){
         InitWaves(Game.control.stage.difficultyMultiplier); //1 very easy //2 easy //3 normal //4 hard //5 very hard
     }
@@ -15,7 +14,6 @@ public class Stage1 : MonoBehaviour
 		Pattern p;
 		EnemyMovementPattern mp;
 
-/*
 			//1st PHASE
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.Customize ("LeaveDir", "Right");
@@ -133,8 +131,6 @@ public class Stage1 : MonoBehaviour
 			p.SetSprite ("Circle", "Glow", "Yellow");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
 			lib.NewWave (lib.stageWaves, new Wave (41.5f, mp, p, 3, false, 40, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
 
-
-
 			//MID-BOSS
 
 			mp = new EnemyMovementPattern (lib.enterLeave);
@@ -142,11 +138,8 @@ public class Stage1 : MonoBehaviour
 			mp.Customize ("LeaveDir", "Up");
 			Wave bossMid1 = new Wave(55f, mp, null, 1,  false, 150, false, 3f, 1); //for spawning immediately
 			bossMid1.SetUpBoss (0.5f, "Asura", true);
-	
-
 
 			lib.NewWave (lib.stageWaves, bossMid1, new ArrayList { lib.middleTop });
-
 
 			//CONTD
 			mp = new EnemyMovementPattern (lib.stopOnce);
@@ -166,8 +159,6 @@ public class Stage1 : MonoBehaviour
 			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
 			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
 			lib.NewWave (lib.stageWaves, new Wave (87f, mp, p, 3, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
-
-
 
 			mp = new EnemyMovementPattern (lib.stopOnce);
 			mp.Customize ("LeaveDir", "Left");
@@ -199,14 +190,14 @@ public class Stage1 : MonoBehaviour
 			p.Customize (new BulletMovementPattern (false, "Explode", 11f, p, 0, 14));
 			p.SetSprite ("Circle", "Glow", "Yellow");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
 			lib.NewWave (lib.stageWaves, new Wave (90.5f, mp, p, 3, false, 40, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
-*/
+
 
 			// BIG BOSS
 				
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.Customize ("StayTime", 0);
-			Wave boss1 = new Wave(1f, mp, null, 1,  false, 15, true, 3f, 2);
-								//96f
+			Wave boss1 = new Wave(96f, mp, null, 1,  false, 15, true, 3f, 2);
+
 			boss1.SetUpBoss (1, "Forest Guardian", false);
 			lib.NewWave (lib.stageWaves, boss1, new ArrayList { lib.middleTop });
 	}
