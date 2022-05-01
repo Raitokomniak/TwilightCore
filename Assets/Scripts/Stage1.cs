@@ -2,13 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stage1 : MonoBehaviour
+public class Stage1 : Stage
 {
-    void Awake(){
-        InitWaves(Game.control.stage.difficultyMultiplier); //1 very easy //2 easy //3 normal //4 hard //5 very hard
-    }
+	public override void StartStageHandler(){
+		stageHandlerRoutine = StageHandlerRoutine();
+		StartCoroutine(stageHandlerRoutine);
+	}
 
-	public void InitWaves(float difficultyMultiplier) {
+	IEnumerator StageHandlerRoutine(){
+		SceneHandler scene = Game.control.scene;
+		Game.control.ui.UpdateStageText (stageHandler.currentStage);
+
+		while (scene == null) yield return null;
+		while (stageHandler.stageTimer < 4f) yield return null;
+		while (stageHandler.stageTimer < 8f) yield return null;
+		scene.SetPlaneSpeed (10f);
+		scene.RotateCamera (35, 0, 0);
+
+		while (stageHandler.stageTimer < 14f) yield return null;
+		scene.RotateCamera (35, 0, -5);
+		scene.SetPlaneSpeed (1f);
+		while (stageHandler.stageTimer < 24f) yield return null;
+		Game.control.ui.ShowStageText();
+
+		scene.MoveCamera (50, 0, 72);
+		scene.RotateCamera (25, 0, 5);
+
+		scene.SetPlaneSpeed (10f);
+		while (stageHandler.stageTimer < 55f) yield return null;
+
+		while (!Game.control.enemySpawner.midBossWave.dead) yield return null;
+		yield return new WaitForSeconds (1f);
+		Game.control.dialog.StartDialog ("Boss", 0.5f, true);
+		while (Game.control.dialog.handlingDialog) yield return null;
+		scene.SetPlaneSpeed (15f);
+
+		while (stageHandler.stageTimer < 96f) yield return null;
+		scene.SetPlaneSpeed (3f);
+	}
+
+	public override void InitWaves(float difficultyMultiplier) {
         EnemyLib lib = Game.control.enemyLib;
 		lib.stageWaves.Clear ();
 		Pattern p;

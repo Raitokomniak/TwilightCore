@@ -20,7 +20,7 @@ public class EnemySpawner : MonoBehaviour {
 		if (started) {
 			
 			foreach (Wave wave in waves) {
-				if (Game.control.stage.stageTimer >= wave.spawnTime && !wave.spawned) {
+				if (Game.control.stageHandler.stageTimer >= wave.spawnTime && !wave.spawned) {
 					wave.spawned = true;
 					if (wave.isBoss || wave.isMidBoss){
 						DestroyAllProjectiles ();
@@ -51,7 +51,7 @@ public class EnemySpawner : MonoBehaviour {
 	public void StartSpawner(int currentStage)
 	{
 		started = false;
-		Game.control.enemyLib.InitWaves (currentStage);
+		Game.control.stageHandler.InitWaves (currentStage);
 		currentWave = 0;
 		waves = Game.control.enemyLib.stageWaves;
 		bossWave = (Wave)waves [waves.Count - 1];

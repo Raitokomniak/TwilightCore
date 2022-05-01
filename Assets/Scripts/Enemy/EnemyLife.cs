@@ -39,7 +39,7 @@ public class EnemyLife : MonoBehaviour {
 
 	public void TakeHit(float damage)
 	{
-		if(!invulnerable && !Game.control.stage.gameOver){
+		if(!invulnerable && !Game.control.stageHandler.gameOver){
 			if(GetComponent<Phaser>() != null){
 				if (GetComponent<Phaser>().superPhase) {
 					currentHealth -= damage / 4;
@@ -99,11 +99,11 @@ public class EnemyLife : MonoBehaviour {
 					Instantiate(Resources.Load("nightCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
 			}
 				
-			Game.control.ui.UpdateTopPlayer ("Stage" + Game.control.stage.currentStage);
+			Game.control.ui.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
 			Game.control.ui.ToggleBossHealthSlider(false, 0, "");
 			Game.control.ui.HideBossTimer();
 			if (tag == "Boss") {
-				Game.control.stage.EndHandler ("StageComplete");
+				Game.control.stageHandler.EndHandler ("StageComplete");
 			}
 			shooter.wave.dead = true;
 		}

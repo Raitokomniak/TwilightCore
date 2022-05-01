@@ -54,7 +54,7 @@ public class Phaser : MonoBehaviour {
 		if(bossIndex == 0.5f) boss = gameObject.AddComponent<Boss05>();
 		if(bossIndex == 1) boss = gameObject.AddComponent<Boss1>();
 
-		boss.difficultyMultiplier = Game.control.stage.difficultyMultiplier;
+		boss.difficultyMultiplier = Game.control.stageHandler.difficultyMultiplier;
 	}
 
 

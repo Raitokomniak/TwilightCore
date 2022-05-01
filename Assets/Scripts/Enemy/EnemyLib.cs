@@ -93,14 +93,6 @@ public class EnemyLib : MonoBehaviour
 		curtain = new Pattern ("Curtain", false, 8, 0f, .1f, 0, 10);
 	}
 
-	public void InitWaves(int stage){
-		if(stage == 1){
-			gameObject.AddComponent<Stage1>();
-		}
-		else if(stage == 2){
-			gameObject.AddComponent<Stage2>();
-		} 
-	}
 
 	public void NewWave(ArrayList stage, Wave w, ArrayList spawnPositions){
 		w.SetSpawnPositions (spawnPositions);

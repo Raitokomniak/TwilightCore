@@ -108,7 +108,7 @@ public class Wave
 			if (bossIndex % 1 == 0) { //IF NOT MID BOSS 
 				enemy.tag = "Boss";
 				enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0.3f);
-				Game.control.stage.ToggleTimer (false);
+				Game.control.stageHandler.ToggleTimer (false);
 				Game.control.dialog.StartDialog ("Boss", bossIndex, false);
 
 			} else {

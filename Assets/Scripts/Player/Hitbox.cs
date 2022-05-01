@@ -7,7 +7,7 @@ public class Hitbox : MonoBehaviour {
 	{
 		if(c.gameObject.tag == "EnemyProjectile" || c.gameObject.tag == "Enemy")
 		{
-			if (!Game.control.player.health.invulnerable && !Game.control.stage.gameOver) {
+			if (!Game.control.player.health.invulnerable && !Game.control.stageHandler.gameOver) {
 				Game.control.player.health.TakeHit ();
 			}
 		}

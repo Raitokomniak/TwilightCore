@@ -33,7 +33,7 @@ public class PlayerLife : MonoBehaviour {
 			invulnerable = true;
 			GetComponent<PlayerShoot>().DisableWeapons();
 			GetComponent<SpriteRenderer>().enabled = false;
-			Game.control.stage.EndHandler("GameOver");
+			Game.control.stageHandler.EndHandler("GameOver");
 		}
 	}
 

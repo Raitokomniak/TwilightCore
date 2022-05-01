@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stage2 : MonoBehaviour
+public class Stage2 : Stage
 {
-    void Awake(){
-        InitWaves();
-    }
+	public override void StartStageHandler(){
+		stageHandlerRoutine = StageHandlerRoutine();
+		StartCoroutine(stageHandlerRoutine);
+	}
 
-    public void InitWaves() {
+	IEnumerator StageHandlerRoutine(){
+		yield return new WaitForEndOfFrame();
+	}
+
+	public override void InitWaves(float difficultyMultiplier) {
         EnemyLib lib = Game.control.enemyLib;
 		lib.stageWaves.Clear ();
 		Pattern p;

@@ -3,7 +3,9 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class StageHandler : MonoBehaviour {
-	
+
+	Stage stageScript;
+
 	public int difficultyMultiplier;
 	public bool gameOver;
 	public bool stageCompleted;
@@ -11,7 +13,7 @@ public class StageHandler : MonoBehaviour {
 	public float stageTimer;
 	public int currentStage;
 	public bool timer;
-	IEnumerator stageHandlerRoutine;
+
 
 	IEnumerator restartRoutine;
 	IEnumerator deathRoutine;
@@ -21,7 +23,6 @@ public class StageHandler : MonoBehaviour {
 	
 
 	void Awake(){
-		stageHandlerRoutine = StageHandlerRoutine ();
 		gameOver = false;
 		difficultyMultiplier = 8;
 	}
@@ -37,6 +38,19 @@ public class StageHandler : MonoBehaviour {
 			NextStage ();
 		}
 	}
+	
+	public void InitWaves(int stage){
+		if(stage == 1){
+			Debug.Log("add stage 1");
+			gameObject.AddComponent<Stage1>();
+			stageScript = GetComponent<Stage1>();
+		}
+		else if(stage == 2){
+			gameObject.AddComponent<Stage2>();
+			stageScript = GetComponent<Stage2>();
+		} 
+	}
+
 
 	public void ToggleTimer(bool value){
 		timer = value;
@@ -46,52 +60,10 @@ public class StageHandler : MonoBehaviour {
 		}
 	}
 
-	IEnumerator StageHandlerRoutine(){
-		SceneHandler scene = Game.control.scene;
-		Game.control.ui.UpdateStageText (currentStage);
-
-		switch (currentStage) {
-		case 1:
-			while (scene == null) yield return null;
-			while (stageTimer < 4f) yield return null;
-			while (stageTimer < 8f) yield return null;
-			scene.SetPlaneSpeed (10f);
-			scene.RotateCamera (35, 0, 0);
-
-			while (stageTimer < 14f) yield return null;
-			scene.RotateCamera (35, 0, -5);
-			scene.SetPlaneSpeed (1f);
-			while (stageTimer < 24f) yield return null;
-			Game.control.ui.ShowStageText();
-
-			scene.MoveCamera (50, 0, 72);
-			scene.RotateCamera (25, 0, 5);
-
-			scene.SetPlaneSpeed (10f);
-			while (stageTimer < 55f) yield return null;
-
-			while (!Game.control.enemySpawner.midBossWave.dead) yield return null;
-			yield return new WaitForSeconds (1f);
-			Game.control.dialog.StartDialog ("Boss", 0.5f, true);
-			while (Game.control.dialog.handlingDialog) yield return null;
-			scene.SetPlaneSpeed (15f);
-
-			while (stageTimer < 96f) yield return null;
-			scene.SetPlaneSpeed (3f);
-
-			break;
-		case 2:
-			yield return new WaitForSeconds (2f);
-			Debug.Log ("stage2");
-			break;
-		}
-
-		
-	}
-
 	public void InitStage(bool fullReset){
 		if (fullReset) {
-			StopCoroutine (stageHandlerRoutine);
+			Debug.Log("fullreset");
+			if(stageScript != null) stageScript.StopStage();
 			currentStage = 0;
 			//Game.control.player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler>();
 			Game.control.player.Init ();
@@ -108,17 +80,16 @@ public class StageHandler : MonoBehaviour {
 			Game.control.sound.PlayMusic ("Stage" + currentStage);
 
 			Game.control.enemySpawner.StartSpawner (currentStage);
-			StartCoroutine (stageHandlerRoutine);
+			stageScript.StartStageHandler();
 		} else {
-			StopCoroutine (stageHandlerRoutine);
+			stageScript.StopStage();
 			currentStage += 1;
 			ToggleTimer (true);
 			Game.control.sound.PlayMusic ("Stage" + currentStage);
 			Game.control.enemySpawner.StartSpawner (currentStage);
 		}
 		
-		stageHandlerRoutine = StageHandlerRoutine ();
-		StartCoroutine (stageHandlerRoutine);
+		stageScript.StartStageHandler();
 	}
 
 
@@ -200,7 +171,7 @@ public class StageHandler : MonoBehaviour {
 		string scene = "";
 		if(restart) {
 			scene = SceneManager.GetActiveScene().name;
-			StopCoroutine(StageHandlerRoutine());
+			stageScript.StopStage();
 			Game.control.enemySpawner.AbortSpawner();
 			Game.control.pause.Unpause();
 		}
@@ -226,7 +197,7 @@ public class StageHandler : MonoBehaviour {
 
 		Game.control.ui.ToggleLoadingScreen(false);
 
-		Game.control.stage.InitStage (true);
+		Game.control.stageHandler.InitStage (true);
 	}
 
 }

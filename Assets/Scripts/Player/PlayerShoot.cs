@@ -65,7 +65,7 @@ public class PlayerShoot : MonoBehaviour {
 		if(init){
 			if(Input.GetKey	(KeyCode.Z) 
 			&& coolDownTimer <= 0 
-			&& !Game.control.stage.gameOver 
+			&& !Game.control.stageHandler.gameOver 
 			&& !Game.control.pause.paused
 				&& !Game.control.dialog.handlingDialog){
 				Shoot();

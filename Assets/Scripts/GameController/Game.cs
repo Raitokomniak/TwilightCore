@@ -10,7 +10,7 @@ public class Game : MonoBehaviour {
 	[SerializeField] public MainMenuUI mainMenuUI;
 	[SerializeField] public UIController ui;
 	[SerializeField] public DialogController dialog;
-	[SerializeField] public StageHandler stage;
+	[SerializeField] public StageHandler stageHandler;
 	[SerializeField] public SceneHandler scene;
 	[SerializeField] public EnemySpawner enemySpawner;
 	[SerializeField] public EnemyLib enemyLib;
@@ -41,7 +41,7 @@ public class Game : MonoBehaviour {
 		}
 		
 		dialog = GetComponent<DialogController> ();
-		stage = GetComponent<StageHandler> ();
+		stageHandler = GetComponent<StageHandler> ();
 		scene = GetComponent<SceneHandler> ();
 		enemySpawner = GetComponent<EnemySpawner> ();
 		spriteLib = GetComponent<SpriteLibrary> ();
@@ -72,7 +72,7 @@ public class Game : MonoBehaviour {
 	}
 
 	public void StartGame(){
-		stage.StartStage(false, "Level1");
+		stageHandler.StartStage(false, "Level1");
 	}
 
 	public string GetCurrentScene (){

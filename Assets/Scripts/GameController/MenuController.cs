@@ -137,16 +137,16 @@ public class MenuController : MonoBehaviour
 			
 			switch (selection) {
 			case "Easy":
-				Game.control.stage.difficultyMultiplier = 1;
+				Game.control.stageHandler.difficultyMultiplier = 1;
 				break;
 			case "Normal":
-				Game.control.stage.difficultyMultiplier = 3;
+				Game.control.stageHandler.difficultyMultiplier = 3;
 				break;
 			case "Hard":
-				Game.control.stage.difficultyMultiplier = 5;
+				Game.control.stageHandler.difficultyMultiplier = 5;
 				break;
 			case "Nightmare":
-				Game.control.stage.difficultyMultiplier = 7;
+				Game.control.stageHandler.difficultyMultiplier = 7;
 				break;
 			}
 			menuOn = false;
@@ -158,7 +158,7 @@ public class MenuController : MonoBehaviour
 				Game.control.pause.HandlePause();
 				break;
 			case "Restart":
-				Game.control.stage.StartStage (true, "");
+				Game.control.stageHandler.StartStage (true, "");
 				break;
 			case "Quit":
 				Application.Quit();
