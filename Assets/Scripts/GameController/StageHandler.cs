@@ -42,8 +42,10 @@ public class StageHandler : MonoBehaviour {
 		if(stage == 1){
 			gameObject.AddComponent<Stage1>();
 			stageScript = GetComponent<Stage1>();
+			if(GetComponent<Stage2>()!=null) Destroy(GetComponent<Stage2>());
 		}
 		else if(stage == 2){
+			if(GetComponent<Stage1>()!=null) Destroy(GetComponent<Stage1>());
 			gameObject.AddComponent<Stage2>();
 			stageScript = GetComponent<Stage2>();
 		} 
@@ -61,8 +63,6 @@ public class StageHandler : MonoBehaviour {
 	public void InitStage(bool fullReset){
 		if (fullReset) {
 			if(stageScript != null) stageScript.StopStage();
-			//currentStage = 0;
-			//Game.control.player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler>();
 			Game.control.player.Init ();
 			Game.control.ui.InitStage ();
 			
@@ -72,12 +72,9 @@ public class StageHandler : MonoBehaviour {
 			Game.control.enemyLib.InitEnemyLib ();
 			ToggleTimer (true);
 
-			//currentStage += 1;
-
 			Game.control.sound.PlayMusic ("Stage" + currentStage);
 
 			Game.control.enemySpawner.StartSpawner (currentStage);
-			stageScript.StartStageHandler();
 		} else {
 			stageScript.StopStage();
 			currentStage += 1;
@@ -136,12 +133,11 @@ public class StageHandler : MonoBehaviour {
 
 	void NextStage ()
 	{
-		Game.control.MainMenu ();
+		//Game.control.MainMenu ();
 		stageCompleted = false;
-		/*GameController.gameControl.ui.StageCompleted (false);
-		stageCompleted = false;
-		GameController.gameControl.stage.InitStage (false);
-		*/
+		Game.control.ui.StageCompleted (false);
+		currentStage++;
+		StartStage(false, 2);
 	}
 
 	//If time is up, boss leaves the screen and stage is completed
@@ -154,16 +150,14 @@ public class StageHandler : MonoBehaviour {
 		yield return new WaitForSeconds (2);
 		StartCoroutine (StageCompleteHandling ());
 	}
-		
-	public void StartGame(){
-		currentStage = 1;
-		StartStage(false);
-	}
-	public void StartStage (bool restart){
+	
+	public void StartStage (bool restart, int stage){
+		currentStage = stage;
 		gameOver = false;
 		restartRoutine = StartStageRoutine(restart, "Level" + currentStage);
 		StartCoroutine(restartRoutine);
 	}
+
 
 	IEnumerator StartStageRoutine(bool restart, string levelName){
 
@@ -179,7 +173,8 @@ public class StageHandler : MonoBehaviour {
 
 		else scene = levelName;
 
-		AsyncOperation loadScene = SceneManager.LoadSceneAsync(scene);
+
+		AsyncOperation loadScene = SceneManager.LoadSceneAsync("Level1");
 		yield return new WaitUntil(() => loadScene.isDone == true);
 		
 		

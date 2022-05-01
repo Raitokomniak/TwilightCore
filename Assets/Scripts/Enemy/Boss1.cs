@@ -22,6 +22,7 @@ public class Boss1 : Phaser
 		patterns = new List<Pattern>();
 		movementPatterns = new List<EnemyMovementPattern>();
 		lib = Game.control.enemyLib;
+		
 
 		switch (phase) {
 			case 0:

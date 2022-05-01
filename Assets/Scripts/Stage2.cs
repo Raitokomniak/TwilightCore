@@ -10,6 +10,7 @@ public class Stage2 : Stage
 	}
 
 	IEnumerator StageHandlerRoutine(){
+		Debug.Log("this is stage 2");
 		yield return new WaitForEndOfFrame();
 	}
 

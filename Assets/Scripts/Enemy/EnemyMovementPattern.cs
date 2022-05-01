@@ -58,7 +58,7 @@ public class EnemyMovementPattern
 
 		if (teleport) {
 			m.teleporting = true;
-			m.GetComponent<SpriteRenderer> ().enabled = false;
+			m.EnableSprite(false);
 		} 
 
 		if (name == "CenterHor")
@@ -70,7 +70,7 @@ public class EnemyMovementPattern
 
 		if (teleport) {
 			yield return new WaitUntil (() => CheckIfReachedDestination (m) == true);
-			m.GetComponent<SpriteRenderer> ().enabled = true;
+			m.EnableSprite(true);
 			m.teleporting = false;
 		}
 

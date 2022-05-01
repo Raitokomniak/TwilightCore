@@ -4,6 +4,7 @@ using System.Collections;
 public class EnemyMovement : MonoBehaviour {
 	EnemyShoot shooter;
 	EnemyMovementPattern pat;
+	SpriteRenderer spriteRenderer;
 
 	public bool moving;
 	public bool floating;
@@ -12,7 +13,12 @@ public class EnemyMovement : MonoBehaviour {
 
 	void Awake () {
 		shooter = GetComponent<EnemyShoot>();
+		spriteRenderer = GetComponent<SpriteRenderer> ();
 		moving = false;
+	}
+
+	public void EnableSprite(bool toggle){
+		spriteRenderer.enabled = toggle;
 	}
 
 	void Update () {

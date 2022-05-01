@@ -5,6 +5,6 @@ using UnityEngine;
 public class RestartButton : MonoBehaviour
 {
     public void Restart(){
-        Game.control.stageHandler.StartStage(true);
+        Game.control.stageHandler.StartStage(true, Game.control.stageHandler.currentStage);
     }
 }
