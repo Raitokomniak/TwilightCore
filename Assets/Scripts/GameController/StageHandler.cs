@@ -6,7 +6,7 @@ public class StageHandler : MonoBehaviour {
 
 	Stage stageScript;
 
-	public int difficultyMultiplier;
+	public int difficultyMultiplier; //1 easy //3 normal //5 hard //8+ nightmarish
 	public bool gameOver;
 	public bool stageCompleted;
 	public float stageTime;
@@ -24,14 +24,13 @@ public class StageHandler : MonoBehaviour {
 
 	void Awake(){
 		gameOver = false;
-		difficultyMultiplier = 8;
 	}
 
 	void Update () {
-		if(timer) {stageTimer += Time.deltaTime;
+		if(timer) {
+			stageTimer += Time.deltaTime;
 			Game.control.ui.UpdateTimer(stageTimer);
 		}
-//		if(Game.control.ui != null) Game.control.ui.UpdateTimer (stageTimer);
 
 		if (stageCompleted && Input.GetKeyDown (KeyCode.Z)) {
 			Game.control.ui.StageCompleted (false);
@@ -41,7 +40,6 @@ public class StageHandler : MonoBehaviour {
 	
 	public void InitWaves(int stage){
 		if(stage == 1){
-			Debug.Log("add stage 1");
 			gameObject.AddComponent<Stage1>();
 			stageScript = GetComponent<Stage1>();
 		}
@@ -62,9 +60,8 @@ public class StageHandler : MonoBehaviour {
 
 	public void InitStage(bool fullReset){
 		if (fullReset) {
-			Debug.Log("fullreset");
 			if(stageScript != null) stageScript.StopStage();
-			currentStage = 0;
+			//currentStage = 0;
 			//Game.control.player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler>();
 			Game.control.player.Init ();
 			Game.control.ui.InitStage ();
@@ -75,7 +72,7 @@ public class StageHandler : MonoBehaviour {
 			Game.control.enemyLib.InitEnemyLib ();
 			ToggleTimer (true);
 
-			currentStage += 1;
+			//currentStage += 1;
 
 			Game.control.sound.PlayMusic ("Stage" + currentStage);
 
@@ -158,9 +155,13 @@ public class StageHandler : MonoBehaviour {
 		StartCoroutine (StageCompleteHandling ());
 	}
 		
-	public void StartStage (bool restart, string levelName){
+	public void StartGame(){
+		currentStage = 1;
+		StartStage(false);
+	}
+	public void StartStage (bool restart){
 		gameOver = false;
-		restartRoutine = StartStageRoutine(restart, levelName);
+		restartRoutine = StartStageRoutine(restart, "Level" + currentStage);
 		StartCoroutine(restartRoutine);
 	}
 
@@ -197,7 +198,7 @@ public class StageHandler : MonoBehaviour {
 
 		Game.control.ui.ToggleLoadingScreen(false);
 
-		Game.control.stageHandler.InitStage (true);
+		InitStage (true);
 	}
 
 }

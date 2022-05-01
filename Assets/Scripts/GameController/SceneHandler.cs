@@ -16,7 +16,7 @@ public class SceneHandler : MonoBehaviour
 		parent = GameObject.Find ("EnvironmentParent");
 
 		if (!GameObject.Find ("Environment")) {
-			environment = (GameObject)Instantiate (Resources.Load ("Environment/Environment"));
+			environment = (GameObject)Instantiate (Resources.Load ("Environment/Stage" + Game.control.stageHandler.currentStage + "_Environment"));
 			environment.transform.SetParent (parent.transform);
 			environment.GetComponent<EnvironmentController> ().SetStartPosition (new Vector3 (40.5f, -13, 88.1f));
 			environment.name = "Environment";

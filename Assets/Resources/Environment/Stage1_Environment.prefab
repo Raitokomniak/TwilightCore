@@ -151,7 +151,7 @@ GameObject:
   - 224: {fileID: 224000012975386212}
   - 114: {fileID: 114000010640331878}
   m_Layer: 0
-  m_Name: Environment
+  m_Name: Stage1_Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

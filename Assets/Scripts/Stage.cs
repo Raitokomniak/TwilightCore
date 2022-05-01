@@ -10,7 +10,7 @@ public class Stage : MonoBehaviour
 
     void Awake(){
         stageHandler = Game.control.stageHandler;
-        InitWaves(stageHandler.difficultyMultiplier); //1 very easy //2 easy //3 normal //4 hard //5 very hard
+        InitWaves(stageHandler.difficultyMultiplier);
 		
     }
     public void StopStage(){
