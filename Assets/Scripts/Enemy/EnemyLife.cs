@@ -82,6 +82,7 @@ public class EnemyLife : MonoBehaviour {
 
 	public void Die() {
 		
+		
 		Destroy(this.gameObject);
 		Game.control.sound.PlaySound ("Enemy", "Die", true);
 		//Instantiate(Resources.Load("expPoint"), transform.position, transform.rotation);
@@ -100,7 +101,7 @@ public class EnemyLife : MonoBehaviour {
 				
 			Game.control.ui.UpdateTopPlayer ("Stage" + Game.control.stage.currentStage);
 			Game.control.ui.ToggleBossHealthSlider(false, 0, "");
-
+			Game.control.ui.HideBossTimer();
 			if (tag == "Boss") {
 				Game.control.stage.EndHandler ("StageComplete");
 			}

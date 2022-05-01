@@ -36,6 +36,11 @@ public class UIController : MonoBehaviour {
 	public TextMeshProUGUI bossPatternText;
 	public TextMeshProUGUI bossTimer;
 
+	//THESE MIGHT NOT BELONG HERE, MOVE THEM SOMEWHERE ELSE
+	float bossStayTimer;
+	float bossStayTime;
+	bool bossStayTimerOn;
+
 	//Level
 	public TextMeshProUGUI levelTimer;
 	public TextMeshProUGUI lives;
@@ -87,9 +92,20 @@ public class UIController : MonoBehaviour {
 	void Awake(){
 		ToggleLoadingScreen(false);
 		ToggleBossHealthSlider(false, 0, "");
-		ToggleBossTimer(false);
+		HideBossTimer();
 	}
 
+	void Update(){
+		if(bossStayTimerOn) {
+			if(bossStayTimer > 0){
+				bossStayTimer-=Time.deltaTime;
+				UpdateBossTimer(bossStayTimer);
+			}
+			else {
+				HideBossTimer();
+			}
+		}
+	}
 
 	public void UpdateMenuSelection(string context, int index){
 		Text[] allOptions = null;
@@ -156,8 +172,20 @@ public class UIController : MonoBehaviour {
 		bossX.transform.position = new Vector3 (posX, bossX.transform.position.y, 0);
 	}
 
-	public void ToggleBossTimer(bool value){
-		bossTimer.gameObject.SetActive(value);
+	public void HideBossTimer(){
+		bossStayTimerOn = false;
+		bossTimer.gameObject.SetActive(false);
+	}
+	public void StartBossTimer(float time){
+		bossTimer.gameObject.SetActive(true);
+		bossStayTime = time;
+		bossStayTimer = time;
+		bossTimer.text = time.ToString("F1");
+		bossStayTimerOn = true;
+	}
+
+	public void UpdateBossTimer(float value){
+		bossTimer.text = value.ToString("F1");
 	}
 
 	public void ToggleBossHealthSlider(bool value, float maxHealth, string name){
@@ -376,7 +404,7 @@ public class UIController : MonoBehaviour {
 
 	public void StageCompleted(bool value)
 	{
-		ToggleBossTimer(false);
+		HideBossTimer();
 		stageEndPanel.SetActive(value);
 	}
 

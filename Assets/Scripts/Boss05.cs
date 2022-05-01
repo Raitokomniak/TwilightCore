@@ -10,6 +10,7 @@ public class Boss05 : Phaser
 		routineOver = true;
 	}
 
+
     public override void ExecutePhase(int phase, Phaser _phaser){
 		numerator = Execute (phase, _phaser);
 		StartCoroutine (numerator);

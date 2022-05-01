@@ -33,6 +33,8 @@ public class Wave
 
 	public bool dead;
 
+
+
 	public Wave(float _spawnTime, EnemyMovementPattern _movementPattern, Pattern _shootPattern, 
 				int _enemyCount, bool _simultaneous, int _health, bool _isBoss, float _shootSpeed, int _healthBars)
 	{
@@ -112,7 +114,7 @@ public class Wave
 			} else {
 				enemy.tag = "MidBoss";
 				enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0f);
-				
+				Game.control.ui.StartBossTimer (movementPattern.stayTime);
 			}
 			
 			enemy.GetComponent<EnemyShoot> ().phaser.NextBossPhase ();

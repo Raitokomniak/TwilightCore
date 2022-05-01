@@ -34,7 +34,6 @@ public class EnemySpawner : MonoBehaviour {
 
 			if (curWave != null && curWave == midBossWave) {
 				if (midBossWave.dead) {
-					Debug.Log("midboss dead");
 					InitializeWave ();
 				}
 			}

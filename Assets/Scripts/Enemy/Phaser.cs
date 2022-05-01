@@ -37,6 +37,7 @@ public class Phaser : MonoBehaviour {
 	public float phaseTimer;
 	public float phaseTimeCap;
 
+
 	void Awake(){
 		enemy = GetComponent<EnemyShoot>();
         enemyMove = GetComponent<EnemyMovement>();
@@ -47,7 +48,7 @@ public class Phaser : MonoBehaviour {
 		movementPatterns = new List<EnemyMovementPattern> ();
 		patterns = new List<Pattern> ();
 		bossPhase = -1;
-		Debug.Log("phaser awake");
+//		Debug.Log("phaser awake");
 
 		wave = _wave;
 		if(bossIndex == 0.5f) boss = gameObject.AddComponent<Boss05>();
@@ -55,6 +56,7 @@ public class Phaser : MonoBehaviour {
 
 		boss.difficultyMultiplier = Game.control.stage.difficultyMultiplier;
 	}
+
 
 	void LateUpdate(){
 		if(timerOn) timerDone = PhaseTimer();

@@ -145,8 +145,7 @@ public class StageHandler : MonoBehaviour {
 	IEnumerator DeathHandling ()
 	{
 		gameOver = true;
-		Game.control.ui.ToggleBossTimer (false);
-
+		Game.control.ui.HideBossTimer();
 		yield return new WaitForSeconds (2);
 
 		Game.control.sound.StopMusic ();
@@ -157,7 +156,7 @@ public class StageHandler : MonoBehaviour {
 	IEnumerator StageCompleteHandling ()
 	{
 		stageCompleted = true;
-		Game.control.ui.ToggleBossTimer (false);
+		Game.control.ui.HideBossTimer();
 		Game.control.ui.ToggleBossHealthSlider (false, 0, "");
 
 		yield return new WaitForSeconds (2);
