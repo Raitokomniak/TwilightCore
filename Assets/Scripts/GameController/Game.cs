@@ -72,7 +72,7 @@ public class Game : MonoBehaviour {
 	}
 
 	public void StartGame(){
-		stageHandler.StartStage(false, 1);
+		stageHandler.StartStage(1);
 	}
 
 	public string GetCurrentScene (){

@@ -12,7 +12,9 @@ public class StageHandler : MonoBehaviour {
 	public float stageTime;
 	public float stageTimer;
 	public int currentStage;
-	public bool timer;
+	public bool stageTimerOn;
+
+	public bool stageOn;
 
 
 	IEnumerator restartRoutine;
@@ -27,7 +29,7 @@ public class StageHandler : MonoBehaviour {
 	}
 
 	void Update () {
-		if(timer) {
+		if(stageTimerOn) {
 			stageTimer += Time.deltaTime;
 			Game.control.ui.UpdateTimer(stageTimer);
 		}
@@ -53,42 +55,17 @@ public class StageHandler : MonoBehaviour {
 
 
 	public void ToggleTimer(bool value){
-		timer = value;
-		if (timer) {
+		stageTimerOn = value;
+		if (stageTimerOn) {
 			stageTime = 180f;
 			stageTimer = 0;
 		}
 	}
 
-	public void InitStage(bool fullReset){
-		if (fullReset) {
-			if(stageScript != null) stageScript.StopStage();
-			Game.control.player.Init ();
-			Game.control.ui.InitStage ();
-			
-			Game.control.player.gameObject.SetActive (true);
-			if (Game.control.pause.paused)
-				Game.control.pause.Unpause ();
-			Game.control.enemyLib.InitEnemyLib ();
-			ToggleTimer (true);
-
-			Game.control.sound.PlayMusic ("Stage" + currentStage);
-
-			Game.control.enemySpawner.StartSpawner (currentStage);
-		} else {
-			stageScript.StopStage();
-			currentStage += 1;
-			ToggleTimer (true);
-			Game.control.sound.PlayMusic ("Stage" + currentStage);
-			Game.control.enemySpawner.StartSpawner (currentStage);
-		}
-		
-		stageScript.StartStageHandler();
-	}
-
 
 	public void EndHandler (string endType)
 	{
+		Debug.Log("Endhandler");
 		switch (endType) {
 		case "GameOver":
 			deathRoutine = DeathHandling();
@@ -105,6 +82,11 @@ public class StageHandler : MonoBehaviour {
 			StartCoroutine(timeUpRoutine);
 			break;
 		}
+
+		ToggleTimer(false);
+		Game.control.sound.StopMusic ();
+		if(stageScript != null) stageScript.StopStage();
+		stageOn = false;
 	}
 
 	IEnumerator DeathHandling ()
@@ -115,6 +97,10 @@ public class StageHandler : MonoBehaviour {
 
 		Game.control.sound.StopMusic ();
 		Game.control.ui.GameOverScreen (true);
+
+		stageScript.StopStage();
+		stageTimerOn = false;
+		Game.control.enemySpawner.AbortSpawner();
 
 	}
 
@@ -137,7 +123,7 @@ public class StageHandler : MonoBehaviour {
 		stageCompleted = false;
 		Game.control.ui.StageCompleted (false);
 		currentStage++;
-		StartStage(false, 2);
+		StartStage(2);
 	}
 
 	//If time is up, boss leaves the screen and stage is completed
@@ -151,49 +137,47 @@ public class StageHandler : MonoBehaviour {
 		StartCoroutine (StageCompleteHandling ());
 	}
 	
-	public void StartStage (bool restart, int stage){
+	public void RestartStage(int stage){
+		stageScript.StopStage();
+		Game.control.enemySpawner.AbortSpawner();
+		StartStage(stage);
+	}
+	public void StartStage (int stage){
 		currentStage = stage;
 		gameOver = false;
-		restartRoutine = StartStageRoutine(restart, "Level" + currentStage);
+		restartRoutine = StartStageRoutine();
 		StartCoroutine(restartRoutine);
 	}
 
 
-	IEnumerator StartStageRoutine(bool restart, string levelName){
-
-		ToggleTimer(false);
+	IEnumerator StartStageRoutine(){
 		
-		string scene = "";
-		if(restart) {
-			scene = SceneManager.GetActiveScene().name;
-			stageScript.StopStage();
-			Game.control.enemySpawner.AbortSpawner();
-			Game.control.pause.Unpause();
-		}
-
-		else scene = levelName;
-
+		Game.control.ui.ToggleLoadingScreen(true);
 
 		AsyncOperation loadScene = SceneManager.LoadSceneAsync("Level1");
 		yield return new WaitUntil(() => loadScene.isDone == true);
-		
-		
 
-		Game.control.sound.StopMusic ();
 		Game.control.ui = GameObject.Find("StageCanvas").GetComponent<UIController>();
 		Game.control.player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler> ();
-		
-		
-		Game.control.menu.ToggleMenu (false);
-		Game.control.scene.SetUpEnvironment ();
-
-		Game.control.ui.ToggleLoadingScreen(true);
-
+		Game.control.pause.Unpause (); //needs ui declaration
 		yield return new WaitForSeconds(1);
 
-		Game.control.ui.ToggleLoadingScreen(false);
+		Game.control.menu.ToggleMenu (false);
+		Game.control.scene.SetUpEnvironment ();
+		Game.control.player.Init ();
+		Game.control.ui.InitStage ();
+		Game.control.enemyLib.InitEnemyLib ();
 
-		InitStage (true);
+		Game.control.player.gameObject.SetActive (true);
+		Game.control.sound.PlayMusic ("Stage" + currentStage);
+		Game.control.enemySpawner.StartSpawner (currentStage);
+
+		stageScript.StartStageHandler();
+		ToggleTimer (true);
+		stageOn = true;
+
+		
+		Game.control.ui.ToggleLoadingScreen(false);
 	}
 
 }

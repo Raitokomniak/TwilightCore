@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
 
 	void Update ()
 	{
-		if(init) {
+		if(init &&  !GetComponent<PlayerLife>().dead) {
 			FocusMode (Input.GetKey (KeyCode.LeftShift));
 
 			float hor = Input.GetAxisRaw ("Horizontal");
@@ -67,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public void FocusMode (bool focus)
 	{
+	
 		if (focus) {
 			focusMode = true;
 			hitBox.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);

@@ -42,7 +42,7 @@ public class EnemySpawner : MonoBehaviour {
 
 	public void AbortSpawner(){
 		started = false;
-		StopCoroutine(spawn);
+		if(spawn != null) StopCoroutine(spawn);
 		DestroyAllEnemies();
 		DestroyAllProjectiles();
 		//curWave = null;

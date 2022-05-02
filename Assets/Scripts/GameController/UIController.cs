@@ -152,7 +152,7 @@ public class UIController : MonoBehaviour {
 			parallax.GetComponent<ParallaxController> ().Init ();
 		}
 		ResetTopLayer ();
-
+		
 		//this doesnt belong in ui 
 		Game.control.player.movement.SetUpBoundaries(playAreaLeftWall.transform.position.x, playAreaRightWall.transform.position.x, playAreaBottomWall.transform.position.y, playAreaTopWall.transform.position.y);
 	}

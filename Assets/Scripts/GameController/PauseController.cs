@@ -9,11 +9,12 @@ public class PauseController : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		paused = false;
+		initialTime = Time.timeScale;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown(KeyCode.Escape))
+		if(Game.control.stageHandler.stageOn && Input.GetKeyDown(KeyCode.Escape))
 		{
 			HandlePause();
 		}

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class PlayerLife : MonoBehaviour {
 
 	public int lives;
+	public bool dead;
 	public bool invulnerable;
 	IEnumerator invulnerabilityRoutine;
 
@@ -13,6 +14,7 @@ public class PlayerLife : MonoBehaviour {
 		Game.control.ui.UpdateStatPanel("Lives", lives);
 		GetComponent<SpriteRenderer> ().enabled = true;
 		invulnerable = false;
+		dead = false;
 	}
 
 	public void TakeHit()
@@ -21,20 +23,30 @@ public class PlayerLife : MonoBehaviour {
 		Game.control.enemySpawner.DestroyAllProjectiles ();
 
 		if(lives > 0) {
-			lives -= 1;
-			Game.control.ui.UpdateStatPanel("Lives", lives);
-			invulnerabilityRoutine = AnimateInvulnerabilityRoutine();
-			StartCoroutine(invulnerabilityRoutine);
-			Game.control.player.special.DepleteCore (false);
+			LoseLife();
 		}
 
 		else if(lives <= 0) {
-			Game.control.sound.PlaySound ("Player", "Die", true);
-			invulnerable = true;
-			GetComponent<PlayerShoot>().DisableWeapons();
-			GetComponent<SpriteRenderer>().enabled = false;
-			Game.control.stageHandler.EndHandler("GameOver");
+			Die();
 		}
+	}
+
+	void LoseLife(){
+		lives -= 1;
+		Game.control.ui.UpdateStatPanel("Lives", lives);
+		invulnerabilityRoutine = AnimateInvulnerabilityRoutine();
+		StartCoroutine(invulnerabilityRoutine);
+		Game.control.player.special.DepleteCore (false);
+	}
+
+	void Die(){
+		Game.control.sound.PlaySound ("Player", "Die", true);
+		invulnerable = true;
+		GetComponent<PlayerShoot>().DisableWeapons();
+		GetComponent<SpriteRenderer>().enabled = false;
+		Game.control.stageHandler.EndHandler("GameOver");
+		GetComponent<PlayerMovement>().FocusMode(false);
+		dead = true;
 	}
 
 

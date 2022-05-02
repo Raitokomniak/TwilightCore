@@ -158,7 +158,7 @@ public class MenuController : MonoBehaviour
 				Game.control.pause.HandlePause();
 				break;
 			case "Restart":
-				Game.control.stageHandler.StartStage (true, Game.control.stageHandler.currentStage);
+				Game.control.stageHandler.RestartStage (Game.control.stageHandler.currentStage);
 				break;
 			case "Quit":
 				Application.Quit();
