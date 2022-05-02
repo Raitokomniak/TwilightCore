@@ -151,13 +151,11 @@ public class StageHandler : MonoBehaviour {
 
 
 	IEnumerator StartStageRoutine(){
-		
-		Game.control.ui.ToggleLoadingScreen(true);
-
 		AsyncOperation loadScene = SceneManager.LoadSceneAsync("Level1");
 		yield return new WaitUntil(() => loadScene.isDone == true);
-
+	
 		Game.control.ui = GameObject.Find("StageCanvas").GetComponent<UIController>();
+		Game.control.ui.ToggleLoadingScreen(true);
 		Game.control.player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler> ();
 		Game.control.pause.Unpause (); //needs ui declaration
 		yield return new WaitForSeconds(1);
