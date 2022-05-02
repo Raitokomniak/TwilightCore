@@ -149,6 +149,10 @@ public class StageHandler : MonoBehaviour {
 		StartCoroutine(restartRoutine);
 	}
 
+	public void SetDifficulty(int diff){
+		difficultyMultiplier = diff;
+	}
+
 
 	IEnumerator StartStageRoutine(){
 		AsyncOperation loadScene = SceneManager.LoadSceneAsync("Level1");
@@ -157,7 +161,7 @@ public class StageHandler : MonoBehaviour {
 		Game.control.ui = GameObject.Find("StageCanvas").GetComponent<UIController>();
 		Game.control.ui.ToggleLoadingScreen(true);
 		Game.control.player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler> ();
-		Game.control.pause.Unpause (); //needs ui declaration
+		Game.control.pause.Unpause (false); //needs ui declaration
 		yield return new WaitForSeconds(1);
 
 		Game.control.menu.ToggleMenu (false);

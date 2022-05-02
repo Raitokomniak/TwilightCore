@@ -21,6 +21,7 @@ public class Boss1 : Phaser
     IEnumerator Execute(int phase, Phaser phaser){
 		patterns = new List<Pattern>();
 		movementPatterns = new List<EnemyMovementPattern>();
+		GetComponent<EnemyMovement>().EnableSprite(true);
 		lib = Game.control.enemyLib;
 		
 

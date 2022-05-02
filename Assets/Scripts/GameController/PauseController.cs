@@ -32,13 +32,13 @@ public class PauseController : MonoBehaviour {
 		}
 		else
 		{
-			Unpause ();
+			Unpause (true);
 		}
 		Game.control.menu.ToggleMenu (paused);
 	}
 
-	public void Unpause(){
-		Game.control.sound.ResumeMusic ();
+	public void Unpause(bool resumeMusic){
+		if(resumeMusic) Game.control.sound.ResumeMusic ();
 		paused = false;
 		Game.control.ui.PauseScreen(false);
 		ResetTimeScale (true);

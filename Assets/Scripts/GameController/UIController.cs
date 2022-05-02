@@ -397,7 +397,7 @@ public class UIController : MonoBehaviour {
 	IEnumerator StageText()
 	{
 		stagePanel.SetActive (true);
-		yield return new WaitForSeconds(2);
+		yield return new WaitForSeconds(3);
 		stagePanel.gameObject.SetActive(false);
 	}
 
@@ -562,7 +562,7 @@ public class UIController : MonoBehaviour {
 		dialogRightChar.gameObject.SetActive (false);
 		dialogLeftChar.gameObject.SetActive (false);
 		switch (main) {
-		case "Morale":
+		case "Soma":
 			dialogRightChar.gameObject.SetActive (true);	
 			dialogRightChar.sprite = Resources.Load<Sprite> ("Images/DialogCharacters/mainchar");
 			break;

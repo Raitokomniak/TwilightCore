@@ -953,6 +953,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StageCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1568074030314168480, guid: 01f7f5e2668ec734f8d5469082e8b1ce,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1568074030708073608, guid: 01f7f5e2668ec734f8d5469082e8b1ce,
         type: 3}
       propertyPath: m_AnchorMax.x

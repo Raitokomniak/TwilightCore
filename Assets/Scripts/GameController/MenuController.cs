@@ -62,9 +62,9 @@ public class MenuController : MonoBehaviour
 		mainMenuItems.Add ("Quit Game");
 
 		difficultyMenuItems = new ArrayList();
+		difficultyMenuItems.Add("Very Easy");
 		difficultyMenuItems.Add("Easy");
 		difficultyMenuItems.Add("Normal");
-		difficultyMenuItems.Add("Hard");
 		difficultyMenuItems.Add("Nightmare");
 
 		charSelectItems = new ArrayList ();
@@ -135,18 +135,18 @@ public class MenuController : MonoBehaviour
 		}
 		else if(context == "DifficultyMenu"){
 			
-			switch (selection) {
-			case "Easy":
-				Game.control.stageHandler.difficultyMultiplier = 1;
+			switch (selectedIndex) {
+			case 0:
+				Game.control.stageHandler.SetDifficulty(1);
 				break;
-			case "Normal":
-				Game.control.stageHandler.difficultyMultiplier = 3;
+			case 1:
+				Game.control.stageHandler.SetDifficulty(3);
 				break;
-			case "Hard":
-				Game.control.stageHandler.difficultyMultiplier = 5;
+			case 2:
+				Game.control.stageHandler.SetDifficulty(5);
 				break;
-			case "Nightmare":
-				Game.control.stageHandler.difficultyMultiplier = 7;
+			case 3:
+				Game.control.stageHandler.SetDifficulty(10);
 				break;
 			}
 			menuOn = false;
