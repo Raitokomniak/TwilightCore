@@ -1,6 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.IO;
+
+[System.Serializable] 
+public class ScoreSave {
+	[SerializeField] public string name;
+	[SerializeField] public long score;
+
+	public ScoreSave(string _name, long _score){
+		name = _name;
+		score = _score;
+	}
+
+	public ScoreSave(){
+
+	}
+}
+
 
 public class StageHandler : MonoBehaviour {
 
@@ -22,6 +39,7 @@ public class StageHandler : MonoBehaviour {
 	IEnumerator stageCompleteRoutine;
 	IEnumerator timeUpRoutine;
 
+	ScoreSave currentHiScore;
 	
 
 	void Awake(){
@@ -62,9 +80,31 @@ public class StageHandler : MonoBehaviour {
 		}
 	}
 
+	public bool SaveScore(){
+        ScoreSave score = new ScoreSave("Player", Game.control.player.stats.hiScore);
+        string dataString = JsonUtility.ToJson(score);
+        //THIS DATAPATH HAS TO BE CHANGED TO BUILD DATAPATH
+        File.WriteAllText(Game.control.appDataPath + "/Resources/json/score.json", dataString);
+        return true;
+    }
+
+    public bool LoadScore(){
+         //THIS DATAPATH HAS TO BE CHANGED TO BUILD DATAPATH
+        if(File.Exists(Game.control.appDataPath + "/Resources/json/score.json")){
+			currentHiScore = new ScoreSave();
+            string rawJson = File.ReadAllText(Game.control.appDataPath + "/Resources/json/score.json");
+            currentHiScore = JsonUtility.FromJson<ScoreSave>(rawJson);
+			Game.control.player.stats.hiScore = currentHiScore.score;
+			Game.control.ui.UpdateHiScore(Game.control.player.stats.hiScore);
+            return true;
+        }
+        else return false;
+    }
 
 	public void EndHandler (string endType)
 	{
+		SaveScore();
+
 		switch (endType) {
 		case "GameOver":
 			deathRoutine = DeathHandling();
@@ -155,8 +195,10 @@ public class StageHandler : MonoBehaviour {
 
 
 	IEnumerator StartStageRoutine(){
+		
 		AsyncOperation loadScene = SceneManager.LoadSceneAsync("Level1");
 		yield return new WaitUntil(() => loadScene.isDone == true);
+		
 		ToggleTimer (false);
 		Game.control.ui = GameObject.Find("StageCanvas").GetComponent<UIController>();
 		Game.control.ui.ToggleLoadingScreen(true);
@@ -168,6 +210,7 @@ public class StageHandler : MonoBehaviour {
 	//Game.control.menu.ToggleMenu (false);
 		Game.control.scene.SetUpEnvironment ();
 		Game.control.player.Init ();
+		LoadScore();
 		Game.control.dialog.Init();
 		Game.control.ui.InitStage ();
 		Game.control.menu.InitMenu();
