@@ -150,7 +150,7 @@ public class StageHandler : MonoBehaviour {
 		Game.control.ui.HideBossTimer();
 		Game.control.ui.ToggleBossHealthSlider (false, 0, "");
 		yield return new WaitForSeconds (2);
-		
+
 		Game.control.ui.StageCompleted (true);
 		yield return new WaitForSeconds (2);
 

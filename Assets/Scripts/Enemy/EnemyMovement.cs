@@ -43,6 +43,8 @@ public class EnemyMovement : MonoBehaviour {
 			}
 
 		}
+		if(!GetComponent<EnemyMovement>().teleporting && GetComponent<SpriteRenderer> ().enabled == false)
+			GetComponent<SpriteRenderer> ().enabled = true;
 	}
 
 	public void SetUpPatternAndMove(EnemyMovementPattern p){

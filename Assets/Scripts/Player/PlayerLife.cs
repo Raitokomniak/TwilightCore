@@ -17,6 +17,11 @@ public class PlayerLife : MonoBehaviour {
 		dead = false;
 	}
 
+	void Update(){
+		if(!invulnerable && GetComponent<SpriteRenderer> ().enabled == false)
+			GetComponent<SpriteRenderer> ().enabled = true;
+	}
+
 	public void TakeHit()
 	{
 		Game.control.sound.PlaySound ("Player", "TakeHit", true);
