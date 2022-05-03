@@ -7,6 +7,8 @@ public class Game : MonoBehaviour {
 	public static Game control;
 	public static bool paused;
 
+	public string appDataPath;
+
 	[SerializeField] public MainMenuUI mainMenuUI;
 	[SerializeField] public UIController ui;
 	[SerializeField] public DialogController dialog;
@@ -56,6 +58,10 @@ public class Game : MonoBehaviour {
 
 		menu.InitMenu ();
 		sound.InitSound ();
+		if(options.LoadOptions()) Debug.Log("options loaded");
+		else Debug.Log("no options file");
+
+		appDataPath = Application.dataPath;
 	}
 
 	public void MainMenu (){

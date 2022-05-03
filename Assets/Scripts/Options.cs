@@ -1,9 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+
+[System.Serializable]
+public class OptionsValues {
+        [SerializeField] public bool autoScroll;
+        [SerializeField] public float bgmVolume;
+        [SerializeField] public float sfxVolume;
+
+        public OptionsValues(){
+
+        }
+}
 
 public class Options : MonoBehaviour
 {
+    OptionsValues options;
 
     public void UpdateOption(bool increase, int index){
         if(index == 0)
@@ -14,6 +27,7 @@ public class Options : MonoBehaviour
             SFXVolume(increase);
 
         UpdateValueToUI(index);
+        SaveOptions();
     }
 
     void AutoScrollOption(){
@@ -66,5 +80,32 @@ public class Options : MonoBehaviour
         for(int i = 0; i < 3; i++){
             UpdateValueToUI(i);
         }
+    }
+
+    public bool SaveOptions(){
+        options = new OptionsValues();
+        options.autoScroll = Game.control.dialog.autoScroll;
+        options.bgmVolume = Game.control.sound.GetBGMVolume();
+        options.sfxVolume = Game.control.sound.SFXVolume;
+        string dataString = JsonUtility.ToJson(options);
+        File.WriteAllText(Game.control.appDataPath + "/Resources/json/options.json", dataString);
+        return true;
+    }
+
+    public bool LoadOptions(){
+        if(File.Exists(Game.control.appDataPath + "/Resources/json/options.json")){
+            string rawJson = File.ReadAllText(Game.control.appDataPath + "/Resources/json/options.json");
+            options = JsonUtility.FromJson<OptionsValues>(rawJson);
+            LoadValuesFromFile();
+            return true;
+        }
+        else return false;
+    }
+
+    void LoadValuesFromFile(){
+        Game.control.dialog.autoScroll = options.autoScroll;
+        Game.control.sound.SetBGMVolume(options.bgmVolume);
+        Game.control.sound.SetSFXVolume(options.sfxVolume);
+        if(Game.control.ui != null) UpdateAllValues();
     }
 }
