@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ProjectileMovement : MonoBehaviour {
 
-	float movementSpeed = .5f;
+	float movementSpeed = 50f;
 	public bool homing;
 	public Vector3 targetPos;
 
@@ -14,11 +14,11 @@ public class ProjectileMovement : MonoBehaviour {
 					transform.position = Vector3.Lerp (transform.position, targetPos + new Vector3(0, 15,0), Time.deltaTime * movementSpeed * 10);
 				}
 				else {
-					transform.Translate (Vector3.up * (movementSpeed));
+					transform.Translate (Vector3.up * (movementSpeed) * Time.deltaTime);
 				}
 			} 
 			else {
-				transform.Translate (Vector3.up * (movementSpeed));
+				transform.Translate (Vector3.up * (movementSpeed) * Time.deltaTime);
 			}
 		}
 		else {

@@ -207,7 +207,7 @@ public class Pattern
 			for (int i = 0; i < bulletCount; i++) {
 				newPosition = SpawnInCircle (pos, 1f + (i * 0.1f), GetAng (i, loopCircles));
 				Instantiate (enemyBullet);
-				yield return new WaitForSeconds (coolDown);
+				yield return new WaitForSeconds (coolDown * Time.deltaTime);
 				Game.control.sound.PlaySound ("Enemy", "Shoot", false);
 			}
 
