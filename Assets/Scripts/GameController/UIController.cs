@@ -90,6 +90,10 @@ public class UIController : MonoBehaviour {
     public GameObject optionsContainer;
 	public GameObject optionsValueContainer;
 
+	//
+
+	public GameObject gameOverOptionsContainer;
+
 	void Awake(){
 		ToggleLoadingScreen(false);
 		ToggleBossHealthSlider(false, 0, "");
@@ -114,16 +118,15 @@ public class UIController : MonoBehaviour {
 		TextMeshProUGUI[] allSelections = null;
 		TextMeshProUGUI[] optionsValues = null;
 
-		GameObject panel = null;
-
 		if (context == "PauseMenu") {
 			allSelections = pauseMenuPanel.transform.GetComponentsInChildren<TextMeshProUGUI> ();
-			panel = pauseMenuPanel;
 		}
 		else if(context == "OptionsMenu"){
 			allSelections = optionsContainer.transform.GetComponentsInChildren<TextMeshProUGUI> ();
 			optionsValues = optionsValueContainer.transform.GetComponentsInChildren<TextMeshProUGUI> ();
-			panel = optionsScreen;
+		}
+		else if(context == "GameOverMenu"){
+			allSelections = gameOverOptionsContainer.transform.GetComponentsInChildren<TextMeshProUGUI> ();
 		}
 		
 		foreach (TextMeshProUGUI text in allSelections) {

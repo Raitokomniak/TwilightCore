@@ -9,6 +9,8 @@ public class MenuController : MonoBehaviour
 	public List<string> pauseMenuItems;
 	public List<string> difficultyMenuItems;
 	public List<string> optionsMenuItems;
+	public List<string> gameOverMenuItems;
+
 	List<string> selectedList;
 
 
@@ -27,8 +29,7 @@ public class MenuController : MonoBehaviour
 				if (Input.GetKeyDown (KeyCode.UpArrow)) { 	Game.control.mainMenuUI.UpdateMenuSelection (context, MoveUp ()); };
 				if (Input.GetKeyDown (KeyCode.DownArrow)) { Game.control.mainMenuUI.UpdateMenuSelection (context, MoveDown ()); };
 			}
-			
-			if(context == "PauseMenu" || context == "OptionsMenu") {
+			else {
 				if (Input.GetKeyDown (KeyCode.UpArrow)) 	Game.control.ui.UpdateMenuSelection (context, MoveUp ());
 				if (Input.GetKeyDown (KeyCode.DownArrow)) 	Game.control.ui.UpdateMenuSelection (context, MoveDown ());
 			}
@@ -89,6 +90,11 @@ public class MenuController : MonoBehaviour
 			Game.control.ui.ToggleOptionsScreen(true);
 			Game.control.options.UpdateAllValues();
 		}
+		else if(context == "GameOverMenu"){
+			selectedList = gameOverMenuItems;
+			Game.control.ui.GameOverScreen (true);
+			Game.control.ui.UpdateMenuSelection ("GameOverMenu", 0);
+		}
 
 	}
 
@@ -114,6 +120,11 @@ public class MenuController : MonoBehaviour
 		optionsMenuItems.Add("AutoScroll");
 		optionsMenuItems.Add("BGM Volume");
 		optionsMenuItems.Add("SFX Volume");
+
+		gameOverMenuItems = new List<string>();
+		gameOverMenuItems.Add("Restart Stage");
+		gameOverMenuItems.Add("Main Menu");
+		gameOverMenuItems.Add("Quit");
 
 		selectedList = new List<string>();
 
@@ -144,62 +155,33 @@ public class MenuController : MonoBehaviour
 	void CheckSelection ()
 	{
 		if(context == "MainMenu"){
-			switch (selectedIndex) {
-			case 0: //start
-				Menu("DifficultyMenu");
-				break;
-			case 1: //quit
-				Application.Quit();
-				break;
-			}
+
+			if(selectedIndex == 0) Menu("DifficultyMenu");
+			if(selectedIndex == 1) Application.Quit();
 		}
 		else if(context == "DifficultyMenu"){
-			
-			switch (selectedIndex) {
-			case 0:
-				Game.control.stageHandler.SetDifficulty(1);
-				break;
-			case 1:
-				Game.control.stageHandler.SetDifficulty(3);
-				break;
-			case 2:
-				Game.control.stageHandler.SetDifficulty(5);
-				break;
-			case 3:
-				Game.control.stageHandler.SetDifficulty(10);
-				break;
-			}
+			if(selectedIndex == 0) Game.control.stageHandler.SetDifficulty(1);
+			if(selectedIndex == 1) Game.control.stageHandler.SetDifficulty(3);
+			if(selectedIndex == 2) Game.control.stageHandler.SetDifficulty(5);
+			if(selectedIndex == 3) Game.control.stageHandler.SetDifficulty(10);
 			menuOn = false;
 			Game.control.StartGame ();
 		}
 		else if(context == "PauseMenu"){
-			switch (selectedIndex) {
-			case 0: //resume
+			if(selectedIndex == 0) {
 				Game.control.pause.HandlePause();
 				menuOn = false;
-				break;
-			case 1: //restart
-				Game.control.stageHandler.RestartStage (Game.control.stageHandler.currentStage);
-				break;
-			case 2: //options
-				Menu("OptionsMenu");
-				break;
-			case 3: //quit
-				Application.Quit();
-				break;
 			}
-
+			if(selectedIndex == 1) Game.control.stageHandler.RestartStage (Game.control.stageHandler.currentStage);
+			if(selectedIndex == 2) Menu("OptionsMenu");
+			if(selectedIndex == 3) Application.Quit();
 			Game.control.ui.UpdateMenuSelection (context, 0);
 		}
-		/*
-		else if(context == "Options"){
-			switch (selectedIndex) {
-			case 0: //autoscroll
-				Debug.Log("Edit autoscroll value");
-				break;
-			}
-
-		}*/
+		else if(context == "GameOverMenu"){
+			if(selectedIndex == 0) Game.control.stageHandler.RestartStage (Game.control.stageHandler.currentStage);
+			if(selectedIndex == 1) Game.control.MainMenu();
+			if(selectedIndex == 2) Application.Quit();
+		}
 
 		
 	}

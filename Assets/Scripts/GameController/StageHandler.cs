@@ -65,7 +65,6 @@ public class StageHandler : MonoBehaviour {
 
 	public void EndHandler (string endType)
 	{
-		Debug.Log("Endhandler");
 		switch (endType) {
 		case "GameOver":
 			deathRoutine = DeathHandling();
@@ -96,7 +95,7 @@ public class StageHandler : MonoBehaviour {
 		yield return new WaitForSeconds (2);
 
 		Game.control.sound.StopMusic ();
-		Game.control.ui.GameOverScreen (true);
+		Game.control.menu.Menu("GameOverMenu");
 
 		stageScript.StopStage();
 		stageTimerOn = false;
