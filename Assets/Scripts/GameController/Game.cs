@@ -58,8 +58,7 @@ public class Game : MonoBehaviour {
 
 		menu.InitMenu ();
 		sound.InitSound ();
-		if(options.LoadOptions()) Debug.Log("options loaded");
-		else Debug.Log("no options file");
+		
 
 		 //THIS DATAPATH HAS TO BE CHANGED TO BUILD DATAPATH
 		appDataPath = Application.dataPath;
@@ -78,6 +77,8 @@ public class Game : MonoBehaviour {
 		mainMenuUI.InitMainMenu ();
 		sound.PlayMusic ("MainMenu");
 		menu.Menu("MainMenu");
+		if(options.LoadOptions()) Debug.Log("options loaded");
+		else Debug.Log("no options file");
 		yield return new WaitForEndOfFrame();
 	}
 

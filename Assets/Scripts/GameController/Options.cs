@@ -129,6 +129,6 @@ public class Options : MonoBehaviour
         Game.control.dialog.autoScroll = options.autoScroll;
         Game.control.sound.SetBGMVolume(options.bgmVolume);
         Game.control.sound.SetSFXVolume(options.sfxVolume);
-        if(Game.control.ui != null) UpdateAllValues();
+        UpdateAllValues();
     }
 }

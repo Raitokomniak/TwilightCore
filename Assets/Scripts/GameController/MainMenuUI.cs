@@ -8,9 +8,14 @@ public class MainMenuUI : MonoBehaviour
 {
 	public Transform mainMenuPanel;
 	public Transform difficultyPanel;
+
+	public GameObject difficultyContainer;
+
 	public GameObject optionsPanel;
     public GameObject optionsContainer;
 	public GameObject optionsValueContainer;
+
+	TextMeshProUGUI[] menuTexts = null;
 
    	public void InitMainMenu(){
         gameObject.SetActive(true);
@@ -18,16 +23,20 @@ public class MainMenuUI : MonoBehaviour
 	}
 
 	public void UpdateMenuSelection(string context, int index){
-		TextMeshProUGUI[] menuTexts = null;
 
 		if(context == "MainMenu") menuTexts = mainMenuPanel.GetComponentsInChildren<TextMeshProUGUI>();
-		else if(context == "DifficultyMenu") menuTexts = difficultyPanel.GetComponentsInChildren<TextMeshProUGUI>();
+		else if(context == "DifficultyMenu") menuTexts = difficultyContainer.GetComponentsInChildren<TextMeshProUGUI>();
 		else if(context == "OptionsMenu") menuTexts = optionsContainer.GetComponentsInChildren<TextMeshProUGUI>();
 
 		foreach (TextMeshProUGUI textObject in menuTexts) {
 			textObject.fontStyle = FontStyles.Normal;
 		}
 		menuTexts[index].fontStyle = FontStyles.Bold;
+	}
+
+	public void UpdateAutoScrollInfo(bool autoScroll){
+		if(autoScroll) menuTexts[0].text = "Autoscroll: ON";
+		else menuTexts[0].text = "Autoscroll: OFF";
 	}
 
 	public void ToggleMainMenu(bool toggle){

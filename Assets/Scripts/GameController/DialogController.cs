@@ -39,7 +39,8 @@ public class DialogController : MonoBehaviour {
 
 	public void ToggleAutoScroll(bool toggle){
 		autoScroll = toggle;
-		Game.control.ui.UpdateAutoScrollInfo(autoScroll);
+		if(Game.control.mainMenuUI == null) Game.control.ui.UpdateAutoScrollInfo(autoScroll);
+		else  Game.control.mainMenuUI.UpdateAutoScrollInfo(autoScroll);
 	}
 
 	public void Init(){

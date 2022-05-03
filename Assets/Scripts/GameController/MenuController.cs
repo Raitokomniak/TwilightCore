@@ -58,6 +58,9 @@ public class MenuController : MonoBehaviour
 				if(context == "PauseMenu"){
 					ClosePauseMenu();
 				}
+				else if(context == "DifficultyMenu"){
+					Menu("MainMenu");
+				}
 				else if(context == "OptionsMenu"){
 					if(Game.control.mainMenuUI == null) Menu("PauseMenu");
 					else {
