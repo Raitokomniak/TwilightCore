@@ -23,6 +23,9 @@ public class SoundController : MonoBehaviour {
 	AudioClip enemyDie;
 	AudioClip takeHit;
 
+	//Volumes
+	public float SFXVolume;
+
 	void Awake(){
 		mainmenu = Resources.Load ("Sound/Music/MainMenu") as AudioClip;
 		//stage1 = Resources.Load ("Sound/Music/Stage1") as AudioClip;
@@ -34,13 +37,28 @@ public class SoundController : MonoBehaviour {
 		enemyDie = Resources.Load ("Sound/Die") as AudioClip;
 	}
 
+	public float GetBGMVolume(){
+		return bgMusicSource.volume;
+	}
+
+	public void SetBGMVolume(float value){
+		bgMusicSource.volume = value;
+	}
+
+	public void SetSFXVolume(float value){
+		SFXVolume = value;
+		playerSoundFXSource.volume = value;
+		enemySoundFXSource.volume = value;
+	}
+
+
 	public void InitSound(){
 		playerSoundFXSource = this.gameObject.AddComponent<AudioSource> ();
 		enemySoundFXSource = this.gameObject.AddComponent<AudioSource> ();
 		bgMusicSource = this.gameObject.AddComponent<AudioSource> ();
 
-		playerSoundFXSource.volume = 0.1f;
-		enemySoundFXSource.volume = 0.1f;
+		SetSFXVolume(1f);
+		SetBGMVolume(1f);
 
 		bossMusicPlaying = false;
 
@@ -65,6 +83,9 @@ public class SoundController : MonoBehaviour {
 		s.PlayOneShot (Resources.Load ("Sound/Darkness8") as AudioClip);
 	}
 
+	public void PlayExampleSound(){
+		playerSoundFXSource.PlayOneShot (shoot);
+	}
 
 	public void PlaySound(string source, string sound, bool oneShot)
 	{

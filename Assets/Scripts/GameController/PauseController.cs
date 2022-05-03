@@ -3,39 +3,29 @@ using System.Collections;
 
 public class PauseController : MonoBehaviour {
 	public bool paused;
-
 	float initialTime;
 
-	// Use this for initialization
 	void Awake () {
 		paused = false;
 		initialTime = Time.timeScale;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		/*if(Game.control.stageHandler.stageOn && Input.GetKeyDown(KeyCode.Escape))
-		{
-			HandlePause();
-		}*/
 	}
 
 	public void HandlePause()
 	{
 		if(Game.control.stageHandler.stageOn){
 			if(!paused)
-			{
-				Game.control.sound.PauseMusic ();
-				paused = true;
-				Game.control.ui.PauseScreen(true);
-				ResetTimeScale (false);
-			}
+				Pause();
 			else
-			{
 				Unpause (true);
-			}
 		}
 		
+	}
+
+	void Pause(){
+		paused = true;
+		Game.control.sound.PauseMusic ();
+		Game.control.ui.PauseScreen(true);
+		ResetTimeScale (false);
 	}
 
 	public void Unpause(bool resumeMusic){

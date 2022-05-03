@@ -170,6 +170,7 @@ public class StageHandler : MonoBehaviour {
 		Game.control.player.Init ();
 		Game.control.dialog.Init();
 		Game.control.ui.InitStage ();
+		Game.control.menu.InitMenu();
 		Game.control.enemyLib.InitEnemyLib ();
 
 		Game.control.player.gameObject.SetActive (true);

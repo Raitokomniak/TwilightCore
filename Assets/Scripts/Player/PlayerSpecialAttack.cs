@@ -37,7 +37,8 @@ public class PlayerSpecialAttack : MonoBehaviour {
 	}
 
 	void Update () {
-		if(!specialAttack && Input.GetKeyDown(KeyCode.X) && !Game.control.dialog.handlingDialog)
+		//MAKE A SINGLE CHECK FUNC
+		if(!Game.control.menu.menuOn && !specialAttack && Input.GetKeyDown(KeyCode.X) && !Game.control.dialog.handlingDialog)
 		{
 			if (!GetComponent<PlayerMovement>().focusMode && dayCorePoints >= 20) {
 				StartCoroutine(SpecialAttack ("Day"));

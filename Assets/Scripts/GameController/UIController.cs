@@ -120,7 +120,7 @@ public class UIController : MonoBehaviour {
 			allSelections = pauseMenuPanel.transform.GetComponentsInChildren<TextMeshProUGUI> ();
 			panel = pauseMenuPanel;
 		}
-		else if(context == "Options"){
+		else if(context == "OptionsMenu"){
 			allSelections = optionsContainer.transform.GetComponentsInChildren<TextMeshProUGUI> ();
 			optionsValues = optionsValueContainer.transform.GetComponentsInChildren<TextMeshProUGUI> ();
 			panel = optionsScreen;
@@ -129,16 +129,13 @@ public class UIController : MonoBehaviour {
 		foreach (TextMeshProUGUI text in allSelections) {
 			text.fontStyle = TMPro.FontStyles.Normal;
 		}
-		if(context == "Options"){
+		if(context == "OptionsMenu"){
 			foreach (TextMeshProUGUI text in optionsValues) {
 				text.fontStyle = TMPro.FontStyles.Normal;
 			}
 		}
-
-		//panel.transform.GetChild (index).GetComponent<Text> ().fontStyle = FontStyle.Bold;
-		Debug.Log(allSelections.Length +" length vs index " + index);
 		allSelections[index].fontStyle = TMPro.FontStyles.Bold;
-		if(context == "Options") optionsValues[index].fontStyle = TMPro.FontStyles.Bold;
+		if(context == "OptionsMenu") optionsValues[index].fontStyle = TMPro.FontStyles.Bold;
 	}
 
 	public void UpdateOptionSelection(int index, string text){

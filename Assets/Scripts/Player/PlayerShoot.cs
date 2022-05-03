@@ -62,7 +62,7 @@ public class PlayerShoot : MonoBehaviour {
 	}
 
 	void Update () {
-		if(init){
+		if(init && !Game.control.menu.menuOn){
 			if(Input.GetKey	(KeyCode.Z) 
 			&& coolDownTimer <= 0 
 			&& !Game.control.stageHandler.gameOver 
