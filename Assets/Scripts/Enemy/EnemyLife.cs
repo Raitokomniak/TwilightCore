@@ -39,6 +39,8 @@ public class EnemyLife : MonoBehaviour {
 
 	public void TakeHit(float damage)
 	{
+		Game.control.player.GainScore(Mathf.RoundToInt(damage));
+		
 		if(!invulnerable && !Game.control.stageHandler.gameOver){
 			if(GetComponent<Phaser>() != null){
 				if (GetComponent<Phaser>().superPhase) {
