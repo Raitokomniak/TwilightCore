@@ -77,7 +77,7 @@ public class PlayerHandler : MonoBehaviour {
 
 
 	public void GainScore(int gained){
-		stats.score += gained;
+		stats.score += gained * Game.control.stageHandler.difficultyMultiplier;
 		if (stats.score >= stats.hiScore) {
 			stats.hiScore = stats.score;
 			Game.control.ui.UpdateHiScore (stats.hiScore);
