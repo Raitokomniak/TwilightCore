@@ -13,7 +13,8 @@ public class Stage1 : Stage
 		SceneHandler scene = Game.control.scene;
 		Game.control.ui.UpdateStageText (stageHandler.currentStage);
 
-		while (scene == null) yield return null;
+		while (Game.control.dialog.handlingDialog) yield return null;
+		
 		while (stageHandler.stageTimer < 4f) yield return null;
 		while (stageHandler.stageTimer < 8f) yield return null;
 		scene.SetPlaneSpeed (10f);
@@ -29,16 +30,20 @@ public class Stage1 : Stage
 		scene.RotateCamera (25, 0, 5);
 
 		scene.SetPlaneSpeed (10f);
+		while(stageHandler.stageTimer < 50f) yield return null;
+		Game.control.dialog.StartDialog ("Stage1_1");
 		while (stageHandler.stageTimer < 55f) yield return null;
 		
 		while (!Game.control.enemySpawner.midBossWave.dead) yield return null;
 		yield return new WaitForSeconds (1f);
-		Game.control.dialog.StartDialog ("Boss", 0.5f, true);
+		Game.control.dialog.StartDialog ("Stage1_2");
 		while (Game.control.dialog.handlingDialog) yield return null;
 		scene.SetPlaneSpeed (15f);
 
 		while (stageHandler.stageTimer < 96f) yield return null;
+		Game.control.dialog.StartDialog ("Boss1");
 		scene.SetPlaneSpeed (3f);
+	
 	}
 
 	public override void InitWaves(float difficultyMultiplier) {
@@ -55,7 +60,7 @@ public class Stage1 : Stage
 			p.Customize (new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
 			p.SetSprite ("Circle", "Big", "Red");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
 			lib.NewWave (lib.stageWaves, new Wave (1f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
-																				// .6f
+																			// .6f
 			
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.Customize ("LeaveDir", "Left");

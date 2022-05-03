@@ -3,133 +3,100 @@ using System.Collections;
 using System.IO;
 
 public class DialogController : MonoBehaviour {
-	public TextAsset dialogueText;
-	public ArrayList lines;
+
 	public ArrayList lineList;
-	public ArrayList chains;
-
-	char delimiterChar;
-
-	string phase;
-
 	public bool handlingDialog;
-	StreamReader reader;
-	int localStoryProgression;
-	string speaker;
-	string text;
 	int lineIndex;
 	bool endOfDialogueChain;
-	bool auto;
+	public bool autoScroll;
 
-	bool init;
-	IEnumerator autoDialog;
-
+	IEnumerator dialogRoutine;
+	float autoScrollTimer = 0;
+	float autoScrollTime = 2.5f;
+	bool advanceDialogTrigger;
 	
-	// Update is called once per frame
-	void Update () {
+
+	void LateUpdate () {
 		if(handlingDialog){
-			if (Input.GetKeyDown (KeyCode.Z) && !auto){
-				StopCoroutine (autoDialog);
-				CheckForDialogue ();	
+			if(autoScroll){
+
+				if(autoScrollTimer < autoScrollTime)
+					autoScrollTimer += Time.deltaTime;
+				else
+					AdvanceDialog();
+			}
+
+			if (Input.GetKeyDown (KeyCode.Z)){
+				AdvanceDialog();
 			}
 		}
 	}
 
-	public void InitDialog(){
-		//Debug.Log ("init dialog");
-		speaker = "";
-		text = "";
+	void AdvanceDialog(){
+		advanceDialogTrigger = true;
+		autoScrollTimer = 0;
+	}
 
-		localStoryProgression = 0;
+	public void ToggleAutoScroll(bool toggle){
+		autoScroll = toggle;
+		Game.control.ui.UpdateAutoScrollInfo(autoScroll);
+	}
+
+	public void Init(){
 		lineIndex = 0;
 		handlingDialog = false;
-		init = true;
-
-
+		ToggleAutoScroll(true); //MAKE THIS AN OPTION
 	}
 
 
-	public void StartDialog(string _phase, float index, bool _auto)
-	{
-		
-		auto = _auto;
-//		Debug.Log ("start dialog " + _phase);
-		if (!init)
-			InitDialog ();
-		
-		phase = _phase;
-		TextAsset dialogueText = Resources.Load<TextAsset> ("DialogText/" + _phase + index + "Dialog");
-		handlingDialog = true;
+	public void StartDialog(string _phase)
+	{	
 		Game.control.ui.ToggleDialog(true);
+		if(_phase.Contains("Boss")) Game.control.ui.InitSpeakers ("Soma", _phase);
+		else Game.control.ui.InitSpeakers ("Soma", "");
 
-		Game.control.ui.InitSpeakers ("Soma", _phase, index);
-		if (_phase == "Boss") {
-			switch(Mathf.RoundToInt(index))
-			{
-			case 1:
-				Game.control.ui.UpdateBossInfo ("Silvi", "Friendly Huldra");
-				break;
-			}
+		handlingDialog = true;
+
+		if (_phase == "Boss1") {
+			Game.control.ui.UpdateBossInfo ("Silvi", "Friendly Huldra");
 		}
 
-
-
-		chains = new ArrayList ();
-		delimiterChar = '=';
-
-		chains.AddRange(dialogueText.text.Split(delimiterChar));
+		TextAsset dialogueText = Resources.Load<TextAsset> ("DialogText/" + _phase);
 		lineList = new ArrayList ();
-		lineList.InsertRange(0, chains[localStoryProgression].ToString().Split("\n" [0]));
+		lineList.InsertRange(0, dialogueText.text.Split("\n" [0]));
 		lineIndex = -1;
-		CheckForDialogue();
 
+		dialogRoutine = DialogRoutine();
+		StartCoroutine(dialogRoutine);
 	}
 		
-	public void GetDialogue(){
+	public void GetDialog(){
 		lineIndex++;
 		ArrayList parsedLines = new ArrayList ();
 		parsedLines.AddRange (lineList [lineIndex].ToString ().Split ("\t" [0]));
-		speaker = parsedLines [0].ToString ();
-		text = parsedLines [1].ToString ();
 
-		Game.control.ui.UpdateDialog (speaker, text);
+		Game.control.ui.UpdateDialog (parsedLines [0].ToString (), parsedLines [1].ToString ());
 
 		if ((lineIndex + 1) == lineList.Count) {
 			endOfDialogueChain = true;
 			lineIndex = 0;
 		}
-		//EndDialog ();
-
-		//CheckForDialogue ();
-		autoDialog = AutoDialog ();
-		StartCoroutine(autoDialog);
 	}
 
-	void CheckForDialogue(){
-		//EndDialog ();
-		//Debug.Log(endOfDialogueChain);
-		if (!endOfDialogueChain) {
-			GetDialogue ();
+	IEnumerator DialogRoutine(){
+		while(!endOfDialogueChain){
+			GetDialog ();
 			Game.control.ui.ToggleDialog (true);
 			handlingDialog = true;
-		} else {
-			Game.control.ui.ToggleDialog(false);
-			EndDialog ();
+			yield return new WaitUntil(() => advanceDialogTrigger == true);
+			advanceDialogTrigger = false;
 		}
-	}
 
-
-	IEnumerator AutoDialog()
-	{
-//		Debug.Log ("autodialog " + auto);
-		yield return new WaitForSeconds (1);
-		if(!auto) yield return new WaitForSeconds (2);
-		CheckForDialogue ();
+		EndDialog ();
 	}
 
 	public void EndDialog()
 	{
-		//reader.Close();
 		Game.control.ui.ToggleDialog(false);
 		handlingDialog = false;
 		endOfDialogueChain = false;

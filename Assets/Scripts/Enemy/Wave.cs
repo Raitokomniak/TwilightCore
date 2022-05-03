@@ -109,7 +109,7 @@ public class Wave
 				enemy.tag = "Boss";
 				enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0.3f);
 				Game.control.stageHandler.ToggleTimer (false);
-				Game.control.dialog.StartDialog ("Boss", bossIndex, false);
+				Game.control.dialog.StartDialog ("Boss1");
 
 			} else {
 				enemy.tag = "MidBoss";

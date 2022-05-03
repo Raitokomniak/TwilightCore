@@ -54,7 +54,8 @@ public class EnemySpawner : MonoBehaviour {
 		Game.control.stageHandler.InitWaves (currentStage);
 		currentWave = 0;
 		waves = Game.control.enemyLib.stageWaves;
-		bossWave = (Wave)waves [waves.Count - 1];
+		if(waves != null) {
+			bossWave = (Wave)waves [waves.Count - 1];
 
 		foreach (Wave w in waves) {
 			if (w.isMidBoss) {
@@ -65,6 +66,8 @@ public class EnemySpawner : MonoBehaviour {
 			}
 		}
 		started = true;
+		}
+		else {Debug.Log("Waves null");}
 	}
 
 	void InitializeWave(){	

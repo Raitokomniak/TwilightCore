@@ -25,7 +25,8 @@ public class SoundController : MonoBehaviour {
 
 	void Awake(){
 		mainmenu = Resources.Load ("Sound/Music/MainMenu") as AudioClip;
-		stage1 = Resources.Load ("Sound/Music/Stage1") as AudioClip;
+		//stage1 = Resources.Load ("Sound/Music/Stage1") as AudioClip;
+		stage1 = Resources.Load("Sound/Music/asura-who-remain-asura_piano") as AudioClip; //THIS IS JUST FOR FUN
 		boss1 = Resources.Load ("Sound/Music/Boss1") as AudioClip;
 
 		shoot = Resources.Load ("Sound/Shoot") as AudioClip;

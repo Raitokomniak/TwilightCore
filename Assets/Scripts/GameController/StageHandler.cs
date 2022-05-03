@@ -101,6 +101,7 @@ public class StageHandler : MonoBehaviour {
 		stageScript.StopStage();
 		stageTimerOn = false;
 		Game.control.enemySpawner.AbortSpawner();
+		Game.control.dialog.EndDialog();
 
 	}
 
@@ -167,6 +168,7 @@ public class StageHandler : MonoBehaviour {
 		Game.control.menu.ToggleMenu (false);
 		Game.control.scene.SetUpEnvironment ();
 		Game.control.player.Init ();
+		Game.control.dialog.Init();
 		Game.control.ui.InitStage ();
 		Game.control.enemyLib.InitEnemyLib ();
 

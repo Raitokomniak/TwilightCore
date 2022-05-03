@@ -88,6 +88,8 @@ public class UIController : MonoBehaviour {
 	public TextMeshProUGUI bossDialogName;
 	public TextMeshProUGUI bossDialogDescription;
 
+	public TextMeshProUGUI autoScrollInfo;
+
 
 	void Awake(){
 		ToggleLoadingScreen(false);
@@ -557,31 +559,28 @@ public class UIController : MonoBehaviour {
 		dialog.SetActive(value);
 	}
 
-	public void InitSpeakers(string main, string boss, float index)
+	public void InitSpeakers(string main, string boss)
 	{
 		dialogRightChar.gameObject.SetActive (false);
 		dialogLeftChar.gameObject.SetActive (false);
-		switch (main) {
-		case "Soma":
+		
+		if(main != ""){
 			dialogRightChar.gameObject.SetActive (true);	
 			dialogRightChar.sprite = Resources.Load<Sprite> ("Images/DialogCharacters/mainchar");
-			break;
-		default:
-			
-			break;
 		}
 
-		if (boss.Contains ("Boss")) {
-			if (index != 0.5) {
-				bossDialogName.transform.parent.gameObject.SetActive (true);
-				dialogLeftChar.gameObject.SetActive (true);
-				dialogLeftChar.sprite = Resources.Load<Sprite> ("Images/DialogCharacters/Boss" + index);
-			}
+		if (boss != "") {
+			bossDialogName.transform.parent.gameObject.SetActive (true);
+			dialogLeftChar.gameObject.SetActive (true);
+			dialogLeftChar.sprite = Resources.Load<Sprite> ("Images/DialogCharacters/" + boss);
 		} else {
 			bossDialogName.transform.parent.gameObject.SetActive (false);
 		}
 	}
-
+	public void UpdateAutoScrollInfo(bool autoScroll){
+		if(autoScroll) autoScrollInfo.text = "Autoscroll: ON";
+		else autoScrollInfo.text = "Autoscroll: OFF";
+	}
 	public void UpdateDialog(string name, string content){
 
 
