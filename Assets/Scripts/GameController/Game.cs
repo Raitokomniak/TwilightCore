@@ -61,6 +61,7 @@ public class Game : MonoBehaviour {
 		if(options.LoadOptions()) Debug.Log("options loaded");
 		else Debug.Log("no options file");
 
+		 //THIS DATAPATH HAS TO BE CHANGED TO BUILD DATAPATH
 		appDataPath = Application.dataPath;
 	}
 

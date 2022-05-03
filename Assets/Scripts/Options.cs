@@ -88,11 +88,13 @@ public class Options : MonoBehaviour
         options.bgmVolume = Game.control.sound.GetBGMVolume();
         options.sfxVolume = Game.control.sound.SFXVolume;
         string dataString = JsonUtility.ToJson(options);
+        //THIS DATAPATH HAS TO BE CHANGED TO BUILD DATAPATH
         File.WriteAllText(Game.control.appDataPath + "/Resources/json/options.json", dataString);
         return true;
     }
 
     public bool LoadOptions(){
+         //THIS DATAPATH HAS TO BE CHANGED TO BUILD DATAPATH
         if(File.Exists(Game.control.appDataPath + "/Resources/json/options.json")){
             string rawJson = File.ReadAllText(Game.control.appDataPath + "/Resources/json/options.json");
             options = JsonUtility.FromJson<OptionsValues>(rawJson);
