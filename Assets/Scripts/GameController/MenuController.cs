@@ -29,13 +29,25 @@ public class MenuController : MonoBehaviour
 				if (Input.GetKeyDown (KeyCode.UpArrow)) { 	Game.control.mainMenuUI.UpdateMenuSelection (context, MoveUp ()); };
 				if (Input.GetKeyDown (KeyCode.DownArrow)) { Game.control.mainMenuUI.UpdateMenuSelection (context, MoveDown ()); };
 			}
-			else {
+			else if (context == "PauseMenu" || context == "GameOverMenu") {
 				if (Input.GetKeyDown (KeyCode.UpArrow)) 	Game.control.ui.UpdateMenuSelection (context, MoveUp ());
 				if (Input.GetKeyDown (KeyCode.DownArrow)) 	Game.control.ui.UpdateMenuSelection (context, MoveDown ());
 			}
 
 			if(context == "OptionsMenu"){
-				//if (Input.GetKeyDown (KeyCode.Z)) CheckSelection ();	
+				//if (Input.GetKeyDown (KeyCode.Z)) CheckSelection ();
+				if (Input.GetKeyDown (KeyCode.UpArrow)) 	
+					if(Game.control.mainMenuUI == null) 
+						Game.control.ui.UpdateMenuSelection (context, MoveUp ());
+					else 
+						Game.control.mainMenuUI.UpdateMenuSelection (context, MoveUp ());
+
+				if (Input.GetKeyDown (KeyCode.DownArrow)) 	
+					if(Game.control.mainMenuUI == null) 
+						Game.control.ui.UpdateMenuSelection (context, MoveDown ());
+					else
+						Game.control.mainMenuUI.UpdateMenuSelection (context, MoveDown ());
+
 				if (Input.GetKeyDown (KeyCode.RightArrow)) 	Game.control.options.UpdateOption(true, selectedIndex);
 				if (Input.GetKeyDown (KeyCode.LeftArrow)) 	Game.control.options.UpdateOption(false, selectedIndex);
 			}
@@ -47,13 +59,16 @@ public class MenuController : MonoBehaviour
 					ClosePauseMenu();
 				}
 				else if(context == "OptionsMenu"){
-					Menu("PauseMenu");
+					if(Game.control.mainMenuUI == null) Menu("PauseMenu");
+					else {
+						Menu("MainMenu");
+					}
 				}
 			}
 		}
 
 		else { //IF MENU NOT ON, TOGGLE ON
-			if(Game.control.stageHandler.stageOn && Input.GetKeyDown(KeyCode.Escape)){
+			if(Game.control.mainMenuUI == null && Game.control.stageHandler.stageOn && Input.GetKeyDown(KeyCode.Escape)){
 				Menu("PauseMenu");
 				Game.control.pause.HandlePause();
 			}
@@ -73,6 +88,7 @@ public class MenuController : MonoBehaviour
 
 		if(context == "MainMenu"){
 			selectedList = mainMenuItems;
+			Game.control.mainMenuUI.ToggleMainMenu(true);
 			Game.control.mainMenuUI.UpdateMenuSelection ("MainMenu", 0);
 		}
 		else if(context == "PauseMenu") {
@@ -90,11 +106,20 @@ public class MenuController : MonoBehaviour
 			Game.control.ui.ToggleOptionsScreen(true);
 			Game.control.options.UpdateAllValues();
 		}
+		else if(context == "OptionsMenuMain"){
+			selectedList = optionsMenuItems;
+			Game.control.mainMenuUI.ToggleOptions(true);
+			Game.control.mainMenuUI.UpdateMenuSelection ("OptionsMenu", 0);
+			Game.control.options.UpdateAllValues();
+			context = "OptionsMenu";
+		}
 		else if(context == "GameOverMenu"){
 			selectedList = gameOverMenuItems;
 			Game.control.ui.GameOverScreen (true);
 			Game.control.ui.UpdateMenuSelection ("GameOverMenu", 0);
 		}
+
+
 
 	}
 
@@ -102,6 +127,7 @@ public class MenuController : MonoBehaviour
 		//INSTEAD OF ITEMS, JUST FOLLOW INDEX
 		mainMenuItems = new List<string>();
 		mainMenuItems.Add ("Start Game");
+		mainMenuItems.Add ("Options");
 		mainMenuItems.Add ("Quit Game");
 
 		difficultyMenuItems = new List<string>();
@@ -157,7 +183,8 @@ public class MenuController : MonoBehaviour
 		if(context == "MainMenu"){
 
 			if(selectedIndex == 0) Menu("DifficultyMenu");
-			if(selectedIndex == 1) Application.Quit();
+			if(selectedIndex == 1) Menu("OptionsMenuMain");
+			if(selectedIndex == 2) Application.Quit();
 		}
 		else if(context == "DifficultyMenu"){
 			if(selectedIndex == 0) Game.control.stageHandler.SetDifficulty(1);

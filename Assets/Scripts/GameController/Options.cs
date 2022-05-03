@@ -18,6 +18,9 @@ public class Options : MonoBehaviour
 {
     OptionsValues options;
 
+   // public GameObject optionsContainer;
+	//public GameObject optionsValueContainer;
+
     public void UpdateOption(bool increase, int index){
         if(index == 0)
             AutoScrollOption();
@@ -64,16 +67,34 @@ public class Options : MonoBehaviour
 
     public void UpdateValueToUI(int index){
         if(index == 0){
-            if(Game.control.dialog.autoScroll) Game.control.ui.UpdateOptionSelection(0,"ON");
-            else Game.control.ui.UpdateOptionSelection(0,"OFF");
+            if(Game.control.mainMenuUI != null){
+                if(Game.control.dialog.autoScroll) Game.control.mainMenuUI.UpdateOptionSelection(0,"ON");
+                else Game.control.mainMenuUI.UpdateOptionSelection(0,"OFF");
+            }
+            else {
+                if(Game.control.dialog.autoScroll) Game.control.ui.UpdateOptionSelection(0,"ON");
+                else Game.control.ui.UpdateOptionSelection(0,"OFF");
+            }
+            
         }
         if(index == 1){
             float bgmVol = Game.control.sound.GetBGMVolume() * 10f;
-            Game.control.ui.UpdateOptionSelection(1, bgmVol.ToString("F0"));
+
+            if(Game.control.mainMenuUI != null)
+                Game.control.mainMenuUI.UpdateOptionSelection(1, bgmVol.ToString("F0"));
+            else {
+                Game.control.ui.UpdateOptionSelection(1, bgmVol.ToString("F0"));
+            }
+            
         }
         if(index == 2){
             float sfxVol = Game.control.sound.SFXVolume * 10f;
-            Game.control.ui.UpdateOptionSelection(2, sfxVol.ToString("F0"));
+
+            if(Game.control.mainMenuUI != null)
+                Game.control.mainMenuUI.UpdateOptionSelection(2, sfxVol.ToString("F0"));
+            else {
+                Game.control.ui.UpdateOptionSelection(2, sfxVol.ToString("F0"));
+            }
         }
     }
     public void UpdateAllValues(){

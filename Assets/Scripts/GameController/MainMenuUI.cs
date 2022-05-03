@@ -6,13 +6,11 @@ using TMPro;
 
 public class MainMenuUI : MonoBehaviour
 {
-	public List<TextMeshProUGUI> mainMenuTexts;
-	public List<TextMeshProUGUI> difficultyMenuTexts;
-
 	public Transform mainMenuPanel;
 	public Transform difficultyPanel;
 	public GameObject optionsPanel;
     public GameObject optionsContainer;
+	public GameObject optionsValueContainer;
 
    	public void InitMainMenu(){
         gameObject.SetActive(true);
@@ -20,9 +18,11 @@ public class MainMenuUI : MonoBehaviour
 	}
 
 	public void UpdateMenuSelection(string context, int index){
-		List<TextMeshProUGUI> menuTexts = new List<TextMeshProUGUI>();
-		if(context == "MainMenu") menuTexts = mainMenuTexts;
-		else if(context == "DifficultyMenu") menuTexts = difficultyMenuTexts;
+		TextMeshProUGUI[] menuTexts = null;
+
+		if(context == "MainMenu") menuTexts = mainMenuPanel.GetComponentsInChildren<TextMeshProUGUI>();
+		else if(context == "DifficultyMenu") menuTexts = difficultyPanel.GetComponentsInChildren<TextMeshProUGUI>();
+		else if(context == "OptionsMenu") menuTexts = optionsContainer.GetComponentsInChildren<TextMeshProUGUI>();
 
 		foreach (TextMeshProUGUI textObject in menuTexts) {
 			textObject.fontStyle = FontStyles.Normal;
@@ -32,7 +32,8 @@ public class MainMenuUI : MonoBehaviour
 
 	public void ToggleMainMenu(bool toggle){
 		difficultyPanel.gameObject.SetActive(false);
-		mainMenuTexts[0].fontStyle = FontStyles.Bold;
+		optionsPanel.SetActive(false);
+		mainMenuPanel.GetComponentsInChildren<TextMeshProUGUI>()[0].fontStyle = FontStyles.Bold;
 		mainMenuPanel.gameObject.SetActive(toggle);
 	}
 
@@ -41,8 +42,15 @@ public class MainMenuUI : MonoBehaviour
 		mainMenuPanel.gameObject.SetActive(false);
 	}
 
-	public void ToggleOptions(){
-		mainMenuPanel.gameObject.SetActive(false);
-		optionsPanel.SetActive(true);
+	public void ToggleOptions(bool toggle){
+		mainMenuPanel.gameObject.SetActive(!toggle);
+		optionsPanel.SetActive(toggle);
+		//if(toggle) Game.control.menu.Menu("OptionsMenuMain");
+	}
+
+	
+	public void UpdateOptionSelection(int index, string text){
+		TextMeshProUGUI option = optionsValueContainer.transform.GetChild(index).GetComponent<TextMeshProUGUI>();
+		option.text = text;
 	}
 }
