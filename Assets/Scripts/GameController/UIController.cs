@@ -577,6 +577,7 @@ public class UIController : MonoBehaviour {
 	// DIALOG
 
 	public void ToggleDialog(bool value){
+		
 		dialog.SetActive(value);
 	}
 

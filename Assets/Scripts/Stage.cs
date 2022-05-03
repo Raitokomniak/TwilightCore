@@ -13,8 +13,8 @@ public class Stage : MonoBehaviour
         InitWaves(stageHandler.difficultyMultiplier);
 		
     }
-    public void StopStage(){
-        StopCoroutine(stageHandlerRoutine);
+    public virtual void StopStage(){
+       StopCoroutine(stageHandlerRoutine);
     }
 
     public virtual void StartStageHandler(){}

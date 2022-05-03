@@ -51,6 +51,8 @@ public class DialogController : MonoBehaviour {
 
 	public void StartDialog(string _phase)
 	{	
+
+		Debug.Log("start dialog");
 		Game.control.ui.ToggleDialog(true);
 		if(_phase.Contains("Boss")) Game.control.ui.InitSpeakers ("Soma", _phase);
 		else Game.control.ui.InitSpeakers ("Soma", "");
@@ -86,7 +88,7 @@ public class DialogController : MonoBehaviour {
 	IEnumerator DialogRoutine(){
 		while(!endOfDialogueChain){
 			GetDialog ();
-			Game.control.ui.ToggleDialog (true);
+			//Game.control.ui.ToggleDialog (true);
 			handlingDialog = true;
 			yield return new WaitUntil(() => advanceDialogTrigger == true);
 			advanceDialogTrigger = false;

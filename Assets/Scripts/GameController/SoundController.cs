@@ -132,6 +132,8 @@ public class SoundController : MonoBehaviour {
 
 	public void PlayMusic(string music)
 	{
+		bgMusicSource.Stop ();
+		
 		if (music.Contains ("Boss")) {
 			bossMusicPlaying = true;
 		}

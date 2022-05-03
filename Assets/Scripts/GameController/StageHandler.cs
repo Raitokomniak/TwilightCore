@@ -158,11 +158,12 @@ public class StageHandler : MonoBehaviour {
 	IEnumerator StartStageRoutine(){
 		AsyncOperation loadScene = SceneManager.LoadSceneAsync("Level1");
 		yield return new WaitUntil(() => loadScene.isDone == true);
-	
+		ToggleTimer (false);
 		Game.control.ui = GameObject.Find("StageCanvas").GetComponent<UIController>();
 		Game.control.ui.ToggleLoadingScreen(true);
 		Game.control.player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler> ();
 		Game.control.pause.Unpause (false); //needs ui declaration
+		
 		yield return new WaitForSeconds(1);
 
 	//Game.control.menu.ToggleMenu (false);
@@ -177,6 +178,7 @@ public class StageHandler : MonoBehaviour {
 		Game.control.sound.PlayMusic ("Stage" + currentStage);
 		Game.control.enemySpawner.StartSpawner (currentStage);
 
+		stageTimer = 0;
 		stageScript.StartStageHandler();
 		ToggleTimer (true);
 		stageOn = true;

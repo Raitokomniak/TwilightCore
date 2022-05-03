@@ -5,9 +5,12 @@ using UnityEngine;
 public class Stage1 : Stage
 {
 	public override void StartStageHandler(){
+		
 		stageHandlerRoutine = StageHandlerRoutine();
 		StartCoroutine(stageHandlerRoutine);
 	}
+
+
 
 	IEnumerator StageHandlerRoutine(){
 		SceneHandler scene = Game.control.scene;
@@ -16,6 +19,7 @@ public class Stage1 : Stage
 		while (Game.control.dialog.handlingDialog) yield return null;
 		
 		while (stageHandler.stageTimer < 4f) yield return null;
+		Game.control.dialog.StartDialog ("Stage1_1");
 		while (stageHandler.stageTimer < 8f) yield return null;
 		scene.SetPlaneSpeed (10f);
 		scene.RotateCamera (35, 0, 0);
