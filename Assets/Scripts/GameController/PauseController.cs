@@ -14,27 +14,28 @@ public class PauseController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Game.control.stageHandler.stageOn && Input.GetKeyDown(KeyCode.Escape))
+		/*if(Game.control.stageHandler.stageOn && Input.GetKeyDown(KeyCode.Escape))
 		{
 			HandlePause();
-		}
+		}*/
 	}
 
 	public void HandlePause()
 	{
-		if(!paused)
-		{
-			Game.control.sound.PauseMusic ();
-			paused = true;
-			Game.control.ui.PauseScreen(true);
-
-			ResetTimeScale (false);
+		if(Game.control.stageHandler.stageOn){
+			if(!paused)
+			{
+				Game.control.sound.PauseMusic ();
+				paused = true;
+				Game.control.ui.PauseScreen(true);
+				ResetTimeScale (false);
+			}
+			else
+			{
+				Unpause (true);
+			}
 		}
-		else
-		{
-			Unpause (true);
-		}
-		Game.control.menu.ToggleMenu (paused);
+		
 	}
 
 	public void Unpause(bool resumeMusic){

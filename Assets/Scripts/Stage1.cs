@@ -12,7 +12,7 @@ public class Stage1 : Stage
 	IEnumerator StageHandlerRoutine(){
 		SceneHandler scene = Game.control.scene;
 		Game.control.ui.UpdateStageText (stageHandler.currentStage);
-
+	
 		while (Game.control.dialog.handlingDialog) yield return null;
 		
 		while (stageHandler.stageTimer < 4f) yield return null;

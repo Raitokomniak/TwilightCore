@@ -19,6 +19,8 @@ public class Game : MonoBehaviour {
 	[SerializeField] public SpriteLibrary spriteLib;
 	[SerializeField] public MenuController menu;
 
+	[SerializeField] public Options options;
+
 	[SerializeField] public GameObject soundObject;
 	[SerializeField] public SoundController sound;
 
@@ -47,6 +49,7 @@ public class Game : MonoBehaviour {
 		spriteLib = GetComponent<SpriteLibrary> ();
 		enemyLib = GetComponent<EnemyLib> ();
 		pause = GetComponent<PauseController> ();
+		options = GetComponent<Options>();
 
 		sound = soundObject.GetComponent<SoundController> ();
 		menu = GetComponent<MenuController> ();
@@ -67,7 +70,7 @@ public class Game : MonoBehaviour {
 		mainMenuUI = GameObject.Find("MainMenuCanvas").GetComponent<MainMenuUI>();
 		mainMenuUI.InitMainMenu ();
 		sound.PlayMusic ("MainMenu");
-		menu.ToggleMenu (true);
+		menu.Menu("MainMenu");
 		yield return new WaitForEndOfFrame();
 	}
 

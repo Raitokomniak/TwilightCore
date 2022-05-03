@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
 
 using System.Collections;
+using System.Collections.Generic;
 
 public class MenuController : MonoBehaviour
 {
-	public ArrayList mainMenuItems;
-	public ArrayList pauseMenuItems;
-	public ArrayList difficultyMenuItems;
-
-	public ArrayList charSelectItems;
-
-	ArrayList selectedList;
+	public List<string> mainMenuItems;
+	public List<string> pauseMenuItems;
+	public List<string> difficultyMenuItems;
+	public List<string> optionsMenuItems;
+	List<string> selectedList;
 
 
 	int selectedIndex;
@@ -24,68 +23,92 @@ public class MenuController : MonoBehaviour
 	void Update ()
 	{
 		if (menuOn) {
-			if (Input.GetKeyDown (KeyCode.UpArrow)) {
-				if(context == "MainMenu" || context == "DifficultyMenu") Game.control.mainMenuUI.UpdateMenuSelection (context, MoveUp ());
-				else if(context == "PauseMenu") Game.control.ui.UpdateMenuSelection ("PauseMenu", MoveUp ());
+			if(context == "MainMenu" || context == "DifficultyMenu"){
+				if (Input.GetKeyDown (KeyCode.UpArrow)) { 	Game.control.mainMenuUI.UpdateMenuSelection (context, MoveUp ()); };
+				if (Input.GetKeyDown (KeyCode.DownArrow)) { Game.control.mainMenuUI.UpdateMenuSelection (context, MoveDown ()); };
+			}
+			
+			if(context == "PauseMenu" || context == "Options") {
+				if (Input.GetKeyDown (KeyCode.UpArrow)) 	Game.control.ui.UpdateMenuSelection (context, MoveUp ());
+				if (Input.GetKeyDown (KeyCode.DownArrow)) 	Game.control.ui.UpdateMenuSelection (context, MoveDown ());
+			}
 
-			} else if (Input.GetKeyDown (KeyCode.DownArrow)) {
-				if(context == "MainMenu" || context == "DifficultyMenu") Game.control.mainMenuUI.UpdateMenuSelection (context, MoveDown ());
-				else if(context == "PauseMenu") Game.control.ui.UpdateMenuSelection ("PauseMenu", MoveDown ());
-			} else if (Input.GetKeyDown (KeyCode.Z)) {
-				CheckSelection ();	
-			} else if (Input.GetKeyDown (KeyCode.X)) {
-				CheckPreviousState ();
+			if(context == "Options"){
+				//if (Input.GetKeyDown (KeyCode.Z)) CheckSelection ();	
+				if (Input.GetKeyDown (KeyCode.RightArrow)) 	Game.control.options.UpdateOption(true, selectedIndex);
+				if (Input.GetKeyDown (KeyCode.LeftArrow)) 	Game.control.options.UpdateOption(false, selectedIndex);
+			}
+			else {
+				if (Input.GetKeyDown (KeyCode.Z)) CheckSelection ();	
+			}
+
+
+			if(Input.GetKeyDown(KeyCode.Escape)){
+				if(context == "PauseMenu"){
+					Game.control.pause.HandlePause();
+					menuOn = false;
+				}
+				else if(context == "Options"){
+					Menu("PauseMenu");
+				}
 			}
 		}
+
+		else { //IF MENU NOT ON, TOGGLE ON
+			if(Game.control.stageHandler.stageOn && Input.GetKeyDown(KeyCode.Escape)){
+				Menu("PauseMenu");
+				Game.control.pause.HandlePause();
+			}
+		}
+		
 	}
 
-	void CheckMenu ()
-	{
-		if (Game.control.GetCurrentScene () == "MainMenu") {
-			context = "MainMenu";
+	public void Menu(string _context){
+		context = _context;
+		selectedIndex = 0;
+		menuOn = true;
+
+		if(context == "MainMenu"){
 			selectedList = mainMenuItems;
 			Game.control.mainMenuUI.UpdateMenuSelection ("MainMenu", 0);
 		}
-		if (Game.control.GetCurrentScene () == "Level1") {
-			if (Game.control.pause.paused) {
-				context = "PauseMenu";
-				selectedList = pauseMenuItems;
-				Game.control.ui.UpdateMenuSelection ("PauseMenu", 0);
-			}
+		else if(context == "PauseMenu") {
+			selectedList = pauseMenuItems;
+			Game.control.ui.UpdateMenuSelection ("PauseMenu", 0);
+			Game.control.ui.ToggleOptionsScreen(false);
+		}
+		else if(context == "DifficultyMenu"){
+			selectedList = difficultyMenuItems;
+			Game.control.mainMenuUI.ToggleDifficultySelection(true);
+			Game.control.mainMenuUI.UpdateMenuSelection ("DifficultyMenu", 0);
 		}
 	}
 
 	public void InitMenu(){
 		//INSTEAD OF ITEMS, JUST FOLLOW INDEX
-		mainMenuItems = new ArrayList ();
+		mainMenuItems = new List<string>();
 		mainMenuItems.Add ("Start Game");
 		mainMenuItems.Add ("Quit Game");
 
-		difficultyMenuItems = new ArrayList();
+		difficultyMenuItems = new List<string>();
 		difficultyMenuItems.Add("Very Easy");
 		difficultyMenuItems.Add("Easy");
 		difficultyMenuItems.Add("Normal");
 		difficultyMenuItems.Add("Nightmare");
 
-		charSelectItems = new ArrayList ();
-		charSelectItems.Add ("1");
-
-		pauseMenuItems = new ArrayList ();
+		pauseMenuItems = new List<string>();
 		pauseMenuItems.Add ("Resume");
 		pauseMenuItems.Add ("Restart");
+		pauseMenuItems.Add ("Options");
 		pauseMenuItems.Add ("Quit");
 
-		
+		optionsMenuItems = new List<string>();
+		optionsMenuItems.Add("AutoScroll");
+		optionsMenuItems.Add("BGM Volume");
 
-		selectedList = new ArrayList();
+		selectedList = new List<string>();
 	}
 
-	public void ToggleMenu(bool value)
-	{
-		selectedIndex = 0;
-		menuOn = value;
-		CheckMenu ();
-	}
 
 	int MoveUp ()
 	{
@@ -107,28 +130,17 @@ public class MenuController : MonoBehaviour
 		return selectedIndex;
 	}
 
-	void CheckPreviousState ()
-	{
-		switch (Game.control.GetCurrentScene ()) {
-		case "CharSelect":
-			Game.control.MainMenu ();
-			break;
-		}
-	}
-
 	void CheckSelection ()
 	{
-		selection = (string)selectedList [selectedIndex];
-
 		if(context == "MainMenu"){
-			switch (selection) {
-			case "Start Game":
+			switch (selectedIndex) {
+			case 0: //main menu
 				Game.control.mainMenuUI.ToggleDifficultySelection(true);
 				context = "DifficultyMenu";
 				selectedList = difficultyMenuItems;
 				Game.control.mainMenuUI.UpdateMenuSelection ("DifficultyMenu", 0);
 				break;
-			case "Quit Game":
+			case 1: //quit
 				Application.Quit();
 				break;
 			}
@@ -153,18 +165,36 @@ public class MenuController : MonoBehaviour
 			Game.control.StartGame ();
 		}
 		else if(context == "PauseMenu"){
-			switch (selection) {
-			case "Resume":
+			switch (selectedIndex) {
+			case 0: //resume
 				Game.control.pause.HandlePause();
 				break;
-			case "Restart":
+			case 1: //restart
 				Game.control.stageHandler.RestartStage (Game.control.stageHandler.currentStage);
 				break;
-			case "Quit":
+			case 2: //options
+				context = "Options";
+				selectedList = optionsMenuItems;
+				selectedIndex = 0;
+				Game.control.ui.ToggleOptionsScreen(true);
+				break;
+			case 3: //quit
 				Application.Quit();
 				break;
 			}
+
+			Game.control.ui.UpdateMenuSelection (context, 0);
 		}
+		else if(context == "Options"){
+			switch (selectedIndex) {
+			case 0: //autoscroll
+				Debug.Log("Edit autoscroll value");
+				break;
+			}
+
+		}
+
+		
 	}
 
 }

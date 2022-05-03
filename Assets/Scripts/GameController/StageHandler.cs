@@ -165,7 +165,7 @@ public class StageHandler : MonoBehaviour {
 		Game.control.pause.Unpause (false); //needs ui declaration
 		yield return new WaitForSeconds(1);
 
-		Game.control.menu.ToggleMenu (false);
+	//Game.control.menu.ToggleMenu (false);
 		Game.control.scene.SetUpEnvironment ();
 		Game.control.player.Init ();
 		Game.control.dialog.Init();

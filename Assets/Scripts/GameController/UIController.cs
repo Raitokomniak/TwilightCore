@@ -5,11 +5,6 @@ using System.Collections.Generic;
 using TMPro;
 
 public class UIController : MonoBehaviour {
-	EnemyLife bossLife;
-
-
-	public Canvas UICanvas;
-
 	public GameObject stageUI;
 
 	public GameObject stageWorldUI;
@@ -77,6 +72,7 @@ public class UIController : MonoBehaviour {
 	public GameObject pauseScreen;
 	public GameObject pauseMenuPanel;
 	public GameObject loadingScreen;
+	public GameObject optionsScreen;
 
 	//Dialog
 	public GameObject dialog;
@@ -90,11 +86,15 @@ public class UIController : MonoBehaviour {
 
 	public TextMeshProUGUI autoScrollInfo;
 
+	//OPTIONS
+    public GameObject optionsContainer;
+	public GameObject optionsValueContainer;
 
 	void Awake(){
 		ToggleLoadingScreen(false);
 		ToggleBossHealthSlider(false, 0, "");
 		HideBossTimer();
+		ToggleOptionsScreen(false);
 	}
 
 	void Update(){
@@ -107,26 +107,50 @@ public class UIController : MonoBehaviour {
 				HideBossTimer();
 			}
 		}
+
 	}
 
 	public void UpdateMenuSelection(string context, int index){
-		Text[] allOptions = null;
+		TextMeshProUGUI[] allSelections = null;
+		TextMeshProUGUI[] optionsValues = null;
+
 		GameObject panel = null;
 
 		if (context == "PauseMenu") {
-			allOptions = pauseMenuPanel.transform.GetComponentsInChildren<Text> ();
+			allSelections = pauseMenuPanel.transform.GetComponentsInChildren<TextMeshProUGUI> ();
 			panel = pauseMenuPanel;
 		}
-		
-		foreach (Text text in allOptions) {
-			text.fontStyle = FontStyle.Normal;
+		else if(context == "Options"){
+			allSelections = optionsContainer.transform.GetComponentsInChildren<TextMeshProUGUI> ();
+			optionsValues = optionsValueContainer.transform.GetComponentsInChildren<TextMeshProUGUI> ();
+			panel = optionsScreen;
 		}
-		panel.transform.GetChild (index).GetComponent<Text> ().fontStyle = FontStyle.Bold;
+		
+		foreach (TextMeshProUGUI text in allSelections) {
+			text.fontStyle = TMPro.FontStyles.Normal;
+		}
+		if(context == "Options"){
+			foreach (TextMeshProUGUI text in optionsValues) {
+				text.fontStyle = TMPro.FontStyles.Normal;
+			}
+		}
+
+		//panel.transform.GetChild (index).GetComponent<Text> ().fontStyle = FontStyle.Bold;
+		Debug.Log(allSelections.Length +" length vs index " + index);
+		allSelections[index].fontStyle = TMPro.FontStyles.Bold;
+		if(context == "Options") optionsValues[index].fontStyle = TMPro.FontStyles.Bold;
 	}
+
+	public void UpdateOptionSelection(int index, string text){
+		TextMeshProUGUI option = optionsValueContainer.transform.GetChild(index).GetComponent<TextMeshProUGUI>();
+		option.text = text;
+	}
+	
 
 	public void InitStage(){
 		stageWorldUI.SetActive (true);
 		stageUI.SetActive (true);
+
 
 		playAreaLeftWall = Game.control.ui.stageWorldUI.transform.GetChild (2).GetChild (0).gameObject;
 		playAreaRightWall = Game.control.ui.stageWorldUI.transform.GetChild (2).GetChild (1).gameObject;
@@ -142,7 +166,7 @@ public class UIController : MonoBehaviour {
 		stageEndPanel.SetActive(false);
 
 		gameOver.SetActive(false);
-		pauseScreen.SetActive(false);
+		PauseScreen(false);
 		dialog.SetActive(false);
 
 		xp.text = "XP: " + 0 + " / " + Game.control.player.stats.xpCap;
@@ -582,8 +606,6 @@ public class UIController : MonoBehaviour {
 		else autoScrollInfo.text = "Autoscroll: OFF";
 	}
 	public void UpdateDialog(string name, string content){
-
-
 		dialogName.text = name;
 		dialogContent.text = content;
 
@@ -621,6 +643,11 @@ public class UIController : MonoBehaviour {
 		bossDialogDescription.text = description;
 	}
 
+	//OPTIONS
+	public void ToggleOptionsScreen(bool toggle){
+		pauseMenuPanel.SetActive(!toggle);
+		optionsScreen.SetActive(toggle);
+	}
 
 
 }

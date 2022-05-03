@@ -11,6 +11,8 @@ public class MainMenuUI : MonoBehaviour
 
 	public Transform mainMenuPanel;
 	public Transform difficultyPanel;
+	public GameObject optionsPanel;
+    public GameObject optionsContainer;
 
    	public void InitMainMenu(){
         gameObject.SetActive(true);
@@ -37,5 +39,10 @@ public class MainMenuUI : MonoBehaviour
 	public void ToggleDifficultySelection(bool toggle){
 		difficultyPanel.gameObject.SetActive(toggle);
 		mainMenuPanel.gameObject.SetActive(false);
+	}
+
+	public void ToggleOptions(){
+		mainMenuPanel.gameObject.SetActive(false);
+		optionsPanel.SetActive(true);
 	}
 }

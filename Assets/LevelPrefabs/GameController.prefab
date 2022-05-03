@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 4442655861058145964}
   - component: {fileID: 4442655861058145965}
   - component: {fileID: 355109044298794612}
+  - component: {fileID: 1955154550}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -78,12 +79,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fcbf1bce8b7f254cbe7d5764bcd51f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficultyMultiplier: 0
   gameOver: 0
   stageCompleted: 0
   stageTime: 0
   stageTimer: 0
   currentStage: 0
-  timer: 0
+  stageTimerOn: 0
+  stageOn: 0
 --- !u!114 &4442655861058145952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20cfacf92aac6a440a2b7518b777d3e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueText: {fileID: 0}
   handlingDialog: 0
+  autoScroll: 0
 --- !u!114 &4442655861058145954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,6 +134,8 @@ MonoBehaviour:
   centerY: 0
   farRight: 0
   farLeft: 0
+  middleTop: {x: 0, y: 0, z: 0}
+  topRight: {x: 0, y: 0, z: 0}
   leftTop: {x: 0, y: 0, z: 0}
   rightTop: {x: 0, y: 0, z: 0}
   topLeft: {x: 0, y: 0, z: 0}
@@ -158,6 +163,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cd7a58ff13859f41a7a31385d18a393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenuItems: []
+  pauseMenuItems: []
+  difficultyMenuItems: []
+  optionsMenuItems: []
   menuOn: 0
 --- !u!114 &355109044298794612
 MonoBehaviour:
@@ -174,7 +183,7 @@ MonoBehaviour:
   mainMenuUI: {fileID: 0}
   ui: {fileID: 0}
   dialog: {fileID: 0}
-  stage: {fileID: 0}
+  stageHandler: {fileID: 0}
   scene: {fileID: 0}
   enemySpawner: {fileID: 0}
   enemyLib: {fileID: 0}
@@ -182,8 +191,23 @@ MonoBehaviour:
   player: {fileID: 0}
   spriteLib: {fileID: 0}
   menu: {fileID: 0}
+  options: {fileID: 0}
   soundObject: {fileID: 4442655862132054638}
   sound: {fileID: 0}
+--- !u!114 &1955154550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4442655861058145966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a2f4884235846458ff1a90a5f96ce4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  optionsPanel: {fileID: 0}
+  optionsContainer: {fileID: 0}
 --- !u!1 &4442655862132054638
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,5 +251,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd272b1fd081f3479b06fe099ca2518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableMusic: 0
+  disableSound: 1
   bossMusicPlaying: 0
