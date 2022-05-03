@@ -60,10 +60,6 @@ public class MenuController : MonoBehaviour
 		
 	}
 
-	public void Init(){
-		menuOn = false;
-	}
-
 	void ClosePauseMenu(){
 		Game.control.pause.HandlePause();
 		menuOn = false;
@@ -120,6 +116,8 @@ public class MenuController : MonoBehaviour
 		optionsMenuItems.Add("SFX Volume");
 
 		selectedList = new List<string>();
+
+		menuOn = false;
 	}
 
 
