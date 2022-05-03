@@ -12,7 +12,7 @@ public class Pattern
 	EnemyShoot enemy;
 	Sprite sprite;
 
-	Vector3 newPosition;
+	public Vector3 newPosition;
 	Quaternion bulletRotation;
 	public BulletMovementPattern movement;
 
@@ -91,7 +91,9 @@ public class Pattern
 
 	}
 
-	private void Instantiate (GameObject enemyBullet)
+
+	
+	public void InstantiateBullet (GameObject enemyBullet)
 	{
 		movement = new BulletMovementPattern (movement);
 		bullet = (Object.Instantiate (enemyBullet, newPosition, bulletRotation) as GameObject);
@@ -112,7 +114,7 @@ public class Pattern
 			Game.control.sound.PlaySound ("Enemy", "Shoot", true);
 			for (int i = 0; i < bulletCount; i++) {
 				newPosition = SpawnInCircle (pos, 0f, GetAng (i, 360));
-				Instantiate (enemyBullet);
+				InstantiateBullet (enemyBullet);
 			}
 			break;
 		case "Laser":
@@ -128,7 +130,7 @@ public class Pattern
 					movement.laserIndex = laserIndex;
 					laserIndex++;
 
-					Instantiate (enemyBullet);
+					InstantiateBullet (enemyBullet);
 
 					bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
 					if (laserIndex == 0)
@@ -144,7 +146,7 @@ public class Pattern
 				movement = new BulletMovementPattern (false, "PendulumLaser", 0f, this, 0, tempMagnitude);
 				movement.laserIndex = laserIndex;
 			
-				Instantiate (enemyBullet);
+				InstantiateBullet (enemyBullet);
 			}
 
 			break;
@@ -158,7 +160,7 @@ public class Pattern
 					newPosition = SpawnInCircle (pos, 1.5f, GetAng (i, 360) + startingRotation);
 					bulletRotation = SpawnInCircle (i, startingRotation);
 					startingRotation += 0.5f * rotationDirection;
-					Instantiate (enemyBullet);
+					InstantiateBullet (enemyBullet);
 				}
 				yield return new WaitForSeconds (coolDown);
 			}
@@ -169,7 +171,7 @@ public class Pattern
 				newPosition = enemy.GetLocalPosition () + new Vector3 (Random.Range (-.8f, .8f), 1.5f * dir, 0);
 				bulletRotation = bulletRotation * Quaternion.Euler (0, 0, 180f + (Random.Range (-10, 10)));
 				movement = new BulletMovementPattern (false, "Aurora", 10f, this, tempLayer, tempMagnitude);
-				Instantiate (enemyBullet);
+				InstantiateBullet (enemyBullet);
 				dir = -dir;
 
 				yield return new WaitForSeconds (coolDown);
@@ -191,7 +193,7 @@ public class Pattern
 					newPosition = SpawnInLine (2, 20, lineDirection, i);
 				movement = new BulletMovementPattern (movement);
 
-				Instantiate (enemyBullet);
+				InstantiateBullet (enemyBullet);
 				bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
 
 				yield return new WaitForSeconds (coolDown);
@@ -206,17 +208,18 @@ public class Pattern
 			allBulletsSpawned = false;
 			for (int i = 0; i < bulletCount; i++) {
 				newPosition = SpawnInCircle (pos, 1f + (i * 0.1f), GetAng (i, loopCircles));
-				Instantiate (enemyBullet);
-				yield return new WaitForSeconds (coolDown * Time.deltaTime);
+				InstantiateBullet (enemyBullet);
+				yield return new WaitForSeconds (coolDown);
 				Game.control.sound.PlaySound ("Enemy", "Shoot", false);
 			}
 
 			allBulletsSpawned = true;
+			
 			break;
 
 		case "SingleHoming":
 			Game.control.sound.PlaySound ("Enemy", "Shoot", false);
-			Instantiate (enemyBullet);
+			InstantiateBullet (enemyBullet);
 			break;
 		case "PacMan":
 			
@@ -227,7 +230,7 @@ public class Pattern
 				movement = new BulletMovementPattern (false, null, 0.5f, this, 0, tempMagnitude);
 				bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
 				startingRotation += 0.1f;
-				Instantiate (enemyBullet);
+				InstantiateBullet (enemyBullet);
 			}
 			break;
 		case "SpiderWeb":
@@ -240,7 +243,7 @@ public class Pattern
 				animation = (Resources.Load ("Images/Animations/Animation") as GameObject);
 				movement = new BulletMovementPattern (movement);
 
-				Instantiate (enemyBullet);
+				InstantiateBullet (enemyBullet);
 				bullet.GetComponent<SpriteRenderer> ().sprite = spriteLib.SetBulletSprite ("Circle", "Glow", "Red");
 			}
 			break;
@@ -256,7 +259,7 @@ public class Pattern
 					bulletRotation = Quaternion.Euler (0f, 0f, i * (360 / b));
 					animation = (Resources.Load ("Images/Animations/Animation") as GameObject);
 					movement = new BulletMovementPattern (false, "StopAndRotate", 20f, this, tempLayer, tempMagnitude);
-					Instantiate (enemyBullet);
+					InstantiateBullet (enemyBullet);
 					bullet.GetComponent<SpriteRenderer> ().sprite = spriteLib.SetBulletSprite ("Circle", "Big", "Red");
 					bullets.Add (enemyBullet);
 				}
@@ -282,7 +285,7 @@ public class Pattern
 	}
 
 
-	float GetAng (int i, float fullDegrees)
+	public float GetAng (int i, float fullDegrees)
 	{
 		float ang = i * (fullDegrees / bulletCount); 
 		return ang;
@@ -324,7 +327,7 @@ public class Pattern
 	}
 
 
-	Vector3 SpawnInCircle (Vector3 centerPos, float radius, float ang)
+	public Vector3 SpawnInCircle (Vector3 centerPos, float radius, float ang)
 	{
 		
 		Vector3 position = new Vector3 (0, 0, 0); 

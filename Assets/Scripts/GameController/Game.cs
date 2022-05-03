@@ -33,6 +33,8 @@ public class Game : MonoBehaviour {
 	}
 
 	void Start(){
+		Application.targetFrameRate = -1;
+		QualitySettings.vSyncCount = 0;
 		MainMenu();
 	}
 
@@ -58,6 +60,7 @@ public class Game : MonoBehaviour {
 
 		menu.InitMenu ();
 		sound.InitSound ();
+		
 		
 
 		 //THIS DATAPATH HAS TO BE CHANGED TO BUILD DATAPATH

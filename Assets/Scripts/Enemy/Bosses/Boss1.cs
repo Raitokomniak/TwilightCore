@@ -88,9 +88,6 @@ public class Boss1 : Phaser
 				}
 			
 				break;
-
-				//mp1.Customize ("Speed", 1f);
-				break;
             
 			case 1:
 				Game.control.sound.PlaySpellSound ("Enemy");
