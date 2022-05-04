@@ -114,11 +114,9 @@ public class Phaser : MonoBehaviour {
 	IEnumerator PhasingTime() {
 		if(!start) InterruptPreviousPhase();
 		else start = false;
-		Debug.Log("start phasing");
 		GetComponent<EnemyLife>().SetInvulnerable(true);
 		yield return new WaitUntil (() => Game.control.dialog.handlingDialog == false);
 		yield return new WaitUntil (() => routineOver == true);
-		Debug.Log("got past handling dialog");
 		yield return new WaitForSeconds(.5f);
 		bossPhase++;
 		routineOver = false;
