@@ -47,7 +47,6 @@ public class Stage1 : Stage
 		while (stageHandler.stageTimer < 96f) yield return null;
 		Game.control.dialog.StartDialog ("Boss1");
 		scene.SetPlaneSpeed (3f);
-	
 	}
 
 	public override void InitWaves(float difficultyMultiplier) {
@@ -235,11 +234,7 @@ public class Stage1 : Stage
 			lib.NewWave (lib.stageWaves, new Wave (90.5f, mp, p, 3, false, 40, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
 
 
-			// BIG BOSS
-
-			mp = new EnemyMovementPattern (lib.enterLeave);
-			mp.Customize ("StayTime", 0);
-			Wave boss1 = new Wave(96f, mp, null, 1,  false, 50 * Mathf.CeilToInt(difficultyMultiplier / 2) , true, 3f, 2);
+			
 
 /*
 			//DEBUG
@@ -247,7 +242,11 @@ public class Stage1 : Stage
 			mp.Customize ("StayTime", 0);
 			Wave boss1 = new Wave(1f, mp, null, 1,  false, 10 * Mathf.CeilToInt(difficultyMultiplier / 2) , true, 3f, 2);
 */
+			// BIG BOSS
 
+			mp = new EnemyMovementPattern (lib.enterLeave);
+			mp.Customize ("StayTime", 0);
+			Wave boss1 = new Wave(96f, mp, null, 1,  false, 50 * Mathf.CeilToInt(difficultyMultiplier / 2) , true, 3f, 2);
 			boss1.SetUpBoss (1, "Maaya, Forest Guardian", false);
 			lib.NewWave (lib.stageWaves, boss1, new ArrayList { lib.middleTop });
 	}

@@ -80,14 +80,14 @@ public class Game : MonoBehaviour {
 		mainMenuUI.InitMainMenu ();
 		sound.PlayMusic ("MainMenu");
 		menu.Menu("MainMenu");
-		if(options.LoadOptions()) Debug.Log("options loaded");
-		else Debug.Log("no options file");
+//		if(options.LoadOptions()) Debug.Log("options loaded");
+//		else Debug.Log("no options file");
 		yield return new WaitForEndOfFrame();
 	}
 
 	public void StartGame(){
 		sound.StopMusic();
-		stageHandler.StartStage(1);
+		stageHandler.StartStage(2);
 	}
 
 	public string GetCurrentScene (){

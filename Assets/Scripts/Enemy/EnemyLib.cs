@@ -62,7 +62,6 @@ public class EnemyLib : MonoBehaviour
 
 		CreateMovementPatterns();
 		CreatePatterns();
-		CreateBosses();
 
 		stageWaves = new ArrayList();
 	}
@@ -101,26 +100,6 @@ public class EnemyLib : MonoBehaviour
 			w.sprite =spriteLib.SetCharacterSprite ("Boss" + w.bossIndex);
 		}
 		stage.Add (w);
-	}
-
-
-	void CreateBosses()
-	{
-		EnemyMovementPattern mp = new EnemyMovementPattern (enterLeave);
-
-/*
-		mp = new EnemyMovementPattern (enterLeave);
-		mp.Customize ("StayTime", 27f);
-		mp.Customize ("LeaveDir", "Up");
-		//bossMid1 = new Wave(55f, mp, null, 1,  false, 150, false, 3f, 1);
-		bossMid1 = new Wave(1f, mp, null, 1,  false, 150, false, 3f, 1); //for spawning immediately
-		bossMid1.SetUpBoss (0.5f, "Asura", true);
-		bossMid1.isMidBoss = true;*/
-
-		
-		boss2 = new Wave(30f, null, null, 1,  false, 200, true, 3f, 2);
-		boss2.SetUpBoss (2, "Spider Queen", false);
-		boss2.movementPattern = enterFromTop;
 	}
 }
 

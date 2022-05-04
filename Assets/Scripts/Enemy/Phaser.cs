@@ -11,10 +11,6 @@ public class Phaser : MonoBehaviour {
 	public List<Pattern> patterns;
 	public bool endOfPhase;
 
-	//MAKE ARRAY
-	//public Pattern p1, p2, p3, p4, p5;
-	//MAKE ARRAY
-	//public EnemyMovementPattern mp1, mp2, mp3, mp4, mp5;
 	public IEnumerator numerator;
 
 	Phaser boss;
@@ -53,6 +49,7 @@ public class Phaser : MonoBehaviour {
 		wave = _wave;
 		if(bossIndex == 0.5f) boss = gameObject.AddComponent<Boss05>();
 		if(bossIndex == 1) boss = gameObject.AddComponent<Boss1>();
+		if(bossIndex == 2) boss = gameObject.AddComponent<Boss2>();
 
 		boss.difficultyMultiplier = Game.control.stageHandler.difficultyMultiplier;
 	}
@@ -117,10 +114,11 @@ public class Phaser : MonoBehaviour {
 	IEnumerator PhasingTime() {
 		if(!start) InterruptPreviousPhase();
 		else start = false;
-
+		Debug.Log("start phasing");
 		GetComponent<EnemyLife>().SetInvulnerable(true);
 		yield return new WaitUntil (() => Game.control.dialog.handlingDialog == false);
 		yield return new WaitUntil (() => routineOver == true);
+		Debug.Log("got past handling dialog");
 		yield return new WaitForSeconds(.5f);
 		bossPhase++;
 		routineOver = false;

@@ -17,6 +17,7 @@ public class SoundController : MonoBehaviour {
 	AudioClip mainmenu;
 	AudioClip stage1;
 	AudioClip boss1;
+	AudioClip boss2;
 
 	//Sound
 	AudioClip shoot;
@@ -31,6 +32,7 @@ public class SoundController : MonoBehaviour {
 		//stage1 = Resources.Load ("Sound/Music/Stage1") as AudioClip;
 		stage1 = Resources.Load("Sound/Music/asura-who-remain-asura_piano") as AudioClip; //THIS IS JUST FOR FUN
 		boss1 = Resources.Load ("Sound/Music/Boss1") as AudioClip;
+		boss2 = Resources.Load ("Sound/Music/void-dance") as AudioClip;
 
 		shoot = Resources.Load ("Sound/Shoot") as AudioClip;
 		takeHit = Resources.Load ("Sound/TakeHit") as AudioClip;
@@ -149,6 +151,9 @@ public class SoundController : MonoBehaviour {
 			break;
 		case "Boss1":
 			c = boss1;
+			break;
+		case "Boss2":
+			c = boss2;
 			break;
 		}
 		bgMusicSource.clip = c;

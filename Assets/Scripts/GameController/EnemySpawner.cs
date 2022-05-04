@@ -27,6 +27,7 @@ public class EnemySpawner : MonoBehaviour {
 					}
 
 					InitializeWave ();
+//					Debug.Log(wave.bossIndex + " bossindex before spawn");
 					spawn = Spawn (wave);
 					StartCoroutine (spawn);
 				}
@@ -70,10 +71,9 @@ public class EnemySpawner : MonoBehaviour {
 		else {Debug.Log("Waves null");}
 	}
 
-	void InitializeWave(){	
+	void InitializeWave(){
 		if (currentWave < waves.Count) {	
 			curWave = waves [currentWave] as Wave;
-			
 			currentWave++;
 			Game.control.ui.UpdateStatPanel ("Wave", currentWave);
 		}
@@ -81,8 +81,8 @@ public class EnemySpawner : MonoBehaviour {
 
 	public IEnumerator Spawn(Wave wave){
 		for(float i = wave.enemyCounter; i>0; i--){
-				wave.Spawn ();
-				yield return new WaitForSeconds (1f);
+			wave.Spawn ();
+			yield return new WaitForSeconds (1f);
 		}
 	}
 
@@ -93,7 +93,6 @@ public class EnemySpawner : MonoBehaviour {
 
 	public void DestroyAllEnemies()
 	{
-		int i = 0;
 		GameObject[] enemiesToDestroy = GameObject.FindGameObjectsWithTag("Enemy");
 
 		foreach(GameObject enemy in enemiesToDestroy){
@@ -103,16 +102,9 @@ public class EnemySpawner : MonoBehaviour {
 
 	public void DestroyEnemyProjectiles(ArrayList bullets){
 		ArrayList projectilesToDestroy = bullets;
-
-		foreach(GameObject p in projectilesToDestroy) {
-			if (p != null) {
-				//Instantiate (Resources.Load ("corePoint"), p.transform.position + new Vector3 (Random.Range (-2, 2), Random.Range (-2, 2)), transform.rotation);
-			}
-		}
 		int i = 0;
 
-		while(i < projectilesToDestroy.Count)
-		{
+		while(i < projectilesToDestroy.Count){
 			GameObject bullet = (GameObject)projectilesToDestroy [i];
 			bullets.Remove (bullet);
 			Destroy(bullet.gameObject);
@@ -123,9 +115,6 @@ public class EnemySpawner : MonoBehaviour {
 	public void DestroyAllProjectiles()
 	{
 		GameObject[] projectilesToDestroy = GameObject.FindGameObjectsWithTag("EnemyProjectile");
-		foreach(GameObject p in projectilesToDestroy) {
-			//Instantiate(Resources.Load("corePoint"), p.transform.position + new Vector3(Random.Range(-2, 2), Random.Range(-2, 2)), transform.rotation);
-		}
 
 		for(int i = 0; i < projectilesToDestroy.Length; i++){
 			Destroy(projectilesToDestroy[i].gameObject);

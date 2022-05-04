@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Boss1 : Phaser
 {
-
 	public override void StopCoro(){
 		if(numerator != null) StopCoroutine (numerator);
 		routineOver = true;
@@ -15,9 +14,6 @@ public class Boss1 : Phaser
 		StartCoroutine (numerator);
     }
 
-	void Update(){
-		
-	}
     IEnumerator Execute(int phase, Phaser phaser){
 		patterns = new List<Pattern>();
 		movementPatterns = new List<EnemyMovementPattern>();
@@ -56,14 +52,12 @@ public class Boss1 : Phaser
 
 					WaitForSecondsFloat(2f);
 					yield return new WaitUntil(() => timerDone == true);
-					//if(phaser.endOfPhase) break;
 
 					enemy.BossShoot (patterns[1]);
 					enemy.BossShoot (patterns[2]);
 
 					WaitForSecondsFloat(2.2f);
 					yield return new WaitUntil(() => timerDone == true);
-					//if(phaser.endOfPhase) break;
 
 					patterns[1].StopPattern();
 					patterns[2].StopPattern();
@@ -72,19 +66,15 @@ public class Boss1 : Phaser
 
 					WaitForSecondsFloat(2f);
 					yield return new WaitUntil(() => timerDone == true);
-					//if(phaser.endOfPhase) break;
-
 					enemy.BossShoot (patterns[0]);
 
 					WaitForSecondsFloat(2.2f);
 					yield return new WaitUntil(() => timerDone == true);
-					//if(phaser.endOfPhase) break;
 
 					enemy.BossShoot (patterns[0]);
 
 					WaitForSecondsFloat(3f);
 					yield return new WaitUntil(() => timerDone == true);
-					//if(phaser.endOfPhase) break;
 				}
 			
 				break;

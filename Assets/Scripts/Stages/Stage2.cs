@@ -10,9 +10,16 @@ public class Stage2 : Stage
 	}
 
 	IEnumerator StageHandlerRoutine(){
-		Debug.Log("this is stage 2");
-		yield return new WaitForEndOfFrame();
+		SceneHandler scene = Game.control.scene;
+		Game.control.ui.UpdateStageText (stageHandler.currentStage);
+	
+		while (Game.control.dialog.handlingDialog) yield return null;
+		while (stageHandler.stageTimer < 1f) yield return null;
+		Game.control.sound.PlayMusic ("Boss2");
+		Game.control.dialog.StartDialog ("Boss2");
 	}
+
+	
 
 	public override void InitWaves(float difficultyMultiplier) {
         EnemyLib lib = Game.control.enemyLib;
@@ -20,48 +27,48 @@ public class Stage2 : Stage
 		Pattern p;
 		EnemyMovementPattern mp;
 
+/*
 		//															enmyCnt simul hlth 	isBoss, cd, hlthBars, spawnPositions
 			p = new Pattern (lib.singleHoming);
 			p.Customize(new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
 			p.SetSprite("Circle", "Big", "Red");
 			lib.NewWave (lib.stageWaves, new Wave (2f, lib.zigZag, p, 5, false, 0, false, 1f, 0), new ArrayList { lib.middleTop });
-			/*w = (Wave)stage1Waves [stage1Waves.Count - 1];
+			Wave w = (Wave)lib.stageWaves[0];
 			w.shootPattern.Customize(new BulletMovementPattern (true, null, 0.5f, w.shootPattern, 0, 14));
 			w.shootPattern.SetSprite("Circle", "Big", "Red");
 
-
-
-			p = new Pattern (circle);
+			p = new Pattern (lib.circle);
 			p.Customize(new BulletMovementPattern (true, "Explode", 2f, p, 0, 14));
 			p.SetSprite("Circle", "Glow", "Green");
-			NewWave (stageWaves, new Wave (3f, stopOnce, p, 6, false, 0, false, 1f, 0), new ArrayList { topRight });
+			lib.NewWave (lib.stageWaves, new Wave (3f, lib.stopOnce, p, 6, false, 0, false, 1f, 0), new ArrayList { lib.topRight });
 
 			//NewWave (stage1Waves, new Wave (6f, zigZag, singleHoming, 6, false, 0, false, 1f,	0), new ArrayList { middleTop });
 			//NewWave (stage1Waves, new Wave (10f, zigZag, circle, 6, false, 0, false, 1f,	0), new ArrayList { middleTop });
-			p = new Pattern (circle);
+			p = new Pattern (lib.circle);
 			p.Customize(new BulletMovementPattern (true, "Explode", 6f, p, 0, 14));
 			p.SetSprite("Circle", "Glow", "Yellow");
-			NewWave (stageWaves, new Wave (10f, stopOnce, p, 6, false, 0, false, 1f, 0), new ArrayList { topRight });
-
-
+			lib.NewWave (lib.stageWaves, new Wave (10f, lib.stopOnce, p, 6, false, 0, false, 1f, 0), new ArrayList { lib.topRight });
 
 
 			//p = new Pattern (laser);
 
-			/*NewWave (stage1Waves, new Wave (25f, enterAndLeave, p, 2, true, 10, false,	1f, 0), new ArrayList {
-				rightTop,
-				leftTop
+			lib.NewWave (lib.stageWaves, new Wave (25f, lib.enterLeave, p, 2, true, 10, false,	1f, 0), new ArrayList {
+				lib.rightTop,
+				lib.leftTop
 			});
 
-			p = new Pattern (singleHoming);
+			p = new Pattern (lib.singleHoming);
 			p.Customize(new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
 			p.SetSprite("Circle", "Big", "Red");
-			NewWave (stageWaves, new Wave (15f, zigZag, p, 5, false, 0, false, 1f, 0), new ArrayList { middleTop });
-			NewWave (stageWaves, new Wave (20f, stopOnce, p, 6, false, 0, false, 2f,	0), new ArrayList { topRight });
+			lib.NewWave (lib.stageWaves, new Wave (15f, lib.zigZag, p, 5, false, 0, false, 1f, 0), new ArrayList { lib.middleTop });
+			lib.NewWave (lib.stageWaves, new Wave (20f, lib.stopOnce, p, 6, false, 0, false, 2f,	0), new ArrayList { lib.topRight });
 
-			NewWave (stageWaves, new Wave (boss2), new ArrayList { middleTop });
+			
+*/		
 
-			break;
-		*/
+			Wave boss2 = new Wave(2f, null, null, 1,  false, 50, true, 3f, 2);
+			boss2.SetUpBoss (2, "Spider Queen", false);
+			boss2.movementPattern = lib.enterFromTop;
+			lib.NewWave (lib.stageWaves, boss2, new ArrayList { lib.middleTop });
 	}
 }

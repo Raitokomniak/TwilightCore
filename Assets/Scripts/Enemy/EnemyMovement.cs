@@ -78,6 +78,7 @@ public class EnemyMovement : MonoBehaviour {
 	public void Animate(string animation)
 	{
 		//StartCoroutine (_Animate (animation));
+
 	}
 
 	IEnumerator _Animate(string animation){

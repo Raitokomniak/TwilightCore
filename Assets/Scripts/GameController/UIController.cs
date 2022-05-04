@@ -294,10 +294,10 @@ public class UIController : MonoBehaviour {
 
 	void ResetTopLayer(){
 		foreach (GameObject layer in topLayers) {
-				Sprite sprite = Resources.Load<Sprite> ("Images/Backgrounds/TopLayers/Stage1");
-				layer.GetComponent<Image> ().sprite = sprite;
-				layer.GetComponent<TopLayerParallaxController> ().scrollSpeed = 26;
-			}
+			Sprite sprite = Resources.Load<Sprite> ("Images/Backgrounds/TopLayers/Stage1");
+			layer.GetComponent<Image> ().sprite = sprite;
+			layer.GetComponent<TopLayerParallaxController> ().scrollSpeed = 26;
+		}
 	}
 
 
@@ -311,6 +311,7 @@ public class UIController : MonoBehaviour {
 			layer.GetComponent<TopLayerParallaxController> ().scrollSpeed = speed;
 		}
 	}
+	/*
 	public void UpdateBG(string type)
 	{
 		Sprite sprite;
@@ -326,7 +327,7 @@ public class UIController : MonoBehaviour {
 		foreach (GameObject bg in bgs) {
 			StartCoroutine (SmoothTransitionBG (bg.GetComponent<ParallaxController>(), speed));
 		}
-	}
+	}*/
 
 	IEnumerator SmoothTransitionBG(ParallaxController par, float speed)
 	{
