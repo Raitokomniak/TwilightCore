@@ -87,7 +87,7 @@ public class Game : MonoBehaviour {
 
 	public void StartGame(){
 		sound.StopMusic();
-		stageHandler.StartStage(2);
+		stageHandler.StartStage(1);
 	}
 
 	public string GetCurrentScene (){

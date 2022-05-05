@@ -159,11 +159,11 @@ public class StageHandler : MonoBehaviour {
 
 	void NextStage ()
 	{
-		//Game.control.MainMenu ();
-		stageCompleted = false;
+		Game.control.MainMenu ();
+		/*stageCompleted = false;
 		Game.control.ui.StageCompleted (false);
 		currentStage++;
-		StartStage(2);
+		StartStage(2);*/
 	}
 
 	//If time is up, boss leaves the screen and stage is completed
