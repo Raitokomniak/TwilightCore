@@ -1,2 +1,2 @@
-Spider	Youkoso to my spider webbu
-Soma	Oh no
+Boss	Youkoso to my spider webbu
+Player	Oh no

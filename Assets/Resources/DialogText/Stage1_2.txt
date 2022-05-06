@@ -1,1 +1,1 @@
-Soma	Hey, wait!
+Player	Hey, wait!

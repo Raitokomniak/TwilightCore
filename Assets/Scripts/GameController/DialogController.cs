@@ -10,6 +10,7 @@ public class DialogController : MonoBehaviour {
 	bool endOfDialogueChain;
 	public bool autoScroll;
 
+	public bool playerActiveSpeaker;
 	IEnumerator dialogRoutine;
 	float autoScrollTimer = 0;
 	float autoScrollTime = 2.5f;
@@ -53,13 +54,16 @@ public class DialogController : MonoBehaviour {
 	public void StartDialog(string _phase)
 	{	
 		Game.control.ui.ToggleDialog(true);
-		if(_phase.Contains("Boss")) Game.control.ui.InitSpeakers ("Soma", _phase);
-		else Game.control.ui.InitSpeakers ("Soma", "");
+		if(_phase.Contains("Boss")) Game.control.ui.InitBossSpeaker(_phase);
+		else Game.control.ui.InitPlayerSpeaker();
 
 		handlingDialog = true;
 
 		if (_phase == "Boss1") {
-			Game.control.ui.UpdateBossInfo ("Silvi", "Friendly Huldra");
+			Game.control.ui.UpdateBossInfo ("Maaya", "Friendly Huldra");
+		}
+		if (_phase == "Boss2") {
+			Game.control.ui.UpdateBossInfo ("Spider Queen", "Void Spinner");
 		}
 
 		TextAsset dialogueText = Resources.Load<TextAsset> ("DialogText/" + _phase);
@@ -71,6 +75,18 @@ public class DialogController : MonoBehaviour {
 		StartCoroutine(dialogRoutine);
 	}
 		
+
+	IEnumerator DialogRoutine(){
+		while(!endOfDialogueChain){
+			GetDialog ();
+			handlingDialog = true;
+			yield return new WaitUntil(() => advanceDialogTrigger == true);
+			advanceDialogTrigger = false;
+		}
+
+		EndDialog ();
+	}
+
 	public void GetDialog(){
 		lineIndex++;
 		ArrayList parsedLines = new ArrayList ();
@@ -82,18 +98,6 @@ public class DialogController : MonoBehaviour {
 			endOfDialogueChain = true;
 			lineIndex = 0;
 		}
-	}
-
-	IEnumerator DialogRoutine(){
-		while(!endOfDialogueChain){
-			GetDialog ();
-			//Game.control.ui.ToggleDialog (true);
-			handlingDialog = true;
-			yield return new WaitUntil(() => advanceDialogTrigger == true);
-			advanceDialogTrigger = false;
-		}
-
-		EndDialog ();
 	}
 
 	public void EndDialog()

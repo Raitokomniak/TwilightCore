@@ -572,44 +572,38 @@ public class UIController : MonoBehaviour {
 	// DIALOG
 
 	public void ToggleDialog(bool value){
-		
 		dialog.SetActive(value);
+		bossDialogName.transform.parent.gameObject.SetActive (false);
 	}
 
-	public void InitSpeakers(string main, string boss)
-	{
+	public void InitPlayerSpeaker(){
 		dialogRightChar.gameObject.SetActive (false);
 		dialogLeftChar.gameObject.SetActive (false);
-		
-		if(main != ""){
-			dialogRightChar.gameObject.SetActive (true);	
-			dialogRightChar.sprite = Resources.Load<Sprite> ("Images/DialogCharacters/mainchar");
-		}
-
-		if (boss != "") {
-			bossDialogName.transform.parent.gameObject.SetActive (true);
-			dialogLeftChar.gameObject.SetActive (true);
-			dialogLeftChar.sprite = Resources.Load<Sprite> ("Images/DialogCharacters/" + boss);
-		} else {
-			bossDialogName.transform.parent.gameObject.SetActive (false);
-		}
+	
+		dialogRightChar.gameObject.SetActive (true);	
+		dialogRightChar.sprite = Resources.Load<Sprite> ("Images/DialogCharacters/mainchar");
 	}
+
+	public void InitBossSpeaker(string boss){
+		bossDialogName.transform.parent.gameObject.SetActive (true);
+		dialogLeftChar.gameObject.SetActive (true);
+		dialogLeftChar.sprite = Resources.Load<Sprite> ("Images/DialogCharacters/" + boss);
+	}
+
 	public void UpdateAutoScrollInfo(bool autoScroll){
 		if(autoScroll) autoScrollInfo.text = "Autoscroll: ON";
 		else autoScrollInfo.text = "Autoscroll: OFF";
 	}
-	public void UpdateDialog(string name, string content){
-		dialogName.text = name;
+	public void UpdateDialog(string speaker, string content){
 		dialogContent.text = content;
 
+		if (speaker == "Boss") {
 
-		if (name.Contains ("Boss")) {
-			
 			dialogBG.transform.localScale = new Vector3 (-1, 1, 1);
 
 			if (dialogRightChar.GetComponent<Image>().color.a != .3f) {
-				//dialogRightChar.transform.position += new Vector3 (10, 0, 0);
-				//dialogLeftChar.transform.position += new Vector3 (10, 0, 0);
+				dialogRightChar.transform.position += new Vector3 (10, 0, 0);
+				dialogLeftChar.transform.position += new Vector3 (10, 0, 0);
 			}
 			dialogLeftChar.GetComponent<Image> ().color = new Color (1, 1, 1, 1);
 			dialogRightChar.GetComponent<Image> ().color = new Color (1, 1, 1, .3f);
@@ -620,8 +614,8 @@ public class UIController : MonoBehaviour {
 			dialogBG.transform.localScale = new Vector3 (1, 1, 1);
 			
 			if (dialogLeftChar.GetComponent<Image>().color.a != .3f) {
-			//dialogLeftChar.transform.position -= new Vector3 (10, 0, 0);
-			//dialogRightChar.transform.position -= new Vector3 (10, 0, 0);
+				dialogLeftChar.transform.position -= new Vector3 (10, 0, 0);
+				dialogRightChar.transform.position -= new Vector3 (10, 0, 0);
 			}
 			dialogLeftChar.GetComponent<Image> ().color = new Color (1, 1, 1, .3f);
 			dialogRightChar.GetComponent<Image> ().color = new Color (1, 1, 1, 1f);
