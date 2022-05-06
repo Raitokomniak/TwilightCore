@@ -31,9 +31,9 @@ public class Boss2 : Phaser
 				patterns[1].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14));
 				patterns[1].SetSprite ("Diamond", "Glow", "Red");
 
-				enemy.BossShoot (patterns[1]);
+				//enemy.BossShoot (patterns[1]);
 				while (!endOfPhase) {
-					enemy.BossShoot (patterns[0]);
+					//enemy.BossShoot (patterns[0]);
 					yield return new WaitForSeconds (1f);
 				}
 				break;
@@ -43,15 +43,21 @@ public class Boss2 : Phaser
 				Game.control.ui.ShowActivatedPhase ("Boss", "Indra's Net");
 
 				patterns.Add(new Pattern(lib.giantWeb));
-				patterns[0] = lib.maelStrom;
 				patterns[0].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[0], 0, 14));
-				patterns[0].SetSprite ("Diamond", "Glow", "Red");
+				patterns[0].SetSprite("Circle", "Big", "Red");
 
-				enemy.BossShoot (patterns[0]);
+				patterns.Add(new Pattern(lib.maelStrom));
+				patterns[1].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14));
+				patterns[1].Customize("RotationDirection", 1);
+				patterns[1].SetSprite ("Diamond", "Glow", "Red");
+
+				enemy.BossShoot (patterns[1]);
 				while (!endOfPhase) {
 					enemy.BossShoot (patterns[0]);
 					yield return new WaitForSeconds (10);
 				}
+				patterns[0].StopPattern();
+
 				endOfPhase = true;
 				break;
 			case 2:

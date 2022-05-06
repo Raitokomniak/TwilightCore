@@ -250,26 +250,27 @@ public class Pattern
 			bullets = new ArrayList ();
 			yield return new WaitForSeconds (2f);
 			pos = enemy.GetLocalPosition ();
-			if (tempMagnitude > 0) {
-				float b = bulletCount / 2 + tempMagnitude;
-				for (int i = 0; i < Mathf.RoundToInt (b); i++) {
-					newPosition = pos + new Vector3 (0f, 0f, 0f);
-					bulletRotation = Quaternion.Euler (0f, 0f, i * (360 / b));
-					animation = (Resources.Load ("Images/Animations/Animation") as GameObject);
-					movement = new BulletMovementPattern (false, "StopAndRotate", 20f, this, tempLayer, tempMagnitude);
-					InstantiateBullet (enemyBullet);
-					bullet.GetComponent<SpriteRenderer> ().sprite = spriteLib.SetBulletSprite ("Circle", "Big", "Red");
-					bullets.Add (enemyBullet);
+			
+			for(tempLayer = 0; tempLayer < 4; tempLayer++){
+				if (tempMagnitude > 0) {
+					float b = bulletCount / 2 + tempMagnitude;
+					for (int i = 0; i < Mathf.RoundToInt (b); i++) {
+						newPosition = pos + new Vector3 (0f, 0f, 0f);
+						bulletRotation = Quaternion.Euler (0f, 0f, i * (360 / b));
+						animation = (Resources.Load ("Images/Animations/Animation") as GameObject);
+						movement = new BulletMovementPattern (false, "StopAndRotate", 20f, this, tempLayer, tempMagnitude);
+						InstantiateBullet (enemyBullet);
+						bullet.GetComponent<SpriteRenderer> ().sprite = spriteLib.SetBulletSprite ("Circle", "Big", "Red");
+						bullets.Add (enemyBullet);
+					}
+					tempMagnitude -= 3;
+					yield return null;
+				} else {
+					tempMagnitude = originMagnitude;
 				}
-				tempMagnitude -= 3;
-				tempLayer++;
-				tempLayer = UpdateLayer (tempLayer);
-
-			} else {
-				tempMagnitude = originMagnitude;
+				yield return new WaitForSeconds (coolDown);
 			}
-			yield return new WaitForSeconds (coolDown);
-				
+
 			animating = false;
 			break;
 		}
@@ -336,11 +337,6 @@ public class Pattern
 		return position;
 	}
 
-	public void InitPattern ()
-	{
-		tempMagnitude = originMagnitude;
-	}
-
 	public void Animate (float targetScale, Vector3 centerPoint)
 	{
 		if (animation != null && !animating) {
@@ -356,11 +352,4 @@ public class Pattern
 		sprite = spriteLib.SetBulletSprite (shape, effect, color);
 	}
 
-	private int UpdateLayer (int l)
-	{
-		if (l == layers)
-			return 0;
-		else
-			return l;
-	}
 }
