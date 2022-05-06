@@ -13,7 +13,7 @@ public class DialogController : MonoBehaviour {
 	public bool playerActiveSpeaker;
 	IEnumerator dialogRoutine;
 	float autoScrollTimer = 0;
-	float autoScrollTime = 2.5f;
+	float autoScrollTime = 3.5f;
 	bool advanceDialogTrigger;
 	
 

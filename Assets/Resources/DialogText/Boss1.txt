@@ -1,10 +1,8 @@
-Boss	Who are you? What are you doing here?
-Player	I'm from the village
-Player	I was following an asura into the forest
-Boss	I didn't see anything
-Player	It went right past you...
-Boss	Nobody can enter the forest, it's a sacred place.
-Player	And you are the guard?
-Boss	Yes, an ordinary human, just like you.
+Boss	Who are you? None may pass into the forest!
+Player	I'm this world's Chandra, from the village nearby
+Player	I was following a thieving asura, you might have seen him?
+Boss	I didn't see anything, now begone!
+Player	It passed right through here... Don't foxes have good diurnal sight?
+Boss	I don't know what you're talking about. I'm human!
 Player	But don't you have a tail?
-Boss	Don't talk about my tail!	
+Boss	...
