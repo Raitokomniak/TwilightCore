@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21269310}
   - 114: {fileID: 11462972}
   m_Layer: 0
-  m_Name: Animation
+  m_Name: SmallWeb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

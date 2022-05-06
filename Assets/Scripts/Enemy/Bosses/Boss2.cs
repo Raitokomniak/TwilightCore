@@ -23,6 +23,7 @@ public class Boss2 : Phaser
 
         switch (phase) {
 			case 0:
+			/*
 				patterns.Add(lib.singleHoming);
 				patterns[0].Customize(new BulletMovementPattern (true, null, 0.5f, patterns[0], 0, 14));
 				patterns[0].SetSprite("Circle", "Big", "Red");
@@ -35,6 +36,18 @@ public class Boss2 : Phaser
 				while (!endOfPhase) {
 					//enemy.BossShoot (patterns[0]);
 					yield return new WaitForSeconds (1f);
+				}
+			*/
+				yield return new WaitForSeconds (2f);
+				patterns.Add(new Pattern (lib.spiral));
+				patterns[0].Customize (new BulletMovementPattern (true, "WaitAndExplode", 6f, patterns[0], 0, 14));
+				patterns[0].SetSprite ("Diamond", "Glow", "Red");
+				patterns.Add(new Pattern (lib.spiderWeb));
+				patterns[1].Customize (new BulletMovementPattern (false, "DownAndExplode", 0.5f, patterns[1], 0, 14));
+				patterns[1].SetSprite ("Circle", "Glow", "Red");
+				while (!endOfPhase) {	
+					enemy.BossShoot (patterns[1]);
+					yield return new WaitForSeconds(4);
 				}
 				break;
 			case 1:

@@ -232,17 +232,17 @@ public class Pattern
 			}
 			break;
 		case "SpiderWeb":
-			bullets = new ArrayList ();
-			for (int i = 0; i < bulletCount; i++) {
-				
-				newPosition = pos + new Vector3 (0f, 0f, 0f);
-				bulletRotation = rot;
-				animating = false;
-				animation = (Resources.Load ("Images/Animations/Animation") as GameObject);
-				movement = new BulletMovementPattern (movement);
 
+			bullets = new ArrayList ();
+			animation = (Resources.Load ("Images/Animations/SmallWeb") as GameObject);
+			bulletRotation = rot;
+			animating = false;
+			for (int i = 0; i < bulletCount; i++) {
+				bulletRotation = Quaternion.Euler (0f, 0f, i * (360 / bulletCount));
+				movement = new BulletMovementPattern (movement);
 				InstantiateBullet (enemyBullet);
 				bullet.GetComponent<SpriteRenderer> ().sprite = spriteLib.SetBulletSprite ("Circle", "Glow", "Red");
+				bullets.Add (enemyBullet);
 			}
 			break;
 
@@ -257,7 +257,7 @@ public class Pattern
 					for (int i = 0; i < Mathf.RoundToInt (b); i++) {
 						newPosition = pos + new Vector3 (0f, 0f, 0f);
 						bulletRotation = Quaternion.Euler (0f, 0f, i * (360 / b));
-						animation = (Resources.Load ("Images/Animations/Animation") as GameObject);
+						animation = (Resources.Load ("Images/Animations/SmallWeb") as GameObject);
 						movement = new BulletMovementPattern (false, "StopAndRotate", 20f, this, tempLayer, tempMagnitude);
 						InstantiateBullet (enemyBullet);
 						bullet.GetComponent<SpriteRenderer> ().sprite = spriteLib.SetBulletSprite ("Circle", "Big", "Red");

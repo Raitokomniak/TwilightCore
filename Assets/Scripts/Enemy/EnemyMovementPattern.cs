@@ -113,6 +113,8 @@ public class EnemyMovementPattern
 			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
 			UpdateDirection (-11f, 8f);
 			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+			//yield return new WaitForSeconds(3);
+			//UpdateDirection (0f, 8f);
 			break;
 		case "Swing":
 			centerPoint = new Vector3 (-6, 13, 0);

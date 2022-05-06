@@ -63,9 +63,9 @@ public class BulletMovementPattern
 		case "DownAndExplode":
 			movementSpeed = 10f;
 			yield return new WaitForSeconds (1f);
-
+			
 			CorrectRotation ();
-			Explode (true, bullet, 2.5f, 1);
+			Explode (true, bullet, 2.6f, 1);
 			yield return new WaitUntil (() => bullet.GetComponent<EnemyBulletMovement> ().CheckDistance () > targetMagnitude);
 
 			Stop (bullet);
