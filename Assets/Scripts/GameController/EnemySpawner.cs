@@ -43,10 +43,8 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	IEnumerator SpawnerRoutine(){
-		Debug.Log("start");
 		Game.control.stageHandler.ToggleTimer(true);
 		foreach (Wave wave in waves) {
-			Debug.Log(Game.control.stageHandler.stageTimer + " vs " + wave.spawnTime);
 			yield return new WaitUntil(() => Game.control.stageHandler.stageTimer >= wave.spawnTime);
 			wave.spawned = true;
 			if (wave.isBoss || wave.isMidBoss){
