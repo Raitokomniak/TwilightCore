@@ -16,9 +16,10 @@ public class EnemySpawner : MonoBehaviour {
 		DestroyAllProjectiles ();
 	}
 
+
+	//SHOULD I MAKE THIS INTO A ROUTINE? THIS SEEMS VERY VOLATILE
 	void Update () {
 		if (started) {
-			
 			foreach (Wave wave in waves) {
 				if (Game.control.stageHandler.stageTimer >= wave.spawnTime && !wave.spawned) {
 					wave.spawned = true;
@@ -27,7 +28,6 @@ public class EnemySpawner : MonoBehaviour {
 					}
 
 					InitializeWave ();
-//					Debug.Log(wave.bossIndex + " bossindex before spawn");
 					spawn = Spawn (wave);
 					StartCoroutine (spawn);
 				}

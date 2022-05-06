@@ -60,8 +60,6 @@ public class Game : MonoBehaviour {
 
 		menu.InitMenu ();
 		sound.InitSound ();
-
-
 	}
 
 	public void MainMenu (){

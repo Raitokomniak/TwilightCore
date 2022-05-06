@@ -4,9 +4,7 @@ public class TopLayerParallaxController : MonoBehaviour {
 
 	public float scrollSpeed;
 	public float tileSize;
-
 	Vector2 startPosition;
-
 	public bool moving;
 
 	void Awake () {

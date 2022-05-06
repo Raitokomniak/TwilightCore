@@ -27,13 +27,8 @@ public class PlayerLife : MonoBehaviour {
 		Game.control.sound.PlaySound ("Player", "TakeHit", true);
 		Game.control.enemySpawner.DestroyAllProjectiles ();
 
-		if(lives > 0) {
-			LoseLife();
-		}
-
-		else if(lives <= 0) {
-			Die();
-		}
+		if(lives > 0) {  LoseLife(); }
+		else if(lives <= 0) {  Die();  }
 	}
 
 	void LoseLife(){

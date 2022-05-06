@@ -8,7 +8,6 @@ public class SceneHandler : MonoBehaviour
 	public GameObject parent;
 	public Camera environmentCamera;
 	public GameObject[] planes;
-	public bool init;
 
 	public void SetUpEnvironment ()
 	{

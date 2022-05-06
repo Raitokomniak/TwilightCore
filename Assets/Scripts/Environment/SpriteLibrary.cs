@@ -14,7 +14,6 @@ public class SpriteLibrary : MonoBehaviour {
 		return sprite;
 	}
 
-
 	public Sprite SetCharacterSprite(string name){
 		string path = "Sprites/CharacterSprites/" + name;
 		Sprite sprite = Resources.Load<Sprite> (path);

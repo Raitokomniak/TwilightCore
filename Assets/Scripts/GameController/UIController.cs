@@ -447,17 +447,8 @@ public class UIController : MonoBehaviour {
 	//////////////////////////
 	// RIGHTSIDE PANEL
 
-	public void PlayToast(string type){
-		switch (type) {
-		case "PowerUp":
-			toast.text = "Power Up!";
-			StartCoroutine (PlayToast ());
-			break;
-		case "PowerDown":
-			toast.text = "Power down";
-			StartCoroutine (PlayToast ());
-			break;
-		}
+	public void PlayToast(string text){
+		toast.text = text;
 	}
 
 	IEnumerator PlayToast(){

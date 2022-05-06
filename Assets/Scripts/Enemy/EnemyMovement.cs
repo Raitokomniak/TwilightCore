@@ -41,8 +41,8 @@ public class EnemyMovement : MonoBehaviour {
 				
 				Game.control.ui.UpdateBossXPos (transform.position.x, !teleporting);
 			}
-
 		}
+
 		if(!teleporting && !GetComponent<EnemyLife>().GetInvulnerableState())
 			EnableSprite(true);
 	}
@@ -72,31 +72,6 @@ public class EnemyMovement : MonoBehaviour {
 			GetComponent<SpriteRenderer> ().flipX = false;
 		} else {
 			GetComponent<SpriteRenderer> ().flipX = true;
-		}
-	}
-
-	public void Animate(string animation)
-	{
-		//StartCoroutine (_Animate (animation));
-
-	}
-
-	IEnumerator _Animate(string animation){
-		Vector3 origin = pat.targetPos;
-		switch (animation) {
-		case "Float":
-			floating = true;
-			while (floating) {
-				pat.targetPos = transform.position - new Vector3 (0, .8f, 0);
-				SmoothAcceleration ();
-				yield return new WaitForSeconds (1f);
-				SmoothAcceleration ();
-				pat.targetPos = transform.position + new Vector3 (0, .8f, 0);
-				yield return new WaitForSeconds (1f);
-			}
-			SmoothAcceleration ();
-			pat.targetPos = origin;
-			break;
 		}
 	}
 }

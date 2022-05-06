@@ -13,10 +13,8 @@ public class EnemyBulletMovement : MonoBehaviour {
 	Quaternion rotation;
 	Sprite sprite;
 	BulletMovementPattern movement;
-	public bool isHoming;
+
 	public bool isMoving;
-	bool isRotating;
-	bool dontDestroy;
 	public bool isLaser;
 
 	float bWallPos;

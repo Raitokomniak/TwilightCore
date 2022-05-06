@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class PointDestructor : MonoBehaviour {
-
 	bool onMagneticRange = false;
 	
 	void Update () {

@@ -17,13 +17,11 @@ public class Wave
 	public bool simultaneous;
 	public ArrayList spawnPositions;
 
-	public EnemyLife life;
 	public EnemyMovementPattern movementPattern;
 	public Pattern shootPattern;
 	public ArrayList bossPatterns;
 	public ArrayList bossMovePatterns;
 	public ArrayList phases;
-	public ArrayList phasePatterns;
 
 	public Sprite sprite;
 
@@ -44,7 +42,6 @@ public class Wave
 		movementPattern = _movementPattern;
 		
 		if(_shootPattern != null) shootPattern = _shootPattern;
-		//shootPattern = ;
 
 		health = _health;
 		healthBars = _healthBars;
@@ -128,25 +125,5 @@ public class Wave
 		foreach (Vector3 pos in positions) {
 			spawnPositions.Add (pos);
 		}
-	}
-
-	public void AdjustSpawnPosition(Vector3 pos)
-	{
-		spawnPosition = pos;
-	}
-
-	public void SetSpeed(float s)
-	{
-		shootSpeed = s;
-	}
-
-	public void SetBossPatterns(Pattern p)
-	{
-		bossPatterns.Add(p);
-	}
-
-	public void SetBossMovePatterns(EnemyMovementPattern m)
-	{
-		bossMovePatterns.Add(m);
 	}
 }

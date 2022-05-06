@@ -4,7 +4,6 @@ using System.Collections;
 public class BulletMovementPattern
 {
 	private ArrayList properties;
-	private GameObject bullet;
 	public Vector3 centerPoint;
 
 	public float targetMagnitude;
@@ -287,11 +286,6 @@ public class BulletMovementPattern
 		movementSpeed = movementSpeed * dir;
 		rotateOnAxis = true;
 		isMoving = true;
-	}
-
-	public void SetProperties(string p)
-	{
-		properties.Add(p);
 	}
 
 	public Vector3 RotateOnAxis()

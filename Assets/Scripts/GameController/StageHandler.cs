@@ -40,11 +40,7 @@ public class StageHandler : MonoBehaviour {
 	IEnumerator timeUpRoutine;
 
 	ScoreSave currentHiScore;
-	
 
-	void Awake(){
-		
-	}
 
 	void Update () {
 		if(stageOn){
@@ -209,7 +205,7 @@ public class StageHandler : MonoBehaviour {
 		Game.control.enemyLib.InitEnemyLib ();
 
 		Game.control.player.gameObject.SetActive (true);
-		Game.control.sound.PlayMusic ("Stage" + currentStage);
+		Game.control.sound.PlayMusic ("Stage", currentStage);
 		Game.control.enemySpawner.StartSpawner (currentStage);
 
 		stageTimer = 0;

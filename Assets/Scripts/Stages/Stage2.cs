@@ -15,7 +15,7 @@ public class Stage2 : Stage
 	
 		while (Game.control.dialog.handlingDialog) yield return null;
 		while (stageHandler.stageTimer < 1f) yield return null;
-		Game.control.sound.PlayMusic ("Boss2");
+		Game.control.sound.PlayMusic ("Boss", 2);
 		Game.control.dialog.StartDialog ("Boss2");
 	}
 

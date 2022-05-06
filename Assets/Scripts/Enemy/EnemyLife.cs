@@ -7,7 +7,7 @@ public class EnemyLife : MonoBehaviour {
 	public float currentHealth;
 	public float superThreshold;
 	public int healthBars;
-	//int remainingHealthBars;
+
 
 	bool invulnerable;
 
@@ -84,7 +84,6 @@ public class EnemyLife : MonoBehaviour {
 
 	public void Die() {
 		
-		
 		Destroy(this.gameObject);
 		Game.control.sound.PlaySound ("Enemy", "Die", true);
 		//Instantiate(Resources.Load("expPoint"), transform.position, transform.rotation);
@@ -109,8 +108,6 @@ public class EnemyLife : MonoBehaviour {
 			}
 			shooter.wave.dead = true;
 		}
-
-
 	}
 
 	public void OnTriggerStay2D(Collider2D c)

@@ -2,14 +2,20 @@
 using System.Collections;
 
 public class MagneticRange : MonoBehaviour {
+	SpriteRenderer spriteRenderer;
+	CircleCollider2D _collider;
 
+	void Awake(){
+		spriteRenderer = GetComponent<SpriteRenderer>();
+		_collider = GetComponent<CircleCollider2D>();
+	}
 	public void Scale(int dir){
 		if (dir > 0)
-			GetComponent<SpriteRenderer> ().enabled = true;
+			spriteRenderer.enabled = true;
 
-		else GetComponent<SpriteRenderer>().enabled = false;
+		else spriteRenderer.enabled = false;
 
-		if (dir > 0 && GetComponent<CircleCollider2D> ().radius < 6 || dir < 0 && GetComponent<CircleCollider2D> ().radius > 1)
-			GetComponent<CircleCollider2D> ().radius += dir * 0.2f;
+		if (dir > 0 && _collider.radius < 6 || dir < 0 && _collider.radius > 1)
+			_collider.radius += dir * 0.2f;
 	}
 }

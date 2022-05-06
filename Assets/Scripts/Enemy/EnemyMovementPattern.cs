@@ -220,7 +220,5 @@ public class EnemyMovementPattern
 		}
 
 		targetPos = new Vector3 (h, v, 0f);
-
-
 	}
 }

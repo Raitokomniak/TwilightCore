@@ -12,8 +12,6 @@ public class MenuController : MonoBehaviour
 	public List<string> gameOverMenuItems;
 
 	List<string> selectedList;
-
-
 	int selectedIndex;
 	string selection;
 	string context;
@@ -76,7 +74,6 @@ public class MenuController : MonoBehaviour
 				Game.control.pause.HandlePause();
 			}
 		}
-		
 	}
 
 	void ClosePauseMenu(){
@@ -121,9 +118,6 @@ public class MenuController : MonoBehaviour
 			Game.control.ui.GameOverScreen (true);
 			Game.control.ui.UpdateMenuSelection ("GameOverMenu", 0);
 		}
-
-
-
 	}
 
 	public void InitMenu(){
@@ -184,10 +178,9 @@ public class MenuController : MonoBehaviour
 	void CheckSelection ()
 	{
 		if(context == "MainMenu"){
-
 			if(selectedIndex == 0) Menu("DifficultyMenu");
 			if(selectedIndex == 1) Menu("OptionsMenuMain");
-			if(selectedIndex == 2) Application.Quit();
+			if(selectedIndex == 2) Game.control.QuitGame();
 		}
 		else if(context == "DifficultyMenu"){
 			if(selectedIndex == 0) Game.control.stageHandler.SetDifficulty(1);
@@ -204,16 +197,13 @@ public class MenuController : MonoBehaviour
 			}
 			if(selectedIndex == 1) Game.control.stageHandler.RestartStage (Game.control.stageHandler.currentStage);
 			if(selectedIndex == 2) Menu("OptionsMenu");
-			if(selectedIndex == 3) Application.Quit();
+			if(selectedIndex == 3) Game.control.QuitGame();
 			Game.control.ui.UpdateMenuSelection (context, 0);
 		}
 		else if(context == "GameOverMenu"){
 			if(selectedIndex == 0) Game.control.stageHandler.RestartStage (Game.control.stageHandler.currentStage);
 			if(selectedIndex == 1) Game.control.MainMenu();
-			if(selectedIndex == 2) Application.Quit();
+			if(selectedIndex == 2) Game.control.QuitGame();
 		}
-
-		
 	}
-
 }

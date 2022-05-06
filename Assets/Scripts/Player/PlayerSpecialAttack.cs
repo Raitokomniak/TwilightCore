@@ -2,6 +2,9 @@
 using System.Collections;
 
 public class PlayerSpecialAttack : MonoBehaviour {
+
+	PlayerMovement movement;
+	PlayerShoot shoot;
 	public bool specialAttack;
 	public float specialAttackTime;
 
@@ -24,6 +27,9 @@ public class PlayerSpecialAttack : MonoBehaviour {
 
 
 	void Awake(){
+		movement = GetComponent<PlayerMovement>();
+		shoot = GetComponent<PlayerShoot>();
+
 		starLightBomb = Resources.Load ("Prefabs/StarLightBomb") as GameObject;
 
 		dayCoreLevel = 0;
@@ -37,19 +43,23 @@ public class PlayerSpecialAttack : MonoBehaviour {
 	}
 
 	void Update () {
-		//MAKE A SINGLE CHECK FUNC
-		if(!Game.control.menu.menuOn && !specialAttack && Input.GetKeyDown(KeyCode.X) && !Game.control.dialog.handlingDialog)
+		if(Input.GetKeyDown(KeyCode.X) && CanUseSpecial())
 		{
-			if (!GetComponent<PlayerMovement>().focusMode && dayCorePoints >= 20) {
+			if (!movement.focusMode && dayCorePoints >= 20)
 				StartCoroutine(SpecialAttack ("Day"));
-			} else if (GetComponent<PlayerMovement>().focusMode && nightCorePoints >= 20) {
+			else if (movement.focusMode && nightCorePoints >= 20)
 				StartCoroutine(SpecialAttack ("Night"));
-			} 
-			else {
-				Debug.Log ("Not enough points");
-			}
+			else
+				Game.control.ui.PlayToast("Not enough points");
 		}
 
+	}
+
+	bool CanUseSpecial(){
+		if(Game.control.menu.menuOn) return false;
+		if(specialAttack) return false;
+		if(Game.control.dialog.handlingDialog) return false;
+		return true;
 	}
 
 	IEnumerator SpecialAttack(string core)
@@ -108,7 +118,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 		int threshold = 0;
 		string core = "";
 
-		if (!GetComponent<PlayerMovement>().focusMode) {
+		if (!movement.focusMode) {
 			threshold = dayCoreThreshold;
 			points = dayCorePoints;
 			core = "Day";
@@ -139,7 +149,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			points = limit;
 		}
 
-		if (!GetComponent<PlayerMovement>().focusMode) {
+		if (!movement.focusMode) {
 			dayCorePoints = limit;
 			dayCoreThreshold = threshold;
 		} else {
@@ -160,7 +170,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			multiplier = nightCoreLevel + 1;
 
 
-		GetComponent<PlayerHandler>().GainScore (100 * multiplier);
+		Game.control.player.GainScore (100 * multiplier);
 
 		int corePoints = 0;
 
@@ -198,35 +208,35 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			if (up) {
 				dayCoreLevel++;
 				if (dayCoreLevel > nightCoreLevel) {
-					GetComponent<PlayerShoot>().shootLevel = dayCoreLevel;
-					Game.control.ui.PlayToast ("PowerUp");
+					shoot.shootLevel = dayCoreLevel;
+					Game.control.ui.PlayToast ("Power Up!");
 				}
 			} else {
 				if (dayCoreLevel != 0)
 					dayCoreLevel--;
 				if (dayCoreLevel > nightCoreLevel)
-					GetComponent<PlayerShoot>().shootLevel = dayCoreLevel;
+					shoot.shootLevel = dayCoreLevel;
 			}
 		} else if (core == "Night") {
 			if (up) {
 				nightCoreLevel++;
 				if (dayCoreLevel <= nightCoreLevel) {
-					GetComponent<PlayerShoot>().shootLevel = nightCoreLevel;
-					Game.control.ui.PlayToast ("PowerUp");
+					shoot.shootLevel = nightCoreLevel;
+					Game.control.ui.PlayToast ("Power Up!");
 				}
 			} else {
 				if (nightCoreLevel != 0)
 					nightCoreLevel--;
 				if (nightCoreLevel > dayCoreLevel)
-					GetComponent<PlayerShoot>().shootLevel = nightCoreLevel;
+					shoot.shootLevel = nightCoreLevel;
 			}
 		}
 
 		if (!up) {
-			Game.control.ui.PlayToast ("PowerDown");
+			Game.control.ui.PlayToast ("Power Down");
 		}
 			
-		GetComponent<PlayerShoot>().UpdateShootLevel ();
+		shoot.UpdateShootLevel ();
 	}
 
 }

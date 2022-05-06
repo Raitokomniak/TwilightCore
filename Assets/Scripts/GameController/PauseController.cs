@@ -18,7 +18,6 @@ public class PauseController : MonoBehaviour {
 			else
 				Unpause (true);
 		}
-		
 	}
 
 	void Pause(){

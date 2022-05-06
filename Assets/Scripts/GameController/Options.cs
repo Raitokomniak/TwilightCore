@@ -9,16 +9,11 @@ public class OptionsValues {
         [SerializeField] public float bgmVolume;
         [SerializeField] public float sfxVolume;
 
-        public OptionsValues(){
-
-        }
+        public OptionsValues(){}
 }
 
 public class Options : MonoBehaviour
 {
-   // public GameObject optionsContainer;
-	//public GameObject optionsValueContainer;
-
     public void UpdateOption(bool increase, int index){
         if(index == 0)
             AutoScrollOption();

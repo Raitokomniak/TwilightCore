@@ -44,7 +44,6 @@ public class Phaser : MonoBehaviour {
 		movementPatterns = new List<EnemyMovementPattern> ();
 		patterns = new List<Pattern> ();
 		bossPhase = -1;
-//		Debug.Log("phaser awake");
 
 		wave = _wave;
 		if(bossIndex == 0.5f) boss = gameObject.AddComponent<Boss05>();

@@ -88,11 +88,9 @@ public class Pattern
 
 	public void StopPattern(){
 		stop = true;
-
 	}
 
 
-	
 	public void InstantiateBullet (GameObject enemyBullet)
 	{
 		movement = new BulletMovementPattern (movement);

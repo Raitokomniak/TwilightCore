@@ -41,8 +41,6 @@ public class EnemyLib : MonoBehaviour
 	public Vector3 rightTop;
 	public Vector3 topLeft;
 
-	public Wave boss2;
-
 
 	void Awake(){
 		centerX = -6f;

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
+	PlayerHandler player;
 	bool init;
 	float movementSpeed;
 	public GameObject hitBox;
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 	void Awake ()
 	{
 		hitBox.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 0);
+		player = GetComponent<PlayerHandler>();
 	}
 
 	public void Init(){
@@ -41,38 +43,31 @@ public class PlayerMovement : MonoBehaviour
 			float hor = Input.GetAxisRaw ("Horizontal");
 			float ver = Input.GetAxisRaw ("Vertical");
 
-			if (hor < 0) {
-				if (transform.position.x > leftWallX) {
+			if (hor < 0) 
+				if (transform.position.x > leftWallX) 
 					Move (hor, 0);
-				}
-			}
-			if (hor > 0) {
-				if (transform.position.x <= rightWallX) {
+				
+			if (hor > 0) 
+				if (transform.position.x <= rightWallX) 
 					Move (hor, 0);
-				}
-			}
-			if (ver > 0) {
-				if (transform.position.y <= topWallY) {
+				
+			if (ver > 0) 
+				if (transform.position.y <= topWallY) 
 					Move (0, ver);
-				}
-			}
-
-			if (ver < 0) {
-				if (transform.position.y >= bottomWallY) {
+				
+			if (ver < 0)
+				if (transform.position.y >= bottomWallY)
 					Move (0, ver);
-					}
-				}
+				
 		}
 	}
 
 	public void FocusMode (bool focus)
 	{
-	
 		if (focus) {
 			focusMode = true;
 			hitBox.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
-			//movementSpeed = GetComponent<PlayerHandler>().stats.movementSpeed / 2;
-			movementSpeed = GetComponent<PlayerHandler>().stats.movementSpeed * Time.deltaTime / 2;
+			movementSpeed = player.stats.movementSpeed * Time.deltaTime / 2;
 			magneticRange.Scale (1);
 			magneticRange.GetComponent<AnimationController> ().rotating = true;
 			GetComponent<PlayerShoot> ().FocusWeapons (1);
@@ -80,8 +75,7 @@ public class PlayerMovement : MonoBehaviour
 		} else {
 			focusMode = false;
 			hitBox.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 0);
-			//movementSpeed = GetComponent<PlayerHandler>().stats.movementSpeed;
-			movementSpeed = GetComponent<PlayerHandler>().stats.movementSpeed * Time.deltaTime;
+			movementSpeed = player.stats.movementSpeed * Time.deltaTime;
 			magneticRange.Scale (-1);
 			magneticRange.GetComponent<AnimationController> ().rotating = false;
 			GetComponent<PlayerShoot> ().FocusWeapons (-1);

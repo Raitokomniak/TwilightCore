@@ -54,10 +54,8 @@ public class MainMenuUI : MonoBehaviour
 	public void ToggleOptions(bool toggle){
 		mainMenuPanel.gameObject.SetActive(!toggle);
 		optionsPanel.SetActive(toggle);
-		//if(toggle) Game.control.menu.Menu("OptionsMenuMain");
 	}
 
-	
 	public void UpdateOptionSelection(int index, string text){
 		TextMeshProUGUI option = optionsValueContainer.transform.GetChild(index).GetComponent<TextMeshProUGUI>();
 		option.text = text;

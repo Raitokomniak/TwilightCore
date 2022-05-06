@@ -12,7 +12,6 @@ public class EnvironmentController : MonoBehaviour {
 	Vector3 startPosition;
 
 	public bool moving;
-	public bool updatingSpeed;
 
 	void Update () {
 		moving = !Game.control.pause.paused;

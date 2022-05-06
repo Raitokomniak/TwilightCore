@@ -5,11 +5,10 @@ public class Hitbox : MonoBehaviour {
 
 	PlayerHandler player;
 
-	void Awake(){
-		player = Game.control.player;
-	}
 	void OnTriggerEnter2D(Collider2D c)
 	{
+		player = Game.control.player;
+
 		if(c.gameObject.tag == "EnemyProjectile" || c.gameObject.tag == "Enemy")
 		{
 			if (!player.health.invulnerable && !Game.control.stageHandler.gameOver) {
