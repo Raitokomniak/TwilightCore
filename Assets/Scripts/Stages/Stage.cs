@@ -6,7 +6,7 @@ public class Stage : MonoBehaviour
 {
 	public StageHandler stageHandler;
 	public IEnumerator stageHandlerRoutine;
-
+    public Wave boss;
 
     void Awake(){
         stageHandler = Game.control.stageHandler;

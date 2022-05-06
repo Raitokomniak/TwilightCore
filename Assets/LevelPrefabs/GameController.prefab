@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4442655861058145954}
   - component: {fileID: 4442655861058145955}
   - component: {fileID: 4442655861058145964}
+  - component: {fileID: 5880166184728285871}
   - component: {fileID: 4442655861058145965}
   - component: {fileID: 355109044298794612}
   - component: {fileID: 1955154550}
@@ -151,6 +152,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953771c841ded2845a7657b51392ab72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5880166184728285871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4442655861058145966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7b326293b79ded428e407d3e10cf40d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appDataPath: 
 --- !u!114 &4442655861058145965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +181,7 @@ MonoBehaviour:
   pauseMenuItems: []
   difficultyMenuItems: []
   optionsMenuItems: []
+  gameOverMenuItems: []
   menuOn: 0
 --- !u!114 &355109044298794612
 MonoBehaviour:
@@ -184,6 +199,7 @@ MonoBehaviour:
   ui: {fileID: 0}
   dialog: {fileID: 0}
   stageHandler: {fileID: 0}
+  io: {fileID: 0}
   scene: {fileID: 0}
   enemySpawner: {fileID: 0}
   enemyLib: {fileID: 0}
@@ -206,8 +222,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a2f4884235846458ff1a90a5f96ce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsPanel: {fileID: 0}
-  optionsContainer: {fileID: 0}
 --- !u!1 &4442655862132054638
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,5 +265,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd272b1fd081f3479b06fe099ca2518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableSound: 1
+  disableSound: 0
   bossMusicPlaying: 0
+  SFXVolume: 0

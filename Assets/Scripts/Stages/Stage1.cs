@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Stage1 : Stage
 {
+
 	public override void StartStageHandler(){
 		
 		stageHandlerRoutine = StageHandlerRoutine();
@@ -44,7 +45,7 @@ public class Stage1 : Stage
 		while (Game.control.dialog.handlingDialog) yield return null;
 		scene.SetPlaneSpeed (15f);
 
-		while (stageHandler.stageTimer < 96f) yield return null;
+		while (stageHandler.stageTimer < boss.spawnTime - 1) yield return null;
 		Game.control.dialog.StartDialog ("Boss1");
 		scene.SetPlaneSpeed (3f);
 	}
@@ -246,8 +247,8 @@ public class Stage1 : Stage
 
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.Customize ("StayTime", 0);
-			Wave boss1 = new Wave(96f, mp, null, 1,  false, 50 * Mathf.CeilToInt(difficultyMultiplier / 2) , true, 3f, 2);
-			boss1.SetUpBoss (1, "Maaya, Forest Guardian", false);
-			lib.NewWave (lib.stageWaves, boss1, new ArrayList { lib.middleTop });
+			boss = new Wave(96f, mp, null, 1,  false, 50 * Mathf.CeilToInt(difficultyMultiplier / 2) , true, 3f, 2);
+			boss.SetUpBoss (1, "Maaya, Forest Guardian", false);
+			lib.NewWave (lib.stageWaves, boss, new ArrayList { lib.middleTop });
 	}
 }

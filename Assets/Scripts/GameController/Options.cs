@@ -16,8 +16,6 @@ public class OptionsValues {
 
 public class Options : MonoBehaviour
 {
-    OptionsValues options;
-
    // public GameObject optionsContainer;
 	//public GameObject optionsValueContainer;
 
@@ -30,7 +28,7 @@ public class Options : MonoBehaviour
             SFXVolume(increase);
 
         UpdateValueToUI(index);
-        SaveOptions();
+        Game.control.io.SaveOptions();
     }
 
     void AutoScrollOption(){
@@ -103,32 +101,10 @@ public class Options : MonoBehaviour
         }
     }
 
-    public bool SaveOptions(){
-        options = new OptionsValues();
-        options.autoScroll = Game.control.dialog.autoScroll;
-        options.bgmVolume = Game.control.sound.GetBGMVolume();
-        options.sfxVolume = Game.control.sound.SFXVolume;
-        string dataString = JsonUtility.ToJson(options);
-        //THIS DATAPATH HAS TO BE CHANGED TO BUILD DATAPATH
-        File.WriteAllText(Game.control.appDataPath + "/Resources/json/options.json", dataString);
-        return true;
-    }
-
-    public bool LoadOptions(){
-         //THIS DATAPATH HAS TO BE CHANGED TO BUILD DATAPATH
-        if(File.Exists(Game.control.appDataPath + "/Resources/json/options.json")){
-            string rawJson = File.ReadAllText(Game.control.appDataPath + "/Resources/json/options.json");
-            options = JsonUtility.FromJson<OptionsValues>(rawJson);
-            LoadValuesFromFile();
-            return true;
-        }
-        else return false;
-    }
-
-    void LoadValuesFromFile(){
-        Game.control.dialog.autoScroll = options.autoScroll;
-        Game.control.sound.SetBGMVolume(options.bgmVolume);
-        Game.control.sound.SetSFXVolume(options.sfxVolume);
+    public void LoadValuesFromFile(OptionsValues file){
+        Game.control.dialog.autoScroll = file.autoScroll;
+        Game.control.sound.SetBGMVolume(file.bgmVolume);
+        Game.control.sound.SetSFXVolume(file.sfxVolume);
         UpdateAllValues();
     }
 }

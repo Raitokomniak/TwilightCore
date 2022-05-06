@@ -80,30 +80,11 @@ public class StageHandler : MonoBehaviour {
 		}
 	}
 
-	public bool SaveScore(){
-        ScoreSave score = new ScoreSave("Player", Game.control.player.stats.hiScore);
-        string dataString = JsonUtility.ToJson(score);
-        //THIS DATAPATH HAS TO BE CHANGED TO BUILD DATAPATH
-        File.WriteAllText(Game.control.appDataPath + "/Resources/json/score.json", dataString);
-        return true;
-    }
 
-    public bool LoadScore(){
-         //THIS DATAPATH HAS TO BE CHANGED TO BUILD DATAPATH
-        if(File.Exists(Game.control.appDataPath + "/Resources/json/score.json")){
-			currentHiScore = new ScoreSave();
-            string rawJson = File.ReadAllText(Game.control.appDataPath + "/Resources/json/score.json");
-            currentHiScore = JsonUtility.FromJson<ScoreSave>(rawJson);
-			Game.control.player.stats.hiScore = currentHiScore.score;
-			Game.control.ui.UpdateHiScore(Game.control.player.stats.hiScore);
-            return true;
-        }
-        else return false;
-    }
 
 	public void EndHandler (string endType)
 	{
-		//SaveScore();
+		Game.control.io.SaveScore();
 
 		switch (endType) {
 		case "GameOver":
@@ -210,7 +191,7 @@ public class StageHandler : MonoBehaviour {
 	//Game.control.menu.ToggleMenu (false);
 		Game.control.scene.SetUpEnvironment ();
 		Game.control.player.Init ();
-		LoadScore();
+		Game.control.io.LoadScore();
 		Game.control.dialog.Init();
 		Game.control.ui.InitStage ();
 		Game.control.menu.InitMenu();

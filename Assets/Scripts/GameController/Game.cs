@@ -7,12 +7,11 @@ public class Game : MonoBehaviour {
 	public static Game control;
 	public static bool paused;
 
-	public string appDataPath;
-
 	[SerializeField] public MainMenuUI mainMenuUI;
 	[SerializeField] public UIController ui;
 	[SerializeField] public DialogController dialog;
 	[SerializeField] public StageHandler stageHandler;
+	[SerializeField] public SaveLoadHandler io;
 	[SerializeField] public SceneHandler scene;
 	[SerializeField] public EnemySpawner enemySpawner;
 	[SerializeField] public EnemyLib enemyLib;
@@ -45,7 +44,8 @@ public class Game : MonoBehaviour {
 		} else if (control != this) {
 			Destroy (gameObject);
 		}
-		
+
+		io = GetComponent<SaveLoadHandler>();
 		dialog = GetComponent<DialogController> ();
 		stageHandler = GetComponent<StageHandler> ();
 		scene = GetComponent<SceneHandler> ();
@@ -60,11 +60,7 @@ public class Game : MonoBehaviour {
 
 		menu.InitMenu ();
 		sound.InitSound ();
-		
-		
 
-		 //THIS DATAPATH HAS TO BE CHANGED TO BUILD DATAPATH
-		appDataPath = Application.dataPath;
 	}
 
 	public void MainMenu (){
@@ -80,8 +76,8 @@ public class Game : MonoBehaviour {
 		mainMenuUI.InitMainMenu ();
 		sound.PlayMusic ("MainMenu");
 		menu.Menu("MainMenu");
-//		if(options.LoadOptions()) Debug.Log("options loaded");
-//		else Debug.Log("no options file");
+		if(Game.control.io.LoadOptions()) Debug.Log("options loaded");
+		else Debug.Log("no options file");
 		yield return new WaitForEndOfFrame();
 	}
 
