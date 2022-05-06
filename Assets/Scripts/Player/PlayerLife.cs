@@ -18,7 +18,7 @@ public class PlayerLife : MonoBehaviour {
 	}
 
 	void Update(){
-		if(!invulnerable && GetComponent<SpriteRenderer> ().enabled == false)
+		if(!invulnerable)
 			GetComponent<SpriteRenderer> ().enabled = true;
 	}
 
