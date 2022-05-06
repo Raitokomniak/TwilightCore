@@ -43,19 +43,28 @@ public class StageHandler : MonoBehaviour {
 	
 
 	void Awake(){
-		gameOver = false;
+		
 	}
 
 	void Update () {
-		if(stageTimerOn) {
-			stageTimer += Time.deltaTime;
-			Game.control.ui.UpdateTimer(stageTimer);
+		if(stageOn){
+			if(stageTimerOn) {
+				stageTimer += Time.deltaTime;
+				Game.control.ui.UpdateTimer(stageTimer);
+			}
 		}
+		else {
+			if (CanAdvanceStage() && Input.GetKeyDown (KeyCode.Z)) {
+				Game.control.ui.StageCompleted (false);
+				NextStage ();
+			}
+		}
+	}
 
-		if (stageCompleted && Input.GetKeyDown (KeyCode.Z)) {
-			Game.control.ui.StageCompleted (false);
-			NextStage ();
-		}
+	bool CanAdvanceStage(){
+		if(gameOver) return false;
+		if(!stageCompleted) return false;
+		else return true;
 	}
 	
 	public void InitWaves(int stage){
@@ -164,8 +173,10 @@ public class StageHandler : MonoBehaviour {
 		StartStage(stage);
 	}
 	public void StartStage (int stage){
-		currentStage = stage;
 		gameOver = false;
+		stageCompleted = false;
+		stageTimerOn = false;
+		currentStage = stage;
 		restartRoutine = StartStageRoutine();
 		StartCoroutine(restartRoutine);
 	}
