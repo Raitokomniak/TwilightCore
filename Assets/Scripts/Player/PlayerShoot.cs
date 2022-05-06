@@ -20,7 +20,7 @@ public class PlayerShoot : MonoBehaviour {
 	//string[] shootTypes;
 	//public float shootSpeed;
 	void Awake () {
-		projectile = Resources.Load("BulletSprites/playerProjectile") as GameObject;
+		projectile = Resources.Load("Sprites/BulletSprites/playerProjectile") as GameObject;
 		coolDownTimer = 0f;
 		coolDown = .1f;
 		bulletScale = 1f;
@@ -37,7 +37,7 @@ public class PlayerShoot : MonoBehaviour {
 		weaponsInUse = new ArrayList ();
 
 		transform.position = new Vector3 (Game.control.enemyLib.centerX, -8, 0);
-		weapon = Resources.Load<GameObject> ("CharacterSprites/maincharweapon");
+		weapon = Resources.Load<GameObject> ("Sprites/CharacterSprites/maincharweapon");
 
 		weapons.Add ((GameObject)Instantiate(weapon, transform.position + new Vector3(0, 1f, 0), transform.rotation));
 		weapons.Add ((GameObject)Instantiate(weapon, transform.position + new Vector3 (-1f, 0f, 0), transform.rotation)); // 1 left
@@ -88,17 +88,17 @@ public class PlayerShoot : MonoBehaviour {
 		Game.control.sound.PlaySound("Player", "Shoot", true);
 
 		for (int i = 0; i < weaponsInUse.Count; i++) {
-			GameObject projectile = Resources.Load("BulletSprites/playerProjectile") as GameObject;
+			GameObject projectile = Resources.Load("Sprites/BulletSprites/playerProjectile") as GameObject;
 
 			GameObject weapon = (GameObject)weapons [i];
 			newPosition = weapon.transform.position + new Vector3(0, 0.5f, 0);
 			newRotation = weapon.transform.rotation;
 			projectile.transform.localScale = new Vector3 (3, 3, 3);
 			if (GetComponent<PlayerMovement> ().focusMode) {
-				projectile.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("BulletSprites/playerProjectileSprite2");
+				projectile.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/BulletSprites/playerProjectileSprite2");
 			}
 			else 
-				projectile.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("BulletSprites/playerProjectileSprite");
+				projectile.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/BulletSprites/playerProjectileSprite");
 			
 			if (i == 3 && !GetComponent<PlayerMovement>().focusMode) {
 				projectile.GetComponent<ProjectileMovement> ().homing = true;

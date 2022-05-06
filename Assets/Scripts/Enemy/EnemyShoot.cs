@@ -11,7 +11,7 @@ public class EnemyShoot : MonoBehaviour {
 
 
 	void Awake () {
-		enemyBullet = Resources.Load("enemyBullet") as GameObject;
+		enemyBullet = Resources.Load("Prefabs/enemyBullet") as GameObject;
 		enemyLife = GetComponent<EnemyLife>();
 
 		wave = Game.control.enemySpawner.curWave;

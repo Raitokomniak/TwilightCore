@@ -93,7 +93,7 @@ public class Wave
 			spawnPosition =  (Vector3)spawnPositions [spawnPositions.Count - 1];
 		}
 
-		GameObject enemy = GameObject.Instantiate (Resources.Load ("Enemy"), spawnPosition, Quaternion.Euler (0, 0, 0)) as GameObject;
+		GameObject enemy = GameObject.Instantiate (Resources.Load ("Prefabs/Enemy"), spawnPosition, Quaternion.Euler (0, 0, 0)) as GameObject;
 
 		enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0);
 		enemy.GetComponent<EnemyMovement> ().SetUpPatternAndMove (new EnemyMovementPattern(movementPattern));

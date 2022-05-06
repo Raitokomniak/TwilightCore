@@ -9,14 +9,14 @@ public class SpriteLibrary : MonoBehaviour {
 		allSprites = new ArrayList ();
 	}
 	public Sprite SetBulletSprite(string shape, string effect, string color){
-		string path = "BulletSprites/" + shape + "_" + effect + "_" + color;
+		string path = "Sprites/BulletSprites/" + shape + "_" + effect + "_" + color;
 		Sprite sprite = Resources.Load<Sprite> (path);
 		return sprite;
 	}
 
 
 	public Sprite SetCharacterSprite(string name){
-		string path = "CharacterSprites/" + name;
+		string path = "Sprites/CharacterSprites/" + name;
 		Sprite sprite = Resources.Load<Sprite> (path);
 		return sprite;
 	}

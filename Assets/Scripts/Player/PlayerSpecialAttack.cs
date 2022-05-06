@@ -24,7 +24,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 
 
 	void Awake(){
-		starLightBomb = Resources.Load ("StarLightBomb") as GameObject;
+		starLightBomb = Resources.Load ("Prefabs/StarLightBomb") as GameObject;
 
 		dayCoreLevel = 0;
 		dayCorePoints = 0;
@@ -60,7 +60,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 		DepleteCore (true);
 
 		if (core == "Day") {
-			Game.control.ui.ShowActivatedPhase ("Player", "Day Core: StarLight");
+			Game.control.ui.ShowActivatedPhase ("Player", "Day Core: StarLight Special");
 			daySpecial.SetActive (true);
 			dayAnimatedSprite.GetComponent<AnimationController> ().Scale (1, .5f, true, false);
 			dayAnimatedSprite.GetComponent<AnimationController> ().rotating = true;

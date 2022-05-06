@@ -89,16 +89,16 @@ public class EnemyLife : MonoBehaviour {
 		Game.control.sound.PlaySound ("Enemy", "Die", true);
 		//Instantiate(Resources.Load("expPoint"), transform.position, transform.rotation);
 		if(Random.Range(0, 2) == 0)
-			Instantiate(Resources.Load("nightCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
+			Instantiate(Resources.Load("Prefabs/nightCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
 		else 
-			Instantiate(Resources.Load("dayCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
+			Instantiate(Resources.Load("Prefabs/dayCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
 		//if(shooter.bulletsShot.Count != 0) GameController.gameControl.enemySpawner.DestroyEnemyProjectiles (shooter.bulletsShot);
 		if(tag == "Boss" || tag == "MidBoss"){
 			Game.control.enemySpawner.DestroyAllProjectiles();
 			for(int i = 0; i < 9; i++){
-				Instantiate(Resources.Load("expPoint"), transform.position + new Vector3(Random.Range(-5, 5), Random.Range(-5, 5)), transform.rotation);
+				Instantiate(Resources.Load("Prefabs/expPoint"), transform.position + new Vector3(Random.Range(-5, 5), Random.Range(-5, 5)), transform.rotation);
 				if(Random.Range(0, 2) == 0)
-					Instantiate(Resources.Load("nightCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
+					Instantiate(Resources.Load("Prefabs/nightCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
 			}
 				
 			Game.control.ui.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
