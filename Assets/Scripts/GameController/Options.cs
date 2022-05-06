@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
+
 
 [System.Serializable]
 public class OptionsValues {
@@ -106,5 +106,12 @@ public class Options : MonoBehaviour
         Game.control.sound.SetBGMVolume(file.bgmVolume);
         Game.control.sound.SetSFXVolume(file.sfxVolume);
         UpdateAllValues();
+    }
+
+    
+    public void DefaultOptions(){
+        Game.control.dialog.autoScroll = true;
+        Game.control.sound.SetBGMVolume(1);
+        Game.control.sound.SetSFXVolume(1);
     }
 }

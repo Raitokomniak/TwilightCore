@@ -61,6 +61,7 @@ public class Game : MonoBehaviour {
 		menu.InitMenu ();
 		sound.InitSound ();
 
+
 	}
 
 	public void MainMenu (){
@@ -76,8 +77,9 @@ public class Game : MonoBehaviour {
 		mainMenuUI.InitMainMenu ();
 		sound.PlayMusic ("MainMenu");
 		menu.Menu("MainMenu");
-		if(Game.control.io.LoadOptions()) Debug.Log("options loaded");
-		else Debug.Log("no options file");
+
+		Game.control.io.LoadOptions();
+		
 		yield return new WaitForEndOfFrame();
 	}
 

@@ -42,7 +42,7 @@ public class SaveLoadHandler : MonoBehaviour {
         return true;
     }
 
-    public bool LoadOptions(){
+    public void LoadOptions(){
         //THIS DATAPATH HAS TO BE CHANGED TO BUILD DATAPATH
         string path = appDataPath + "/options.json"; //FOR DEV
         
@@ -50,9 +50,13 @@ public class SaveLoadHandler : MonoBehaviour {
             string rawJson = File.ReadAllText(appDataPath + "/options.json");
             OptionsValues options = JsonUtility.FromJson<OptionsValues>(rawJson);
             Game.control.options.LoadValuesFromFile(options);
-            return true;
+            Debug.Log("Options loaded");
         }
-        else return false;
+        else {
+            Debug.Log("No options file, default options");
+            Game.control.options.DefaultOptions();
+        }
     }
+
 
 }
