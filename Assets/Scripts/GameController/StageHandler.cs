@@ -165,7 +165,6 @@ public class StageHandler : MonoBehaviour {
 	
 	public void RestartStage(int stage){
 		stageScript.StopStage();
-		Game.control.enemySpawner.AbortSpawner();
 		StartStage(stage);
 	}
 	public void StartStage (int stage){
@@ -183,7 +182,7 @@ public class StageHandler : MonoBehaviour {
 
 
 	IEnumerator StartStageRoutine(){
-		
+		yield return new WaitUntil(() => Game.control.enemySpawner.AbortSpawner() == true);
 		AsyncOperation loadScene = SceneManager.LoadSceneAsync("Level1");
 		yield return new WaitUntil(() => loadScene.isDone == true);
 		
@@ -192,7 +191,8 @@ public class StageHandler : MonoBehaviour {
 		Game.control.ui.ToggleLoadingScreen(true);
 		Game.control.player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler> ();
 		Game.control.pause.Unpause (false); //needs ui declaration
-		
+		Game.control.enemySpawner.DestroyAllEnemies();
+		Game.control.enemySpawner.DestroyAllProjectiles();
 		yield return new WaitForSeconds(1);
 
 	//Game.control.menu.ToggleMenu (false);

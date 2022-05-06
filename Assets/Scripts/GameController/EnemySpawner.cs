@@ -8,7 +8,7 @@ public class EnemySpawner : MonoBehaviour {
 	public Wave bossWave;
 	public Wave midBossWave;
 	bool started;
-	IEnumerator spawn;
+	IEnumerator spawnRoutine;
 
 	void Awake(){
 		started = false;
@@ -28,25 +28,19 @@ public class EnemySpawner : MonoBehaviour {
 					}
 
 					InitializeWave ();
-					spawn = Spawn (wave);
-					StartCoroutine (spawn);
-				}
-			}
-
-			if (curWave != null && curWave == midBossWave) {
-				if (midBossWave.dead) {
-					InitializeWave ();
+					spawnRoutine = Spawn (wave);
+					StartCoroutine (spawnRoutine);
 				}
 			}
 		}
 	}
 
-	public void AbortSpawner(){
+	public bool AbortSpawner(){
 		started = false;
-		if(spawn != null) StopCoroutine(spawn);
+		if(spawnRoutine != null) StopCoroutine(spawnRoutine);
 		DestroyAllEnemies();
 		DestroyAllProjectiles();
-		//curWave = null;
+		return true;
 	}
 		
 	public void StartSpawner(int currentStage)
@@ -81,7 +75,8 @@ public class EnemySpawner : MonoBehaviour {
 
 	public IEnumerator Spawn(Wave wave){
 		for(float i = wave.enemyCounter; i>0; i--){
-			wave.Spawn ();
+			if(started) wave.Spawn (currentWave);
+			else break;
 			yield return new WaitForSeconds (1f);
 		}
 	}

@@ -83,7 +83,8 @@ public class Wave
 		isMidBoss = _isMidBoss;
 	}
 
-	public void Spawn(){
+	public void Spawn(int waveindex){
+		Debug.Log("spawn " + waveindex);
 		spawnPosition = (Vector3)spawnPositions [0];
 		if(spawnPositions.Count > 1){
 			spawnPositions.Reverse ();
