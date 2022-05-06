@@ -26,7 +26,6 @@ public class StageHandler : MonoBehaviour {
 	public int difficultyMultiplier; //1 easy //3 normal //5 hard //8+ nightmarish
 	public bool gameOver;
 	public bool stageCompleted;
-	public float stageTime;
 	public float stageTimer;
 	public int currentStage;
 	public bool stageTimerOn;
@@ -79,10 +78,7 @@ public class StageHandler : MonoBehaviour {
 
 	public void ToggleTimer(bool value){
 		stageTimerOn = value;
-		if (stageTimerOn) {
-			stageTime = 180f;
-			stageTimer = 0;
-		}
+		stageTimer = 0;
 	}
 
 
@@ -183,10 +179,11 @@ public class StageHandler : MonoBehaviour {
 
 	IEnumerator StartStageRoutine(){
 		yield return new WaitUntil(() => Game.control.enemySpawner.AbortSpawner() == true);
+		
 		AsyncOperation loadScene = SceneManager.LoadSceneAsync("Level1");
 		yield return new WaitUntil(() => loadScene.isDone == true);
 		
-		ToggleTimer (false);
+		
 		Game.control.ui = GameObject.Find("StageCanvas").GetComponent<UIController>();
 		Game.control.ui.ToggleLoadingScreen(true);
 		Game.control.player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler> ();
@@ -210,7 +207,6 @@ public class StageHandler : MonoBehaviour {
 
 		stageTimer = 0;
 		stageScript.StartStageHandler();
-		ToggleTimer (true);
 		stageOn = true;
 
 		

@@ -84,7 +84,6 @@ public class Wave
 	}
 
 	public void Spawn(int waveindex){
-		Debug.Log("spawn " + waveindex);
 		spawnPosition = (Vector3)spawnPositions [0];
 		if(spawnPositions.Count > 1){
 			spawnPositions.Reverse ();
@@ -103,7 +102,7 @@ public class Wave
 			if (bossIndex % 1 == 0) { //IF NOT MID BOSS 
 				enemy.tag = "Boss";
 				enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0.3f);
-				Game.control.stageHandler.ToggleTimer (false);
+				//Game.control.stageHandler.ToggleTimer (false);
 
 			} else {
 				enemy.tag = "MidBoss";

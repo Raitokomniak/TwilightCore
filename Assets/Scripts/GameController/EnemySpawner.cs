@@ -7,11 +7,13 @@ public class EnemySpawner : MonoBehaviour {
 	public Wave curWave;
 	public Wave bossWave;
 	public Wave midBossWave;
-	bool started;
+	bool spawnerOn;
+	bool bossEnter;
 	IEnumerator spawnRoutine;
+	IEnumerator spawnerRoutine;
 
 	void Awake(){
-		started = false;
+		spawnerOn = false;
 		DestroyAllEnemies ();
 		DestroyAllProjectiles ();
 	}
@@ -19,7 +21,8 @@ public class EnemySpawner : MonoBehaviour {
 
 	//SHOULD I MAKE THIS INTO A ROUTINE? THIS SEEMS VERY VOLATILE
 	void Update () {
-		if (started) {
+		/*
+		if (spawnerOn) {
 			foreach (Wave wave in waves) {
 				if (Game.control.stageHandler.stageTimer >= wave.spawnTime && !wave.spawned) {
 					wave.spawned = true;
@@ -32,35 +35,60 @@ public class EnemySpawner : MonoBehaviour {
 					StartCoroutine (spawnRoutine);
 				}
 			}
+		}*/
+
+		//this is for clearing the stage when boss dialog starts, might not work idk
+		if(Game.control.dialog.handlingDialog && GameObject.FindGameObjectsWithTag("EnemyProjectile") != null)
+			DestroyAllProjectiles();
+	}
+
+	IEnumerator SpawnerRoutine(){
+		Debug.Log("start");
+		Game.control.stageHandler.ToggleTimer(true);
+		foreach (Wave wave in waves) {
+			Debug.Log(Game.control.stageHandler.stageTimer + " vs " + wave.spawnTime);
+			yield return new WaitUntil(() => Game.control.stageHandler.stageTimer >= wave.spawnTime);
+			wave.spawned = true;
+			if (wave.isBoss || wave.isMidBoss){
+				bossEnter = true;
+				DestroyAllProjectiles ();
+			}
+
+			InitializeWave ();
+			spawnRoutine = Spawn (wave);
+			if(spawnerOn) StartCoroutine (spawnRoutine);
 		}
 	}
 
 	public bool AbortSpawner(){
-		started = false;
+		spawnerOn = false;
 		if(spawnRoutine != null) StopCoroutine(spawnRoutine);
 		DestroyAllEnemies();
 		DestroyAllProjectiles();
+		
 		return true;
 	}
 		
 	public void StartSpawner(int currentStage)
 	{
-		started = false;
+		spawnerOn = false;
 		Game.control.stageHandler.InitWaves (currentStage);
 		currentWave = 0;
 		waves = Game.control.enemyLib.stageWaves;
 		if(waves != null) {
 			bossWave = (Wave)waves [waves.Count - 1];
 
-		foreach (Wave w in waves) {
-			if (w.isMidBoss) {
-				midBossWave = w;
+			foreach (Wave w in waves) {
+				if (w.isMidBoss) {
+					midBossWave = w;
+				}
+				if (w.isBoss) {
+					bossWave = w;
+				}
 			}
-			if (w.isBoss) {
-				bossWave = w;
-			}
-		}
-		started = true;
+			spawnerOn = true;
+			spawnerRoutine = SpawnerRoutine();
+			StartCoroutine(spawnerRoutine);
 		}
 		else {Debug.Log("Waves null");}
 	}
@@ -75,7 +103,7 @@ public class EnemySpawner : MonoBehaviour {
 
 	public IEnumerator Spawn(Wave wave){
 		for(float i = wave.enemyCounter; i>0; i--){
-			if(started) wave.Spawn (currentWave);
+			if(spawnerOn) wave.Spawn (currentWave);
 			else break;
 			yield return new WaitForSeconds (1f);
 		}
