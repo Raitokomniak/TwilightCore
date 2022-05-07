@@ -6588,12 +6588,12 @@ PrefabInstance:
     - target: {fileID: 1647146764074935413, guid: c77852ca72ab35149a40d056232c0cb7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6
+      value: 2.63
       objectReference: {fileID: 0}
     - target: {fileID: 1647146764074935413, guid: c77852ca72ab35149a40d056232c0cb7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13
+      value: 7.63
       objectReference: {fileID: 0}
     - target: {fileID: 1647146764074935413, guid: c77852ca72ab35149a40d056232c0cb7,
         type: 3}
@@ -6938,6 +6938,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: World Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2802552229394565277, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2802552229547718385, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000,
+        type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a2ad7ad1456b494ca3ab64a510b294c, type: 3}
 --- !u!224 &3939676773669695522

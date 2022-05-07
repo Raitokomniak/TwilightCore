@@ -15,8 +15,6 @@ public class EnemyMovementPattern
 	public string leaveDir;
 
 	public int direction;
-
-	public bool reached;
 	public bool goingRight;
 	public bool teleport;
 
@@ -200,16 +198,11 @@ public class EnemyMovementPattern
 
 	public bool CheckIfReachedDestination (EnemyMovement _m)
 	{
-		int x = Mathf.RoundToInt (_m.transform.position.x);
-		int y = Mathf.RoundToInt (_m.transform.position.y);
-
-		if (Mathf.Approximately (x, targetPos.x)
-		    && Mathf.Approximately (y, targetPos.y))
-			reached = true;
-		else
-			reached = false;
-
-		return reached;
+		float x = _m.transform.position.x;
+		float y = _m.transform.position.y;
+		float treshhold = 0.5f;
+		if(Mathf.Abs(x-targetPos.x) <= 0.5f && Mathf.Abs(y-targetPos.y) <= treshhold) return true;
+		else return false;
 	}
 
 	private void UpdateDirection (float h, float v)

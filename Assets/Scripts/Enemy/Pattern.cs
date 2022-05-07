@@ -137,8 +137,9 @@ public class Pattern
 						laserIndex = 0;
 				}
 
-			} else {
-				sprite = Resources.Load<Sprite> ("enemyLaser");
+			} 
+			else {
+				sprite = Resources.Load<Sprite> ("Sprites/enemyLaser");
 				newPosition = pos - new Vector3 (0f, .2f, 0f);
 				
 				movement = new BulletMovementPattern (false, "PendulumLaser", 0f, this, 0, tempMagnitude);
@@ -222,13 +223,13 @@ public class Pattern
 		case "PacMan":
 			
 			for (int i = 0; i < bulletCount; i++) {
-				sprite = Resources.Load<Sprite> ("enemyProjectile2");
+				//sprite = Resources.Load<Sprite> ("Sprites/Circle_Glow_Red");
 				newPosition = pos + new Vector3 (0f, 0f, 0f);
 				bulletRotation = Quaternion.Euler (0f, 0f, startingRotation + (float)i * rotationMultiplier);
 				movement = new BulletMovementPattern (false, null, 0.5f, this, 0, tempMagnitude);
-				bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
 				startingRotation += 0.1f;
 				InstantiateBullet (enemyBullet);
+				bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
 			}
 			break;
 		case "SpiderWeb":

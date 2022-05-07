@@ -37,23 +37,39 @@ public class Boss2 : Phaser
 					//enemy.BossShoot (patterns[0]);
 					yield return new WaitForSeconds (1f);
 				}
-			*/
-				yield return new WaitForSeconds (2f);
-				patterns.Add(new Pattern (lib.spiral));
-				patterns[0].Customize (new BulletMovementPattern (true, "WaitAndExplode", 6f, patterns[0], 0, 14));
-				patterns[0].SetSprite ("Diamond", "Glow", "Red");
+			*/	
+				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (2.63f, 7.63f, 0f), false, 0));
+
+				patterns.Add(new Pattern(lib.spiral));
+				patterns[0].SetSprite ("Arrow", "Glow", "Red");
+				patterns[0].Customize("BulletCount", 10);
+				patterns[0].Customize("RotationDirection", 1);
+				patterns[0].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[0], 0, 14));
+
 				patterns.Add(new Pattern (lib.spiderWeb));
 				patterns[1].Customize (new BulletMovementPattern (false, "DownAndExplode", 0.5f, patterns[1], 0, 14));
 				patterns[1].SetSprite ("Circle", "Glow", "Red");
-				while (!endOfPhase) {	
+				while (!phaser.endOfPhase) {	
+					enemyMove.SetUpPatternAndMove (new EnemyMovementPattern (lib.rocking));
 					enemy.BossShoot (patterns[1]);
-					yield return new WaitForSeconds(4);
+					yield return new WaitForSeconds(2);
+					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
+					yield return new WaitUntil(() => movementPatterns[0].CheckIfReachedDestination(enemyMove) == true);
+					enemy.BossShoot(patterns[0]);
+					yield return new WaitForSeconds(2);
+					enemyMove.SetUpPatternAndMove (new EnemyMovementPattern (lib.zigZag));
+					enemy.BossShoot (patterns[1]);
+					patterns[0].Customize (new BulletMovementPattern (true, "Stop", 6f, patterns[0], 0, 14));
+					enemy.BossShoot(patterns[0]);
+					yield return new WaitForSeconds(2);
+					patterns[0].StopPattern();
 				}
 				break;
 			case 1:
-				enemyMove.SetUpPatternAndMove(lib.centerHor);
                 Game.control.sound.PlaySpellSound ("Enemy");
 				Game.control.ui.ShowActivatedPhase ("Boss", "Indra's Net");
+
+				movementPatterns.Add(new EnemyMovementPattern(lib.centerHor));
 
 				patterns.Add(new Pattern(lib.giantWeb));
 				patterns[0].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[0], 0, 14));
@@ -64,8 +80,10 @@ public class Boss2 : Phaser
 				patterns[1].Customize("RotationDirection", 1);
 				patterns[1].SetSprite ("Diamond", "Glow", "Red");
 
-				enemy.BossShoot (patterns[1]);
+				enemyMove.SetUpPatternAndMove (movementPatterns[0]);
+				yield return new WaitForSeconds(2);
 				while (!endOfPhase) {
+					enemy.BossShoot (patterns[1]);
 					enemy.BossShoot (patterns[0]);
 					yield return new WaitForSeconds (10);
 				}
@@ -81,6 +99,10 @@ public class Boss2 : Phaser
 				patterns.Add(new Pattern (lib.spiderWeb));
 				patterns[1].Customize (new BulletMovementPattern (false, "DownAndExplode", 0.5f, patterns[1], 0, 14));
 				patterns[1].SetSprite ("Circle", "Glow", "Red");
+			
+				//patterns.Add(new Pattern (lib.laser));
+				//patterns[0].Customize("BulletCount", 4);
+
 				while (!endOfPhase) {	
 					for (int i = 0; i < 2; i++) {
 						enemy.BossShoot (patterns[0]);
