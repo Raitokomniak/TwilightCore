@@ -8,6 +8,7 @@ public class EnemyLib : MonoBehaviour
 	SpriteLibrary spriteLib;
 
 	public Pattern singleHoming;
+	public Pattern repeatedHoming;
 	public Pattern circle;
 	public Pattern maelStrom;
 	public Pattern pacMan;
@@ -80,6 +81,7 @@ public class EnemyLib : MonoBehaviour
 	void CreatePatterns()
 	{
 		singleHoming = new Pattern("SingleHoming", false, 1, 0f, 1f, 1, 100);
+		repeatedHoming = new Pattern("RepeatedHoming", false, 1, 0f, 1f, 1, 100);
 		circle = new Pattern("Circle", false, 7, 0f, 1f, 1, 100);
 		maelStrom = new Pattern("Maelstrom", false, 10, 0f, 0.2f, 1, 100);
 		pacMan = new Pattern("PacMan", false, 45, 6f, 1f, 1, 100);

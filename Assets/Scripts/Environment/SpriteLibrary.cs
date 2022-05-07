@@ -14,6 +14,12 @@ public class SpriteLibrary : MonoBehaviour {
 		return sprite;
 	}
 
+	public Sprite SetBulletSprite(string shape){
+		string path = "Sprites/BulletSprites/" + shape;
+		Sprite sprite = Resources.Load<Sprite> (path);
+		return sprite;
+	}
+
 	public Sprite SetCharacterSprite(string name){
 		string path = "Sprites/CharacterSprites/" + name;
 		Sprite sprite = Resources.Load<Sprite> (path);

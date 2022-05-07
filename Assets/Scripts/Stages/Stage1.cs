@@ -99,6 +99,7 @@ public class Stage1 : Stage
 			}
 			
 			mp = new EnemyMovementPattern (lib.zigZag);
+			mp.Customize("Direction", 1);
 			p = new Pattern (lib.circle);
 			p.Customize("BulletCount", Mathf.Ceil(2.8f * (difficultyMultiplier / 2)));
 			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));

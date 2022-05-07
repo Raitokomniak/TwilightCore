@@ -207,10 +207,11 @@ public class BulletMovementPattern
 			yield return new WaitForSeconds (.5f);
 			bullet.GetComponent<SpriteRenderer> ().sprite = Game.control.spriteLib.SetBulletSprite ("Laser", "Glow", "Purple");
 			bullet.GetComponent<SpriteRenderer> ().sortingOrder = -1;
+			Vector2 origColliderSize = bullet.GetComponent<BoxCollider2D>().size;
 			scale = new Vector3 (0, 0, 0);
 			for (float i = 0; i < 50; i++) {
 				scale = new Vector3 (i * 0.02f, i, 1);
-				bullet.GetComponent<BoxCollider2D> ().size = new Vector2 (i * 0.02f, i);
+				bullet.GetComponent<BoxCollider2D> ().size = new Vector2 (i * 0.002f, i);
 				//bullet.transform.position -= new Vector3(0, 0.25f, 0);
 				//_RotateOnAxis (bullet, 1, 100f);
 				yield return new WaitForSeconds (.02f);
@@ -236,6 +237,29 @@ public class BulletMovementPattern
 			}
 			GameObject.Destroy (bullet);
 
+			break;
+		case "SlowWaving":
+			//FindPlayer(bullet);
+			Explode (false, bullet, 14, 1);
+			isMoving = true;
+			isHoming = true;
+			movementSpeed = .2f;
+			while(bullet.activeSelf){
+
+				for(float i = 0; i < 50; i+=10)
+				{
+					rotation = Quaternion.Euler(0, 0, i);
+					yield return new WaitForSeconds(.1f);
+				}
+
+				for(float i = 50; i > 0; i-=10)
+				{
+					rotation = Quaternion.Euler(0, 0, i);
+					yield return new WaitForSeconds(.1f);
+				}
+			}
+			
+			
 			break;
 		default:
 			break;

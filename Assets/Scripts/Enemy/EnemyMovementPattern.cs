@@ -76,10 +76,28 @@ public class EnemyMovementPattern
 
 		switch (name) { 
 		case "ZigZag":	//Repeatable
-			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
-			UpdateDirection (-14f, 6f);
-			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
-			UpdateDirection (10f, 2f);
+			if(direction == 1){
+				yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+				UpdateDirection (-14f, 6f);
+				yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+				UpdateDirection (4f, 2f);
+			}
+			else if(direction == -1){
+				yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+				UpdateDirection (4f, 6f);
+				yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+				UpdateDirection (-14f, 2f);
+			}
+			else if(direction == 2){
+				yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+				UpdateDirection (-14f, 6f);
+				yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+				UpdateDirection (4f, 2f);
+				yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+				UpdateDirection (-14f, 2f);
+				yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+				UpdateDirection (4f, 6f);
+			}
 			break;
 		case "SnakeRightToLeft": //Repeatable
 			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);

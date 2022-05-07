@@ -106,6 +106,7 @@ public class Pattern
 		enemy = _enemy;
 		newPosition = pos;
 		bulletRotation = rot;
+		stop = false;
 
 		switch (name) {
 		case "Circle":
@@ -120,7 +121,7 @@ public class Pattern
 				for (int i = 0; i < bulletCount; i++) {
 					float ang = (i * (360 / bulletCount) + (360 / bulletCount)) * 0.7f;
 					if (i >= 3)
-						ang += 60;
+						ang += 30;
 
 					newPosition = SpawnInCircle (pos + new Vector3 (0, 1f, 0), 1.5f, ang);
 
@@ -220,6 +221,14 @@ public class Pattern
 			Game.control.sound.PlaySound ("Enemy", "Shoot", false);
 			InstantiateBullet (enemyBullet);
 			break;
+		case "RepeatedHoming":
+			while(!stop){
+				newPosition = enemy.transform.position;
+				Game.control.sound.PlaySound ("Enemy", "Shoot", false);
+				InstantiateBullet (enemyBullet);
+				yield return new WaitForSeconds (coolDown);
+			}
+			break;
 		case "PacMan":
 			
 			for (int i = 0; i < bulletCount; i++) {
@@ -248,31 +257,33 @@ public class Pattern
 			break;
 
 		case "GiantWeb":
-			bullets = new ArrayList ();
-			yield return new WaitForSeconds (2f);
-			pos = enemy.GetLocalPosition ();
 			
-			for(tempLayer = 0; tempLayer < 4; tempLayer++){
-				if (tempMagnitude > 0) {
-					float b = bulletCount / 2 + tempMagnitude;
-					for (int i = 0; i < Mathf.RoundToInt (b); i++) {
-						newPosition = pos + new Vector3 (0f, 0f, 0f);
-						bulletRotation = Quaternion.Euler (0f, 0f, i * (360 / b));
-						animation = (Resources.Load ("Images/Animations/SmallWeb") as GameObject);
-						movement = new BulletMovementPattern (false, "StopAndRotate", 20f, this, tempLayer, tempMagnitude);
-						InstantiateBullet (enemyBullet);
-						bullet.GetComponent<SpriteRenderer> ().sprite = spriteLib.SetBulletSprite ("Circle", "Big", "Red");
-						bullets.Add (enemyBullet);
+				bullets = new ArrayList ();
+				yield return new WaitForSeconds (2f);
+				pos = enemy.GetLocalPosition ();
+				
+				for(tempLayer = 0; tempLayer < 4; tempLayer++){
+					if (tempMagnitude > 0) {
+						float b = bulletCount / 2 + tempMagnitude;
+						for (int i = 0; i < Mathf.RoundToInt (b); i++) {
+							newPosition = pos + new Vector3 (0f, 0f, 0f);
+							bulletRotation = Quaternion.Euler (0f, 0f, i * (360 / b));
+							animation = (Resources.Load ("Images/Animations/SmallWeb") as GameObject);
+							movement = new BulletMovementPattern (false, "StopAndRotate", 20f, this, tempLayer, tempMagnitude);
+							InstantiateBullet (enemyBullet);
+							bullet.GetComponent<SpriteRenderer> ().sprite = spriteLib.SetBulletSprite ("Circle", "Big", "Red");
+							bullets.Add (enemyBullet);
+						}
+						tempMagnitude -= 3;
+						yield return null;
+					} else {
+						tempMagnitude = originMagnitude;
 					}
-					tempMagnitude -= 3;
-					yield return null;
-				} else {
-					tempMagnitude = originMagnitude;
+					if(!stop) yield return new WaitForSeconds (coolDown);
+					else break;
 				}
-				yield return new WaitForSeconds (coolDown);
-			}
 
-			animating = false;
+				animating = false;
 			break;
 		}
 

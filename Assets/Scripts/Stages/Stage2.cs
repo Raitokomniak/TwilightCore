@@ -66,7 +66,7 @@ public class Stage2 : Stage
 			
 */		
 
-			Wave boss2 = new Wave(2f, null, null, 1,  false, 50, true, 3f, 2);
+			Wave boss2 = new Wave(2f, null, null, 1,  false, 150, true, 3f, 2);
 			boss2.SetUpBoss (2, "Spider Queen", false);
 			boss2.movementPattern = lib.enterFromTop;
 			lib.NewWave (lib.stageWaves, boss2, new ArrayList { lib.middleTop });
