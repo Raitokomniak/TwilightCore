@@ -364,4 +364,9 @@ public class Pattern
 		sprite = spriteLib.SetBulletSprite (shape, effect, color);
 	}
 
+	public void SetSprite (string shape)
+	{
+		sprite = spriteLib.SetBulletSprite (shape);
+	}
+
 }

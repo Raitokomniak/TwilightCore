@@ -239,24 +239,26 @@ public class BulletMovementPattern
 
 			break;
 		case "SlowWaving":
-			//FindPlayer(bullet);
+			FindPlayer(bullet);
 			Explode (false, bullet, 14, 1);
 			isMoving = true;
 			isHoming = true;
 			movementSpeed = .2f;
 			while(bullet.activeSelf){
-
-				for(float i = 0; i < 50; i+=10)
+				
+				for(float i = 0; i < 50; i+=5)
 				{
-					rotation = Quaternion.Euler(0, 0, i);
-					yield return new WaitForSeconds(.1f);
+					rotation = Quaternion.Euler(0, 0, rotation.z + i);
+					yield return new WaitForSeconds(.05f);
+				}
+				Quaternion tempRot = rotation;
+				for(float i = 0; i < 50; i+=5)
+				{
+					rotation = Quaternion.Euler(0, 0, tempRot.z - i);
+					yield return new WaitForSeconds(.05f);
 				}
 
-				for(float i = 50; i > 0; i-=10)
-				{
-					rotation = Quaternion.Euler(0, 0, i);
-					yield return new WaitForSeconds(.1f);
-				}
+				
 			}
 			
 			

@@ -22,7 +22,7 @@ public class Boss2 : Phaser
 
 
         switch (phase) {
-			case 0:
+			case 2:
 				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (2.63f, 7.63f, 0f), false, 0));
 				
 				patterns.Add(new Pattern(lib.spiral));
@@ -80,7 +80,7 @@ public class Boss2 : Phaser
 
 				endOfPhase = true;
 				break;
-			case 2:
+			case 0:
 				movementPatterns.Add(new EnemyMovementPattern (lib.enterFromTop));
 				movementPatterns.Add(new EnemyMovementPattern (lib.zigZag));
 				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (-16, 4f, 0f), false, 0));
@@ -90,7 +90,7 @@ public class Boss2 : Phaser
 				patterns[0].Customize("RotationDirection", 0);
 
 				patterns.Add(new Pattern(lib.repeatedHoming));
-				patterns[1].SetSprite("Circle", "Glow", "Red");
+				patterns[1].SetSprite("Spider_Glow");
 				patterns[1].Customize(new BulletMovementPattern(true, "SlowWaving", 3f, patterns[1], 0, 14));
 
 
