@@ -6588,7 +6588,7 @@ PrefabInstance:
     - target: {fileID: 1647146764074935413, guid: c77852ca72ab35149a40d056232c0cb7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.16
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1647146764074935413, guid: c77852ca72ab35149a40d056232c0cb7,
         type: 3}
@@ -10108,6 +10108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageUI: {fileID: 3939676775360952852}
   stageWorldUI: {fileID: 1647895774941261686}
+  wallBoundaries: []
   playAreaLeftWall: {fileID: 1647895774850791299}
   playAreaRightWall: {fileID: 1647895773866282536}
   playAreaTopWall: {fileID: 1647895773167721902}
