@@ -91,8 +91,8 @@ public class Boss2 : Phaser
 
 				patterns.Add(new Pattern(lib.repeatedHoming));
 				patterns[1].SetSprite("Spider_Glow");
-				patterns[1].Customize(new BulletMovementPattern(true, "SlowWaving", 3f, patterns[1], 0, 14));
-
+				patterns[1].Customize("CoolDown", 3f);
+				patterns[1].Customize(new BulletMovementPattern(false, "SlowWaving", 3f, patterns[1], 0, 14));
 
 				while (!phaser.endOfPhase) {	
 					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
@@ -102,23 +102,21 @@ public class Boss2 : Phaser
 
 					yield return new WaitForSeconds (2f);
 					enemyMove.SetUpPatternAndMove (movementPatterns[2]);
-					yield return new WaitForSeconds (4f);
-					patterns[1].StopPattern();
-
+					yield return new WaitForSeconds (2f);
 					movementPatterns[1].Customize("Direction", 1);
 					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
 					yield return new WaitUntil(() => movementPatterns[1].CheckIfReachedDestination(enemyMove) == true);
 					enemy.BossShoot (patterns[0]);
 
-					enemy.BossShoot(patterns[1]);
+
 					yield return new WaitForSeconds (4f);
-					patterns[1].StopPattern();
+
 
 					movementPatterns[1].Customize("Direction", -1);
 					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
-					enemy.BossShoot(patterns[1]);
+
 					yield return new WaitForSeconds(3f);
-					patterns[1].StopPattern();
+
 				}
 				break;
 			case 3:
