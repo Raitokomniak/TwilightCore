@@ -37,9 +37,12 @@ public class EnemySpawner : MonoBehaviour {
 			}
 		}*/
 
+		/*
 		//this is for clearing the stage when boss dialog starts, might not work idk
+		//EDIT if autoscroll is off, no projectiles spawn when the textbox is open so dont do dis
 		if(Game.control.dialog.handlingDialog && GameObject.FindGameObjectsWithTag("EnemyProjectile") != null)
 			DestroyAllProjectiles();
+			*/
 	}
 
 	IEnumerator SpawnerRoutine(){

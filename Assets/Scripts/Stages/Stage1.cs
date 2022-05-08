@@ -154,7 +154,7 @@ public class Stage1 : Stage
 			mp.targetPos = new Vector3 (0, 7, 0);
 			mp.speed = 2f;
 			mp.Customize ("LeaveDir", "Right");
-			mp.Customize ("StayTime", 2f);
+			mp.Customize ("StayTime", 4f);
 			p = new Pattern (lib.circle);
 			p.Customize ("BulletCount", 4 * difficultyMultiplier);
 			p.Customize (new BulletMovementPattern (false, "Explode", 11f, p, 0, 14));
@@ -165,7 +165,7 @@ public class Stage1 : Stage
 			mp.targetPos = new Vector3 (-14, 7, 0);
 			mp.speed = 2f;
 			mp.Customize ("LeaveDir", "Left");
-			mp.Customize ("StayTime", 2f);
+			mp.Customize ("StayTime", 4f);
 			p = new Pattern (lib.circle);
 			p.Customize ("BulletCount", 4 * difficultyMultiplier);
 			p.Customize (new BulletMovementPattern (false, "Explode", 11f, p, 0, 14));
@@ -215,7 +215,7 @@ public class Stage1 : Stage
 			mp.targetPos = new Vector3 (0, 7, 0);
 			mp.speed = 2f;
 			mp.Customize ("LeaveDir", "Right");
-			mp.Customize ("StayTime", 2f);
+			mp.Customize ("StayTime", 4f);
 			p = new Pattern (lib.circle);
 			p.Customize ("BulletCount", 4 * difficultyMultiplier);
 			p.Customize (new BulletMovementPattern (false, "Explode", 11f, p, 0, 14));
@@ -226,7 +226,7 @@ public class Stage1 : Stage
 			mp.targetPos = new Vector3 (-14, 7, 0);
 			mp.speed = 2f;
 			mp.Customize ("LeaveDir", "Left");
-			mp.Customize ("StayTime", 2f);
+			mp.Customize ("StayTime", 4f);
 			p = new Pattern (lib.circle);
 			p.Customize ("BulletCount", 4 * difficultyMultiplier);
 			p.Customize (new BulletMovementPattern (false, "Explode", 11f, p, 0, 14));
