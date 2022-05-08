@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class Stage1 : Stage
 {
-
 	public override void StartStageHandler(){
-		
 		stageHandlerRoutine = StageHandlerRoutine();
 		StartCoroutine(stageHandlerRoutine);
 	}
-
 
 
 	IEnumerator StageHandlerRoutine(){
@@ -62,8 +59,8 @@ public class Stage1 : Stage
 			mp.Customize ("StayTime", .5f);
 			p = new Pattern (lib.singleHoming);
 			p.Customize (new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
-			p.SetSprite ("Circle", "Big", "Red");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			lib.NewWave (lib.stageWaves, new Wave (1f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
+			p.SetSprite ("Circle", "Big", "Red");
+			lib.NewWave (new Wave (1f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
 																			// .6f
 			
 			mp = new EnemyMovementPattern (lib.enterLeave);
@@ -71,11 +68,11 @@ public class Stage1 : Stage
 			mp.Customize ("StayTime", 2f);
 			p = new Pattern (lib.singleHoming);
 			p.Customize (new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
-			p.SetSprite ("Circle", "Big", "Red");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			lib.NewWave (lib.stageWaves, new Wave (3f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
+			p.SetSprite ("Circle", "Big", "Red");
+			lib.NewWave (new Wave (3f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
 																				// .6f
 			
-			/*
+
 			//2ND PHASE
 			if(difficultyMultiplier > 3){
 				
@@ -84,8 +81,8 @@ public class Stage1 : Stage
 			mp.Customize ("StayTime", .5f);
 			p = new Pattern (lib.singleHoming);
 			p.Customize (new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
-			p.SetSprite ("Circle", "Big", "Red");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			lib.NewWave (lib.stageWaves, new Wave (4f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
+			p.SetSprite ("Circle", "Big", "Red");	
+			lib.NewWave (new Wave (4f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
 
 			
 			mp = new EnemyMovementPattern (lib.enterLeave);
@@ -93,27 +90,27 @@ public class Stage1 : Stage
 			mp.Customize ("StayTime", 2f);
 			p = new Pattern (lib.singleHoming);
 			p.Customize (new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
-			p.SetSprite ("Circle", "Big", "Red");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			lib.NewWave (lib.stageWaves, new Wave (15f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
+			p.SetSprite ("Circle", "Big", "Red");	
+			lib.NewWave (new Wave (15f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
 			
 			}
-	*/		
+		
 			mp = new EnemyMovementPattern (lib.zigZag);
 			mp.Customize("Direction", 1);
 			p = new Pattern (lib.circle);
 			p.Customize("BulletCount", Mathf.Ceil(2.8f * (difficultyMultiplier / 2)));
 			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			lib.NewWave (lib.stageWaves, new Wave (16f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
+			p.SetSprite ("Circle", "Glow", "Green");	
+			lib.NewWave (new Wave (16f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
 
-/*
+
 			mp = new EnemyMovementPattern (lib.stopOnce);
 			mp.Customize ("LeaveDir", "Right");
 			p = new Pattern (lib.circle);
 			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			lib.NewWave (lib.stageWaves, new Wave (17f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
-*/
+			p.SetSprite ("Circle", "Glow", "Green");	 
+			lib.NewWave (new Wave (17f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
+
 			
 			//PHASE3
 
@@ -122,16 +119,16 @@ public class Stage1 : Stage
 			//mp.targetPos = new Vector3 (-14, 7, 0);
 			p = new Pattern (lib.circle);
 			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			lib.NewWave (lib.stageWaves, new Wave (28f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
+			p.SetSprite ("Circle", "Glow", "Green");	 
+			lib.NewWave (new Wave (28f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
 												 //28f
 			mp = new EnemyMovementPattern (lib.stopOnce);
 			mp.Customize ("LeaveDir", "Left");
 			mp.targetPos = new Vector3 (1, 6, 0);
 			p = new Pattern (lib.circle);
 			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			lib.NewWave (lib.stageWaves, new Wave (31f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
+			p.SetSprite ("Circle", "Glow", "Green");	 
+			lib.NewWave (new Wave (31f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
 												 //31f
 
 			mp = new EnemyMovementPattern (lib.stopOnce);
@@ -140,8 +137,8 @@ public class Stage1 : Stage
 			p = new Pattern (lib.circle);
 			p.Customize ("BulletCount", 10);
 			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			lib.NewWave (lib.stageWaves, new Wave (33f, mp, p, 3, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
+			p.SetSprite ("Circle", "Glow", "Green");	 
+			lib.NewWave (new Wave (33f, mp, p, 3, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
 
 			mp = new EnemyMovementPattern (lib.stopOnce);
 			mp.Customize ("LeaveDir", "Left");
@@ -149,8 +146,8 @@ public class Stage1 : Stage
 			p = new Pattern (lib.circle);
 			p.Customize ("BulletCount", 10);
 			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			lib.NewWave (lib.stageWaves, new Wave (36f, mp, p, 3, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
+			p.SetSprite ("Circle", "Glow", "Green");	 
+			lib.NewWave (new Wave (36f, mp, p, 3, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
 
 
 			mp = new EnemyMovementPattern (lib.enterLeave);
@@ -161,8 +158,8 @@ public class Stage1 : Stage
 			p = new Pattern (lib.circle);
 			p.Customize ("BulletCount", 4 * difficultyMultiplier);
 			p.Customize (new BulletMovementPattern (false, "Explode", 11f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			lib.NewWave (lib.stageWaves, new Wave (41f, mp, p, 3, false, 40, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
+			p.SetSprite ("Circle", "Glow", "Green");
+			lib.NewWave (new Wave (41f, mp, p, 3, false, 40, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
 
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.targetPos = new Vector3 (-14, 7, 0);
@@ -172,8 +169,8 @@ public class Stage1 : Stage
 			p = new Pattern (lib.circle);
 			p.Customize ("BulletCount", 4 * difficultyMultiplier);
 			p.Customize (new BulletMovementPattern (false, "Explode", 11f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Yellow");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			lib.NewWave (lib.stageWaves, new Wave (41.5f, mp, p, 3, false, 40, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
+			p.SetSprite ("Circle", "Glow", "Yellow");
+			lib.NewWave (new Wave (41.5f, mp, p, 3, false, 40, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
 
 			//MID-BOSS
 
@@ -183,7 +180,7 @@ public class Stage1 : Stage
 			Wave bossMid1 = new Wave(55f, mp, null, 1,  false, 150, false, 3f, 1);
 			bossMid1.SetUpBoss (0.5f, "Asura", true);
 
-			lib.NewWave (lib.stageWaves, bossMid1, new ArrayList { lib.middleTop });
+			lib.NewWave (bossMid1, new ArrayList { lib.middleTop });
 
 
 			//CONTD
@@ -192,8 +189,8 @@ public class Stage1 : Stage
 			mp.targetPos = new Vector3 (1, 6, 0);
 			p = new Pattern (lib.circle);
 			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			lib.NewWave (lib.stageWaves, new Wave (82f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
+			p.SetSprite ("Circle", "Glow", "Green");	 
+			lib.NewWave (new Wave (82f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
 
 
 			mp = new EnemyMovementPattern (lib.stopOnce);
@@ -202,8 +199,8 @@ public class Stage1 : Stage
 			p = new Pattern (lib.circle);
 			p.Customize ("BulletCount", Mathf.Ceil(4 * (difficultyMultiplier / 2)));
 			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			lib.NewWave (lib.stageWaves, new Wave (87f, mp, p, 3, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
+			p.SetSprite ("Circle", "Glow", "Green");	 
+			lib.NewWave (new Wave (87f, mp, p, 3, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
 
 			mp = new EnemyMovementPattern (lib.stopOnce);
 			mp.Customize ("LeaveDir", "Left");
@@ -211,8 +208,8 @@ public class Stage1 : Stage
 			p = new Pattern (lib.circle);
 			p.Customize ("BulletCount", Mathf.Ceil(4 * (difficultyMultiplier / 2)));
 			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			lib.NewWave (lib.stageWaves, new Wave (90f, mp, p, 3, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
+			p.SetSprite ("Circle", "Glow", "Green");	 
+			lib.NewWave (new Wave (90f, mp, p, 3, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
 
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.targetPos = new Vector3 (0, 7, 0);
@@ -222,8 +219,8 @@ public class Stage1 : Stage
 			p = new Pattern (lib.circle);
 			p.Customize ("BulletCount", 4 * difficultyMultiplier);
 			p.Customize (new BulletMovementPattern (false, "Explode", 11f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			lib.NewWave (lib.stageWaves, new Wave (90f, mp, p, 3, false, 40, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
+			p.SetSprite ("Circle", "Glow", "Green");	 
+			lib.NewWave (new Wave (90f, mp, p, 3, false, 40, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
 
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.targetPos = new Vector3 (-14, 7, 0);
@@ -233,8 +230,8 @@ public class Stage1 : Stage
 			p = new Pattern (lib.circle);
 			p.Customize ("BulletCount", 4 * difficultyMultiplier);
 			p.Customize (new BulletMovementPattern (false, "Explode", 11f, p, 0, 14));
-			p.SetSprite ("Circle", "Glow", "Yellow");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
-			lib.NewWave (lib.stageWaves, new Wave (90.5f, mp, p, 3, false, 40, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
+			p.SetSprite ("Circle", "Glow", "Yellow");	 
+			lib.NewWave (new Wave (90.5f, mp, p, 3, false, 40, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
 
 
 			
@@ -251,6 +248,6 @@ public class Stage1 : Stage
 			mp.Customize ("StayTime", 0);
 			boss = new Wave(96f, mp, null, 1,  false, 40 * Mathf.CeilToInt(difficultyMultiplier) , true, 3f, 2);
 			boss.SetUpBoss (1, "Maaya, Forest Guardian", false);
-			lib.NewWave (lib.stageWaves, boss, new ArrayList { lib.middleTop });
+			lib.NewWave (boss, new ArrayList { lib.middleTop });
 	}
 }

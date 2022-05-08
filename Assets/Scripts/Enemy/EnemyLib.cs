@@ -71,11 +71,11 @@ public class EnemyLib : MonoBehaviour
 		zigZag = 			new EnemyMovementPattern("ZigZag", new Vector3(0f, 8f, 0f), false, 0);
 		stopOnce = 			new EnemyMovementPattern("SnakeRightToLeft", new Vector3(0f, 6f, 0f), false, 0);
 		enterFromTop = 		new EnemyMovementPattern("Enter", new Vector3(centerX, 8f, 0f), false, 0);
-		enterLeave = 		new EnemyMovementPattern ("EnterLeave", new Vector3 (-7f, 8f, 0f), false, 18);
+		enterLeave = 		new EnemyMovementPattern("EnterLeave", new Vector3 (-7f, 8f, 0f), false, 18);
 		rocking = 			new EnemyMovementPattern("Rocking", new Vector3(-2f, 8f, 0f), true, 0);
 		centerHor = 		new EnemyMovementPattern("CenterHor", new Vector3(centerX, 8f, 0f), true, 0);
 		centerVer = 		new EnemyMovementPattern("CenterVer", new Vector3(-7f, centerY, 0f), true, 0);
-		swipeLeftToRight = new EnemyMovementPattern ("SwipeLeftToRight", new Vector3 (-15, 6f, 0f), true, 0);
+		swipeLeftToRight = new EnemyMovementPattern("SwipeLeftToRight", new Vector3 (-15, 6f, 0f), true, 0);
 	}
 
 	void CreatePatterns()
@@ -93,13 +93,13 @@ public class EnemyLib : MonoBehaviour
 	}
 
 
-	public void NewWave(ArrayList stage, Wave w, ArrayList spawnPositions){
+	public void NewWave(Wave w, ArrayList spawnPositions){
 		w.SetSpawnPositions (spawnPositions);
 
 		if (w.isBoss || w.isMidBoss) {
 			w.sprite =spriteLib.SetCharacterSprite ("Boss" + w.bossIndex);
 		}
-		stage.Add (w);
+		stageWaves.Add(w);
 	}
 }
 
