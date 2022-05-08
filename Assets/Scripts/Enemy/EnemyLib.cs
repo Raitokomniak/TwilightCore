@@ -47,7 +47,7 @@ public class EnemyLib : MonoBehaviour
 		centerX = -6f;
 		centerY = 0f;
 		farLeft = -22f;
-		farRight = 8f;
+		farRight = 10f;
 
 		middleTop = new Vector3(centerX, 12f, 0f);
 		topRight = new Vector3(7f, 6f, 0f);
