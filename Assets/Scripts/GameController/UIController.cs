@@ -8,6 +8,9 @@ public class UIController : MonoBehaviour {
 	public GameObject stageUI;
 
 	public GameObject stageWorldUI;
+
+
+	public float[] wallBoundaries;
 	public GameObject playAreaLeftWall;
 	public GameObject playAreaRightWall;
 	public GameObject playAreaTopWall;
@@ -179,8 +182,12 @@ public class UIController : MonoBehaviour {
 		}
 		ResetTopLayer ();
 		
-		//this doesnt belong in ui 
-		Game.control.player.movement.SetUpBoundaries(playAreaLeftWall.transform.position.x, playAreaRightWall.transform.position.x, playAreaBottomWall.transform.position.y, playAreaTopWall.transform.position.y);
+		
+	}
+
+	public float[] GetBoundaries(){
+		wallBoundaries = new float[4]{playAreaBottomWall.transform.position.y, playAreaLeftWall.transform.position.x, playAreaTopWall.transform.position.y, playAreaRightWall.transform.position.x};
+		return wallBoundaries;
 	}
 
 	public void UpdateTimer(float value){

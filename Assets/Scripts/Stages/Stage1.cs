@@ -75,7 +75,7 @@ public class Stage1 : Stage
 			lib.NewWave (lib.stageWaves, new Wave (3f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
 																				// .6f
 			
-			
+			/*
 			//2ND PHASE
 			if(difficultyMultiplier > 3){
 				
@@ -97,7 +97,7 @@ public class Stage1 : Stage
 			lib.NewWave (lib.stageWaves, new Wave (15f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
 			
 			}
-			
+	*/		
 			mp = new EnemyMovementPattern (lib.zigZag);
 			mp.Customize("Direction", 1);
 			p = new Pattern (lib.circle);
@@ -106,13 +106,14 @@ public class Stage1 : Stage
 			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
 			lib.NewWave (lib.stageWaves, new Wave (16f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
 
+/*
 			mp = new EnemyMovementPattern (lib.stopOnce);
 			mp.Customize ("LeaveDir", "Right");
 			p = new Pattern (lib.circle);
 			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
 			p.SetSprite ("Circle", "Glow", "Green");	//enmyCnt simul hlth isBoss, cd, hlthBars, spawnPositions
 			lib.NewWave (lib.stageWaves, new Wave (17f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
-
+*/
 			
 			//PHASE3
 

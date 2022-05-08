@@ -98,6 +98,8 @@ public class EnemyMovementPattern
 				yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
 				UpdateDirection (4f, 6f);
 			}
+			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+			UpdateDirection (-20f, 6f);
 			break;
 		case "SnakeRightToLeft": //Repeatable
 			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);

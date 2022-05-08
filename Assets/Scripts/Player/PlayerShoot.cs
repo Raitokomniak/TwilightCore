@@ -11,14 +11,12 @@ public class PlayerShoot : MonoBehaviour {
 	float coolDown;
 
 	public int shootLevel;
-	public float damage;
 
 	public GameObject weapon;
 	public ArrayList weapons;
 	public ArrayList weaponsInUse;
 
-	//string[] shootTypes;
-	//public float shootSpeed;
+
 	void Awake () {
 		projectile = Resources.Load("Sprites/BulletSprites/playerProjectile") as GameObject;
 		coolDownTimer = 0f;
@@ -154,7 +152,6 @@ public class PlayerShoot : MonoBehaviour {
 	}
 
 	public void UpdateShootLevel(){
-		damage = Game.control.player.stats.damage;
 		coolDown = Game.control.player.stats.shootSpeed;
 		bulletScale = Game.control.player.stats.bulletScale;
 		//shootLevel = Game.control.player.shootLevel;

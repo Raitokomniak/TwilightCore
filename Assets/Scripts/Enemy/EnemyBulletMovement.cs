@@ -3,18 +3,12 @@ using System.Collections;
 
 
 public class EnemyBulletMovement : MonoBehaviour {
-	Quaternion originalRot;
-
 	Vector3 playerPosition;
 	Vector3 movementDirection;
 	Vector3 initialPosition;
-	public float targetMagnitude;
 
-	Quaternion rotation;
-	Sprite sprite;
 	BulletMovementPattern movement;
 
-	public bool isMoving;
 	public bool isLaser;
 
 	float bWallPos;
@@ -23,18 +17,13 @@ public class EnemyBulletMovement : MonoBehaviour {
 	float tWallPos;
 
 	void Awake() {
-		targetMagnitude = 100f;
-		isMoving = true;
-
 		initialPosition = transform.position;
 		playerPosition = Game.control.player.gameObject.transform.position - initialPosition;
 
-		bWallPos = Game.control.ui.playAreaBottomWall.transform.position.y - 2f;
-		lWallPos = Game.control.ui.playAreaLeftWall.transform.position.x - 2f;
-		tWallPos = Game.control.ui.playAreaTopWall.transform.position.y + 2f;
-		rWallPos = Game.control.ui.playAreaRightWall.transform.position.x + 2f;
-		originalRot = transform.rotation;
-
+		bWallPos = Game.control.ui.wallBoundaries[0] - 2f;
+		lWallPos = Game.control.ui.wallBoundaries[1] - 2f;
+		tWallPos = Game.control.ui.wallBoundaries[2] + 2f;
+		rWallPos = Game.control.ui.wallBoundaries[3] + 2f;
 	}
 
 

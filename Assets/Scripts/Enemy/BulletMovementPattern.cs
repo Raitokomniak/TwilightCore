@@ -255,18 +255,16 @@ public class BulletMovementPattern
 					rotation = Quaternion.Euler(0, 0, tempRot.z + i);
 					yield return new WaitForSeconds(.02f);
 				}
-
 			}
-			
-			
 			break;
+
 		default:
 			break;
 		}
 	}
 		
 	void FindPlayer(GameObject _bullet){
-		Vector3 player = Game.control.player.gameObject.GetComponent<PlayerMovement> ().GetLocalPosition ();
+		Vector3 player = Game.control.player.gameObject.transform.position;
 		Vector3 vectorToTarget = player - _bullet.transform.position;
 		float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg + 90;
 		Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -288,13 +286,11 @@ public class BulletMovementPattern
 	{
 		centerPoint = bullet.transform.position;
 		if (animate){
-			
 			p.Animate(targetScale, centerPoint);
 		}
 		isMoving = true;
 		isHoming = false;
 		targetMagnitude = _targetMagnitude;
-		//movementSpeed = movementSpeed;
 	}
 
 	void CancelAxisRotation(float speed)

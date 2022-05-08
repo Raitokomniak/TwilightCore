@@ -4,18 +4,12 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour
 {
 	PlayerHandler player;
-	bool init;
-	float movementSpeed;
 	public GameObject hitBox;
-	public GameObject magRange;
 	public MagneticRange magneticRange;
 
+	float movementSpeed;
 	public bool focusMode;
 
-	float leftWallX;
-	float rightWallX;
-	float bottomWallY;
-	float topWallY;
 
 	void Awake ()
 	{
@@ -23,43 +17,36 @@ public class PlayerMovement : MonoBehaviour
 		player = GetComponent<PlayerHandler>();
 	}
 
-	public void Init(){
-		init = true;
-	}
-
-
-	public void SetUpBoundaries(float left, float right, float bottom, float top){
-		leftWallX = left + .5f;
-		rightWallX = right - .5f;
-		bottomWallY = bottom + .5f;
-		topWallY = top - 2f;
-	}
-
 	void Update ()
 	{
-		if(init &&  !GetComponent<PlayerLife>().dead) {
+		if(CanMove()) {
 			FocusMode (Input.GetKey (KeyCode.LeftShift));
 
 			float hor = Input.GetAxisRaw ("Horizontal");
 			float ver = Input.GetAxisRaw ("Vertical");
 
-			if (hor < 0) 
-				if (transform.position.x > leftWallX) 
+			if (ver < 0) //BOTTOM
+				if (transform.position.y >= Game.control.ui.GetBoundaries()[0] + .5f)
+					Move (0, ver);
+
+			if (hor < 0) //LEFT
+				if (transform.position.x > Game.control.ui.GetBoundaries()[1] + .5f) 
 					Move (hor, 0);
-				
-			if (hor > 0) 
-				if (transform.position.x <= rightWallX) 
-					Move (hor, 0);
-				
-			if (ver > 0) 
-				if (transform.position.y <= topWallY) 
+
+			if (ver > 0) //TOP 
+				if (transform.position.y <= Game.control.ui.GetBoundaries()[2] - 2f) 
 					Move (0, ver);
 				
-			if (ver < 0)
-				if (transform.position.y >= bottomWallY)
-					Move (0, ver);
-				
+			if (hor > 0) //RIGHT 
+				if (transform.position.x <= Game.control.ui.GetBoundaries()[3] - .5f) 
+					Move (hor, 0);
 		}
+	}
+
+	bool CanMove(){
+		if(!Game.control.stageHandler.stageOn) return false;
+		if(GetComponent<PlayerLife>().dead) return false;
+		return true;
 	}
 
 	public void FocusMode (bool focus)
@@ -81,11 +68,6 @@ public class PlayerMovement : MonoBehaviour
 			GetComponent<PlayerShoot> ().FocusWeapons (-1);
 			Game.control.ui.CoreInUse ("Day");
 		}
-	}
-
-	public Vector3 GetLocalPosition()
-	{
-		return transform.position;
 	}
 
 	void Move (float x, float y)

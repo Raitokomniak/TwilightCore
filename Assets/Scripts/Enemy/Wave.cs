@@ -93,7 +93,8 @@ public class Wave
 		GameObject enemy = GameObject.Instantiate (Resources.Load ("Prefabs/Enemy"), spawnPosition, Quaternion.Euler (0, 0, 0)) as GameObject;
 
 		enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0);
-		enemy.GetComponent<EnemyMovement> ().SetUpPatternAndMove (new EnemyMovementPattern(movementPattern));
+		//enemy.GetComponent<EnemyMovement> ().SetUpPatternAndMove (new EnemyMovementPattern(movementPattern));
+		enemy.GetComponent<EnemyMovement> ().SetUpPatternAndMove (movementPattern);
 
 		if (isBoss || isMidBoss) {
 			enemy.GetComponent<SpriteRenderer> ().sprite = sprite;

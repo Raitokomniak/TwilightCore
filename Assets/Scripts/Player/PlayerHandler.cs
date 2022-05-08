@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
-
 public class PlayerStats {
 
 	public int maxLives;
@@ -17,17 +15,6 @@ public class PlayerStats {
 	public float bulletScaleMin;
 	public float shootSpeed;
 	public float bulletScale;
-
-
-	public int damagePoints;
-	public int speedPoints;
-	public int scalePoints;
-
-	public int genPoints;
-
-	public int powerCap;
-	public int speedCap;
-	public int scaleCap;
 
 	public long score;
 	public long hiScore;
@@ -72,7 +59,6 @@ public class PlayerHandler : MonoBehaviour {
 
 		health.Init ();
 		combat.Init ();
-		movement.Init();
 	}
 
 
@@ -108,11 +94,6 @@ public class PlayerHandler : MonoBehaviour {
 		stats.level++;
 		stats.upgradePoints++;
 		Game.control.ui.UpdateStatPanel ("UpgradePoints", stats.upgradePoints);
-	}
-
-	void UpgradeSpeed(){
-		if(stats.shootSpeed > 0.15f)
-			stats.shootSpeed -= .06f;
 	}
 
 }
