@@ -33,8 +33,8 @@ public class EnemyLib : MonoBehaviour
 
 	public float centerX;
 	public float centerY;
-	public float farRight;
-	public float farLeft;
+	public float rightOut;
+	public float leftOut;
 
 	public Vector3 middleTop;
 	public Vector3 topRight;
@@ -42,21 +42,18 @@ public class EnemyLib : MonoBehaviour
 	public Vector3 rightTop;
 	public Vector3 topLeft;
 
-
-	void Awake(){
+	public void InitEnemyLib(){
 		centerX = -6f;
 		centerY = 0f;
-		farLeft = -22f;
-		farRight = 10f;
+		leftOut = -22f;
+		rightOut = 10f;
 
 		middleTop = new Vector3(centerX, 12f, 0f);
-		topRight = new Vector3(7f, 6f, 0f);
-		topLeft = new Vector3 (-18, 6f, 0f);
-		leftTop = new Vector3 (-18, 12f, 0f);
-		rightTop = new Vector3 (0, 12f, 0f);
-	}
+		topRight = new Vector3(7f, 6f, 0f); //RIGHT WALL
+		topLeft = new Vector3 (-18, 6f, 0f); //LEFT WALL
+		leftTop = new Vector3 (-14, 12f, 0f); //TOP WALL LEFT  SIDE
+		rightTop = new Vector3 (3, 12f, 0f); //TOP WALL RIGHT SIDE
 
-	public void InitEnemyLib(){
 		spriteLib = Game.control.spriteLib;
 
 		CreateMovementPatterns();

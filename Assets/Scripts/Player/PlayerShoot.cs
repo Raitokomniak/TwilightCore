@@ -138,6 +138,7 @@ public class PlayerShoot : MonoBehaviour {
 	}
 
 	public void FocusWeapons(int dir){
+
 		if (weaponsInUse.Count > 1) {
 			GameObject weapon1 = (GameObject)weaponsInUse [1];
 			GameObject weapon2 = (GameObject)weaponsInUse [2];

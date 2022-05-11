@@ -12,7 +12,10 @@ public class EnemyMovementPattern
 	public bool infinite;
 	public float stayTime;
 
-	public string leaveDir;
+	public Vector3 enterDir;
+	//public string enterDir;
+	//public string leaveDir;
+	public Vector3 leaveDir;
 
 	public int direction;
 	public bool goingRight;
@@ -103,7 +106,8 @@ public class EnemyMovementPattern
 			break;
 		case "SnakeRightToLeft": //Repeatable
 			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
-			if (leaveDir == "Right"){
+			
+			if (leaveDir.x > 0){
 				UpdateDirection (-12f, 6f);
 			}
 			else {
@@ -111,36 +115,57 @@ public class EnemyMovementPattern
 			}
 			
 			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
-			if (leaveDir == "Right")
-				UpdateDirection (lib.farRight, 6f);
-			else
-				UpdateDirection (lib.farLeft, 6f);
+			UpdateDirection (leaveDir.x, 6f);
 			break;
 		case "EnterLeave":
+			if(enterDir != Vector3.zero) UpdateDirection(enterDir.x, enterDir.y);
 			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
 			//_m.Animate ("Float");
+			
 			if (stayTime > 0) {
 				yield return new WaitForSeconds (stayTime);
 				//if (leaveDir == "Left")
-					UpdateDirection (-20f, 6f);
+					
 				//else if (leaveDir == "Right")
 				//	UpdateDirection (10f, 6f);
 				//else if (leaveDir == "Up")
 				//	UpdateDirection (lib.centerX, 13f);
 			}
-			break;
-		case "Enter":
+			
+			UpdateDirection (leaveDir.x, leaveDir.y);
+			/*
 			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
 			//_m.Animate ("Float");
-			if (stayTime > 0) {
-				yield return new WaitForSeconds (stayTime);
+			if (stayTime <= 0) stayTime = 1f;
+			yield return new WaitForSeconds (stayTime);
+
+			if (leaveDir == "Left") UpdateDirection (lib.leftOut, _m.transform.position.y);
+			else if (leaveDir == "Right") UpdateDirection (lib.rightOut, _m.transform.position.y);
+			else if (leaveDir == "Up") UpdateDirection (_m.transform.position.x, 13f);
+
+			//UpdateDirection (-20f, 6f);
+			break;
+			*/
+			break;
+		case "Enter":
+
+			UpdateDirection (enterDir.x, enterDir.y);
+			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+			//_m.Animate ("Float");
+			if (stayTime > 0) { yield return new WaitForSeconds (stayTime);
+				
+/*
 				if (leaveDir == "Left")
 					UpdateDirection (-20f, 6f);
 				else if (leaveDir == "Right")
 					UpdateDirection (10f, 6f);
 				else if (leaveDir == "Up")
 					UpdateDirection (lib.centerX, 13f);
+					*/
 			}
+			else yield return new WaitForSeconds (1f);
+			
+			//UpdateDirection (leaveDir.x, leaveDir.y);
 			break;
 		case "Rocking":
 			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
@@ -212,10 +237,14 @@ public class EnemyMovementPattern
 		case "StayTime":
 			stayTime = value;
 			break;
-		case "LeaveDir":
-		//	leaveDir
+		}
+	}
+
+	public void Customize(string key, Vector3 value){
+		switch(key){
+			case "EnterDir":
+			targetPos = value;
 			break;
-		
 		}
 	}
 
@@ -224,9 +253,15 @@ public class EnemyMovementPattern
 		switch (key) {
 
 		case "LeaveDir":
-			leaveDir = value;
+			if(value == "Right") leaveDir = new Vector3(Game.control.enemyLib.rightOut, 6f, 0);
+			else if(value == "Left") leaveDir = new Vector3(Game.control.enemyLib.leftOut, 6f, 0);
+			else if(value == "Center") leaveDir = new Vector3(Game.control.enemyLib.centerX, 18, 0);
 			break;
-
+		case "EnterDir":
+			if(value == "Right") enterDir = new Vector3(3, 6, 0);
+			else if(value == "Left") enterDir = new Vector3(-14, 6, 0);
+			else if(value == "Center") enterDir = new Vector3(Game.control.enemyLib.centerX, 6, 0);
+			break;
 		}
 	}
 

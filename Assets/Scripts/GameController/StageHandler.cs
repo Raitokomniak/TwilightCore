@@ -196,13 +196,14 @@ public class StageHandler : MonoBehaviour {
 		yield return new WaitForSeconds(1);
 
 	//Game.control.menu.ToggleMenu (false);
+		Game.control.enemyLib.InitEnemyLib ();
 		Game.control.scene.SetUpEnvironment ();
 		Game.control.player.Init ();
 		Game.control.io.LoadScore();
 		Game.control.dialog.Init();
 		Game.control.ui.InitStage ();
 		Game.control.menu.InitMenu();
-		Game.control.enemyLib.InitEnemyLib ();
+		
 
 		Game.control.player.gameObject.SetActive (true);
 		Game.control.sound.PlayMusic ("Stage", currentStage);

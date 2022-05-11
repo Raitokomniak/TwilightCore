@@ -22,6 +22,8 @@ public class Pattern
 	float rotationMultiplier;
 	float startingRotation;
 
+	public float circleDelay;
+
 	public GameObject animation;
 	public bool animating;
 
@@ -110,7 +112,7 @@ public class Pattern
 		enemy = _enemy;
 		Vector3 pos = _enemy.transform.position;
 		Quaternion rot = _enemy.transform.rotation;
-		
+
 		newPosition = _enemy.transform.position;
 		bulletRotation = _enemy.transform.rotation;
 		stop = false;
@@ -121,6 +123,7 @@ public class Pattern
 			for (int i = 0; i < bulletCount; i++) {
 				newPosition = SpawnInCircle (pos, 0f, GetAng (i, 360));
 				InstantiateBullet (enemyBullet);
+				
 			}
 			break;
 		case "Laser":
@@ -168,6 +171,7 @@ public class Pattern
 					bulletRotation = SpawnInCircle (i, startingRotation);
 					startingRotation += 0.5f * rotationDirection;
 					InstantiateBullet (enemyBullet);
+					if(circleDelay > 0) yield return new WaitForSeconds(circleDelay);
 				}
 				yield return new WaitForSeconds (coolDown);
 			}
@@ -326,6 +330,9 @@ public class Pattern
 			break;
 		case "Delay":
 			delayBeforeAttack = value;
+			break;
+		case "CircleDelay":
+			circleDelay = value;
 			break;
 		}
 	}

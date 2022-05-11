@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
 	bool CanMove(){
 		if(!Game.control.stageHandler.stageOn) return false;
 		if(GetComponent<PlayerLife>().dead) return false;
+		if(player == null) return false;
 		return true;
 	}
 
@@ -59,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
 			magneticRange.GetComponent<AnimationController> ().rotating = true;
 			GetComponent<PlayerShoot> ().FocusWeapons (1);
 			Game.control.ui.CoreInUse ("Night");
-		} else {
+		} else if(player.stats != null)  {
 			focusMode = false;
 			hitBox.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 0);
 			movementSpeed = player.stats.movementSpeed * Time.deltaTime;
