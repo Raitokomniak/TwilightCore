@@ -417,10 +417,10 @@ public class UIController : MonoBehaviour {
 
 	
 
-	public void UpdateStageText(int stageID)
+	public void UpdateStageText(int stageID, string stageName, string BGMtext)
 	{
-		stageText.text = "Stage " + stageID.ToString();
-		if(stageID==1) rightPanelStageText.text = "Asura's Path";
+		stageText.text = "Stage " + stageID.ToString() + " - " + stageName + '\n' + "BGM: " + BGMtext;
+		rightPanelStageText.text = stageName;
 	}
 
 	public void ShowStageText(){

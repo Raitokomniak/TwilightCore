@@ -212,7 +212,6 @@ public class StageHandler : MonoBehaviour {
 		stageScript.StartStageHandler();
 		stageOn = true;
 
-		
 		Game.control.ui.ToggleLoadingScreen(false);
 	}
 

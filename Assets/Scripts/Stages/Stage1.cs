@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Stage1 : Stage
 {
+
 	public override void StartStageHandler(){
 		stageHandlerRoutine = StageHandlerRoutine();
 		StartCoroutine(stageHandlerRoutine);
@@ -12,7 +13,7 @@ public class Stage1 : Stage
 
 	IEnumerator StageHandlerRoutine(){
 		SceneHandler scene = Game.control.scene;
-		Game.control.ui.UpdateStageText (stageHandler.currentStage);
+		Game.control.ui.UpdateStageText (1, "Asura's Path", "Asura who remain Asura");
 	
 		while (Game.control.dialog.handlingDialog) yield return null;
 		
