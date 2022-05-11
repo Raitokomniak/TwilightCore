@@ -18,7 +18,7 @@ public class DialogController : MonoBehaviour {
 	
 
 	void LateUpdate () {
-		if(handlingDialog){
+		if(!Game.control.pause.paused && handlingDialog){
 			if(autoScroll){
 
 				if(autoScrollTimer < autoScrollTime)
