@@ -14,7 +14,7 @@ public class Stage : MonoBehaviour
 		
     }
     public virtual void StopStage(){
-       StopCoroutine(stageHandlerRoutine);
+       if(stageHandlerRoutine != null) StopCoroutine(stageHandlerRoutine);
     }
 
     public virtual void StartStageHandler(){}

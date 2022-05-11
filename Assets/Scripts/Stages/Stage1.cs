@@ -52,7 +52,7 @@ public class Stage1 : Stage
 		lib.stageWaves.Clear ();
 		Pattern p;
 		EnemyMovementPattern mp;
-
+/*
 			//1st PHASE
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.Customize ("LeaveDir", "Right");
@@ -233,20 +233,22 @@ public class Stage1 : Stage
 			p.SetSprite ("Circle", "Glow", "Yellow");	 
 			lib.NewWave (new Wave (90.5f, mp, p, 3, false, 40, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
 
-
+*/
 			
 
-/*
+
 			//DEBUG
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.Customize ("StayTime", 0);
-			Wave boss1 = new Wave(1f, mp, null, 1,  false, 10 * Mathf.CeilToInt(difficultyMultiplier / 2) , true, 3f, 2);
-*/
-			// BIG BOSS
+			boss = new Wave(1f, mp, null, 1,  false, 10 * Mathf.CeilToInt(difficultyMultiplier / 2) , true, 3f, 2);
 
+			// BIG BOSS
+			/*
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.Customize ("StayTime", 0);
 			boss = new Wave(96f, mp, null, 1,  false, 40 * Mathf.CeilToInt(difficultyMultiplier) , true, 3f, 2);
+			*/
+
 			boss.SetUpBoss (1, "Maaya, Forest Guardian", false);
 			lib.NewWave (boss, new ArrayList { lib.middleTop });
 	}

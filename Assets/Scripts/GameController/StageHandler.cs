@@ -82,6 +82,12 @@ public class StageHandler : MonoBehaviour {
 	}
 
 
+	public bool CheckIfAllPickUpsGone(){
+		if(GameObject.FindGameObjectWithTag("ExpPoint")) return false;
+		if(GameObject.FindGameObjectWithTag("DayCorePoint")) return false;
+		if(GameObject.FindGameObjectWithTag("NightCorePoint")) return false;
+		return true;
+	}
 
 	public void EndHandler (string endType)
 	{
@@ -107,7 +113,7 @@ public class StageHandler : MonoBehaviour {
 		ToggleTimer(false);
 		Game.control.sound.StopMusic ();
 		if(stageScript != null) stageScript.StopStage();
-		stageOn = false;
+		
 	}
 
 	IEnumerator DeathHandling ()
@@ -120,6 +126,7 @@ public class StageHandler : MonoBehaviour {
 		Game.control.menu.Menu("GameOverMenu");
 
 		stageScript.StopStage();
+		stageOn = false;
 		stageTimerOn = false;
 		Game.control.enemySpawner.AbortSpawner();
 		Game.control.dialog.EndDialog();
@@ -128,11 +135,13 @@ public class StageHandler : MonoBehaviour {
 
 	IEnumerator StageCompleteHandling ()
 	{
-		stageCompleted = true;
+		
 		Game.control.ui.HideBossTimer();
 		Game.control.ui.ToggleBossHealthSlider (false, 0, "");
-		yield return new WaitForSeconds (2);
-
+		yield return new WaitUntil(() => CheckIfAllPickUpsGone() == true);
+		stageCompleted = true;
+		stageOn = false;
+		yield return new WaitForSeconds (1);
 		Game.control.ui.StageCompleted (true);
 		yield return new WaitForSeconds (2);
 
@@ -141,11 +150,9 @@ public class StageHandler : MonoBehaviour {
 
 	void NextStage ()
 	{
-		Game.control.MainMenu ();
-		/*stageCompleted = false;
+		//Game.control.MainMenu ();
 		Game.control.ui.StageCompleted (false);
-		currentStage++;
-		StartStage(2);*/
+		StartStage(2);
 	}
 
 	//If time is up, boss leaves the screen and stage is completed
