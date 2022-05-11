@@ -129,6 +129,19 @@ public class EnemyMovementPattern
 				//	UpdateDirection (lib.centerX, 13f);
 			}
 			break;
+		case "Enter":
+			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+			//_m.Animate ("Float");
+			if (stayTime > 0) {
+				yield return new WaitForSeconds (stayTime);
+				if (leaveDir == "Left")
+					UpdateDirection (-20f, 6f);
+				else if (leaveDir == "Right")
+					UpdateDirection (10f, 6f);
+				else if (leaveDir == "Up")
+					UpdateDirection (lib.centerX, 13f);
+			}
+			break;
 		case "Rocking":
 			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
 			UpdateDirection (-11f, 8f);

@@ -16,6 +16,7 @@ public class Pattern
 	Quaternion bulletRotation;
 	public BulletMovementPattern movement;
 
+	public float delayBeforeAttack = 0;
 	public float coolDown;
 	public int bulletCount;
 	float rotationMultiplier;
@@ -102,11 +103,16 @@ public class Pattern
 		if(enemy.bulletsShot != null) enemy.bulletsShot.Add (bullet);
 	}
 
-	public IEnumerator Execute (GameObject enemyBullet, Vector3 pos, Quaternion rot, EnemyShoot _enemy)
+	public IEnumerator Execute (GameObject enemyBullet, EnemyShoot _enemy)
 	{
+		if(delayBeforeAttack > 0) yield return new WaitForSeconds(delayBeforeAttack);
+
 		enemy = _enemy;
-		newPosition = pos;
-		bulletRotation = rot;
+		Vector3 pos = _enemy.transform.position;
+		Quaternion rot = _enemy.transform.rotation;
+		
+		newPosition = _enemy.transform.position;
+		bulletRotation = _enemy.transform.rotation;
 		stop = false;
 
 		switch (name) {
@@ -317,6 +323,9 @@ public class Pattern
 			break;
 		case "CoolDown":
 			coolDown = value;
+			break;
+		case "Delay":
+			delayBeforeAttack = value;
 			break;
 		}
 	}

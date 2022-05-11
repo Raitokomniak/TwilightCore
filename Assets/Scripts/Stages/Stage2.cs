@@ -33,8 +33,9 @@ public class Stage2 : Stage
 		mp.Customize("StayTime", 2f);
 		p = new Pattern (lib.maelStrom);
 		p.SetSprite ("Arrow", "Glow", "Red");
+		p.Customize("Delay", 2f);
 		//p.Customize (new BulletMovementPattern (false, "WaitToHome", 9f, p, 0, 14));
-		lib.NewWave (new Wave (4f, mp, p, 1, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
+		lib.NewWave (new Wave (3f, mp, p, 1, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.middleTop });
 
 /*
 		mp = new EnemyMovementPattern (lib.snake);
