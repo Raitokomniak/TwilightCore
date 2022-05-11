@@ -93,6 +93,7 @@ public class Pattern
 
 	public void InstantiateBullet (GameObject enemyBullet)
 	{
+		if(movement == null) movement = new BulletMovementPattern (false, "Explode", 7f, this, 0, 14);
 		movement = new BulletMovementPattern (movement);
 		bullet = (Object.Instantiate (enemyBullet, newPosition, bulletRotation) as GameObject);
 		bullet.transform.SetParent (GameObject.FindWithTag ("BulletsRepo").transform);

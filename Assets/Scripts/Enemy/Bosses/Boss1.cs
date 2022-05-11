@@ -81,7 +81,7 @@ public class Boss1 : Phaser
             
 			case 1:
 				Game.control.sound.PlaySpellSound ("Enemy");
-				Game.control.ui.ShowActivatedPhase ("Boss", "Justice Seal: Ninetailed Spear");
+				Game.control.ui.ShowActivatedPhase ("Boss", "Hoodwink: Ninetailed Spear");
 
 				patterns.Add(new Pattern (lib.curtain));
 				patterns[0].Customize ("BulletCount", Mathf.Ceil(1.8f * difficultyMultiplier));  
@@ -168,7 +168,7 @@ public class Boss1 : Phaser
 				}
 				break;
 			case 3:
-				Game.control.ui.ShowActivatedPhase ("Boss", "Guardian Seal: Fox Fires");
+				Game.control.ui.ShowActivatedPhase ("Boss", "Hoodwink: Fox Fires");
 
 				patterns.Add(new Pattern ("Cluster", true, 30 * difficultyMultiplier, 0, 0.05f / difficultyMultiplier, 0, 1f));
 																						//0.01f

@@ -60,6 +60,8 @@ public class BulletMovementPattern
 	{
 		isMoving = true;
 		switch (property) {
+
+
 		case "DownAndExplode":
 			movementSpeed = 10f;
 			yield return new WaitForSeconds (1f);
@@ -76,6 +78,8 @@ public class BulletMovementPattern
 			yield return new WaitForSeconds (1f);
 			CancelAxisRotation (10f);
 			break;
+
+
 		case "WaitAndExplode":
 			movementSpeed = 0;
 			//
@@ -91,8 +95,9 @@ public class BulletMovementPattern
 			//rotation = bullet.transform.rotation;
 			//CorrectRotation ();
 			break;
+
+
 		case "TurnToSpears":
-			//
 			movementSpeed = 0;
 			yield return new WaitForSeconds (1f);
 			bullet.GetComponent<SpriteRenderer> ().sprite = Game.control.spriteLib.SetBulletSprite ("Spear", "Bevel", "Lilac");
@@ -101,13 +106,25 @@ public class BulletMovementPattern
 			FindPlayer(bullet);
 			yield return new WaitForSeconds (.3f);
 			movementSpeed = 10f;
-
-
 			bullet.GetComponent<EnemyBulletMovement> ().SmoothAcceleration ();
 			break;
+
+
+		case "WaitToHome":
+			movementSpeed = 0;
+			yield return new WaitForSeconds (1f);
+			FindPlayer(bullet);
+			yield return new WaitForSeconds (.3f);
+			movementSpeed = 10f;
+			bullet.GetComponent<EnemyBulletMovement> ().SmoothAcceleration ();
+			break;
+
+
 		case "SpawnInCircleExplode":
 			
 			break;
+
+
 		case "Aurora":
 			Explode (false, bullet, 14, 1);
 			rotation = bullet.transform.rotation;
@@ -130,6 +147,7 @@ public class BulletMovementPattern
 			Explode (false, bullet, 14, 1);
 			rotation = bullet.transform.rotation;
 			break;
+
 		case "Stop":
 			Explode (false, bullet, 14, 1);
 			rotation = bullet.transform.rotation;
@@ -138,8 +156,8 @@ public class BulletMovementPattern
 			yield return new WaitForSeconds (2f);
 			movementSpeed = 7f;
 			break;
+
 		case  "StopAndRotate":
-			
 			dontDestroy = true;
 			rotation = bullet.transform.rotation;
 			Explode (true, bullet, targetMagnitude, 4.5f);
@@ -164,6 +182,8 @@ public class BulletMovementPattern
 
 			dontDestroy = false;
 			break;
+
+
 		case "PendulumLaser":
 			dontDestroy = true;
 			centerPoint = bullet.transform.position;
@@ -198,6 +218,8 @@ public class BulletMovementPattern
 			}
 			GameObject.Destroy (bullet);
 			break;
+
+
 		case "ExpandToLaser":
 			dontDestroy = true;
 			centerPoint = bullet.transform.position;
@@ -238,6 +260,8 @@ public class BulletMovementPattern
 			GameObject.Destroy (bullet);
 
 			break;
+
+			
 		case "SlowWaving":
 			Explode (false, bullet, 14, 1);
 			isMoving = true;

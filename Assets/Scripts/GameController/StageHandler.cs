@@ -139,13 +139,10 @@ public class StageHandler : MonoBehaviour {
 		Game.control.ui.HideBossTimer();
 		Game.control.ui.ToggleBossHealthSlider (false, 0, "");
 		yield return new WaitUntil(() => CheckIfAllPickUpsGone() == true);
+		yield return new WaitForSeconds (1);
 		stageCompleted = true;
 		stageOn = false;
-		yield return new WaitForSeconds (1);
 		Game.control.ui.StageCompleted (true);
-		yield return new WaitForSeconds (2);
-
-		//NextStage ();
 	}
 
 	void NextStage ()
@@ -156,7 +153,6 @@ public class StageHandler : MonoBehaviour {
 	}
 
 	//If time is up, boss leaves the screen and stage is completed
-
 	IEnumerator TimeUp ()
 	{
 		GameObject boss = GameObject.FindWithTag ("Boss");

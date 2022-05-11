@@ -301,7 +301,7 @@ public class UIController : MonoBehaviour {
 
 	void ResetTopLayer(){
 		foreach (GameObject layer in topLayers) {
-			Sprite sprite = Resources.Load<Sprite> ("Images/Backgrounds/TopLayers/Stage1");
+			Sprite sprite = Resources.Load<Sprite> ("Images/Backgrounds/TopLayers/Stage"+ Game.control.stageHandler.currentStage);
 			layer.GetComponent<Image> ().sprite = sprite;
 			layer.GetComponent<TopLayerParallaxController> ().scrollSpeed = 26;
 		}

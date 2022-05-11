@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class SceneHandler : MonoBehaviour
 {
 	public GameObject environment;
+	public GameObject directionalLight;
 	public GameObject parent;
 	public Camera environmentCamera;
 	public GameObject[] planes;
@@ -13,6 +14,8 @@ public class SceneHandler : MonoBehaviour
 	{
 		planes = new GameObject[3];
 		parent = GameObject.Find ("EnvironmentParent");
+		directionalLight = (GameObject)Instantiate (Resources.Load ("Prefabs/Environment/Stage" + Game.control.stageHandler.currentStage + "_DirectionalLight"));
+		directionalLight.transform.SetParent(parent.transform);
 
 		if (!GameObject.Find ("Environment")) {
 			environment = (GameObject)Instantiate (Resources.Load ("Prefabs/Environment/Stage" + Game.control.stageHandler.currentStage + "_Environment"));

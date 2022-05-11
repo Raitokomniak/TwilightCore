@@ -52,7 +52,9 @@ public class Stage1 : Stage
 		lib.stageWaves.Clear ();
 		Pattern p;
 		EnemyMovementPattern mp;
-/*
+		
+		
+		///*
 			//1st PHASE
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.Customize ("LeaveDir", "Right");
@@ -104,7 +106,7 @@ public class Stage1 : Stage
 			lib.NewWave (new Wave (16f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
 
 
-			mp = new EnemyMovementPattern (lib.stopOnce);
+			mp = new EnemyMovementPattern (lib.snake);
 			mp.Customize ("LeaveDir", "Right");
 			p = new Pattern (lib.circle);
 			p.Customize (new BulletMovementPattern (false, "Explode", 7f, p, 0, 14));
@@ -114,7 +116,7 @@ public class Stage1 : Stage
 			
 			//PHASE3
 
-			mp = new EnemyMovementPattern (lib.stopOnce);
+			mp = new EnemyMovementPattern (lib.snake);
 			mp.Customize ("LeaveDir", "Right");
 			//mp.targetPos = new Vector3 (-14, 7, 0);
 			p = new Pattern (lib.circle);
@@ -122,7 +124,7 @@ public class Stage1 : Stage
 			p.SetSprite ("Circle", "Glow", "Green");	 
 			lib.NewWave (new Wave (28f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
 												 //28f
-			mp = new EnemyMovementPattern (lib.stopOnce);
+			mp = new EnemyMovementPattern (lib.snake);
 			mp.Customize ("LeaveDir", "Left");
 			mp.targetPos = new Vector3 (1, 6, 0);
 			p = new Pattern (lib.circle);
@@ -131,7 +133,7 @@ public class Stage1 : Stage
 			lib.NewWave (new Wave (31f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
 												 //31f
 
-			mp = new EnemyMovementPattern (lib.stopOnce);
+			mp = new EnemyMovementPattern (lib.snake);
 			mp.Customize ("LeaveDir", "Right");
 			//mp.targetPos = new Vector3 (-14, 7, 0);
 			p = new Pattern (lib.circle);
@@ -140,7 +142,7 @@ public class Stage1 : Stage
 			p.SetSprite ("Circle", "Glow", "Green");	 
 			lib.NewWave (new Wave (33f, mp, p, 3, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
 
-			mp = new EnemyMovementPattern (lib.stopOnce);
+			mp = new EnemyMovementPattern (lib.snake);
 			mp.Customize ("LeaveDir", "Left");
 			mp.targetPos = new Vector3 (1, 6, 0);
 			p = new Pattern (lib.circle);
@@ -184,7 +186,7 @@ public class Stage1 : Stage
 
 
 			//CONTD
-			mp = new EnemyMovementPattern (lib.stopOnce);
+			mp = new EnemyMovementPattern (lib.snake);
 			mp.Customize ("LeaveDir", "Left");
 			mp.targetPos = new Vector3 (1, 6, 0);
 			p = new Pattern (lib.circle);
@@ -193,7 +195,7 @@ public class Stage1 : Stage
 			lib.NewWave (new Wave (82f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
 
 
-			mp = new EnemyMovementPattern (lib.stopOnce);
+			mp = new EnemyMovementPattern (lib.snake);
 			mp.Customize ("LeaveDir", "Right");
 			//mp.targetPos = new Vector3 (-14, 7, 0);
 			p = new Pattern (lib.circle);
@@ -202,7 +204,7 @@ public class Stage1 : Stage
 			p.SetSprite ("Circle", "Glow", "Green");	 
 			lib.NewWave (new Wave (87f, mp, p, 3, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
 
-			mp = new EnemyMovementPattern (lib.stopOnce);
+			mp = new EnemyMovementPattern (lib.snake);
 			mp.Customize ("LeaveDir", "Left");
 			mp.targetPos = new Vector3 (1, 6, 0);
 			p = new Pattern (lib.circle);
@@ -214,7 +216,7 @@ public class Stage1 : Stage
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.targetPos = new Vector3 (0, 7, 0);
 			mp.speed = 2f;
-			mp.Customize ("LeaveDir", "Right");
+			mp.Customize ("LeaveDir", "Left");
 			mp.Customize ("StayTime", 4f);
 			p = new Pattern (lib.circle);
 			p.Customize ("BulletCount", 4 * difficultyMultiplier);
@@ -225,7 +227,7 @@ public class Stage1 : Stage
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.targetPos = new Vector3 (-14, 7, 0);
 			mp.speed = 2f;
-			mp.Customize ("LeaveDir", "Left");
+			mp.Customize ("LeaveDir", "Right");
 			mp.Customize ("StayTime", 4f);
 			p = new Pattern (lib.circle);
 			p.Customize ("BulletCount", 4 * difficultyMultiplier);
@@ -233,21 +235,23 @@ public class Stage1 : Stage
 			p.SetSprite ("Circle", "Glow", "Yellow");	 
 			lib.NewWave (new Wave (90.5f, mp, p, 3, false, 40, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
 
-*/
+			//*/
 			
 
 
 			//DEBUG
-			mp = new EnemyMovementPattern (lib.enterLeave);
-			mp.Customize ("StayTime", 0);
-			boss = new Wave(1f, mp, null, 1,  false, 10 * Mathf.CeilToInt(difficultyMultiplier / 2) , true, 3f, 2);
-
-			// BIG BOSS
 			/*
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.Customize ("StayTime", 0);
-			boss = new Wave(96f, mp, null, 1,  false, 40 * Mathf.CeilToInt(difficultyMultiplier) , true, 3f, 2);
+			boss = new Wave(1f, mp, null, 1,  false, 10 * Mathf.CeilToInt(difficultyMultiplier / 2) , true, 3f, 2);
 			*/
+
+			// BIG BOSS
+			///*
+			mp = new EnemyMovementPattern (lib.enterLeave);
+			mp.Customize ("StayTime", 0);
+			boss = new Wave(96f, mp, null, 1,  false, 40 * Mathf.CeilToInt(difficultyMultiplier) , true, 3f, 2);
+			//*/
 
 			boss.SetUpBoss (1, "Maaya, Forest Guardian", false);
 			lib.NewWave (boss, new ArrayList { lib.middleTop });

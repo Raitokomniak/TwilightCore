@@ -20,7 +20,7 @@ public class EnemyLib : MonoBehaviour
 
 	public EnemyMovementPattern leaving;
 	public EnemyMovementPattern zigZag;
-	public EnemyMovementPattern stopOnce;
+	public EnemyMovementPattern snake;
 	public EnemyMovementPattern enterFromTop;
 	public EnemyMovementPattern enterLeave;
 
@@ -69,7 +69,7 @@ public class EnemyLib : MonoBehaviour
 	{
 		leaving = 			new EnemyMovementPattern("Leaving", new Vector3(centerX, 14f, 0f), false, 0);
 		zigZag = 			new EnemyMovementPattern("ZigZag", new Vector3(0f, 8f, 0f), false, 0);
-		stopOnce = 			new EnemyMovementPattern("SnakeRightToLeft", new Vector3(0f, 6f, 0f), false, 0);
+		snake = 			new EnemyMovementPattern("SnakeRightToLeft", new Vector3(0f, 6f, 0f), false, 0);
 		enterFromTop = 		new EnemyMovementPattern("Enter", new Vector3(centerX, 8f, 0f), false, 0);
 		enterLeave = 		new EnemyMovementPattern("EnterLeave", new Vector3 (-7f, 8f, 0f), false, 18);
 		rocking = 			new EnemyMovementPattern("Rocking", new Vector3(-2f, 8f, 0f), true, 0);

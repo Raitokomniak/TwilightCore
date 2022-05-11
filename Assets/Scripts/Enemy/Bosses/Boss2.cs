@@ -22,7 +22,7 @@ public class Boss2 : Phaser
 
 
         switch (phase) {
-			case 2:
+			case 0:
 				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (2.63f, 7.63f, 0f), false, 0));
 				
 				patterns.Add(new Pattern(lib.spiral));
@@ -80,7 +80,7 @@ public class Boss2 : Phaser
 
 				endOfPhase = true;
 				break;
-			case 0:
+			case 2:
 				movementPatterns.Add(new EnemyMovementPattern (lib.enterFromTop));
 				movementPatterns.Add(new EnemyMovementPattern (lib.zigZag));
 				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (-16, 4f, 0f), false, 0));

@@ -103,10 +103,12 @@ public class EnemyMovementPattern
 			break;
 		case "SnakeRightToLeft": //Repeatable
 			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
-			if (leaveDir == "Right")
-				UpdateDirection (2f, 6f);
-			else
+			if (leaveDir == "Right"){
 				UpdateDirection (-12f, 6f);
+			}
+			else {
+				UpdateDirection (2f, 6f);
+			}
 			
 			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
 			if (leaveDir == "Right")
@@ -198,7 +200,7 @@ public class EnemyMovementPattern
 			stayTime = value;
 			break;
 		case "LeaveDir":
-			
+		//	leaveDir
 			break;
 		
 		}
