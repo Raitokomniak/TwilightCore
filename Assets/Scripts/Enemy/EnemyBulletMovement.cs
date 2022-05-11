@@ -20,10 +20,10 @@ public class EnemyBulletMovement : MonoBehaviour {
 		initialPosition = transform.position;
 		playerPosition = Game.control.player.gameObject.transform.position - initialPosition;
 
-		bWallPos = Game.control.ui.wallBoundaries[0] - 2f;
-		lWallPos = Game.control.ui.wallBoundaries[1] - 2f;
-		tWallPos = Game.control.ui.wallBoundaries[2] + 2f;
-		rWallPos = Game.control.ui.wallBoundaries[3] + 2f;
+			bWallPos = Game.control.ui.GetBoundaries()[0] - 2f;
+			lWallPos = Game.control.ui.GetBoundaries()[1] - 2f;
+			tWallPos = Game.control.ui.GetBoundaries()[2] + 2f;
+			rWallPos = Game.control.ui.GetBoundaries()[3] + 2f;		
 	}
 
 
