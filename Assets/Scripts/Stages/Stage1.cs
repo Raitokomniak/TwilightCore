@@ -58,7 +58,7 @@ public class Stage1 : Stage
 		///*
 			//1st PHASE
 			mp = new EnemyMovementPattern (lib.enterLeave);
-			mp.Customize ("LeaveDir", "Right");
+			mp.Customize ("LeaveDir", "Left");
 			mp.Customize ("StayTime", .5f);
 			p = new Pattern (lib.singleHoming);
 			p.Customize (new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
@@ -67,7 +67,7 @@ public class Stage1 : Stage
 																			// .6f
 			
 			mp = new EnemyMovementPattern (lib.enterLeave);
-			mp.Customize ("LeaveDir", "Left");
+			mp.Customize ("LeaveDir", "Right");
 			mp.Customize ("StayTime", 2f);
 			p = new Pattern (lib.singleHoming);
 			p.Customize (new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
@@ -197,7 +197,7 @@ public class Stage1 : Stage
 
 
 			mp = new EnemyMovementPattern (lib.snake);
-			mp.Customize ("LeaveDir", "Right");
+			mp.Customize ("LeaveDir", "Left");
 			//mp.targetPos = new Vector3 (-14, 7, 0);
 			p = new Pattern (lib.circle);
 			p.Customize ("BulletCount", Mathf.Ceil(4 * (difficultyMultiplier / 2)));
@@ -206,7 +206,7 @@ public class Stage1 : Stage
 			lib.NewWave (new Wave (87f, mp, p, 3, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
 
 			mp = new EnemyMovementPattern (lib.snake);
-			mp.Customize ("LeaveDir", "Left");
+			mp.Customize ("LeaveDir", "Right");
 			mp.targetPos = new Vector3 (1, 6, 0);
 			p = new Pattern (lib.circle);
 			p.Customize ("BulletCount", Mathf.Ceil(4 * (difficultyMultiplier / 2)));
@@ -249,7 +249,7 @@ public class Stage1 : Stage
 
 			// BIG BOSS
 			///*
-			mp = new EnemyMovementPattern (lib.enterLeave);
+			mp = new EnemyMovementPattern (lib.enterFromTop);
 			mp.Customize ("StayTime", 0);
 			boss = new Wave(96f, mp, null, 1,  false, 40 * Mathf.CeilToInt(difficultyMultiplier) , true, 3f, 2);
 			//*/

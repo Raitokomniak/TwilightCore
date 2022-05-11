@@ -17,10 +17,12 @@ public class EnemyLib : MonoBehaviour
 	public Pattern laser;
 	public Pattern spiral;
 	public Pattern curtain;
+	public Pattern spiderWebLaser;
 
 	public EnemyMovementPattern leaving;
 	public EnemyMovementPattern zigZag;
 	public EnemyMovementPattern snake;
+	public EnemyMovementPattern doubleSnake;
 	public EnemyMovementPattern enterFromTop;
 	public EnemyMovementPattern enterLeave;
 
@@ -67,6 +69,7 @@ public class EnemyLib : MonoBehaviour
 		leaving = 			new EnemyMovementPattern("Leaving", new Vector3(centerX, 14f, 0f), false, 0);
 		zigZag = 			new EnemyMovementPattern("ZigZag", new Vector3(0f, 8f, 0f), false, 0);
 		snake = 			new EnemyMovementPattern("SnakeRightToLeft", new Vector3(0f, 6f, 0f), false, 0);
+		doubleSnake = 		new EnemyMovementPattern("DoubleSnake", new Vector3(0f, 6f, 0f), false, 0);
 		enterFromTop = 		new EnemyMovementPattern("Enter", new Vector3(centerX, 8f, 0f), false, 0);
 		enterLeave = 		new EnemyMovementPattern("EnterLeave", new Vector3 (-7f, 8f, 0f), false, 18);
 		rocking = 			new EnemyMovementPattern("Rocking", new Vector3(-2f, 8f, 0f), true, 0);
@@ -87,6 +90,7 @@ public class EnemyLib : MonoBehaviour
 		laser = new Pattern ("Laser", false, 1, 0, 10, 0, 15);
 		spiral = new Pattern ("Spiral", false, 30, 0f, 0.001f, 1, 2);
 		curtain = new Pattern ("Curtain", false, 8, 0f, .1f, 0, 10);
+		spiderWebLaser = new Pattern ("SpiderWebLaser", false, 8, 0, 0.5f, 0, 14);
 	}
 
 

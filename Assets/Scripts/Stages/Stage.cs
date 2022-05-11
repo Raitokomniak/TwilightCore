@@ -8,6 +8,11 @@ public class Stage : MonoBehaviour
 	public IEnumerator stageHandlerRoutine;
     public Wave boss;
 
+    public Pattern p;
+	public EnemyMovementPattern mp;
+
+    public EnemyLib lib = Game.control.enemyLib;
+
     void Awake(){
         stageHandler = Game.control.stageHandler;
         InitWaves(stageHandler.difficultyMultiplier);

@@ -104,9 +104,38 @@ public class EnemyMovementPattern
 			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
 			UpdateDirection (-20f, 6f);
 			break;
+		case "ZigZagBoss":{
+			if(direction == 1){
+				yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+				UpdateDirection (-14f, 6f);
+				yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+				UpdateDirection (4f, 2f);
+			}
+			else if(direction == -1){
+				yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+				UpdateDirection (4f, 6f);
+				yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+				UpdateDirection (-14f, 2f);
+			}
+			else if(direction == 2){
+				yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+				UpdateDirection (-14f, 6f);
+				yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+				UpdateDirection (4f, 2f);
+				yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+				UpdateDirection (-14f, 2f);
+				yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
+				UpdateDirection (4f, 6f);
+			}
+			break;
+		}
 		case "SnakeRightToLeft": //Repeatable
 			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
-			
+
+			UpdateDirection (leaveDir.x, 6f);
+			break;
+		case "DoubleSnake": //Repeatable
+			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
 			if (leaveDir.x > 0){
 				UpdateDirection (-12f, 6f);
 			}
@@ -115,7 +144,10 @@ public class EnemyMovementPattern
 			}
 			
 			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
-			UpdateDirection (leaveDir.x, 6f);
+			if (leaveDir.x > 0)
+				UpdateDirection (lib.rightOut, 6f);
+			else
+				UpdateDirection (lib.leftOut, 6f);
 			break;
 		case "EnterLeave":
 			if(enterDir != Vector3.zero) UpdateDirection(enterDir.x, enterDir.y);
@@ -148,23 +180,11 @@ public class EnemyMovementPattern
 			*/
 			break;
 		case "Enter":
-
-			UpdateDirection (enterDir.x, enterDir.y);
+			
+			//UpdateDirection (lib.centerX, 13f);
 			yield return new WaitUntil (() => CheckIfReachedDestination (_m) == true);
 			//_m.Animate ("Float");
-			if (stayTime > 0) { yield return new WaitForSeconds (stayTime);
-				
-/*
-				if (leaveDir == "Left")
-					UpdateDirection (-20f, 6f);
-				else if (leaveDir == "Right")
-					UpdateDirection (10f, 6f);
-				else if (leaveDir == "Up")
-					UpdateDirection (lib.centerX, 13f);
-					*/
-			}
-			else yield return new WaitForSeconds (1f);
-			
+			if (stayTime > 0) yield return new WaitForSeconds (stayTime);
 			//UpdateDirection (leaveDir.x, leaveDir.y);
 			break;
 		case "Rocking":

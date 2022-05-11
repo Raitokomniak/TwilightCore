@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 public class Pattern
 {
 	SpriteLibrary spriteLib;
@@ -195,6 +195,52 @@ public class Pattern
 
 			}
 			allBulletsSpawned = true;
+			break;
+		case "SpiderWebLaser":
+			//18.5f, 6.5f //8,4,0,-4 
+			
+			for (int i = -1; i < bulletCount / 2; i++) {
+				float ang = 90 + (10 * Random.Range(-3, 3));
+				newPosition = new Vector3(-18.5f, 4 * i, 0);
+				bulletRotation = Quaternion.Euler(0,0,ang);
+				movement = new BulletMovementPattern (false, "LaserExpand", 0f, this, 0, tempMagnitude);
+				movement.laserIndex = laserIndex;
+				laserIndex++;
+				InstantiateBullet (enemyBullet);
+				bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
+
+				yield return new WaitForSeconds(0.2f);
+			}
+			for (int i = -1; i < bulletCount / 2; i++) {
+				float ang = 270 + (10 * Random.Range(-3, 3));
+				newPosition = new Vector3(6.5f, 4 * i, 0);
+				bulletRotation = Quaternion.Euler(0,0,ang);
+
+				movement = new BulletMovementPattern (false, "LaserExpand", 0f, this, 0, tempMagnitude);
+				movement.laserIndex = laserIndex;
+				laserIndex++;
+
+				InstantiateBullet (enemyBullet);
+
+				bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
+				yield return new WaitForSeconds(0.2f);
+			}
+
+			for (int i = -1; i < bulletCount; i++) {
+				float ang = 0 + (10 * Random.Range(-5, 5));
+				newPosition = new Vector3(-16 + (i * 5), 13, 0);
+				bulletRotation = Quaternion.Euler(0,0,ang);
+
+				movement = new BulletMovementPattern (false, "LaserExpand", 0f, this, 0, tempMagnitude);
+				movement.laserIndex = laserIndex;
+				laserIndex++;
+
+				InstantiateBullet (enemyBullet);
+
+				bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
+				yield return new WaitForSeconds(0.2f);
+			}
+
 			break;
 		case "Curtain":
 			for (int i = 0; i < bulletCount; i++) {

@@ -6485,6 +6485,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnGuide
       objectReference: {fileID: 0}
+    - target: {fileID: 1647146764074935412, guid: c77852ca72ab35149a40d056232c0cb7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1647146764074935413, guid: c77852ca72ab35149a40d056232c0cb7,
         type: 3}
       propertyPath: m_RootOrder
@@ -6493,12 +6498,12 @@ PrefabInstance:
     - target: {fileID: 1647146764074935413, guid: c77852ca72ab35149a40d056232c0cb7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.46
+      value: 4.98
       objectReference: {fileID: 0}
     - target: {fileID: 1647146764074935413, guid: c77852ca72ab35149a40d056232c0cb7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 7.17
       objectReference: {fileID: 0}
     - target: {fileID: 1647146764074935413, guid: c77852ca72ab35149a40d056232c0cb7,
         type: 3}

@@ -86,7 +86,7 @@ public class Game : MonoBehaviour {
 		sound.StopMusic();
 		stageHandler.enabled = true;
 		//stageHandler.StartStage(1);
-		stageHandler.StartStage(2);
+		stageHandler.StartStage(1);
 	}
 
 	public string GetCurrentScene (){

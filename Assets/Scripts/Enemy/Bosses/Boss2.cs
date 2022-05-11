@@ -82,10 +82,10 @@ public class Boss2 : Phaser
 				break;
 			case 2:
 				movementPatterns.Add(new EnemyMovementPattern (lib.enterFromTop));
-				movementPatterns.Add(new EnemyMovementPattern (lib.zigZag));
-				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (-16, 4f, 0f), false, 0));
+				movementPatterns.Add(new EnemyMovementPattern("ZigZagBoss", new Vector3(0f, 8f, 0f), false, 0));
+				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (-15, 4f, 0f), false, 0));
 
-				patterns.Add(new Pattern (lib.laser));
+				patterns.Add(new Pattern (lib.spiderWebLaser));
 				patterns[0].Customize("BulletCount", 4);
 				patterns[0].Customize("RotationDirection", 0);
 
@@ -100,9 +100,9 @@ public class Boss2 : Phaser
 					enemy.BossShoot (patterns[0]);
 					enemy.BossShoot(patterns[1]);
 
-					yield return new WaitForSeconds (2f);
+					yield return new WaitForSeconds (4f);
 					enemyMove.SetUpPatternAndMove (movementPatterns[2]);
-					yield return new WaitForSeconds (2f);
+					yield return new WaitForSeconds (4f);
 					movementPatterns[1].Customize("Direction", 1);
 					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
 					yield return new WaitUntil(() => movementPatterns[1].CheckIfReachedDestination(enemyMove) == true);
@@ -115,7 +115,7 @@ public class Boss2 : Phaser
 					movementPatterns[1].Customize("Direction", -1);
 					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
 
-					yield return new WaitForSeconds(3f);
+					yield return new WaitForSeconds(4f);
 
 				}
 				break;
@@ -136,6 +136,8 @@ public class Boss2 : Phaser
 				patterns.Add(lib.singleHoming);
 				patterns[2].Customize(new BulletMovementPattern (true, null, 0.5f, patterns[2], 0, 14));
 				patterns[2].SetSprite("Circle", "Big", "Red");
+
+
 
 				while (!endOfPhase) {
 					for (int i = 0; i < 12; i++) {

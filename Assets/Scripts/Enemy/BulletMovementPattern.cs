@@ -59,10 +59,8 @@ public class BulletMovementPattern
 	public IEnumerator Execute(GameObject bullet)
 	{
 		isMoving = true;
-		switch (property) {
 
-
-		case "DownAndExplode":
+		if(property == "DownAndExplode"){
 			movementSpeed = 10f;
 			yield return new WaitForSeconds (1f);
 			
@@ -77,10 +75,8 @@ public class BulletMovementPattern
 
 			yield return new WaitForSeconds (1f);
 			CancelAxisRotation (10f);
-			break;
-
-
-		case "WaitAndExplode":
+		}
+		if(property == "WaitAndExplode"){
 			movementSpeed = 0;
 			//
 			rotation = bullet.transform.rotation;
@@ -94,10 +90,9 @@ public class BulletMovementPattern
 			rotation = bullet.transform.rotation;
 			//rotation = bullet.transform.rotation;
 			//CorrectRotation ();
-			break;
 
-
-		case "TurnToSpears":
+		}
+		if(property == "TurnToSpears"){
 			movementSpeed = 0;
 			yield return new WaitForSeconds (1f);
 			bullet.GetComponent<SpriteRenderer> ().sprite = Game.control.spriteLib.SetBulletSprite ("Spear", "Bevel", "Lilac");
@@ -107,25 +102,17 @@ public class BulletMovementPattern
 			yield return new WaitForSeconds (.3f);
 			movementSpeed = 10f;
 			bullet.GetComponent<EnemyBulletMovement> ().SmoothAcceleration ();
-			break;
 
-
-		case "WaitToHome":
+		}
+		if(property == "WaitToHome"){
 			movementSpeed = 0;
 			yield return new WaitForSeconds (1f);
 			FindPlayer(bullet);
 			yield return new WaitForSeconds (.3f);
 			movementSpeed = 10f;
 			bullet.GetComponent<EnemyBulletMovement> ().SmoothAcceleration ();
-			break;
-
-
-		case "SpawnInCircleExplode":
-			
-			break;
-
-
-		case "Aurora":
+		}
+		if(property == "Aurora"){
 			Explode (false, bullet, 14, 1);
 			rotation = bullet.transform.rotation;
 			yield return new WaitForSeconds (.1f);
@@ -141,23 +128,20 @@ public class BulletMovementPattern
 				rotation = Quaternion.Euler (0, 0, 90 * Random.Range (-1, 1));
 				yield return new WaitForSeconds (.5f);
 			}
-			break;
-
-		case "Explode":
+		}
+		if(property == "Explode"){
 			Explode (false, bullet, 14, 1);
 			rotation = bullet.transform.rotation;
-			break;
-
-		case "Stop":
-			Explode (false, bullet, 14, 1);
+		}
+		if(property == "Stop"){
+				Explode (false, bullet, 14, 1);
 			rotation = bullet.transform.rotation;
 			yield return new WaitForSeconds (.1f);
 			movementSpeed = 1f;
 			yield return new WaitForSeconds (2f);
 			movementSpeed = 7f;
-			break;
-
-		case  "StopAndRotate":
+		}
+		if(property == "StopAndRotate"){
 			dontDestroy = true;
 			rotation = bullet.transform.rotation;
 			Explode (true, bullet, targetMagnitude, 4.5f);
@@ -181,10 +165,8 @@ public class BulletMovementPattern
 			yield return new WaitForSeconds (1f);
 
 			dontDestroy = false;
-			break;
-
-
-		case "PendulumLaser":
+		}
+		if(property == "PendulumLaser"){
 			dontDestroy = true;
 			centerPoint = bullet.transform.position;
 
@@ -217,10 +199,10 @@ public class BulletMovementPattern
 				yield return new WaitForSeconds (.01f);
 			}
 			GameObject.Destroy (bullet);
-			break;
-
-
-		case "ExpandToLaser":
+		}
+		if(property == "LaserExpand"){				
+			Collider2D coll = bullet.GetComponent<BoxCollider2D>();
+			coll.enabled = false;
 			dontDestroy = true;
 			centerPoint = bullet.transform.position;
 			bullet.GetComponent<EnemyBulletMovement> ().isLaser = true;
@@ -239,7 +221,42 @@ public class BulletMovementPattern
 				yield return new WaitForSeconds (.02f);
 			}
 				
-			dir = laserIndex;
+			int dir = laserIndex;
+
+			if (laserIndex == 0)
+				dir = 1;
+			else
+				dir = -1;
+
+			yield return new WaitForSeconds (2f);
+
+			coll.enabled = true;
+			for (float i = 50; i > 0; i--) {
+				scale = new Vector3 (i * 0.1f, scale.y, 1);
+				yield return new WaitForSeconds (.01f);
+			}
+			GameObject.Destroy (bullet);
+		}
+		if(property == "LaserRotate"){
+			dontDestroy = true;
+			centerPoint = bullet.transform.position;
+			bullet.GetComponent<EnemyBulletMovement> ().isLaser = true;
+			Explode (true, bullet, 1, 6f);
+			Stop (bullet);
+			yield return new WaitForSeconds (.5f);
+			bullet.GetComponent<SpriteRenderer> ().sprite = Game.control.spriteLib.SetBulletSprite ("Laser", "Glow", "Purple");
+			bullet.GetComponent<SpriteRenderer> ().sortingOrder = -1;
+			Vector3 origColliderSize = bullet.GetComponent<BoxCollider2D>().size;
+			scale = new Vector3 (0, 0, 0);
+			for (float i = 0; i < 50; i++) {
+				scale = new Vector3 (i * 0.02f, i, 1);
+				bullet.GetComponent<BoxCollider2D> ().size = new Vector2 (i * 0.002f, i);
+				//bullet.transform.position -= new Vector3(0, 0.25f, 0);
+				//_RotateOnAxis (bullet, 1, 100f);
+				yield return new WaitForSeconds (.02f);
+			}
+				
+			int dir = laserIndex;
 
 			if (laserIndex == 0)
 				dir = 1;
@@ -259,13 +276,10 @@ public class BulletMovementPattern
 			}
 			GameObject.Destroy (bullet);
 
-			break;
-
-			
-		case "SlowWaving":
+		}
+		if(property == "SlowWaving"){
 			Explode (false, bullet, 14, 1);
 			isMoving = true;
-			movementSpeed = 2f;
 			while(bullet.activeSelf){
 				
 				for(float i = 0; i < 70; i+=5)
@@ -280,10 +294,6 @@ public class BulletMovementPattern
 					yield return new WaitForSeconds(.02f);
 				}
 			}
-			break;
-
-		default:
-			break;
 		}
 	}
 		
