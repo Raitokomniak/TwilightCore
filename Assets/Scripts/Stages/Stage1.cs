@@ -6,6 +6,10 @@ public class Stage1 : Stage
 {
 
 	public override void StartStageHandler(){
+		if(stageHandlerRoutine != null) {
+			StopCoroutine(stageHandlerRoutine);
+			stageHandlerRoutine.Reset();
+		}
 		stageHandlerRoutine = StageHandlerRoutine();
 		StartCoroutine(stageHandlerRoutine);
 	}
@@ -251,7 +255,7 @@ public class Stage1 : Stage
 			///*
 			mp = new EnemyMovementPattern (lib.enterFromTop);
 			mp.Customize ("StayTime", 0);
-			boss = new Wave(96f, mp, null, 1,  false, 40 * Mathf.CeilToInt(difficultyMultiplier) , true, 3f, 2);
+			boss = new Wave(100f, mp, null, 1,  false, 40 * Mathf.CeilToInt(difficultyMultiplier) , true, 3f, 2);
 			//*/
 
 			boss.SetUpBoss (1, "Maaya, Forest Guardian", false);

@@ -22,6 +22,8 @@ public class ScoreSave {
 public class StageHandler : MonoBehaviour {
 
 	Stage stageScript;
+	
+	PlayerStats savedStats;
 
 	public int difficultyMultiplier; //1 easy //3 normal //5 hard //8+ nightmarish
 	public bool gameOver;
@@ -92,6 +94,8 @@ public class StageHandler : MonoBehaviour {
 	public void EndHandler (string endType)
 	{
 		Game.control.io.SaveScore();
+		savedStats = Game.control.player.stats;
+		if(stageScript != null) stageScript.StopStage();
 
 		switch (endType) {
 		case "GameOver":
@@ -112,8 +116,6 @@ public class StageHandler : MonoBehaviour {
 
 		ToggleTimer(false);
 		Game.control.sound.StopMusic ();
-		if(stageScript != null) stageScript.StopStage();
-		
 	}
 
 	IEnumerator DeathHandling ()
@@ -125,7 +127,6 @@ public class StageHandler : MonoBehaviour {
 		Game.control.sound.StopMusic ();
 		Game.control.menu.Menu("GameOverMenu");
 
-		stageScript.StopStage();
 		stageOn = false;
 		stageTimerOn = false;
 		Game.control.enemySpawner.AbortSpawner();
@@ -149,7 +150,8 @@ public class StageHandler : MonoBehaviour {
 	{
 		//Game.control.MainMenu ();
 		Game.control.ui.StageCompleted (false);
-		StartStage(2);
+		currentStage++;
+		StartStage(currentStage, false);
 	}
 
 	//If time is up, boss leaves the screen and stage is completed
@@ -163,15 +165,16 @@ public class StageHandler : MonoBehaviour {
 	}
 	
 	public void RestartStage(int stage){
-		stageScript.StopStage();
-		StartStage(stage);
+		if(stageScript != null) stageScript.StopStage();
+		StartStage(stage, false);
 	}
-	public void StartStage (int stage){
+
+	public void StartStage (int stage, bool playerInit){
 		gameOver = false;
 		stageCompleted = false;
 		stageTimerOn = false;
 		currentStage = stage;
-		restartRoutine = StartStageRoutine();
+		restartRoutine = StartStageRoutine(playerInit);
 		StartCoroutine(restartRoutine);
 	}
 
@@ -180,7 +183,7 @@ public class StageHandler : MonoBehaviour {
 	}
 
 
-	IEnumerator StartStageRoutine(){
+	IEnumerator StartStageRoutine(bool playerInit){
 		yield return new WaitUntil(() => Game.control.enemySpawner.AbortSpawner() == true);
 		
 		AsyncOperation loadScene = SceneManager.LoadSceneAsync("Level1");
@@ -198,8 +201,13 @@ public class StageHandler : MonoBehaviour {
 	//Game.control.menu.ToggleMenu (false);
 		Game.control.enemyLib.InitEnemyLib ();
 		Game.control.scene.SetUpEnvironment ();
-		Game.control.player.Init ();
-		Game.control.io.LoadScore();
+		//Game.control.io.LoadScore();
+		if(playerInit) {
+			Game.control.player.Init();
+			savedStats = Game.control.player.stats;
+		}
+		else Game.control.player.LoadStats(savedStats);
+
 		Game.control.dialog.Init();
 		Game.control.ui.InitStage ();
 		Game.control.menu.InitMenu();

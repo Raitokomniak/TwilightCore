@@ -39,6 +39,7 @@ public class PlayerStats {
 
 public class PlayerHandler : MonoBehaviour {
 
+
 	public PlayerStats stats;
 	public PlayerShoot combat;
 	public PlayerMovement movement;
@@ -52,11 +53,20 @@ public class PlayerHandler : MonoBehaviour {
 		movement = GetComponent<PlayerMovement>();
 		health = GetComponent<PlayerLife>();
 		special = GetComponent<PlayerSpecialAttack>();
+		//if(Game.control.InStages) DontDestroyOnLoad (gameObject);
+		//else Destroy(gameObject);
+	}
+
+
+
+	public void LoadStats(PlayerStats savedStats){
+		stats = savedStats;
+		health.Init ();
+		combat.Init ();
 	}
 
 	public void Init(){
 		if(stats == null) stats = new PlayerStats();
-
 		health.Init ();
 		combat.Init ();
 	}

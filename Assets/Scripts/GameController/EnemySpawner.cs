@@ -64,6 +64,8 @@ public class EnemySpawner : MonoBehaviour {
 	public bool AbortSpawner(){
 		spawnerOn = false;
 		if(spawnRoutine != null) StopCoroutine(spawnRoutine);
+		if(spawnerRoutine != null) StopCoroutine(spawnerRoutine);
+
 		DestroyAllEnemies();
 		DestroyAllProjectiles();
 		

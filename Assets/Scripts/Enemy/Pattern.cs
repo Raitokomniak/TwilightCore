@@ -279,7 +279,7 @@ public class Pattern
 			InstantiateBullet (enemyBullet);
 			break;
 		case "RepeatedHoming":
-			while(!stop){
+			while(!stop && enemy != null){
 				newPosition = enemy.transform.position;
 				Game.control.sound.PlaySound ("Enemy", "Shoot", false);
 				InstantiateBullet (enemyBullet);

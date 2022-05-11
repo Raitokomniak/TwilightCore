@@ -138,16 +138,17 @@ public class PlayerShoot : MonoBehaviour {
 	}
 
 	public void FocusWeapons(int dir){
-
-		if (weaponsInUse.Count > 1) {
-			GameObject weapon1 = (GameObject)weaponsInUse [1];
-			GameObject weapon2 = (GameObject)weaponsInUse [2];
-			if (dir > 0) {
-				weapon1.transform.position = transform.position + new Vector3 (-0.4f, 0.8f, 0);
-				weapon2.transform.position = transform.position + new Vector3 (0.4f, 0.8f, 0);
-			} else {
-				weapon1.transform.position = transform.position + new Vector3 (1f, 0f, 0);
-				weapon2.transform.position = transform.position + new Vector3 (-1f, 0f, 0);
+		if(weaponsInUse != null) {
+			if (weaponsInUse.Count > 1) {
+				GameObject weapon1 = (GameObject)weaponsInUse [1];
+				GameObject weapon2 = (GameObject)weaponsInUse [2];
+				if (dir > 0) {
+					weapon1.transform.position = transform.position + new Vector3 (-0.4f, 0.8f, 0);
+					weapon2.transform.position = transform.position + new Vector3 (0.4f, 0.8f, 0);
+				} else {
+					weapon1.transform.position = transform.position + new Vector3 (1f, 0f, 0);
+					weapon2.transform.position = transform.position + new Vector3 (-1f, 0f, 0);
+				}
 			}
 		}
 	}

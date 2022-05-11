@@ -7,6 +7,8 @@ public class Game : MonoBehaviour {
 	public static Game control;
 	public static bool paused;
 
+	public bool InStages;
+
 	[SerializeField] public MainMenuUI mainMenuUI;
 	[SerializeField] public UIController ui;
 	[SerializeField] public DialogController dialog;
@@ -63,6 +65,7 @@ public class Game : MonoBehaviour {
 	}
 
 	public void MainMenu (){
+		//InStages = false;
 		stageHandler.enabled = false;
 		StartCoroutine(LoadMainMenu());
 	}
@@ -85,8 +88,8 @@ public class Game : MonoBehaviour {
 	public void StartGame(){
 		sound.StopMusic();
 		stageHandler.enabled = true;
-		//stageHandler.StartStage(1);
-		stageHandler.StartStage(1);
+		stageHandler.StartStage(1, true);
+		//InStages = true;
 	}
 
 	public string GetCurrentScene (){
