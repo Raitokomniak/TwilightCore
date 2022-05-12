@@ -18,7 +18,7 @@ public class Pattern
 
 	public GameObject enemyBullet;
 
-	public float delayBeforeAttack = 0;
+	public float delayBeforeAttack = 0; //DEFAULT
 	public float coolDown = 1; //DEFAULT
 	public int bulletCount = 1; //DEFAULT
 	public float rotationMultiplier = 0;  //DEFAULT
@@ -170,7 +170,6 @@ public class Pattern
 			animation = (Object.Instantiate (animation, centerPoint, Quaternion.Euler (Vector3.zero)) as GameObject);
 			animation.GetComponent<BulletAnimationController> ().SetScale (targetScale);
 		}
-
 	}
 
 	public void SetSprite (string shape, string effect, string color)

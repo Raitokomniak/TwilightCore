@@ -299,8 +299,7 @@ public class BulletMovementPattern
 		rotation = Quaternion.Slerp(rotation, q, Time.deltaTime * 10f);
 	}
 
-	private void Stop(GameObject bullet)
-	{
+	private void Stop(GameObject bullet){
 		isMoving = false;
 	}
 

@@ -8,7 +8,7 @@ public class EnemySpawner : MonoBehaviour {
 	public Wave bossWave;
 	public Wave midBossWave;
 	bool spawnerOn;
-	bool bossEnter;
+	//bool bossEnter;
 	IEnumerator spawnRoutine;
 	IEnumerator spawnerRoutine;
 
@@ -51,7 +51,7 @@ public class EnemySpawner : MonoBehaviour {
 			yield return new WaitUntil(() => Game.control.stageHandler.stageTimer >= wave.spawnTime);
 			wave.spawned = true;
 			if (wave.isBoss || wave.isMidBoss){
-				bossEnter = true;
+				//bossEnter = true;
 				DestroyAllProjectiles ();
 			}
 

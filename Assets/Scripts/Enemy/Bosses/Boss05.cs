@@ -27,6 +27,11 @@ public class Boss05 : Phaser
 		 switch(phase)
 			{
 			case 0:
+				//THIS IS HERE SO THE TOP LAYER ISNT UPDATED RIGHT AWWAY
+				NextPhase();
+				break;
+			case 1:
+				
 				Game.control.ui.UpdateTopPlayer (1f);
 
 			    GetComponent<EnemyLife>().SetInvulnerable (true);
@@ -65,10 +70,6 @@ public class Boss05 : Phaser
 
 				patterns[0].StopPattern();
 				patterns[1].StopPattern();
-				break;
-			case 1:
-				
-
 
 				break;
             }
