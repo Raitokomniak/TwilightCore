@@ -39,7 +39,6 @@ public class Pattern
 	int laserIndex;
 
 	public bool bossSpecial;
-	public bool spriteSetExternally;
 	public bool allBulletsSpawned;
 
 	public float loopCircles;

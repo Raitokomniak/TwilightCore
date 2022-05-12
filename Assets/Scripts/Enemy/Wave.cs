@@ -25,6 +25,7 @@ public class Wave
 
 	public Sprite sprite;
 
+	public Phaser bossScript;
 	
 	public float bossIndex; //there is no excuse for this to be a float, make an array or something
 	public string bossName;
@@ -92,36 +93,40 @@ public class Wave
 
 		GameObject enemy = GameObject.Instantiate (Resources.Load ("Prefabs/Enemy"), spawnPosition, Quaternion.Euler (0, 0, 0)) as GameObject;
 
-		enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0);
+		enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0, this);
 		enemy.GetComponent<EnemyMovement> ().SetUpPatternAndMove (movementPattern);
 
 		if (isBoss || isMidBoss) {
+			if(bossIndex == 0.5f) bossScript = enemy.AddComponent<Boss05> ();
+			else if(bossIndex == 1f) bossScript = enemy.AddComponent<Boss1> ();
+			else if(bossIndex == 2f) bossScript = enemy.AddComponent<Boss2> ();
+			bossScript.Init();
+
 			enemy.GetComponent<SpriteRenderer> ().sprite = sprite;
 
 			//this is such a stupid way to do this, make this better
 			if (bossIndex % 1 == 0) { //IF NOT MID BOSS 
 				enemy.tag = "Boss";
-				enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0.3f);
-				//Game.control.stageHandler.ToggleTimer (false);
-
-			} else {
+				enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0.3f, this);
+			} 
+			else {
 				enemy.tag = "MidBoss";
-				enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0f);
+				enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0f, this);
 				Game.control.ui.StartBossTimer (movementPattern.stayTime);
 			}
-			
-			enemy.GetComponent<EnemyShoot> ().phaser.NextPhase ();
+
+			bossScript.NextPhase ();
 			Game.control.ui.ToggleBossHealthSlider (true, enemy.GetComponent<EnemyLife> ().maxHealth, bossName);
 
-		} else {
+		} 
+		else {
 			enemy.GetComponent<EnemyShoot> ().SetUpAndShoot (shootPattern, shootSpeed);
 		}
 		spawned = true;
 	}
 
 
-	public void SetSpawnPositions(ArrayList positions)
-	{
+	public void SetSpawnPositions(ArrayList positions){
 		foreach (Vector3 pos in positions) {
 			spawnPositions.Add (pos);
 		}

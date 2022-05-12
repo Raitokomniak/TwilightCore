@@ -7,7 +7,6 @@ public class EnemyMovement : MonoBehaviour {
 	SpriteRenderer spriteRenderer;
 
 	public bool moving;
-	public bool floating;
 	public bool teleporting;
 	public bool rotateOnAxis;
 

@@ -36,12 +36,7 @@ public class EnemyBulletMovement : MonoBehaviour {
 		if(movement.isMoving){
 			if (movement.isHoming)
 				movementDirection = playerPosition;
-			else if (movement.findPlayer) {
-				//Debug.Log ("rotate");
-				//transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(playerPosition), 10 * Time.deltaTime);
-			}
 			else {
-				//movementDirection = new Vector3 (-7, -12, 0);
 				movementDirection = Vector3.down;
 			}
 

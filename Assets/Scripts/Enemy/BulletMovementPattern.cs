@@ -17,14 +17,10 @@ public class BulletMovementPattern
 	public float movementSpeed;
 	public Quaternion rotation;
 	public Vector3 scale;
-	private GameObject animation;
 
 	private Pattern p;
-	private int count;
 	public int layer;
 	public int laserIndex;
-
-	public bool findPlayer;
 
 	public BulletMovementPattern(bool _isHoming, string _property, float _movementSpeed, Pattern _p, int _layer, float magnitude)
 	{
@@ -34,7 +30,6 @@ public class BulletMovementPattern
 		isMoving = true;
 		layer = _layer;
 		p = _p;
-		count = p.bulletCount;
 		rotateOnAxis = false;
 		properties = new ArrayList();
 		targetMagnitude = (float)magnitude;
@@ -49,7 +44,6 @@ public class BulletMovementPattern
 		isMoving = true;
 		layer = b.layer;
 		p = b.p;
-		count = p.bulletCount;
 		rotateOnAxis = false;
 		properties = new ArrayList();
 		targetMagnitude = (float)b.targetMagnitude;

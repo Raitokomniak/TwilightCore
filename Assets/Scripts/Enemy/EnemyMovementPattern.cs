@@ -54,7 +54,6 @@ public class EnemyMovementPattern
 		centerPoint = m.transform.position;
 		lib = Game.control.enemyLib;
 
-		m.floating = false;
 		m.teleporting = false;
 
 		if (teleport) {

@@ -2,13 +2,12 @@
 using System.Collections;
 
 public class EnemyLife : MonoBehaviour {
+	Wave wave;
 	EnemyShoot shooter;
 	public float maxHealth;
 	public float currentHealth;
 	public float superThreshold;
 	public int healthBars;
-
-
 	bool invulnerable;
 
 	void Awake () {
@@ -16,8 +15,8 @@ public class EnemyLife : MonoBehaviour {
 		invulnerable = false;
 	}
 
-
-	public void SetHealth(int setMaxHealth, int _healthBars, float _superThreshold){
+	public void SetHealth(int setMaxHealth, int _healthBars, float _superThreshold, Wave _wave){
+		wave = _wave;
 		healthBars = _healthBars;
 		maxHealth = setMaxHealth;
 		currentHealth = maxHealth;
@@ -42,8 +41,10 @@ public class EnemyLife : MonoBehaviour {
 		Game.control.player.GainScore(Mathf.RoundToInt(damage));
 		
 		if(!invulnerable && !Game.control.stageHandler.gameOver){
-			if(GetComponent<Phaser>() != null){
-				if (GetComponent<Phaser>().superPhase) {
+			if(GetComponent<Phaser>() != null)
+			{
+				if (GetComponent<Phaser>().superPhase) 
+				{
 					currentHealth -= damage / 4;
 				}
 				else {
@@ -55,10 +56,10 @@ public class EnemyLife : MonoBehaviour {
 
 
 		if(tag == "Boss" || tag == "MidBoss"){
-			if (currentHealth <= superThreshold && !shooter.phaser.superPhase && !invulnerable) {
+			if (currentHealth <= superThreshold && !wave.bossScript.superPhase && !invulnerable) {
 				invulnerable = true;
-				shooter.phaser.superPhase = true;
-				shooter.phaser.NextPhase ();
+				wave.bossScript.superPhase = true;
+				wave.bossScript.NextPhase ();
 				Game.control.enemySpawner.DestroyAllProjectiles ();
 			}
 		}
@@ -73,8 +74,8 @@ public class EnemyLife : MonoBehaviour {
 				Game.control.ui.UpdateBossHealth (currentHealth);
 				Game.control.ui.UpdateBossHealthBars (healthBars);
 				invulnerable = true;
-				shooter.phaser.superPhase = false;			
-				shooter.phaser.NextPhase();
+				wave.bossScript.superPhase = false;			
+				wave.bossScript.NextPhase();
 				Game.control.enemySpawner.DestroyAllProjectiles ();
 			}
 		}
@@ -83,15 +84,14 @@ public class EnemyLife : MonoBehaviour {
 
 
 	public void Die() {
-		
 		Destroy(this.gameObject);
 		Game.control.sound.PlaySound ("Enemy", "Die", true);
-		//Instantiate(Resources.Load("expPoint"), transform.position, transform.rotation);
+
 		if(Random.Range(0, 2) == 0)
 			Instantiate(Resources.Load("Prefabs/nightCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
 		else 
 			Instantiate(Resources.Load("Prefabs/dayCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
-		//if(shooter.bulletsShot.Count != 0) GameController.gameControl.enemySpawner.DestroyEnemyProjectiles (shooter.bulletsShot);
+
 		if(tag == "Boss" || tag == "MidBoss"){
 			Game.control.enemySpawner.DestroyAllProjectiles();
 			for(int i = 0; i < 9; i++){
@@ -110,8 +110,7 @@ public class EnemyLife : MonoBehaviour {
 		}
 	}
 
-	public void OnTriggerStay2D(Collider2D c)
-	{
+	public void OnTriggerStay2D(Collider2D c){
 		if (c.tag == "NullField") {
 			if (tag != "Boss" && tag != "MidBoss") {
 				Die ();
