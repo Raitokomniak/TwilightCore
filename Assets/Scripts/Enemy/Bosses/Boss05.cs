@@ -31,17 +31,17 @@ public class Boss05 : Phaser
 
 			    GetComponent<EnemyLife>().SetInvulnerable (true);
 
-				patterns.Add(new Pattern (lib.maelStrom));
-				patterns[0].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[0], 0, 14));
-				patterns[0].Customize ("BulletCount", Mathf.Ceil(4 * (difficultyMultiplier / 2f)));
-				patterns[0].Customize ("RotationDirection", 1);
+				patterns.Add(new P_Maelstrom());
+				patterns[0].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[0], 0, 14);
+				patterns[0].bulletCount =  Mathf.CeilToInt(4 * (difficultyMultiplier / 2f));
+				patterns[0].rotationDirection =  1;
 				patterns[0].SetSprite ("Circle", "Glow", "Green");
 
-				patterns.Add(new Pattern (lib.maelStrom));
+				patterns.Add(new P_Maelstrom());
 				patterns[1].SetSprite ("Circle", "Glow", "Yellow");
-				patterns[1].Customize ("BulletCount", Mathf.Ceil(4 * (difficultyMultiplier / 2f)));
-				patterns[1].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14));
-				patterns[1].Customize ("RotationDirection", -1);
+				patterns[1].bulletCount =  Mathf.CeilToInt(4 * (difficultyMultiplier / 2f));
+				patterns[1].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14);
+				patterns[1].rotationDirection =  -1;
 
 
 				movementPatterns.Add(new EnemyMovementPattern (lib.centerHor));

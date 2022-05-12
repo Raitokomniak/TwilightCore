@@ -7,17 +7,17 @@ public class EnemyLib : MonoBehaviour
 {
 	SpriteLibrary spriteLib;
 
-	public Pattern singleHoming;
-	public Pattern repeatedHoming;
-	public Pattern circle;
-	public Pattern maelStrom;
-	public Pattern pacMan;
-	public Pattern spiderWeb;
-	public Pattern giantWeb;
-	public Pattern laser;
-	public Pattern spiral;
-	public Pattern curtain;
-	public Pattern spiderWebLaser;
+	//public Pattern singleHoming;
+	//public Pattern repeatedHoming;
+	//public Pattern circle;
+	//public Pattern maelStrom;
+	//public Pattern pacMan;
+	//public Pattern spiderWeb;
+	//public Pattern giantWeb;
+	//public Pattern laser;
+	//public Pattern spiral;
+	//public Pattern curtain;
+	//public Pattern spiderWebLaser;
 
 	public EnemyMovementPattern leaving;
 	public EnemyMovementPattern zigZag;
@@ -80,17 +80,18 @@ public class EnemyLib : MonoBehaviour
 
 	void CreatePatterns()
 	{
-		singleHoming = new Pattern("SingleHoming", false, 1, 0f, 1f, 1, 100);
-		repeatedHoming = new Pattern("RepeatedHoming", false, 1, 0f, 1f, 1, 100);
-		circle = new Pattern("Circle", false, 7, 0f, 1f, 1, 100);
-		maelStrom = new Pattern("Maelstrom", false, 10, 0f, 0.2f, 1, 100);
-		pacMan = new Pattern("PacMan", false, 45, 6f, 1f, 1, 100);
-		spiderWeb = new Pattern("SpiderWeb", true, 10, 0f, 3f, 1, 100);
-		giantWeb = new Pattern("GiantWeb", true, 30, 0f, 1f, 2, 12);
-		laser = new Pattern ("Laser", false, 1, 0, 10, 0, 15);
-		spiral = new Pattern ("Spiral", false, 30, 0f, 0.001f, 1, 2);
-		curtain = new Pattern ("Curtain", false, 8, 0f, .1f, 0, 10);
-		spiderWebLaser = new Pattern ("SpiderWebLaser", false, 8, 0, 0.5f, 0, 14);
+		//SingleHoming singleHoming = new Pattern("SingleHoming", false, 1, 0f, 1f, 1, 100) as SingleHoming;
+		//singleHoming = 
+		//repeatedHoming = new Pattern("RepeatedHoming", false, 1, 0f, 1f, 1, 100);
+		//circle = new Pattern("Circle", false, 7, 0f, 1f, 1, 100);
+		//maelStrom = new Pattern("Maelstrom", false, 10, 0f, 0.2f, 1, 100);
+		//pacMan = new Pattern("PacMan", false, 45, 6f, 1f, 1, 100);
+		//spiderWeb = new Pattern("SpiderWeb", true, 10, 0f, 3f, 1, 100);
+		//giantWeb = new Pattern("GiantWeb", true, 30, 0f, 1f, 2, 12);
+		//laser = new Pattern ("Laser", false, 1, 0, 10, 0, 15);
+		//spiral = new Pattern ("Spiral", false, 30, 0f, 0.001f, 1, 2);
+		//curtain = new Pattern ("Curtain", false, 8, 0f, .1f, 0, 10);
+		//spiderWebLaser = new Pattern ("SpiderWebLaser", false, 8, 0, 0.5f, 0, 14);
 	}
 
 

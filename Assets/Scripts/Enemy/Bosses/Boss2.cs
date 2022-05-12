@@ -28,14 +28,14 @@ public class Boss2 : Phaser
 			case 0:
 				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (2.63f, 7.63f, 0f), false, 0));
 				
-				patterns.Add(new Pattern(lib.spiral));
+				patterns.Add(new P_Spiral());
 				patterns[0].SetSprite ("Arrow", "Glow", "Red");
-				patterns[0].Customize("BulletCount", 10);
-				patterns[0].Customize("RotationDirection", 1);
-				patterns[0].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[0], 0, 14));
+				patterns[0].bulletCount =  10;
+				patterns[0].rotationDirection =  1;
+				patterns[0].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[0], 0, 14);
 
-				patterns.Add(new Pattern (lib.spiderWeb));
-				patterns[1].Customize (new BulletMovementPattern (false, "DownAndExplode", 0.5f, patterns[1], 0, 14));
+				patterns.Add(new Pattern (new P_SpiderWeb()));
+				patterns[1].bulletMovement = new BulletMovementPattern (false, "DownAndExplode", 0.5f, patterns[1], 0, 14);
 				patterns[1].SetSprite ("Circle", "Glow", "Red");
 				while (!phaser.endOfPhase) {	
 					enemyMove.SetUpPatternAndMove (new EnemyMovementPattern (lib.rocking));
@@ -47,7 +47,7 @@ public class Boss2 : Phaser
 					yield return new WaitForSeconds(2);
 					
 					enemy.BossShoot (patterns[1]);
-					patterns[0].Customize (new BulletMovementPattern (true, "Stop", 6f, patterns[0], 0, 14));
+					patterns[0].bulletMovement = new BulletMovementPattern (true, "Stop", 6f, patterns[0], 0, 14);
 					enemy.BossShoot(patterns[0]);
 					yield return new WaitForSeconds(2);
 					patterns[0].StopPattern();
@@ -60,13 +60,13 @@ public class Boss2 : Phaser
 
 				movementPatterns.Add(new EnemyMovementPattern(lib.enterFromTop));
 
-				patterns.Add(new Pattern(lib.giantWeb));
-				patterns[0].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[0], 0, 14));
+				patterns.Add(new P_GiantWeb());
+				patterns[0].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[0], 0, 14);
 				patterns[0].SetSprite("Circle", "Big", "Red");
 
-				patterns.Add(new Pattern(lib.maelStrom));
-				patterns[1].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14));
-				patterns[1].Customize("RotationDirection", 1);
+				patterns.Add(new P_Maelstrom());
+				patterns[1].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14);
+				patterns[1].rotationDirection =  1;
 				patterns[1].SetSprite ("Diamond", "Glow", "Red");
 
 				enemyMove.SetUpPatternAndMove (movementPatterns[0]);
@@ -88,14 +88,14 @@ public class Boss2 : Phaser
 				movementPatterns.Add(new EnemyMovementPattern("ZigZagBoss", new Vector3(0f, 8f, 0f), false, 0));
 				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (-15, 4f, 0f), false, 0));
 
-				patterns.Add(new Pattern (lib.spiderWebLaser));
-				patterns[0].Customize("BulletCount", 4);
-				patterns[0].Customize("RotationDirection", 0);
+				patterns.Add(new Pattern (new P_SpiderWebLaser()));
+				patterns[0].bulletCount =  4;
+				patterns[0].rotationDirection =  0;
 
-				patterns.Add(new Pattern(lib.repeatedHoming));
+				patterns.Add(new P_RepeatedHoming());
 				patterns[1].SetSprite("Spider_Glow");
-				patterns[1].Customize("CoolDown", 3f);
-				patterns[1].Customize(new BulletMovementPattern(false, "SlowWaving", 3f, patterns[1], 0, 14));
+				patterns[1].coolDown = 3f;
+				patterns[1].bulletMovement = new BulletMovementPattern(false, "SlowWaving", 3f, patterns[1], 0, 14);
 
 				while (!phaser.endOfPhase) {	
 					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
@@ -127,17 +127,17 @@ public class Boss2 : Phaser
 				yield return new WaitForSeconds (2f);
 				Game.control.ui.ShowActivatedPhase ("Boss", "Void Dance");
 
-				patterns.Add(new Pattern (lib.spiral));
-				patterns[0].Customize ("BulletCount", 6);
-				patterns[0].Customize (new BulletMovementPattern (true, "WaitAndExplode", 6f, patterns[0], 0, 14));
+				patterns.Add(new Pattern (new P_Spiral()));
+				patterns[0].bulletCount = 6;
+				patterns[0].bulletMovement = new BulletMovementPattern (true, "WaitAndExplode", 6f, patterns[0], 0, 14);
 				patterns[0].SetSprite ("Circle", "Glow", "White");
-				patterns.Add(new Pattern (lib.giantWeb));
-				patterns[1] = lib.maelStrom;
-				patterns[1].Customize (new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14));
+				patterns.Add(new Pattern (new P_GiantWeb()));
+				patterns[1] = new P_Maelstrom();
+				patterns[1].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14);
 				patterns[1].SetSprite ("Diamond", "Glow", "Red");
 
-				patterns.Add(lib.singleHoming);
-				patterns[2].Customize(new BulletMovementPattern (true, null, 0.5f, patterns[2], 0, 14));
+				patterns.Add(new P_SingleHoming());
+				patterns[2].bulletMovement = new BulletMovementPattern (true, null, 0.5f, patterns[2], 0, 14);
 				patterns[2].SetSprite("Circle", "Big", "Red");
 
 

@@ -38,33 +38,33 @@ public class Stage2 : Stage
 		mp.Customize("EnterDir", "Center");
 		mp.Customize ("LeaveDir", "Left");
 		mp.Customize("StayTime", 2f);
-		p = new Pattern (lib.maelStrom);
-		p.Customize("BulletCount", 15);
+		p = new P_Maelstrom();
+		p.bulletCount = 15;
 		p.SetSprite ("Circle", "Glow", "Red");
-		p.Customize("Delay", 1f);
-		p.Customize("CoolDown", 1f);
+		p.delayBeforeAttack= 1f;
+		p.coolDown = 1f;
 		lib.NewWave (new Wave (3f, mp, p, 1, false, 5, false, 10f / difficultyMultiplier, 0), new ArrayList { lib.middleTop });
 
 		mp = new EnemyMovementPattern (lib.enterLeave);
 		mp.Customize("EnterDir", "Right");
 		mp.Customize ("LeaveDir", "Right");
 		mp.Customize("StayTime", 2f);
-		p = new Pattern (lib.maelStrom);
-		p.Customize("BulletCount", 15);
+		p = new P_Maelstrom();
+		p.bulletCount = 15;
 		p.SetSprite ("Circle", "Glow", "Red");
-		p.Customize("Delay", 1f);
-		p.Customize("CoolDown", 1f);
+		p.delayBeforeAttack= 1f;
+		p.coolDown = 1f;
 		lib.NewWave (new Wave (5f, mp, p, 1, false, 5, false, 10f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
 
 		mp = new EnemyMovementPattern (lib.enterLeave);
 		mp.Customize("EnterDir", "Left");
 		mp.Customize ("LeaveDir", "Left");
 		mp.Customize("StayTime", 2f);
-		p = new Pattern (lib.maelStrom);
-		p.Customize("BulletCount", 15);
+		p = new P_Maelstrom();
+		p.bulletCount = 15;
 		p.SetSprite ("Circle", "Glow", "Red");
-		p.Customize("Delay", 1f);
-		p.Customize("CoolDown", 1f);
+		p.delayBeforeAttack= 1f;
+		p.coolDown = 1f;
 		lib.NewWave (new Wave (7f, mp, p, 1, false, 5, false, 10f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
 
 
@@ -72,27 +72,27 @@ public class Stage2 : Stage
 
 		mp = new EnemyMovementPattern (lib.doubleSnake);
 		mp.Customize ("LeaveDir", "Right");
-		p = new Pattern (lib.repeatedHoming);
-		p.Customize ("BulletCount", Mathf.Ceil(4 * (difficultyMultiplier / 2)));
-		p.Customize (new BulletMovementPattern (false, "WaitToHome", 9f, p, 0, 14));
+		p = new P_RepeatedHoming();
+		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
+		p.bulletMovement = new BulletMovementPattern (false, "WaitToHome", 9f, p, 0, 14);
 		p.SetSprite ("Arrow", "Glow", "Red");	
 		lib.NewWave (new Wave (13f, mp, p, 2, false, 2, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
 
 		mp = new EnemyMovementPattern (lib.doubleSnake);
 		mp.Customize ("LeaveDir", "Left");
-		p = new Pattern (lib.repeatedHoming);
-		p.Customize ("BulletCount", Mathf.Ceil(4 * (difficultyMultiplier / 2)));
-		p.Customize (new BulletMovementPattern (false, "WaitToHome", 9f, p, 0, 14));
+		p = new P_RepeatedHoming();
+		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
+		p.bulletMovement = new BulletMovementPattern (false, "WaitToHome", 9f, p, 0, 14);
 		p.SetSprite ("Arrow", "Glow", "Red");	 
 		lib.NewWave (new Wave (15f, mp, p, 2, false, 2, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
 
 		mp = new EnemyMovementPattern (lib.enterLeave);
 		mp.Customize ("LeaveDir", "Left");
 		mp.Customize("StayTime", 2f);
-		p = new Pattern (lib.maelStrom);
-		p.Customize("CircleDelay", 1f);
+		p = new P_Maelstrom();
+		p.circleDelay= 1f;
 		p.SetSprite ("Spider");
-		p.Customize (new BulletMovementPattern (false, "SlowWaving", 5f, p, 0, 14));
+		p.bulletMovement = new BulletMovementPattern (false, "SlowWaving", 5f, p, 0, 14);
 		lib.NewWave (new Wave (17f, mp, p, 3, false, 0, false, 2f, 0), new ArrayList { lib.topLeft });
 
 
@@ -104,17 +104,17 @@ public class Stage2 : Stage
 		mp.Customize ("EnterDir", "Right");
 		mp.Customize ("LeaveDir", "Left");
 		mp.Customize("StayTime", 1f);
-		p = new Pattern (lib.circle);
-		p.Customize("RotationDirection", -1);
-		p.Customize ("BulletCount", Mathf.Ceil(4 * (difficultyMultiplier / 2)));
+		p = new P_Circle();
+		p.rotationDirection = -1;
+		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
 		p.SetSprite ("Circle", "Glow", "Red");	
 		lib.NewWave (new Wave (27f, mp, p, 10, false, 5, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
 
 		mp = new EnemyMovementPattern (lib.snake);
 		mp.Customize ("LeaveDir", "Right");
-		p = new Pattern (lib.repeatedHoming);
-		p.Customize ("BulletCount", Mathf.Ceil(4 * (difficultyMultiplier / 2)));
-		p.Customize (new BulletMovementPattern (false, "WaitToHome", 9f, p, 0, 14));
+		p = new P_RepeatedHoming();
+		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
+		p.bulletMovement = new BulletMovementPattern (false, "WaitToHome", 9f, p, 0, 14);
 		p.SetSprite ("Arrow", "Glow", "White");	
 		lib.NewWave (new Wave (35f, mp, p, 2, false, 5, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
 
@@ -122,17 +122,17 @@ public class Stage2 : Stage
 		mp.Customize ("EnterDir", "Right");
 		mp.Customize ("LeaveDir", "Left");
 		mp.Customize("StayTime", 1f);
-		p = new Pattern (lib.circle);
-		p.Customize("RotationDirection", -1);
-		p.Customize ("BulletCount", Mathf.Ceil(4 * (difficultyMultiplier / 2)));
+		p = new P_Circle();
+		p.rotationDirection = -1;
+		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
 		p.SetSprite ("Circle", "Glow", "White");	
 		lib.NewWave (new Wave (40f, mp, p, 10, false, 5, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
 
 		mp = new EnemyMovementPattern (lib.snake);
 		mp.Customize ("LeaveDir", "Left");
-		p = new Pattern (lib.repeatedHoming);
-		p.Customize ("BulletCount", Mathf.Ceil(4 * (difficultyMultiplier / 2)));
-		p.Customize (new BulletMovementPattern (false, "WaitToHome", 9f, p, 0, 14));
+		p = new P_RepeatedHoming();
+		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
+		p.bulletMovement = new BulletMovementPattern (false, "WaitToHome", 9f, p, 0, 14);
 		p.SetSprite ("Arrow", "Glow", "Red");	 
 		lib.NewWave (new Wave (43f, mp, p, 2, false, 5, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
 
@@ -141,11 +141,11 @@ public class Stage2 : Stage
 		//mp.Customize("EnterDir", "Left");
 		mp.Customize ("LeaveDir", "Left");
 		mp.Customize("StayTime", 3f);
-		p = new Pattern (lib.maelStrom);
-		p.Customize("BulletCount", 15);
+		p = new P_Maelstrom();
+		p.bulletCount = 15;
 		p.SetSprite ("Circle", "Glow", "Red");
-		p.Customize("Delay", 1f);
-		p.Customize("CoolDown", 1f);
+		p.delayBeforeAttack= 1f;
+		p.coolDown = 1f;
 		lib.NewWave (new Wave (47f, mp, p, 1, false, 5, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
 
 
@@ -155,7 +155,7 @@ public class Stage2 : Stage
 		mp.Customize("EnterDir", "Left");
 		mp.Customize ("LeaveDir", "Left");
 		mp.Customize("StayTime", 10f);
-		p = new Pattern(lib.spiderWebLaser);
+		p = new Pattern(new P_SpiderWebLaser());
 		lib.NewWave (new Wave (55f, mp, p, 1, false, 100, false, 5, 0), new ArrayList { lib.leftTop });
 
 
@@ -163,28 +163,28 @@ public class Stage2 : Stage
 		//mp.Customize("EnterDir", "Left");
 		mp.Customize ("LeaveDir", "Left");
 		mp.Customize("StayTime", 2f);
-		p = new Pattern (lib.maelStrom);
-		p.Customize("BulletCount", 15);
+		p = new P_Maelstrom();
+		p.bulletCount = 15;
 		p.SetSprite ("Circle", "Glow", "White");
-		p.Customize("Delay", 1f);
-		p.Customize("CoolDown", 1f);
+		p.delayBeforeAttack= 1f;
+		p.coolDown = 1f;
 		lib.NewWave (new Wave (60f, mp, p, 4, false, 5, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
 
 
 		//LOOPING WORK IN PROGRESS
 		mp = new EnemyMovementPattern (lib.doubleSnake);
 		mp.Customize ("LeaveDir", "Right");
-		p = new Pattern (lib.repeatedHoming);
-		p.Customize ("BulletCount", Mathf.Ceil(4 * (difficultyMultiplier / 2)));
-		p.Customize (new BulletMovementPattern (false, "WaitToHome", 9f, p, 0, 14));
+		p = new P_RepeatedHoming();
+		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
+		p.bulletMovement = new BulletMovementPattern (false, "WaitToHome", 9f, p, 0, 14);
 		p.SetSprite ("Arrow", "Glow", "Red");	
 		lib.NewWave (new Wave (65f, mp, p, 10, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
 
 		mp = new EnemyMovementPattern (lib.doubleSnake);
 		mp.Customize ("LeaveDir", "Left");
-		p = new Pattern (lib.repeatedHoming);
-		p.Customize ("BulletCount", Mathf.Ceil(4 * (difficultyMultiplier / 2)));
-		p.Customize (new BulletMovementPattern (false, "WaitToHome", 9f, p, 0, 14));
+		p = new P_RepeatedHoming();
+		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
+		p.bulletMovement = new BulletMovementPattern (false, "WaitToHome", 9f, p, 0, 14);
 		p.SetSprite ("Arrow", "Glow", "Red");	 
 		lib.NewWave (new Wave (70f, mp, p, 10, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
 
