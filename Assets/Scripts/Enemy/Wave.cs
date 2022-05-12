@@ -93,7 +93,6 @@ public class Wave
 		GameObject enemy = GameObject.Instantiate (Resources.Load ("Prefabs/Enemy"), spawnPosition, Quaternion.Euler (0, 0, 0)) as GameObject;
 
 		enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0);
-		//enemy.GetComponent<EnemyMovement> ().SetUpPatternAndMove (new EnemyMovementPattern(movementPattern));
 		enemy.GetComponent<EnemyMovement> ().SetUpPatternAndMove (movementPattern);
 
 		if (isBoss || isMidBoss) {
@@ -111,7 +110,7 @@ public class Wave
 				Game.control.ui.StartBossTimer (movementPattern.stayTime);
 			}
 			
-			enemy.GetComponent<EnemyShoot> ().phaser.NextBossPhase ();
+			enemy.GetComponent<EnemyShoot> ().phaser.NextPhase ();
 			Game.control.ui.ToggleBossHealthSlider (true, enemy.GetComponent<EnemyLife> ().maxHealth, bossName);
 
 		} else {

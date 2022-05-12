@@ -76,7 +76,7 @@ public class Stage2 : Stage
 		p.Customize ("BulletCount", Mathf.Ceil(4 * (difficultyMultiplier / 2)));
 		p.Customize (new BulletMovementPattern (false, "WaitToHome", 9f, p, 0, 14));
 		p.SetSprite ("Arrow", "Glow", "Red");	
-		lib.NewWave (new Wave (13f, mp, p, 2, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
+		lib.NewWave (new Wave (13f, mp, p, 2, false, 2, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
 
 		mp = new EnemyMovementPattern (lib.doubleSnake);
 		mp.Customize ("LeaveDir", "Left");
@@ -84,7 +84,7 @@ public class Stage2 : Stage
 		p.Customize ("BulletCount", Mathf.Ceil(4 * (difficultyMultiplier / 2)));
 		p.Customize (new BulletMovementPattern (false, "WaitToHome", 9f, p, 0, 14));
 		p.SetSprite ("Arrow", "Glow", "Red");	 
-		lib.NewWave (new Wave (15f, mp, p, 2, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
+		lib.NewWave (new Wave (15f, mp, p, 2, false, 2, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
 
 		mp = new EnemyMovementPattern (lib.enterLeave);
 		mp.Customize ("LeaveDir", "Left");

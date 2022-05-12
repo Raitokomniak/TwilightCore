@@ -17,9 +17,16 @@ public class EnemyShoot : MonoBehaviour {
 		wave = Game.control.enemySpawner.curWave;
 		bulletsShot = new ArrayList ();
 
+
+		//THIS DOESNT BELONG HERE
 		if (wave.isBoss || wave.isMidBoss) {
-			phaser = gameObject.AddComponent<Phaser> ();
-			phaser.Init(wave.bossIndex, wave);
+			//phaser = gameObject.AddComponent<Phaser> ();
+			//phaser.Init(wave.bossIndex, wave);
+			if(wave.bossIndex == 0.5f) phaser = gameObject.AddComponent<Boss05> ();
+			else if(wave.bossIndex == 1f) phaser = gameObject.AddComponent<Boss1> ();
+			else if(wave.bossIndex == 2f) phaser = gameObject.AddComponent<Boss2> ();
+
+			phaser.Init();
 		}
 	}
 

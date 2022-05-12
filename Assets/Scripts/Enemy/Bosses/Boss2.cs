@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class Boss2 : Phaser
 {
+	void Awake(){
+		bossIndex = 2;
+	}
+
     public override void StopCoro(){
-		if(numerator != null) StopCoroutine (numerator);
+		if(phaseExecuteRoutine != null) StopCoroutine (phaseExecuteRoutine);
 		routineOver = true;
 	}
 
     public override void ExecutePhase(int phase, Phaser _phaser){
-		numerator = Execute (phase, _phaser);
-		StartCoroutine (numerator);
+		phaseExecuteRoutine = Execute (phase, _phaser);
+		StartCoroutine (phaseExecuteRoutine);
     }
 
     IEnumerator Execute(int phase, Phaser phaser){
-        patterns = new List<Pattern>();
-		movementPatterns = new List<EnemyMovementPattern>();
+		difficultyMultiplier = Game.control.stageHandler.difficultyMultiplier;
+        ResetLists();
 		GetComponent<EnemyMovement>().EnableSprite(true);
-		lib = Game.control.enemyLib;
-
+		
 
         switch (phase) {
 			case 0:

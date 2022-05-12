@@ -5,27 +5,28 @@ using UnityEngine;
 public class Boss05 : Phaser
 {
 
+	void Awake(){
+		bossIndex = 0.5f;
+		ignoreDialog = true;
+	}
+
    public override void StopCoro(){
-		if(numerator != null) StopCoroutine (numerator);
-		routineOver = true;
+		
 	}
 
 
     public override void ExecutePhase(int phase, Phaser _phaser){
-		numerator = Execute (phase, _phaser);
-		StartCoroutine (numerator);
+		phaseExecuteRoutine = Execute (phase, _phaser);
+		StartCoroutine (phaseExecuteRoutine);
     }
 
     IEnumerator Execute(int phase, Phaser phaser){
-		patterns = new List<Pattern>();
-		movementPatterns = new List<EnemyMovementPattern>();
-		lib = Game.control.enemyLib;
+		difficultyMultiplier = Game.control.stageHandler.difficultyMultiplier;
+		ResetLists();
+
 		 switch(phase)
 			{
 			case 0:
-				phaser.NextBossPhase ();
-				break;
-			case 1:
 				Game.control.ui.UpdateTopPlayer (1f);
 
 			    GetComponent<EnemyLife>().SetInvulnerable (true);
@@ -64,6 +65,9 @@ public class Boss05 : Phaser
 
 				patterns[0].StopPattern();
 				patterns[1].StopPattern();
+				break;
+			case 1:
+				
 
 
 				break;

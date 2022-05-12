@@ -6,10 +6,6 @@ public class Stage1 : Stage
 {
 
 	public override void StartStageHandler(){
-		if(stageHandlerRoutine != null) {
-			StopCoroutine(stageHandlerRoutine);
-			stageHandlerRoutine.Reset();
-		}
 		stageHandlerRoutine = StageHandlerRoutine();
 		StartCoroutine(stageHandlerRoutine);
 	}
@@ -59,7 +55,7 @@ public class Stage1 : Stage
 		EnemyMovementPattern mp;
 		
 		
-		///*
+		
 			//1st PHASE
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.Customize ("LeaveDir", "Left");
@@ -67,7 +63,7 @@ public class Stage1 : Stage
 			p = new Pattern (lib.singleHoming);
 			p.Customize (new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
 			p.SetSprite ("Circle", "Big", "Red");
-			lib.NewWave (new Wave (1f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
+			lib.NewWave (new Wave (5f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
 																			// .6f
 			
 			mp = new EnemyMovementPattern (lib.enterLeave);
@@ -76,7 +72,7 @@ public class Stage1 : Stage
 			p = new Pattern (lib.singleHoming);
 			p.Customize (new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
 			p.SetSprite ("Circle", "Big", "Red");
-			lib.NewWave (new Wave (3f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
+			lib.NewWave (new Wave (7f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
 																				// .6f
 			
 
@@ -89,7 +85,7 @@ public class Stage1 : Stage
 			p = new Pattern (lib.singleHoming);
 			p.Customize (new BulletMovementPattern (true, null, 0.5f, p, 0, 14));
 			p.SetSprite ("Circle", "Big", "Red");	
-			lib.NewWave (new Wave (4f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
+			lib.NewWave (new Wave (8f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
 
 			
 			mp = new EnemyMovementPattern (lib.enterLeave);
@@ -255,7 +251,7 @@ public class Stage1 : Stage
 			///*
 			mp = new EnemyMovementPattern (lib.enterFromTop);
 			mp.Customize ("StayTime", 0);
-			boss = new Wave(100f, mp, null, 1,  false, 40 * Mathf.CeilToInt(difficultyMultiplier) , true, 3f, 2);
+			boss = new Wave(100f, mp, null, 1,  false, 60 * Mathf.CeilToInt(difficultyMultiplier) , true, 3f, 2);
 			//*/
 
 			boss.SetUpBoss (1, "Maaya, Forest Guardian", false);

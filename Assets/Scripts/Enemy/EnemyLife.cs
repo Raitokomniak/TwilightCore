@@ -58,7 +58,7 @@ public class EnemyLife : MonoBehaviour {
 			if (currentHealth <= superThreshold && !shooter.phaser.superPhase && !invulnerable) {
 				invulnerable = true;
 				shooter.phaser.superPhase = true;
-				shooter.phaser.NextBossPhase ();
+				shooter.phaser.NextPhase ();
 				Game.control.enemySpawner.DestroyAllProjectiles ();
 			}
 		}
@@ -74,7 +74,7 @@ public class EnemyLife : MonoBehaviour {
 				Game.control.ui.UpdateBossHealthBars (healthBars);
 				invulnerable = true;
 				shooter.phaser.superPhase = false;			
-				shooter.phaser.NextBossPhase();
+				shooter.phaser.NextPhase();
 				Game.control.enemySpawner.DestroyAllProjectiles ();
 			}
 		}
