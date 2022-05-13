@@ -16,7 +16,7 @@ public class StageHandler : MonoBehaviour {
 	public bool stageCompleted;
 	public float stageTimer;
 
-	int stageCount = 1;
+	int stageCount = 2;
 	public int currentStage;
 	public bool stageTimerOn;
 
@@ -142,7 +142,6 @@ public class StageHandler : MonoBehaviour {
 
 	IEnumerator StageCompleteHandling ()
 	{
-		
 		Game.control.ui.HideBossTimer();
 		Game.control.ui.ToggleBossHealthSlider (false, 0, "");
 		yield return new WaitUntil(() => CheckIfAllPickUpsGone() == true);
@@ -155,13 +154,9 @@ public class StageHandler : MonoBehaviour {
 	void NextStage ()
 	{
 		//Game.control.MainMenu ();
-		/*Game.control.ui.StageCompleted (false);
+		Game.control.ui.StageCompleted (false);
 		currentStage++;
-		StartStage(currentStage, false);*/
-	}
-
-	public void GameComplete(){
-
+		StartStage(currentStage, false);
 	}
 
 	//If time is up, boss leaves the screen and stage is completed

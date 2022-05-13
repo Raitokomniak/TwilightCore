@@ -27,7 +27,7 @@ public class P_GiantWeb : Pattern
 							animation = (Resources.Load ("Images/Animations/SmallWeb") as GameObject);
 							bulletMovement = new BulletMovementPattern (false, "StopAndRotate", 20f, this, tempLayer, tempMagnitude);
 							InstantiateBullet (enemyBullet);
-							bullet.GetComponent<SpriteRenderer> ().sprite = spriteLib.SetBulletSprite ("Circle", "Big", "Red");
+							bullet.GetComponent<SpriteRenderer> ().sprite = Game.control.spriteLib.SetBulletSprite ("Circle", "Big", "Red");
 							bullets.Add (enemyBullet);
 						}
 						tempMagnitude -= 3;

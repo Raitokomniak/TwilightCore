@@ -89,7 +89,7 @@ public class Game : MonoBehaviour {
 	public void StartGame(){
 		sound.StopMusic();
 		stageHandler.enabled = true;
-		stageHandler.StartStage(1, true);
+		stageHandler.StartStage(2, true);
 		//InStages = true;
 	}
 

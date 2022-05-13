@@ -154,7 +154,6 @@ public class UIController : MonoBehaviour {
 			allSelections = gameOverOptionsContainer.transform.GetComponentsInChildren<TextMeshProUGUI> ();
 		}
 		else if(context == "SaveScorePrompt"){
-			Debug.Log("selections");
 			allSelections = saveScoreContainer.transform.GetComponentsInChildren<TextMeshProUGUI> ();
 		}
 		
