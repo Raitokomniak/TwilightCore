@@ -54,7 +54,7 @@ public class Stage1 : Stage
 		Pattern p;
 		EnemyMovementPattern mp;
 		
-		/*
+		
 		
 			//1st PHASE
 			mp = new EnemyMovementPattern (lib.enterLeave);
@@ -242,11 +242,11 @@ public class Stage1 : Stage
 
 
 			//DEBUG
-			
+			/*
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.Customize ("StayTime", 0);
-			boss = new Wave(1f, mp, null, 1,  false, 1 * Mathf.CeilToInt(difficultyMultiplier / 2) , true, 3f, 2);
-			/*
+			boss = new Wave(1f, mp, null, 1,  false, 10 * Mathf.CeilToInt(difficultyMultiplier / 2) , true, 3f, 2);
+			*/
 
 			// BIG BOSS
 			///*

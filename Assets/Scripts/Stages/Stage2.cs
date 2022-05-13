@@ -33,7 +33,6 @@ public class Stage2 : Stage
 	public override void InitWaves(float difficultyMultiplier) {
 		lib.stageWaves.Clear ();
 		
-		/*
 		//PHASE 1
 		mp = new EnemyMovementPattern (lib.enterLeave);
 		mp.Customize("EnterDir", "Center");
@@ -188,10 +187,10 @@ public class Stage2 : Stage
 		p.bulletMovement = new BulletMovementPattern (false, "WaitToHome", 9f, p, 0, 14);
 		p.SetSprite ("Arrow", "Glow", "Red");	 
 		lib.NewWave (new Wave (70f, mp, p, 10, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
-*/
 
 
-		boss = new Wave(1f, null, null, 1,  false, 150, true, 3f, 2);
+
+		boss = new Wave(113f, null, null, 1,  false, 150, true, 3f, 2);
 		boss.SetUpBoss (2, "Spider Queen", false);
 		boss.movementPattern = lib.enterFromTop;
 		lib.NewWave (boss, new ArrayList { lib.middleTop });
