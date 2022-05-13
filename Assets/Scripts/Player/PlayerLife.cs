@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerLife : MonoBehaviour {
 	
-	int lives; 
+	public int lives; 
 	public bool dead;
 	public bool invulnerable;
 	IEnumerator invulnerabilityRoutine;

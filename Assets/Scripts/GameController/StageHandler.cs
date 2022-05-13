@@ -140,6 +140,8 @@ public class StageHandler : MonoBehaviour {
 
 	IEnumerator StageCompleteHandling ()
 	{	
+		stats.lives = Game.control.player.health.lives;
+		Debug.Log("lives stats " + stats.lives);
 		Game.control.ui.HideBossTimer();
 		Game.control.ui.ToggleBossHealthSlider (false, 0, "");
 		yield return new WaitUntil(() => CheckIfAllPickUpsGone() == true);
@@ -169,7 +171,6 @@ public class StageHandler : MonoBehaviour {
 	
 	public void RestartStage(){
 		if(stageScript != null) stageScript.StopStage();
-		stats = new PlayerStats(statsAtStageStart);
 		StartStage(currentStage);
 	}
 
@@ -179,11 +180,6 @@ public class StageHandler : MonoBehaviour {
 	}
 
 	public void StartStage (int stage){
-		statsAtStageStart = stats;
-
-		Debug.Log("lives stats " + stats.lives);
-		Debug.Log("lives statsatstagestart" + statsAtStageStart.lives);
-
 		gameOver = false;
 		stageCompleted = false;
 		stageTimerOn = false;
