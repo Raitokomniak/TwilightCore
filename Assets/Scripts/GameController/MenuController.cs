@@ -7,6 +7,7 @@ public class MenuController : MonoBehaviour
 {
 	public List<string> mainMenuItems;
 	public List<string> pauseMenuItems;
+	public List<string> yesNoItems;
 	public List<string> difficultyMenuItems;
 	public List<string> optionsMenuItems;
 	public List<string> gameOverMenuItems;
@@ -27,7 +28,7 @@ public class MenuController : MonoBehaviour
 				if (Input.GetKeyDown (KeyCode.UpArrow)) { 	Game.control.mainMenuUI.UpdateMenuSelection (context, MoveUp ()); };
 				if (Input.GetKeyDown (KeyCode.DownArrow)) { Game.control.mainMenuUI.UpdateMenuSelection (context, MoveDown ()); };
 			}
-			else if (context == "PauseMenu" || context == "GameOverMenu") {
+			else if (context == "PauseMenu" || context == "GameOverMenu" || context == "SaveScorePrompt") {
 				if (Input.GetKeyDown (KeyCode.UpArrow)) 	Game.control.ui.UpdateMenuSelection (context, MoveUp ());
 				if (Input.GetKeyDown (KeyCode.DownArrow)) 	Game.control.ui.UpdateMenuSelection (context, MoveDown ());
 			}
@@ -68,7 +69,9 @@ public class MenuController : MonoBehaviour
 				else if(context == "Hiscores"){
 					if(Game.control.mainMenuUI != null)
 						Menu("MainMenu");
-
+				}
+				else if(context == "SaveScoreScreen"){
+					Menu("GameOverMenu");
 				}
 			}
 		}
@@ -111,6 +114,13 @@ public class MenuController : MonoBehaviour
 			Game.control.ui.ToggleOptionsScreen(true);
 			Game.control.options.UpdateAllValues();
 		}
+		else if(context == "SaveScorePrompt"){
+			Game.control.ui.GameOverScreen (true);
+			selectedList = yesNoItems;
+			Game.control.ui.UpdateMenuSelection ("SaveScorePrompt", 0);
+			//Game.control.ui.togglesavescoreprompt
+
+		}
 		else if(context == "OptionsMenuMain"){
 			selectedList = optionsMenuItems;
 			Game.control.mainMenuUI.ToggleOptions(true);
@@ -120,12 +130,16 @@ public class MenuController : MonoBehaviour
 		}
 		else if(context == "GameOverMenu"){
 			selectedList = gameOverMenuItems;
-			Game.control.ui.GameOverScreen (true);
+			Game.control.ui.GameOverSelections(true);
 			Game.control.ui.UpdateMenuSelection ("GameOverMenu", 0);
 		}
 	}
 
 	public void InitMenu(){
+		yesNoItems = new List<string>();
+		yesNoItems.Add("Yes");
+		yesNoItems.Add("No");
+
 		//INSTEAD OF ITEMS, JUST FOLLOW INDEX
 		mainMenuItems = new List<string>();
 		mainMenuItems.Add ("Start Game");
@@ -185,7 +199,7 @@ public class MenuController : MonoBehaviour
 	{
 		if(context == "MainMenu"){
 			if(selectedIndex == 0) Menu("DifficultyMenu");
-			if(selectedIndex == 1) context = "Hiscores"; Game.control.mainMenuUI.ToggleScorePanel(true);
+			if(selectedIndex == 1) {Game.control.mainMenuUI.ToggleScorePanel(true); context = "Hiscores"; }
 			if(selectedIndex == 2) Menu("OptionsMenuMain");
 			if(selectedIndex == 3) Game.control.QuitGame();
 		}
@@ -211,6 +225,10 @@ public class MenuController : MonoBehaviour
 			if(selectedIndex == 0) Game.control.stageHandler.RestartStage (Game.control.stageHandler.currentStage);
 			if(selectedIndex == 1) Game.control.MainMenu();
 			if(selectedIndex == 2) Game.control.QuitGame();
+		}
+		else if(context == "SaveScorePrompt"){
+			if(selectedIndex == 0) {Game.control.ui.SaveScoreScreen(true); context = "SaveScoreScreen";}
+			if(selectedIndex == 1) Menu("GameOverMenu");
 		}
 	}
 }

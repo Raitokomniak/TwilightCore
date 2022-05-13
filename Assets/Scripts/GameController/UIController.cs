@@ -76,6 +76,8 @@ public class UIController : MonoBehaviour {
 	public GameObject pauseMenuPanel;
 	public GameObject loadingScreen;
 	public GameObject optionsScreen;
+	public GameObject saveScoreScreen;
+
 
 	//Dialog
 	public GameObject dialog;
@@ -93,9 +95,14 @@ public class UIController : MonoBehaviour {
     public GameObject optionsContainer;
 	public GameObject optionsValueContainer;
 
-	//
-
+	//GAMEOVER
+	public GameObject saveScorePrompt;
+	public GameObject saveScoreContainer;
 	public GameObject gameOverOptionsContainer;
+
+	public TMP_InputField scoreSaveNameInput;
+
+	public TextMeshProUGUI scoreInfo;
 
 	void Awake(){
 		ToggleLoadingScreen(false);
@@ -115,6 +122,16 @@ public class UIController : MonoBehaviour {
 			}
 		}
 
+		if(scoreSaveNameInput.gameObject.activeSelf){
+			if(Input.GetKeyDown(KeyCode.Return)){
+				Game.control.menu.Menu("GameOverMenu");
+				Game.control.io.SaveScore(scoreSaveNameInput.text, Game.control.player.stats.score, Game.control.stageHandler.difficultyAsString);
+			}
+		}
+
+	}
+
+	public void ToggleSaveScorePrompt(){
 	}
 
 	public void UpdateMenuSelection(string context, int index){
@@ -130,6 +147,10 @@ public class UIController : MonoBehaviour {
 		}
 		else if(context == "GameOverMenu"){
 			allSelections = gameOverOptionsContainer.transform.GetComponentsInChildren<TextMeshProUGUI> ();
+		}
+		else if(context == "SaveScorePrompt"){
+			Debug.Log("selections");
+			allSelections = saveScoreContainer.transform.GetComponentsInChildren<TextMeshProUGUI> ();
 		}
 		
 		foreach (TextMeshProUGUI text in allSelections) {
@@ -167,7 +188,7 @@ public class UIController : MonoBehaviour {
 		bossTimer.gameObject.SetActive(false);
 		bossNamePanel.SetActive (false);
 		stageEndPanel.SetActive(false);
-
+		saveScoreScreen.SetActive(false);
 		gameOver.SetActive(false);
 		PauseScreen(false);
 		dialog.SetActive(false);
@@ -230,6 +251,7 @@ public class UIController : MonoBehaviour {
 		bossNamePanel.SetActive (value);
 		bossName.text = name;
 	}
+
 
 	public void UpdateBossHealth(float h)
 	{
@@ -442,9 +464,23 @@ public class UIController : MonoBehaviour {
 		stageEndPanel.SetActive(value);
 	}
 
+	public void SaveScoreScreen(bool value){
+		saveScoreScreen.SetActive(value);
+		saveScorePrompt.SetActive(false);
+		scoreInfo.text = Game.control.player.stats.score.ToString() + " " + Game.control.stageHandler.difficultyAsString;
+	}
+
 	public void GameOverScreen(bool value){
 		gameOver.SetActive(value);
+		saveScorePrompt.SetActive(true);
 	}
+
+	public void GameOverSelections(bool value){
+		saveScorePrompt.SetActive(false);
+		SaveScoreScreen(false);
+		gameOverOptionsContainer.SetActive(true);
+	}
+
 
 	public void PauseScreen(bool value){
 		pauseScreen.SetActive(value);

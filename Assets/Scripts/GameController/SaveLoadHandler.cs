@@ -21,14 +21,10 @@ public class ScoreSave {
     [SerializeField] public string date;
 
 
-	public ScoreSave(string _name, long _score, int _difficulty){
+	public ScoreSave(string _name, long _score, string _difficulty){
 		name = _name;
 		score = _score;
-        if(_difficulty == 1) difficulty = "Very Easy";
-        if(_difficulty == 3) difficulty = "Easy";
-        if(_difficulty == 5) difficulty = "Normal";
-        if(_difficulty == 10) difficulty = "Nightmarish";
-
+        difficulty = _difficulty;
         date = System.DateTime.Now.ToShortDateString();
 	}
 
@@ -49,7 +45,7 @@ public class SaveLoadHandler : MonoBehaviour {
         scoreList = new ScoreList();
     }
 
-    public bool SaveScore(string name, long hiscore, int difficulty){
+    public bool SaveScore(string name, long hiscore, string difficulty){
         ScoreSave score = new ScoreSave(name, hiscore, difficulty);
         scoreList.allScores.Add(score);
         string dataString = JsonUtility.ToJson(scoreList);

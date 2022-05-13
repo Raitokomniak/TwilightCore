@@ -11,6 +11,7 @@ public class StageHandler : MonoBehaviour {
 	PlayerStats savedStats;
 
 	public int difficultyMultiplier; //1 easy //3 normal //5 hard //8+ nightmarish
+	public string difficultyAsString;
 	public bool gameOver;
 	public bool stageCompleted;
 	public float stageTimer;
@@ -77,7 +78,7 @@ public class StageHandler : MonoBehaviour {
 
 	public void EndHandler (string endType)
 	{
-		Game.control.io.SaveScore("Player", Game.control.player.stats.hiScore, difficultyMultiplier);
+
 		savedStats = Game.control.player.stats;
 		if(stageScript != null) stageScript.StopStage();
 
@@ -85,6 +86,9 @@ public class StageHandler : MonoBehaviour {
 		case "GameOver":
 			deathRoutine = DeathHandling();
 			StartCoroutine (deathRoutine);
+			break;
+
+		case "GameComplete":
 			break;
 
 		case "StageComplete":
@@ -100,7 +104,19 @@ public class StageHandler : MonoBehaviour {
 
 		ToggleTimer(false);
 		Game.control.sound.StopMusic ();
+
+		
+		//IEnumerator scoresave = ScoreSaveHandler();
+		//StartCoroutine(scoresave);
 	}
+
+/*
+	IEnumerator ScoreSaveHandler(){
+		Game.control.io.SaveScore("Player", Game.control.player.stats.hiScore, difficulty);
+
+		yield return null;
+	}*/
+
 
 	IEnumerator DeathHandling ()
 	{
@@ -109,7 +125,7 @@ public class StageHandler : MonoBehaviour {
 		yield return new WaitForSeconds (2);
 
 		Game.control.sound.StopMusic ();
-		Game.control.menu.Menu("GameOverMenu");
+		Game.control.menu.Menu("SaveScorePrompt");
 
 		stageOn = false;
 		stageTimerOn = false;
@@ -164,6 +180,10 @@ public class StageHandler : MonoBehaviour {
 
 	public void SetDifficulty(int diff){
 		difficultyMultiplier = diff;
+		if(diff == 1) difficultyAsString = "Very Easy";
+		if(diff == 3) difficultyAsString = "Easy";
+		if(diff == 5) difficultyAsString = "Normal";
+		if(diff == 10) difficultyAsString = "Nightmarish";
 	}
 
 
