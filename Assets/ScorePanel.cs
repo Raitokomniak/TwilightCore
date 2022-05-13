@@ -8,23 +8,18 @@ public class ScorePanel : MonoBehaviour
 {
     public Object scoreSlotPrefab;
     public List<GameObject> scoreSlots;
-
     public Transform contentPanel;
 
     public static int CompareScores(ScoreSave x, ScoreSave y){
         return y.score.CompareTo(x.score);
     }
-
-    // Start is called before the first frame update
+    
     void Awake()
     {
         Game.control.io.LoadScore();
         List<ScoreSave> scoreObjects = Game.control.io.scoreList.allScores;
-        
-        
         scoreObjects.Sort(CompareScores);
         if(scoreObjects.Count > 10) scoreObjects.RemoveRange(10, scoreObjects.Count - 10);
-       // scoreObjects.TrimExcess();
 
         scoreSlots = new List<GameObject>();
         for(int i = 1; i < 11; i++){
@@ -51,13 +46,5 @@ public class ScorePanel : MonoBehaviour
                 textObjects[4].text = "-";
             }
         }
-    }
-
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
