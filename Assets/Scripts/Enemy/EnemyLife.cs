@@ -23,7 +23,7 @@ public class EnemyLife : MonoBehaviour {
 		if (_superThreshold == 0)
 			superThreshold = -10;
 		else superThreshold = maxHealth * _superThreshold;
-		Game.control.ui.UpdateBossHealthBars (healthBars);
+		//Game.control.ui.UpdateBossHealthBars (healthBars);
 	}
 
 	public void SetInvulnerable(bool value){
@@ -72,7 +72,7 @@ public class EnemyLife : MonoBehaviour {
 			} else {
 				currentHealth = maxHealth;
 				Game.control.ui.UpdateBossHealth (currentHealth);
-				Game.control.ui.UpdateBossHealthBars (healthBars);
+				//Game.control.ui.UpdateBossHealthBars (healthBars);
 				invulnerable = true;
 				wave.bossScript.superPhase = false;			
 				wave.bossScript.NextPhase();

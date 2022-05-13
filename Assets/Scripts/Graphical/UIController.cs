@@ -5,11 +5,8 @@ using System.Collections.Generic;
 using TMPro;
 
 public class UIController : MonoBehaviour {
-	public GameObject stageUI;
 
 	public GameObject stageWorldUI;
-
-
 	public float[] wallBoundaries;
 	public GameObject playAreaLeftWall;
 	public GameObject playAreaRightWall;
@@ -177,8 +174,6 @@ public class UIController : MonoBehaviour {
 
 	public void InitStage(){
 		stageWorldUI.SetActive (true);
-		stageUI.SetActive (true);
-
 
 		playAreaLeftWall = Game.control.ui.stageWorldUI.transform.GetChild (2).GetChild (0).gameObject;
 		playAreaRightWall = Game.control.ui.stageWorldUI.transform.GetChild (2).GetChild (1).gameObject;
@@ -187,7 +182,6 @@ public class UIController : MonoBehaviour {
 		UpdateCoreCharge ("Day", 0);
 		UpdateCoreCharge ("Night", 0);
 
-		stageUI.SetActive (true);
 		bossHealthSlider.gameObject.SetActive(false);
 		bossTimer.gameObject.SetActive(false);
 		bossNamePanel.SetActive (false);

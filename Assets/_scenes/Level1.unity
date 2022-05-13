@@ -2153,7 +2153,7 @@ GameObject:
   - component: {fileID: 868373472}
   - component: {fileID: 868373471}
   m_Layer: 5
-  m_Name: DialogScrollInfo (1)
+  m_Name: Autoscrollinfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7924,51 +7924,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c77852ca72ab35149a40d056232c0cb7, type: 3}
---- !u!1 &1647895773167721902 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2802552228630947191, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
-    type: 3}
-  m_PrefabInstance: {fileID: 3475136374271736025}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1647895773309832779 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2802552229058410130, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
     type: 3}
   m_PrefabInstance: {fileID: 3475136374271736025}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1647895773503595381 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2802552228832730028, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
-    type: 3}
-  m_PrefabInstance: {fileID: 3475136374271736025}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1647895773552986982 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2802552229368640447, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
-    type: 3}
-  m_PrefabInstance: {fileID: 3475136374271736025}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1647895773721546137 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2802552229184877888, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
-    type: 3}
-  m_PrefabInstance: {fileID: 3475136374271736025}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1647895773866282536 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2802552229547718385, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
-    type: 3}
-  m_PrefabInstance: {fileID: 3475136374271736025}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1647895774048792644 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2802552229394565277, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
-    type: 3}
-  m_PrefabInstance: {fileID: 3475136374271736025}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1647895774850791299 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2802552228032302938, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
     type: 3}
   m_PrefabInstance: {fileID: 3475136374271736025}
   m_PrefabAsset: {fileID: 0}
@@ -11317,25 +11281,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 3939676774778880862}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dc7f6b6a4febba4e94bc314decc6c30, type: 3}
+  m_Script: {fileID: 11500000, guid: b1c82bcc412e85e43baed1b15af593b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageUI: {fileID: 3939676775360952852}
   stageWorldUI: {fileID: 1647895774941261686}
   wallBoundaries: []
-  playAreaLeftWall: {fileID: 1647895774850791299}
-  playAreaRightWall: {fileID: 1647895773866282536}
-  playAreaTopWall: {fileID: 1647895773167721902}
-  playAreaBottomWall: {fileID: 1647895773552986982}
+  playAreaLeftWall: {fileID: 0}
+  playAreaRightWall: {fileID: 0}
+  playAreaTopWall: {fileID: 0}
+  playAreaBottomWall: {fileID: 0}
   topLayers:
   - {fileID: 1647895773309832779}
   - {fileID: 2955796329539244925}
-  bgs:
-  - {fileID: 1647895774048792644}
-  - {fileID: 1647895773503595381}
+  bgs: []
   bossInvulnerableImage: {fileID: 3939676773774708203}
   bossHealthSlider: {fileID: 3939676773945534509}
-  bossMiniHealthBar: {fileID: 160454, guid: 683bdc9638c5e2945ae6855ec7b9ed36, type: 3}
+  bossMiniHealthBar: {fileID: 0}
   bossNamePanel: {fileID: 3939676774749440287}
   bossName: {fileID: 1775060522}
   bossX: {fileID: 1647895773721546137}
@@ -11344,20 +11305,20 @@ MonoBehaviour:
   bossTimer: {fileID: 1806288057}
   levelTimer: {fileID: 2088504633}
   lives: {fileID: 1037397806}
-  xp: {fileID: 3939676775121163585}
+  xp: {fileID: 0}
   wave: {fileID: 450548135}
   stageEndPanel: {fileID: 3939676775608429872}
   stageText: {fileID: 136471821}
   rightPanelStageText: {fileID: 944290787}
   stagePanel: {fileID: 3939676775333426461}
   toast: {fileID: 1608336244}
-  pointsToAssign: {fileID: 3939676774420348446}
-  DMGstat: {fileID: 3939676774820948710}
-  SPDstat: {fileID: 682033965103498683}
-  SCAstat: {fileID: 682033965057770438}
-  DMGstatSlider: {fileID: 3939676774352375036}
-  SPDstatSlider: {fileID: 682033964902939328}
-  SCAstatSlider: {fileID: 682033965236424144}
+  pointsToAssign: {fileID: 0}
+  DMGstat: {fileID: 0}
+  SPDstat: {fileID: 0}
+  SCAstat: {fileID: 0}
+  DMGstatSlider: {fileID: 0}
+  SPDstatSlider: {fileID: 0}
+  SCAstatSlider: {fileID: 0}
   hiScore: {fileID: 1134831705}
   score: {fileID: 526831436}
   dayCoreSlider: {fileID: 3939676774104503360}
