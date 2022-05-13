@@ -115,11 +115,9 @@ public class MenuController : MonoBehaviour
 			Game.control.options.UpdateAllValues();
 		}
 		else if(context == "SaveScorePrompt"){
-			Game.control.ui.GameOverScreen (true);
 			selectedList = yesNoItems;
 			Game.control.ui.UpdateMenuSelection ("SaveScorePrompt", 0);
 			//Game.control.ui.togglesavescoreprompt
-
 		}
 		else if(context == "OptionsMenuMain"){
 			selectedList = optionsMenuItems;

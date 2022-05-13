@@ -15,6 +15,8 @@ public class StageHandler : MonoBehaviour {
 	public bool gameOver;
 	public bool stageCompleted;
 	public float stageTimer;
+
+	int stageCount = 1;
 	public int currentStage;
 	public bool stageTimerOn;
 
@@ -22,9 +24,7 @@ public class StageHandler : MonoBehaviour {
 
 
 	IEnumerator restartRoutine;
-	IEnumerator deathRoutine;
-	IEnumerator stageCompleteRoutine;
-	IEnumerator timeUpRoutine;
+
 
 	ScoreSave currentHiScore;
 
@@ -78,44 +78,49 @@ public class StageHandler : MonoBehaviour {
 
 	public void EndHandler (string endType)
 	{
-
 		savedStats = Game.control.player.stats;
 		if(stageScript != null) stageScript.StopStage();
 
 		switch (endType) {
 		case "GameOver":
-			deathRoutine = DeathHandling();
+			IEnumerator deathRoutine = DeathHandling();
 			StartCoroutine (deathRoutine);
 			break;
-
-		case "GameComplete":
-			break;
-
 		case "StageComplete":
-			stageCompleteRoutine =StageCompleteHandling();
-			StartCoroutine (stageCompleteRoutine);
+			if(currentStage == stageCount) {
+				IEnumerator gameCompleteRoutine = GameCompleteHandling();
+				StartCoroutine(gameCompleteRoutine);
+			}
+			else {
+				IEnumerator stageCompleteRoutine = StageCompleteHandling();
+				StartCoroutine (stageCompleteRoutine);
+			}
 			break;
 
 		case "TimeUp":
-			timeUpRoutine = TimeUp();
+			IEnumerator timeUpRoutine = TimeUp();
 			StartCoroutine(timeUpRoutine);
 			break;
 		}
 
 		ToggleTimer(false);
 		Game.control.sound.StopMusic ();
-
-		
-		//IEnumerator scoresave = ScoreSaveHandler();
-		//StartCoroutine(scoresave);
 	}
 
-/*
-	IEnumerator ScoreSaveHandler(){
-		Game.control.io.SaveScore("Player", Game.control.player.stats.hiScore, difficulty);
+	IEnumerator GameCompleteHandling(){
+		gameOver = true;
+		Game.control.ui.HideBossTimer();
+		yield return new WaitForSeconds (2);
 
-		yield return null;
-	}*/
+		Game.control.sound.StopMusic ();
+		Game.control.menu.Menu("SaveScorePrompt");
+		Game.control.ui.GameCompleteScreen(true);
+
+		stageOn = false;
+		stageTimerOn = false;
+		Game.control.enemySpawner.AbortSpawner();
+		Game.control.dialog.EndDialog();
+	}
 
 
 	IEnumerator DeathHandling ()
@@ -126,6 +131,7 @@ public class StageHandler : MonoBehaviour {
 
 		Game.control.sound.StopMusic ();
 		Game.control.menu.Menu("SaveScorePrompt");
+		Game.control.ui.GameOverScreen (true);
 
 		stageOn = false;
 		stageTimerOn = false;
@@ -148,10 +154,14 @@ public class StageHandler : MonoBehaviour {
 
 	void NextStage ()
 	{
-		Game.control.MainMenu ();
+		//Game.control.MainMenu ();
 		/*Game.control.ui.StageCompleted (false);
 		currentStage++;
 		StartStage(currentStage, false);*/
+	}
+
+	public void GameComplete(){
+
 	}
 
 	//If time is up, boss leaves the screen and stage is completed

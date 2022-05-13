@@ -99,6 +99,9 @@ public class UIController : MonoBehaviour {
 	public GameObject saveScorePrompt;
 	public GameObject saveScoreContainer;
 	public GameObject gameOverOptionsContainer;
+	
+	public Transform gameOverImage;
+	public Transform gameCompleteImage;
 
 	public TMP_InputField scoreSaveNameInput;
 
@@ -124,7 +127,9 @@ public class UIController : MonoBehaviour {
 
 		if(scoreSaveNameInput.gameObject.activeSelf){
 			if(Input.GetKeyDown(KeyCode.Return)){
-				Game.control.menu.Menu("GameOverMenu");
+				//DONT DO LIKE THIS, THIS IS JUST A TEMP SOLUTION
+				if(gameOverImage.gameObject.activeSelf) Game.control.menu.Menu("GameOverMenu");
+				else if(gameCompleteImage.gameObject.activeSelf) Game.control.MainMenu();
 				Game.control.io.SaveScore(scoreSaveNameInput.text, Game.control.player.stats.score, Game.control.stageHandler.difficultyAsString);
 			}
 		}
@@ -470,8 +475,17 @@ public class UIController : MonoBehaviour {
 		scoreInfo.text = Game.control.player.stats.score.ToString() + " " + Game.control.stageHandler.difficultyAsString;
 	}
 
+	public void GameCompleteScreen(bool value){
+		gameOver.SetActive(value);
+		gameOverImage.gameObject.SetActive(false);
+		gameCompleteImage.gameObject.SetActive(true);
+		saveScorePrompt.SetActive(true);
+	}
+
 	public void GameOverScreen(bool value){
 		gameOver.SetActive(value);
+		gameOverImage.gameObject.SetActive(true);
+		gameCompleteImage.gameObject.SetActive(false);
 		saveScorePrompt.SetActive(true);
 	}
 
