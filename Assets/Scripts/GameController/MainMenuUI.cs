@@ -15,6 +15,8 @@ public class MainMenuUI : MonoBehaviour
     public GameObject optionsContainer;
 	public GameObject optionsValueContainer;
 
+	public GameObject scorePanel;
+
 	TextMeshProUGUI[] menuTexts = null;
 
    	public void InitMainMenu(){
@@ -42,13 +44,19 @@ public class MainMenuUI : MonoBehaviour
 	public void ToggleMainMenu(bool toggle){
 		difficultyPanel.gameObject.SetActive(false);
 		optionsPanel.SetActive(false);
+		scorePanel.SetActive(false);
 		mainMenuPanel.GetComponentsInChildren<TextMeshProUGUI>()[0].fontStyle = FontStyles.Bold;
 		mainMenuPanel.gameObject.SetActive(toggle);
 	}
 
 	public void ToggleDifficultySelection(bool toggle){
 		difficultyPanel.gameObject.SetActive(toggle);
-		mainMenuPanel.gameObject.SetActive(false);
+		mainMenuPanel.gameObject.SetActive(!toggle);
+	}
+
+	public void ToggleScorePanel(bool toggle){
+		mainMenuPanel.gameObject.SetActive(!toggle);
+		scorePanel.SetActive(toggle);
 	}
 
 	public void ToggleOptions(bool toggle){

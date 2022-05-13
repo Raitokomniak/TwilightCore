@@ -65,6 +65,11 @@ public class MenuController : MonoBehaviour
 						Menu("MainMenu");
 					}
 				}
+				else if(context == "Hiscores"){
+					if(Game.control.mainMenuUI != null)
+						Menu("MainMenu");
+
+				}
 			}
 		}
 
@@ -124,6 +129,7 @@ public class MenuController : MonoBehaviour
 		//INSTEAD OF ITEMS, JUST FOLLOW INDEX
 		mainMenuItems = new List<string>();
 		mainMenuItems.Add ("Start Game");
+		mainMenuItems.Add ("Hiscores");
 		mainMenuItems.Add ("Options");
 		mainMenuItems.Add ("Quit Game");
 
@@ -179,8 +185,9 @@ public class MenuController : MonoBehaviour
 	{
 		if(context == "MainMenu"){
 			if(selectedIndex == 0) Menu("DifficultyMenu");
-			if(selectedIndex == 1) Menu("OptionsMenuMain");
-			if(selectedIndex == 2) Game.control.QuitGame();
+			if(selectedIndex == 1) context = "Hiscores"; Game.control.mainMenuUI.ToggleScorePanel(true);
+			if(selectedIndex == 2) Menu("OptionsMenuMain");
+			if(selectedIndex == 3) Game.control.QuitGame();
 		}
 		else if(context == "DifficultyMenu"){
 			if(selectedIndex == 0) Game.control.stageHandler.SetDifficulty(1);
