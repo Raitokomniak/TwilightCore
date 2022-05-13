@@ -130,7 +130,7 @@ public class UIController : MonoBehaviour {
 				//DONT DO LIKE THIS, THIS IS JUST A TEMP SOLUTION
 				if(gameOverImage.gameObject.activeSelf) Game.control.menu.Menu("GameOverMenu");
 				else if(gameCompleteImage.gameObject.activeSelf) Game.control.MainMenu();
-				Game.control.io.SaveScore(scoreSaveNameInput.text, Game.control.player.stats.score, Game.control.stageHandler.difficultyAsString);
+				Game.control.io.SaveScore(scoreSaveNameInput.text, Game.control.stageHandler.stats.score, Game.control.stageHandler.difficultyAsString);
 			}
 		}
 
@@ -197,7 +197,7 @@ public class UIController : MonoBehaviour {
 		PauseScreen(false);
 		dialog.SetActive(false);
 
-		xp.text = "XP: " + 0 + " / " + Game.control.player.stats.xpCap;
+		//xp.text = "XP: " + 0 + " / " + Game.control.player.stats.xpCap;
 
 		foreach (GameObject parallax in topLayers) {
 			parallax.GetComponent<TopLayerParallaxController> ().Init ();
@@ -471,7 +471,7 @@ public class UIController : MonoBehaviour {
 	public void SaveScoreScreen(bool value){
 		saveScoreScreen.SetActive(value);
 		saveScorePrompt.SetActive(false);
-		scoreInfo.text = Game.control.player.stats.score.ToString() + " " + Game.control.stageHandler.difficultyAsString;
+		scoreInfo.text = Game.control.stageHandler.stats.score.ToString() + " " + Game.control.stageHandler.difficultyAsString;
 	}
 
 	public void GameCompleteScreen(bool value){
@@ -518,7 +518,7 @@ public class UIController : MonoBehaviour {
 	{
 		switch (key) {
 		case "XP":
-			xp.text = "XP: " + value.ToString () + " / " + Game.control.player.stats.xpCap;
+			xp.text = "XP: " + value.ToString () + " / " + Game.control.stageHandler.stats.xpCap;
 			break;
 		case "Lives":
 			lives.text = "Lives: " + value.ToString();

@@ -154,8 +154,8 @@ public class PlayerShoot : MonoBehaviour {
 	}
 
 	public void UpdateShootLevel(){
-		coolDown = Game.control.player.stats.shootSpeed;
-		bulletScale = Game.control.player.stats.bulletScale;
+		coolDown = Game.control.stageHandler.stats.shootSpeed;
+		bulletScale = Game.control.stageHandler.stats.bulletScale;
 		//shootLevel = Game.control.player.shootLevel;
 
 		foreach (GameObject weapon in weaponsInUse) {

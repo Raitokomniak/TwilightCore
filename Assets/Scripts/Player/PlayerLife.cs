@@ -3,19 +3,20 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class PlayerLife : MonoBehaviour {
-
-	public int lives;
+	
+	int lives; 
 	public bool dead;
 	public bool invulnerable;
 	IEnumerator invulnerabilityRoutine;
 
 	public void Init(){
-		lives = Game.control.player.stats.maxLives;
+		lives = Game.control.stageHandler.stats.lives;
 		Game.control.ui.UpdateStatPanel("Lives", lives);
 		GetComponent<SpriteRenderer> ().enabled = true;
 		invulnerable = false;
 		dead = false;
 	}
+
 
 	void Update(){
 		if(!invulnerable)

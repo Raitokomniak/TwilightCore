@@ -115,7 +115,7 @@ public class EnemyLife : MonoBehaviour {
 			if (tag != "Boss" && tag != "MidBoss") {
 				Die ();
 			} else
-				TakeHit (Game.control.player.stats.damage);
+				TakeHit (Game.control.stageHandler.stats.damage);
 		}
 	}
 }

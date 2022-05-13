@@ -214,13 +214,13 @@ public class MenuController : MonoBehaviour
 				Game.control.pause.HandlePause();
 				menuOn = false;
 			}
-			if(selectedIndex == 1) Game.control.stageHandler.RestartStage (Game.control.stageHandler.currentStage);
+			if(selectedIndex == 1) Game.control.stageHandler.RestartStage ();
 			if(selectedIndex == 2) Menu("OptionsMenu");
 			if(selectedIndex == 3) Game.control.QuitGame();
 			Game.control.ui.UpdateMenuSelection (context, 0);
 		}
 		else if(context == "GameOverMenu"){
-			if(selectedIndex == 0) Game.control.stageHandler.RestartStage (Game.control.stageHandler.currentStage);
+			if(selectedIndex == 0) Game.control.stageHandler.RestartStage ();
 			if(selectedIndex == 1) Game.control.MainMenu();
 			if(selectedIndex == 2) Game.control.QuitGame();
 		}

@@ -7,8 +7,9 @@ using System.IO;
 public class StageHandler : MonoBehaviour {
 
 	Stage stageScript;
-	
-	PlayerStats savedStats;
+
+	public PlayerStats stats;
+	PlayerStats statsAtStageStart;
 
 	public int difficultyMultiplier; //1 easy //3 normal //5 hard //8+ nightmarish
 	public string difficultyAsString;
@@ -22,11 +23,8 @@ public class StageHandler : MonoBehaviour {
 
 	public bool stageOn;
 
+	IEnumerator startStageRoutine;
 
-	IEnumerator restartRoutine;
-
-
-	ScoreSave currentHiScore;
 
 	void Update () {
 		if(stageOn){
@@ -78,7 +76,7 @@ public class StageHandler : MonoBehaviour {
 
 	public void EndHandler (string endType)
 	{
-		savedStats = Game.control.player.stats;
+		
 		if(stageScript != null) stageScript.StopStage();
 
 		switch (endType) {
@@ -141,7 +139,7 @@ public class StageHandler : MonoBehaviour {
 	}
 
 	IEnumerator StageCompleteHandling ()
-	{
+	{	
 		Game.control.ui.HideBossTimer();
 		Game.control.ui.ToggleBossHealthSlider (false, 0, "");
 		yield return new WaitUntil(() => CheckIfAllPickUpsGone() == true);
@@ -156,7 +154,7 @@ public class StageHandler : MonoBehaviour {
 		//Game.control.MainMenu ();
 		Game.control.ui.StageCompleted (false);
 		currentStage++;
-		StartStage(currentStage, false);
+		StartStage(currentStage);
 	}
 
 	//If time is up, boss leaves the screen and stage is completed
@@ -169,18 +167,29 @@ public class StageHandler : MonoBehaviour {
 		StartCoroutine (StageCompleteHandling ());
 	}
 	
-	public void RestartStage(int stage){
+	public void RestartStage(){
 		if(stageScript != null) stageScript.StopStage();
-		StartStage(stage, false);
+		stats = new PlayerStats(statsAtStageStart);
+		StartStage(currentStage);
 	}
 
-	public void StartStage (int stage, bool playerInit){
+	public void StartGame(){
+		stats = new PlayerStats();
+		StartStage(1);
+	}
+
+	public void StartStage (int stage){
+		statsAtStageStart = stats;
+
+		Debug.Log("lives stats " + stats.lives);
+		Debug.Log("lives statsatstagestart" + statsAtStageStart.lives);
+
 		gameOver = false;
 		stageCompleted = false;
 		stageTimerOn = false;
 		currentStage = stage;
-		restartRoutine = StartStageRoutine(playerInit);
-		StartCoroutine(restartRoutine);
+		startStageRoutine = StartStageRoutine();
+		StartCoroutine(startStageRoutine);
 	}
 
 	public void SetDifficulty(int diff){
@@ -192,12 +201,10 @@ public class StageHandler : MonoBehaviour {
 	}
 
 
-	IEnumerator StartStageRoutine(bool playerInit){
+	IEnumerator StartStageRoutine(){
 		yield return new WaitUntil(() => Game.control.enemySpawner.AbortSpawner() == true);
-		
 		AsyncOperation loadScene = SceneManager.LoadSceneAsync("Level1");
 		yield return new WaitUntil(() => loadScene.isDone == true);
-		
 		
 		Game.control.ui = GameObject.Find("StageCanvas").GetComponent<UIController>();
 		Game.control.ui.ToggleLoadingScreen(true);
@@ -207,22 +214,17 @@ public class StageHandler : MonoBehaviour {
 		Game.control.enemySpawner.DestroyAllProjectiles();
 		yield return new WaitForSeconds(1);
 
-	//Game.control.menu.ToggleMenu (false);
 		Game.control.enemyLib.InitEnemyLib ();
 		Game.control.scene.SetUpEnvironment ();
 		//Game.control.io.LoadScore();
-		if(playerInit) {
-			Game.control.player.Init();
-			savedStats = Game.control.player.stats;
-		}
-		else Game.control.player.LoadStats(savedStats);
 
 		Game.control.dialog.Init();
 		Game.control.ui.InitStage ();
 		Game.control.menu.InitMenu();
+		Game.control.player.Init();
+		Game.control.player.gameObject.SetActive (true);
 		
 
-		Game.control.player.gameObject.SetActive (true);
 		Game.control.sound.PlayMusic ("Stage", currentStage);
 		Game.control.enemySpawner.StartSpawner (currentStage);
 

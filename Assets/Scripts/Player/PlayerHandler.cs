@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerStats {
 
 	public int maxLives;
+	public int lives;
 	public int xp;
 	public int xpCap;
 	public int level;
@@ -23,6 +24,7 @@ public class PlayerStats {
 		damageMin = 1.3f;
 
 		maxLives = 5;
+		lives = maxLives;
 		xpCap = 5;
 		xp = 0;
 		level = 1;
@@ -35,12 +37,28 @@ public class PlayerStats {
 
 		upgradePoints = 0;
 	}
+
+	public PlayerStats(PlayerStats ps){
+		damageMin = ps.damageMin;
+
+		maxLives = ps.maxLives;
+		lives = ps.lives;
+		xpCap = ps.xpCap;
+		xp = ps.xp;
+		level = ps.level;
+		damage = ps.damage;
+		bulletScaleMin = ps.bulletScaleMin;
+		bulletScale = ps.bulletScale;
+
+		movementSpeed = ps.movementSpeed;
+		shootSpeed = ps.shootSpeed;
+
+		upgradePoints = ps.upgradePoints;
+	}
 }
 
 public class PlayerHandler : MonoBehaviour {
 
-
-	public PlayerStats stats;
 	public PlayerShoot combat;
 	public PlayerMovement movement;
 	public PlayerLife health;
@@ -53,57 +71,48 @@ public class PlayerHandler : MonoBehaviour {
 		movement = GetComponent<PlayerMovement>();
 		health = GetComponent<PlayerLife>();
 		special = GetComponent<PlayerSpecialAttack>();
-		//if(Game.control.InStages) DontDestroyOnLoad (gameObject);
-		//else Destroy(gameObject);
-	}
-
-
-
-	public void LoadStats(PlayerStats savedStats){
-		stats = savedStats;
-		health.Init ();
-		combat.Init ();
 	}
 
 	public void Init(){
-		if(stats == null) stats = new PlayerStats();
 		health.Init ();
 		combat.Init ();
+		Game.control.ui.UpdateScore (Game.control.stageHandler.stats.score);
+		Game.control.ui.UpdateStatPanel("Lives", Game.control.stageHandler.stats.lives);
 	}
 
-
 	public void GainScore(int gained){
+		PlayerStats stats = Game.control.stageHandler.stats;
 		stats.score += gained * Game.control.stageHandler.difficultyMultiplier;
 		if (stats.score >= stats.hiScore) {
-			stats.hiScore = stats.score;
+			stats.hiScore =stats.score;
 			Game.control.ui.UpdateHiScore (stats.hiScore);
 		}
 		Game.control.ui.UpdateScore (stats.score);
 	}
 
 
-
+/*
 	//////////////////////////////////////////////////
 	//////////////////////////////////////////////////
 	//NOT USED
 	////////////////////////////////////////////////
 	public void GainXP(int gainedXP)
 	{
-		stats.xp += gainedXP;
+		Game.control.stageHandler.stats.xp += gainedXP;
 
-		if(stats.xp >= stats.xpCap) {
-			stats.xp = stats.xp - stats.xpCap;
-			stats.xpCap += 5;
+		if(Game.control.stageHandler.stats.xp >= Game.control.stageHandler.stats.xpCap) {
+			Game.control.stageHandler.stats.xp = Game.control.stageHandler.stats.xp - Game.control.stageHandler.stats.xpCap;
+			Game.control.stageHandler.stats.xpCap += 5;
 			LevelUp();
 		}
 
-		Game.control.ui.UpdateStatPanel("XP", stats.xp);
+		Game.control.ui.UpdateStatPanel("XP", Game.control.stageHandler.stats.xp);
 	}
 
 	void LevelUp(){
-		stats.level++;
-		stats.upgradePoints++;
-		Game.control.ui.UpdateStatPanel ("UpgradePoints", stats.upgradePoints);
-	}
+		Game.control.stageHandler.stats.level++;
+		Game.control.stageHandler.stats.upgradePoints++;
+		Game.control.ui.UpdateStatPanel ("UpgradePoints", Game.control.stageHandler.stats.upgradePoints);
+	}*/
 
 }

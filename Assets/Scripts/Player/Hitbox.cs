@@ -19,7 +19,7 @@ public class Hitbox : MonoBehaviour {
 		//6 == pickup point layer
 		if(c.gameObject.layer == 6) { 
 			if(c.gameObject.tag == "ExpPoint") {
-				player.GainXP(7);
+				//player.GainXP(7);
 			}
 
 			if(c.gameObject.tag == "DayCorePoint" && !player.special.specialAttack) {
