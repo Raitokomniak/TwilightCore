@@ -1,19 +1,59 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+
+[System.Serializable] 
+public class ScoreList {
+    public List<ScoreSave> allScores;
+
+    public ScoreList(){
+        allScores = new List<ScoreSave>();
+    }
+}
+
+[System.Serializable] 
+public class ScoreSave {
+	[SerializeField] public string name;
+	[SerializeField] public long score;
+    [SerializeField] public string clearTime;
+    [SerializeField] public string difficulty;
+    [SerializeField] public string date;
+
+
+	public ScoreSave(string _name, long _score, int _difficulty){
+		name = _name;
+		score = _score;
+        if(_difficulty == 1) difficulty = "Very Easy";
+        if(_difficulty == 3) difficulty = "Easy";
+        if(_difficulty == 5) difficulty = "Normal";
+        if(_difficulty == 10) difficulty = "Nightmarish";
+
+        date = System.DateTime.Now.ToShortDateString();
+	}
+
+	public ScoreSave(){
+
+	}
+}
 
 public class SaveLoadHandler : MonoBehaviour {
 
+    public ScoreList scoreList;
 	public string appDataPath;
 
     void Awake(){
         //appDataPath = Application.dataPath;           //FOR DEVVING
 		appDataPath = Application.persistentDataPath;   //FOR BUILD
+
+        scoreList = new ScoreList();
     }
 
-    public bool SaveScore(){
-        ScoreSave score = new ScoreSave("Player", Game.control.player.stats.hiScore);
-        string dataString = JsonUtility.ToJson(score);
+    public bool SaveScore(string name, long hiscore, int difficulty){
+        ScoreSave score = new ScoreSave(name, hiscore, difficulty);
+        scoreList.allScores.Add(score);
+        string dataString = JsonUtility.ToJson(scoreList);
+
         File.WriteAllText(appDataPath + "/score.json", dataString);
         return true;
     }
@@ -22,9 +62,10 @@ public class SaveLoadHandler : MonoBehaviour {
         if(File.Exists(appDataPath + "/score.json")){
 			ScoreSave loadedHiScore = new ScoreSave();
             string rawJson = File.ReadAllText(appDataPath + "/score.json");
-            loadedHiScore = JsonUtility.FromJson<ScoreSave>(rawJson);
-			Game.control.player.stats.hiScore = loadedHiScore.score;
-			Game.control.ui.UpdateHiScore(Game.control.player.stats.hiScore);
+            scoreList = JsonUtility.FromJson<ScoreList>(rawJson);
+
+			//Game.control.player.stats.hiScore = loadedHiScore.score;
+			//Game.control.ui.UpdateHiScore(Game.control.player.stats.hiScore);
             return true;
         }
         else return false;

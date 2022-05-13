@@ -83,7 +83,6 @@ MonoBehaviour:
   difficultyMultiplier: 0
   gameOver: 0
   stageCompleted: 0
-  stageTime: 0
   stageTimer: 0
   currentStage: 0
   stageTimerOn: 0
@@ -102,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handlingDialog: 0
   autoScroll: 0
+  playerActiveSpeaker: 0
 --- !u!114 &4442655861058145954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,10 +115,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   environment: {fileID: 0}
+  directionalLight: {fileID: 0}
   parent: {fileID: 0}
   environmentCamera: {fileID: 0}
   planes: []
-  init: 0
 --- !u!114 &4442655861058145955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,8 +133,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   centerX: 0
   centerY: 0
-  farRight: 0
-  farLeft: 0
+  rightOut: 0
+  leftOut: 0
   middleTop: {x: 0, y: 0, z: 0}
   topRight: {x: 0, y: 0, z: 0}
   leftTop: {x: 0, y: 0, z: 0}
@@ -195,6 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7bfd4cccb973144a64f2d136938f35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InStages: 0
   mainMenuUI: {fileID: 0}
   ui: {fileID: 0}
   dialog: {fileID: 0}
@@ -265,6 +266,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd272b1fd081f3479b06fe099ca2518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableSound: 0
-  bossMusicPlaying: 0
+  disableSound: 1
   SFXVolume: 0

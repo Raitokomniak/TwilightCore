@@ -3,21 +3,6 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System.IO;
 
-[System.Serializable] 
-public class ScoreSave {
-	[SerializeField] public string name;
-	[SerializeField] public long score;
-
-	public ScoreSave(string _name, long _score){
-		name = _name;
-		score = _score;
-	}
-
-	public ScoreSave(){
-
-	}
-}
-
 
 public class StageHandler : MonoBehaviour {
 
@@ -41,7 +26,6 @@ public class StageHandler : MonoBehaviour {
 	IEnumerator timeUpRoutine;
 
 	ScoreSave currentHiScore;
-
 
 	void Update () {
 		if(stageOn){
@@ -93,7 +77,7 @@ public class StageHandler : MonoBehaviour {
 
 	public void EndHandler (string endType)
 	{
-		Game.control.io.SaveScore();
+		Game.control.io.SaveScore("Player", Game.control.player.stats.hiScore, difficultyMultiplier);
 		savedStats = Game.control.player.stats;
 		if(stageScript != null) stageScript.StopStage();
 
@@ -148,10 +132,10 @@ public class StageHandler : MonoBehaviour {
 
 	void NextStage ()
 	{
-		//Game.control.MainMenu ();
-		Game.control.ui.StageCompleted (false);
+		Game.control.MainMenu ();
+		/*Game.control.ui.StageCompleted (false);
 		currentStage++;
-		StartStage(currentStage, false);
+		StartStage(currentStage, false);*/
 	}
 
 	//If time is up, boss leaves the screen and stage is completed
