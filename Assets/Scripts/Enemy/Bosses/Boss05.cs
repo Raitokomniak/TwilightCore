@@ -66,18 +66,6 @@ public class Boss05 : Phaser
 				patterns[0].StopPattern();
 				patterns[1].StopPattern();
 				NextPhase();
-				/*
-				for (int i = 0; i < 5; i++) {
-					yield return new WaitForSeconds (2f);
-					enemy.BossShoot (patterns[0]);
-					enemy.BossShoot (patterns[1]);
-					yield return new WaitForSeconds (2.2f);
-					patterns[0].StopPattern();
-					patterns[1].StopPattern();
-				}*/
-
-				
-
 				break;
 			case 2:
 				Game.control.ui.UpdateTopPlayer (1f);

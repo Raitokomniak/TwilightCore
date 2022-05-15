@@ -19,8 +19,6 @@ public class Wave
 
 	public EnemyMovementPattern movementPattern;
 	public Pattern shootPattern;
-	public ArrayList bossPatterns;
-	public ArrayList bossMovePatterns;
 	public ArrayList phases;
 
 	public Sprite sprite;
@@ -33,9 +31,10 @@ public class Wave
 	public bool dead;
 
 
-
+	//FOR REGURAL ENEMIES
+	
 	public Wave(float _spawnTime, EnemyMovementPattern _movementPattern, Pattern _shootPattern, 
-				int _enemyCount, bool _simultaneous, int _health, bool _isBoss, float _shootSpeed, int _healthBars)
+				int _enemyCount, bool _simultaneous, int _health, float _shootSpeed, string spriteName)
 	{
 		spawnTime = _spawnTime;
 		enemyCount = _enemyCount;
@@ -45,15 +44,42 @@ public class Wave
 		if(_shootPattern != null) shootPattern = _shootPattern;
 
 		health = _health;
+		shootSpeed = _shootSpeed;
+		spawnPositions = new ArrayList ();
+		enemyCounter = enemyCount;
+		sprite = Game.control.spriteLib.SetEnemySprite(spriteName);
+	}
+
+	/*
+	public Wave(float _spawnTime, EnemyMovementPattern _movementPattern, Pattern _shootPattern, 
+				int _enemyCount, bool _simultaneous, int _health, bool _isBoss, float _shootSpeed, int _healthBars, string spriteName)
+	{
+		spawnTime = _spawnTime;
+		enemyCount = _enemyCount;
+		simultaneous = _simultaneous;
+		movementPattern = _movementPattern;
+		
+		if(_shootPattern != null) shootPattern = _shootPattern;
+
+		health = _health;
+		shootSpeed = _shootSpeed;
+		spawnPositions = new ArrayList ();
+		enemyCounter = enemyCount;
+		sprite = Game.control.spriteLib.SetEnemySprite(spriteName);
+	}*/
+
+	//FOR BOSSES
+	public Wave(float _spawnTime, int _health, bool _isBoss, int _healthBars, string spriteName)
+	{
+		spawnTime = _spawnTime;
+		health = _health;
 		healthBars = _healthBars;
 		isBoss = _isBoss;
-		isMidBoss = false;
-		shootSpeed = _shootSpeed;
-		bossMovePatterns = new ArrayList();
-		bossPatterns = new ArrayList();
+		isMidBoss = !isBoss;
 		spawnPositions = new ArrayList ();
 		phases = new ArrayList ();
 		enemyCounter = enemyCount;
+		sprite = Game.control.spriteLib.SetCharacterSprite(spriteName);
 	}
 
 	public Wave(Wave w)
@@ -69,8 +95,6 @@ public class Wave
 		healthBars = w.healthBars;
 		isBoss = w.isBoss;
 		shootSpeed = w.shootSpeed;
-		bossMovePatterns = new ArrayList();
-		bossPatterns = new ArrayList();
 		spawnPositions = new ArrayList ();
 		phases = new ArrayList ();
 
@@ -120,6 +144,7 @@ public class Wave
 
 		} 
 		else {
+			enemy.GetComponent<SpriteRenderer> ().sprite = sprite;
 			enemy.GetComponent<EnemyShoot> ().SetUpAndShoot (shootPattern, shootSpeed);
 		}
 		spawned = true;

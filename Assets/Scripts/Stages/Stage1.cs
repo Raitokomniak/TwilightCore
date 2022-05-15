@@ -63,7 +63,7 @@ public class Stage1 : Stage
 			p = new P_SingleHoming();
 			p.bulletMovement = new BulletMovementPattern (true, null, 0.5f, p, 0, 14);
 			p.SetSprite ("Circle", "Big", "Red");
-			lib.NewWave (new Wave (5f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
+			lib.NewWave (new Wave (5f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.rightTop });
 																			// .6f
 			
 			mp = new EnemyMovementPattern (lib.enterLeave);
@@ -72,7 +72,7 @@ public class Stage1 : Stage
 			p = new P_SingleHoming();
 			p.bulletMovement = new BulletMovementPattern (true, null, 0.5f, p, 0, 14);
 			p.SetSprite ("Circle", "Big", "Red");
-			lib.NewWave (new Wave (7f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
+			lib.NewWave (new Wave (7f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.leftTop });
 																				// .6f
 			
 
@@ -85,7 +85,7 @@ public class Stage1 : Stage
 			p = new P_SingleHoming();
 			p.bulletMovement = new BulletMovementPattern (true, null, 0.5f, p, 0, 14);
 			p.SetSprite ("Circle", "Big", "Red");	
-			lib.NewWave (new Wave (8f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
+			lib.NewWave (new Wave (8f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.rightTop });
 
 			
 			mp = new EnemyMovementPattern (lib.enterLeave);
@@ -94,7 +94,7 @@ public class Stage1 : Stage
 			p = new P_SingleHoming();
 			p.bulletMovement = new BulletMovementPattern (true, null, 0.5f, p, 0, 14);
 			p.SetSprite ("Circle", "Big", "Red");	
-			lib.NewWave (new Wave (15f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
+			lib.NewWave (new Wave (15f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.leftTop });
 			
 			}
 		
@@ -105,7 +105,7 @@ public class Stage1 : Stage
 			p.bulletCount = Mathf.CeilToInt(2.8f * (difficultyMultiplier / 2));
 			p.bulletMovement = new BulletMovementPattern (false, "Explode", 7f, p, 0, 14);
 			p.SetSprite ("Circle", "Glow", "Green");	
-			lib.NewWave (new Wave (16f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
+			lib.NewWave (new Wave (16f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.rightTop });
 
 
 			mp = new EnemyMovementPattern (lib.snake);
@@ -113,7 +113,7 @@ public class Stage1 : Stage
 			p = new P_Circle();
 			p.bulletMovement = new BulletMovementPattern (false, "Explode", 7f, p, 0, 14);
 			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (17f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
+			lib.NewWave (new Wave (17f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.topLeft });
 
 			
 			//PHASE3
@@ -124,7 +124,7 @@ public class Stage1 : Stage
 			p = new P_Circle();
 			p.bulletMovement = new BulletMovementPattern (false, "Explode", 7f, p, 0, 14);
 			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (28f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
+			lib.NewWave (new Wave (28f, mp, p, 5, false, 0,  3f / difficultyMultiplier,  "default"), new ArrayList { lib.topLeft });
 												 //28f
 			mp = new EnemyMovementPattern (lib.snake);
 			mp.Customize ("LeaveDir", "Left");
@@ -132,7 +132,7 @@ public class Stage1 : Stage
 			p = new P_Circle();
 			p.bulletMovement = new BulletMovementPattern (false, "Explode", 7f, p, 0, 14);
 			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (31f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
+			lib.NewWave (new Wave (31f, mp, p, 5, false, 0,  3f / difficultyMultiplier, "default"), new ArrayList { lib.topRight });
 												 //31f
 
 			mp = new EnemyMovementPattern (lib.snake);
@@ -142,7 +142,7 @@ public class Stage1 : Stage
 			p.bulletCount =  10;
 			p.bulletMovement = new BulletMovementPattern (false, "Explode", 7f, p, 0, 14);
 			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (33f, mp, p, 3, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
+			lib.NewWave (new Wave (33f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.topRight });
 
 			mp = new EnemyMovementPattern (lib.snake);
 			mp.Customize ("LeaveDir", "Left");
@@ -151,7 +151,7 @@ public class Stage1 : Stage
 			p.bulletCount =  10;
 			p.bulletMovement = new BulletMovementPattern (false, "Explode", 7f, p, 0, 14);
 			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (36f, mp, p, 3, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
+			lib.NewWave (new Wave (36f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.topLeft });
 
 
 			mp = new EnemyMovementPattern (lib.enterLeave);
@@ -163,7 +163,7 @@ public class Stage1 : Stage
 			p.bulletCount = Mathf.CeilToInt(4 * difficultyMultiplier);
 			p.bulletMovement = new BulletMovementPattern (false, "Explode", 11f, p, 0, 14);
 			p.SetSprite ("Circle", "Glow", "Green");
-			lib.NewWave (new Wave (41f, mp, p, 3, false, 40, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
+			lib.NewWave (new Wave (41f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"), new ArrayList { lib.rightTop });
 
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.targetPos = new Vector3 (-14, 7, 0);
@@ -174,17 +174,18 @@ public class Stage1 : Stage
 			p.bulletCount = Mathf.CeilToInt(4 * difficultyMultiplier);
 			p.bulletMovement = new BulletMovementPattern (false, "Explode", 11f, p, 0, 14);
 			p.SetSprite ("Circle", "Glow", "Yellow");
-			lib.NewWave (new Wave (41.5f, mp, p, 3, false, 40, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
+			lib.NewWave (new Wave (41.5f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"), new ArrayList { lib.leftTop });
 
 			//MID-BOSS
 
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.Customize ("StayTime", 24f);
 			mp.Customize ("LeaveDir", "Up");
-			Wave bossMid1 = new Wave(55f, mp, null, 1,  false, 150, false, 3f, 1);
+			Wave bossMid1 = new Wave(55f, 150, false, 1, "boss0.5");
 			bossMid1.SetUpBoss (0.5f, "Asura", true);
 
 			lib.NewWave (bossMid1, new ArrayList { lib.middleTop });
+
 
 
 			//CONTD
@@ -194,7 +195,7 @@ public class Stage1 : Stage
 			p = new P_Circle();
 			p.bulletMovement = new BulletMovementPattern (false, "Explode", 7f, p, 0, 14);
 			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (83f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
+			lib.NewWave (new Wave (83f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.topRight });
 
 
 			mp = new EnemyMovementPattern (lib.snake);
@@ -204,7 +205,7 @@ public class Stage1 : Stage
 			p.bulletCount =  Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
 			p.bulletMovement = new BulletMovementPattern (false, "Explode", 7f, p, 0, 14);
 			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (87f, mp, p, 3, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
+			lib.NewWave (new Wave (87f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.topRight });
 
 			mp = new EnemyMovementPattern (lib.snake);
 			mp.Customize ("LeaveDir", "Right");
@@ -213,7 +214,7 @@ public class Stage1 : Stage
 			p.bulletCount =  Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
 			p.bulletMovement = new BulletMovementPattern (false, "Explode", 7f, p, 0, 14);
 			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (90f, mp, p, 3, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topLeft });
+			lib.NewWave (new Wave (90f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.topLeft });
 
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.targetPos = new Vector3 (0, 7, 0);
@@ -224,7 +225,7 @@ public class Stage1 : Stage
 			p.bulletCount =  Mathf.CeilToInt(4 * difficultyMultiplier);
 			p.bulletMovement = new BulletMovementPattern (false, "Explode", 11f, p, 0, 14);
 			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (90f, mp, p, 3, false, 40, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.rightTop });
+			lib.NewWave (new Wave (90f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"), new ArrayList { lib.rightTop });
 
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.targetPos = new Vector3 (-14, 7, 0);
@@ -235,7 +236,7 @@ public class Stage1 : Stage
 			p.bulletCount =  Mathf.CeilToInt(4 * difficultyMultiplier);
 			p.bulletMovement = new BulletMovementPattern (false, "Explode", 11f, p, 0, 14);
 			p.SetSprite ("Circle", "Glow", "Yellow");	 
-			lib.NewWave (new Wave (90.5f, mp, p, 3, false, 40, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
+			lib.NewWave (new Wave (90.5f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"), new ArrayList { lib.leftTop });
 
 
 			//*/
@@ -253,7 +254,8 @@ public class Stage1 : Stage
 			///*
 			mp = new EnemyMovementPattern (lib.enterFromTop);
 			mp.Customize ("StayTime", 0);
-			boss = new Wave(100f, mp, null, 1,  false, 60 * Mathf.CeilToInt(difficultyMultiplier) , true, 3f, 2);
+			boss = new Wave(100f, 60 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss1");
+			boss.movementPattern = lib.enterFromTop;
 			//*/
 
 			boss.SetUpBoss (1, "Maaya, Forest Guardian", false);
