@@ -155,7 +155,7 @@ public class Stage2 : Stage
 		mp.Customize("EnterDir", "Left");
 		mp.Customize ("LeaveDir", "Left");
 		mp.Customize("StayTime", 10f);
-		p = new Pattern(new P_SpiderWebLaser());
+		p = new P_SpiderWebLaser();
 		lib.NewWave (new Wave (55f, mp, p, 1, false, 100, false, 5, 0), new ArrayList { lib.leftTop });
 
 
