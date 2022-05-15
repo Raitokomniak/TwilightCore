@@ -117,7 +117,7 @@ public class Pattern
 		newPosition = _enemy.transform.position;
 		bulletRotation = _enemy.transform.rotation;
 		stop = false;
-
+		 
 		IEnumerator co = ExecuteRoutine (_enemy);
 		return co;
 	}

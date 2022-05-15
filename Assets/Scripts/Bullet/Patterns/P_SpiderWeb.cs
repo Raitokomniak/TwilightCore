@@ -8,7 +8,6 @@ public class P_SpiderWeb : Pattern
 		bossSpecial = true;
 		bulletCount = 10;
 		coolDown = 3;
-
 		tempMagnitude = originMagnitude;
 	}
 
@@ -24,7 +23,7 @@ public class P_SpiderWeb : Pattern
 				bulletRotation = Quaternion.Euler (0f, 0f, i * (360 / bulletCount));
 				bulletMovement = new BulletMovementPattern (bulletMovement);
 				InstantiateBullet (enemyBullet);
-				bullet.GetComponent<SpriteRenderer> ().sprite = spriteLib.SetBulletSprite ("Circle", "Glow", "Red");
+				bullet.GetComponent<SpriteRenderer> ().sprite = Game.control.spriteLib.SetBulletSprite ("Circle", "Glow", "Red");
 				bullets.Add (enemyBullet);
 			}
         }

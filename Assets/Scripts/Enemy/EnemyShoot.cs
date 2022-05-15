@@ -27,12 +27,14 @@ public class EnemyShoot : MonoBehaviour {
 
 	IEnumerator ShootRoutine(Pattern pattern){
 		while (!enemyLife.GetInvulnerableState ()) {
+			
 			StartCoroutine (pattern.Execute (enemyBullet, this));
 			yield return new WaitForSeconds (shootSpeed);
 		}
 	}
 
 	public void BossShoot(Pattern pat){
+		Debug.Log("execute " + pat);
 		StartCoroutine (pat.Execute (enemyBullet, this));
 	}
 }

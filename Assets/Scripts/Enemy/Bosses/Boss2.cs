@@ -34,9 +34,10 @@ public class Boss2 : Phaser
 				patterns[0].rotationDirection =  1;
 				patterns[0].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[0], 0, 14);
 
-				patterns.Add(new Pattern (new P_SpiderWeb()));
+				patterns.Add(new P_SpiderWeb());
 				patterns[1].bulletMovement = new BulletMovementPattern (false, "DownAndExplode", 0.5f, patterns[1], 0, 14);
 				patterns[1].SetSprite ("Circle", "Glow", "Red");
+
 				while (!phaser.endOfPhase) {	
 					enemyMove.SetUpPatternAndMove (new EnemyMovementPattern (lib.rocking));
 					enemy.BossShoot (patterns[1]);
@@ -88,8 +89,8 @@ public class Boss2 : Phaser
 				movementPatterns.Add(new EnemyMovementPattern("ZigZagBoss", new Vector3(0f, 8f, 0f), false, 0));
 				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (-15, 4f, 0f), false, 0));
 
-				patterns.Add(new Pattern (new P_SpiderWebLaser()));
-				patterns[0].bulletCount =  4;
+				patterns.Add(new P_SpiderWebLaser());
+				patterns[0].bulletCount = 2 * difficultyMultiplier;
 				patterns[0].rotationDirection =  0;
 
 				patterns.Add(new P_RepeatedHoming());
@@ -131,7 +132,7 @@ public class Boss2 : Phaser
 				patterns[0].bulletCount = 6;
 				patterns[0].bulletMovement = new BulletMovementPattern (true, "WaitAndExplode", 6f, patterns[0], 0, 14);
 				patterns[0].SetSprite ("Circle", "Glow", "White");
-				patterns.Add(new Pattern (new P_GiantWeb()));
+				patterns.Add(new P_GiantWeb());
 				patterns[1] = new P_Maelstrom();
 				patterns[1].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14);
 				patterns[1].SetSprite ("Diamond", "Glow", "Red");

@@ -83,7 +83,7 @@ public class Boss05 : Phaser
 				Game.control.ui.UpdateTopPlayer (1f);
 				Game.control.ui.ShowActivatedPhase ("Boss", "Twilight Core: Depulsio");
 				GetComponent<EnemyLife>().SetInvulnerable (true);
-				
+
 				patterns.Add(new P_Spiral());
 				patterns[0].SetSprite ("Circle", "Glow", "BlackPurple");
 				patterns[0].bulletCount =  Mathf.CeilToInt(4 * (difficultyMultiplier / 2f));
@@ -101,7 +101,7 @@ public class Boss05 : Phaser
 				patterns[1].bulletCount = 5 * difficultyMultiplier;
 				patterns[1].rotationDirection = -1;
 
-				while(Game.control.stageHandler.stageTimer < enemy.wave.spawnTime + 26f)
+				while(Game.control.stageHandler.stageTimer < enemy.wave.spawnTime + enemy.wave.movementPattern.stayTime)
 				{
 					yield return new WaitForSeconds (1f);
 					enemy.BossShoot (patterns[0]);

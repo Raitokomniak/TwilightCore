@@ -179,7 +179,7 @@ public class Stage1 : Stage
 			//MID-BOSS
 
 			mp = new EnemyMovementPattern (lib.enterLeave);
-			mp.Customize ("StayTime", 27f);
+			mp.Customize ("StayTime", 24f);
 			mp.Customize ("LeaveDir", "Up");
 			Wave bossMid1 = new Wave(55f, mp, null, 1,  false, 150, false, 3f, 1);
 			bossMid1.SetUpBoss (0.5f, "Asura", true);

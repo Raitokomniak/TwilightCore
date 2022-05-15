@@ -5,9 +5,16 @@ using UnityEngine;
 public class P_SpiderWebLaser : Pattern
 {
     int laserIndex = 0;
+
+    public P_SpiderWebLaser(){
+        originMagnitude = 15;
+		tempMagnitude = originMagnitude;
+    }
+
         public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
         yield return new WaitForSeconds(delayBeforeAttack);
-		pos = enemy.transform.position;
+		//pos = enemy.transform.position;
+       
         
         for (int i = -1; i < bulletCount / 2; i++) {
                         float ang = 90 + (10 * Random.Range(-3, 3));

@@ -176,7 +176,7 @@ public class StageHandler : MonoBehaviour {
 
 	public void StartGame(){
 		stats = new PlayerStats();
-		StartStage(1);
+		StartStage(2);
 	}
 
 	public void StartStage (int stage){
