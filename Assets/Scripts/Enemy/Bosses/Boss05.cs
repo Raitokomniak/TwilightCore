@@ -82,6 +82,7 @@ public class Boss05 : Phaser
 			case 2:
 				Game.control.ui.UpdateTopPlayer (1f);
 				Game.control.ui.ShowActivatedPhase ("Boss", "Twilight Core: Depulsio");
+				GetComponent<EnemyLife>().SetInvulnerable (true);
 				
 				patterns.Add(new P_Spiral());
 				patterns[0].SetSprite ("Circle", "Glow", "BlackPurple");
