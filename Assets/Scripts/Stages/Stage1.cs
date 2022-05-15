@@ -237,6 +237,7 @@ public class Stage1 : Stage
 			p.SetSprite ("Circle", "Glow", "Yellow");	 
 			lib.NewWave (new Wave (90.5f, mp, p, 3, false, 40, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.leftTop });
 
+
 			//*/
 			
 

@@ -9,9 +9,9 @@ public class P_Circle : Pattern
         tempMagnitude = originMagnitude;
     }
 
-    public override IEnumerator ExecuteRoutine(){
-       
-        if(delayBeforeAttack > 0) yield return new WaitForSeconds(delayBeforeAttack);
+    public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
+        yield return new WaitForSeconds(delayBeforeAttack);
+		pos = enemy.transform.position;
         
         Game.control.sound.PlaySound ("Enemy", "Shoot", true);
 			for (int i = 0; i < bulletCount; i++) {

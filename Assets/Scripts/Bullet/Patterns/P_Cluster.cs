@@ -12,9 +12,10 @@ public class P_Cluster : Pattern
 		tempMagnitude = originMagnitude;
 	}
 
- 	public override IEnumerator ExecuteRoutine ()
+ 	public override IEnumerator ExecuteRoutine (EnemyShoot enemy)
 	{
-		if(delayBeforeAttack > 0) yield return new WaitForSeconds(delayBeforeAttack);
+		yield return new WaitForSeconds(delayBeforeAttack);
+		pos = enemy.transform.position;
 
         			int dir = 1;
 			for (int i = 0; i < bulletCount; i++) {	

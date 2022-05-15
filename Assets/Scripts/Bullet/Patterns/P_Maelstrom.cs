@@ -9,8 +9,9 @@ public class P_Maelstrom : Pattern
 		coolDown = 0.2f;
 	}
 
-    public override IEnumerator ExecuteRoutine(){
-        if(delayBeforeAttack > 0) yield return new WaitForSeconds(delayBeforeAttack);
+    public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
+        yield return new WaitForSeconds(delayBeforeAttack);
+		pos = enemy.transform.position;
 
 		while (!stop) {
 			Game.control.sound.PlaySound ("Enemy", "Shoot", true);

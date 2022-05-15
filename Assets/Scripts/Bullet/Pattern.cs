@@ -118,11 +118,11 @@ public class Pattern
 		bulletRotation = _enemy.transform.rotation;
 		stop = false;
 
-		IEnumerator co = ExecuteRoutine ();
+		IEnumerator co = ExecuteRoutine (_enemy);
 		return co;
 	}
 
-    public virtual IEnumerator ExecuteRoutine (){
+    public virtual IEnumerator ExecuteRoutine (EnemyShoot enemy){
         yield return null;
     }
 

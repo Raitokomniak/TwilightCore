@@ -12,8 +12,9 @@ public class P_SpiderWeb : Pattern
 		tempMagnitude = originMagnitude;
 	}
 
-   public override IEnumerator ExecuteRoutine(){
-        if(delayBeforeAttack > 0) yield return new WaitForSeconds(delayBeforeAttack);
+   public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
+        yield return new WaitForSeconds(delayBeforeAttack);
+		pos = enemy.transform.position;
 
         bullets = new ArrayList ();
 			animation = (Resources.Load ("Images/Animations/SmallWeb") as GameObject);

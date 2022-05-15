@@ -11,8 +11,9 @@ public class P_PacMan : Pattern
 		tempMagnitude = originMagnitude;
 	}
 
-        public override IEnumerator ExecuteRoutine(){
-        if(delayBeforeAttack > 0) yield return new WaitForSeconds(delayBeforeAttack);
+        public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
+        yield return new WaitForSeconds(delayBeforeAttack);
+		pos = enemy.transform.position;
 
         for (int i = 0; i < bulletCount; i++) {
 				//sprite = Resources.Load<Sprite> ("Sprites/Circle_Glow_Red");

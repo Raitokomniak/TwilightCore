@@ -12,8 +12,10 @@ public class P_Laser : Pattern
 		tempMagnitude = originMagnitude;
 	}
 	
-    public override IEnumerator ExecuteRoutine(){
-        if(delayBeforeAttack > 0) yield return new WaitForSeconds(delayBeforeAttack);
+    public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
+        yield return new WaitForSeconds(delayBeforeAttack);
+		pos = enemy.transform.position;
+		
 			if (bulletCount > 1) {
 				for (int i = 0; i < bulletCount; i++) {
 					float ang = (i * (360 / bulletCount) + (360 / bulletCount)) * 0.7f;

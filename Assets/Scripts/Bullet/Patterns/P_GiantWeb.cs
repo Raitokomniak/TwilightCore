@@ -12,8 +12,10 @@ public class P_GiantWeb : Pattern
 		tempMagnitude = originMagnitude;
 	}
 
-    public override IEnumerator ExecuteRoutine(){
-        if(delayBeforeAttack > 0) yield return new WaitForSeconds(delayBeforeAttack);
+    public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
+        yield return new WaitForSeconds(delayBeforeAttack);
+		pos = enemy.transform.position;
+		
         bullets = new ArrayList ();
 				yield return new WaitForSeconds (2f);
 				pos = enemyShoot.GetLocalPosition ();

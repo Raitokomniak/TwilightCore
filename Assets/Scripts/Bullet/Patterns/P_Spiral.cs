@@ -12,8 +12,10 @@ public class P_Spiral : Pattern
 	}
 
 
-    public override IEnumerator ExecuteRoutine(){
-        if(delayBeforeAttack > 0) yield return new WaitForSeconds(delayBeforeAttack);
+    public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
+        yield return new WaitForSeconds(delayBeforeAttack);
+		pos = enemy.transform.position;
+		
         if (loopCircles == 0)
 				loopCircles = 360;
 			Vector3 centerPos = pos;
