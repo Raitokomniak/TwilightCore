@@ -63,7 +63,7 @@ public class DialogController : MonoBehaviour {
 			Game.control.ui.UpdateBossInfo ("Maaya", "Friendly Huldra");
 		}
 		if (_phase == "Boss2") {
-			Game.control.ui.UpdateBossInfo ("Spider Queen", "Void Spinner");
+			Game.control.ui.UpdateBossInfo ("Joanette", "Void Spinner");
 		}
 
 		TextAsset dialogueText = Resources.Load<TextAsset> ("DialogText/" + _phase);

@@ -8079,6 +8079,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1819228880244206501, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 12.133
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819228880244206501, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0001103
+      objectReference: {fileID: 0}
     - target: {fileID: 1819228880785474805, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
         type: 3}
       propertyPath: m_IsActive
@@ -8194,6 +8204,32 @@ PrefabInstance:
       propertyPath: m_Name
       value: World Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2802552229058410133, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -28.807
+      objectReference: {fileID: 0}
+    - target: {fileID: 2802552229058410133, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -7.939
+      objectReference: {fileID: 0}
+    - target: {fileID: 2802552229058410133, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -5.8085
+      objectReference: {fileID: 0}
+    - target: {fileID: 2802552229058410133, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3.483662
+      objectReference: {fileID: 0}
+    - target: {fileID: 2802552229058410135, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3f65bbfc488f8bc4a89d99e117a479f6,
+        type: 3}
     - target: {fileID: 2802552229394565277, guid: 1a2ad7ad1456b494ca3ab64a510b294c,
         type: 3}
       propertyPath: m_IsActive

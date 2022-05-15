@@ -38,7 +38,7 @@ public class Stage1 : Stage
 		while (stageHandler.stageTimer < 55f) yield return null;
 		
 		while (!Game.control.enemySpawner.midBossWave.dead) yield return null;
-		yield return new WaitForSeconds (1f);
+		yield return new WaitForSeconds (.5f);
 		Game.control.dialog.StartDialog ("Stage1_2");
 		while (Game.control.dialog.handlingDialog) yield return null;
 		scene.SetPlaneSpeed (15f);
@@ -194,7 +194,7 @@ public class Stage1 : Stage
 			p = new P_Circle();
 			p.bulletMovement = new BulletMovementPattern (false, "Explode", 7f, p, 0, 14);
 			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (82f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
+			lib.NewWave (new Wave (83f, mp, p, 5, false, 0, false, 3f / difficultyMultiplier, 0), new ArrayList { lib.topRight });
 
 
 			mp = new EnemyMovementPattern (lib.snake);

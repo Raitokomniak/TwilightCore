@@ -34,7 +34,6 @@ public class EnemyShoot : MonoBehaviour {
 	}
 
 	public void BossShoot(Pattern pat){
-		Debug.Log("execute " + pat);
 		StartCoroutine (pat.Execute (enemyBullet, this));
 	}
 }

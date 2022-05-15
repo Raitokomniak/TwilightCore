@@ -448,7 +448,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: For people who are new to SHMUPs
+  m_text: For playing while you sleep
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3106,7 +3106,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2058617869}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4e1490377cf7374886c6e93f42aa88b, type: 3}
+  m_Script: {fileID: 11500000, guid: ef3c85c05eceaba4d997f65c902cfc8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scoreSlotPrefab: {fileID: 2314984981968398007, guid: 5d4f8b736406bf24d8ad6c8dbe69e3ce,
