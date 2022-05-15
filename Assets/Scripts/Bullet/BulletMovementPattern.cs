@@ -15,6 +15,7 @@ public class BulletMovementPattern
 	public string property;
 
 	public float movementSpeed;
+	public float accelSpeed = 6f;
 	public Quaternion rotation;
 	public Vector3 scale;
 
@@ -77,7 +78,7 @@ public class BulletMovementPattern
 			Explode (false, bullet, 14, 1);
 			yield return new WaitUntil (() => p.allBulletsSpawned);
 			yield return new WaitForSeconds (.2f);
-			movementSpeed = 6f;
+			movementSpeed = accelSpeed;
 			bullet.GetComponent<EnemyBulletMovement> ().SmoothAcceleration ();
 			Explode (false, bullet, 14, 1);
 
