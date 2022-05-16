@@ -69,8 +69,10 @@ public class Wave
 	}*/
 
 	//FOR BOSSES
-	public Wave(float _spawnTime, int _health, bool _isBoss, int _healthBars, string spriteName)
+	public Wave(EnemyMovementPattern _movementPattern, float _spawnTime, int _health, bool _isBoss, int _healthBars, string spriteName)
 	{
+		movementPattern = _movementPattern;
+		enemyCount = 1;
 		spawnTime = _spawnTime;
 		health = _health;
 		healthBars = _healthBars;
@@ -146,6 +148,7 @@ public class Wave
 		else {
 			enemy.GetComponent<SpriteRenderer> ().sprite = sprite;
 			enemy.GetComponent<EnemyShoot> ().SetUpAndShoot (shootPattern, shootSpeed);
+			
 		}
 		spawned = true;
 	}

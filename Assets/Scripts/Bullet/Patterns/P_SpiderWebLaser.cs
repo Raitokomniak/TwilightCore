@@ -9,53 +9,48 @@ public class P_SpiderWebLaser : Pattern
     public P_SpiderWebLaser(){
         originMagnitude = 15;
 		tempMagnitude = originMagnitude;
+        bulletMovement = new BMP_LaserExpand(this);
     }
 
-        public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
+    public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
         yield return new WaitForSeconds(delayBeforeAttack);
-		//pos = enemy.transform.position;
-       
-        
-        for (int i = -1; i < bulletCount / 2; i++) {
-                        float ang = 90 + (10 * Random.Range(-3, 3));
-                        newPosition = new Vector3(-18.5f, 4 * i, 0);
-                        bulletRotation = Quaternion.Euler(0,0,ang);
-                        bulletMovement = new BulletMovementPattern (false, "LaserExpand", 0f, this, 0, tempMagnitude);
-                        bulletMovement.laserIndex = laserIndex;
-                        laserIndex++;
-                        InstantiateBullet (enemyBullet);
-                        bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
+            
+            for (int i = -1; i < bulletCount / 2; i++) {
+                float ang = 90 + (10 * Random.Range(-3, 3));
+                newPosition = new Vector3(-18.5f, 4 * i, 0);
+                bulletRotation = Quaternion.Euler(0,0,ang);
+                bulletMovement.laserIndex = laserIndex;
+                laserIndex++;
+                InstantiateBullet (enemyBullet, bulletMovement);
+                bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
 
-                        yield return new WaitForSeconds(0.2f);
-                    }
-                    for (int i = -1; i < bulletCount / 2; i++) {
-                        float ang = 270 + (10 * Random.Range(-3, 3));
-                        newPosition = new Vector3(6.5f, 4 * i, 0);
-                        bulletRotation = Quaternion.Euler(0,0,ang);
+                yield return new WaitForSeconds(0.2f);
+            }
+                    
+            for (int i = -1; i < bulletCount / 2; i++) {
+                float ang = 270 + (10 * Random.Range(-3, 3));
+                newPosition = new Vector3(6.5f, 4 * i, 0);
+                bulletRotation = Quaternion.Euler(0,0,ang);
+                bulletMovement.laserIndex = laserIndex;
+                laserIndex++;
 
-                        bulletMovement = new BulletMovementPattern (false, "LaserExpand", 0f, this, 0, tempMagnitude);
-                        bulletMovement.laserIndex = laserIndex;
-                        laserIndex++;
+                InstantiateBullet (enemyBullet, bulletMovement);
 
-                        InstantiateBullet (enemyBullet);
+                bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
+                yield return new WaitForSeconds(0.2f);
+            }
 
-                        bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
-                        yield return new WaitForSeconds(0.2f);
-                    }
+            for (int i = -1; i < bulletCount; i++) {
+                float ang = 0 + (10 * Random.Range(-5, 5));
+                newPosition = new Vector3(-16 + (i * 5), 13, 0);
+                bulletRotation = Quaternion.Euler(0,0,ang);
+                bulletMovement.laserIndex = laserIndex;
+                laserIndex++;
 
-                    for (int i = -1; i < bulletCount; i++) {
-                        float ang = 0 + (10 * Random.Range(-5, 5));
-                        newPosition = new Vector3(-16 + (i * 5), 13, 0);
-                        bulletRotation = Quaternion.Euler(0,0,ang);
+                InstantiateBullet (enemyBullet, bulletMovement);
 
-                        bulletMovement = new BulletMovementPattern (false, "LaserExpand", 0f, this, 0, tempMagnitude);
-                        bulletMovement.laserIndex = laserIndex;
-                        laserIndex++;
-
-                        InstantiateBullet (enemyBullet);
-
-                        bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
-                        yield return new WaitForSeconds(0.2f);
-                    }
+                bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
+                yield return new WaitForSeconds(0.2f);
+            }
         }
 }

@@ -16,7 +16,7 @@ public class P_Circle : Pattern
         Game.control.sound.PlaySound ("Enemy", "Shoot", true);
 			for (int i = 0; i < bulletCount; i++) {
 				newPosition = SpawnInCircle (pos, 0f, GetAng (i, 360));
-				InstantiateBullet (enemyBullet);
+				InstantiateBullet (enemyBullet, bulletMovement);
 		}
     }
 }

@@ -72,6 +72,7 @@ public class Phaser : MonoBehaviour {
 		timerOn = false;
 	}
 
+/*
 	public void WaitForSecondsFloat(float _phaseTimeCap){
 		timerOn = false;
 		if(!endOfPhase) timerDone = false;
@@ -79,6 +80,7 @@ public class Phaser : MonoBehaviour {
 		phaseTimer = 0;
 		timerOn = true;
 	}
+	*/
 	
 	public virtual void ExecutePhase(int phase, Phaser phaser){}
 

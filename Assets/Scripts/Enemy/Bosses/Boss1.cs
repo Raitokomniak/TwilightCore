@@ -27,20 +27,20 @@ public class Boss1 : Phaser
 		switch (phase) {
 			case 0:
 				patterns.Add(new P_Spiral());
-				patterns[0].bulletMovement = new BulletMovementPattern (true, "WaitAndExplode", 5f, patterns[0], 0, 14);
+				patterns[0].bulletMovement = new BMP_WaitAndExplode (patterns[0], 5f);
 				patterns[0].loopCircles =  288 * difficultyMultiplier;
 				patterns[0].bulletCount =  20 * difficultyMultiplier;
 				patterns[0].SetSprite ("Circle", "Glow", "Green");
 
 				patterns.Add(new P_Maelstrom());
-				patterns[1].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14);
+				patterns[1].bulletMovement = new BMP_Explode (patterns[1], 6f, false);
 				patterns[1].rotationDirection =  1;
 				patterns[1].bulletCount =  2 * difficultyMultiplier;
 				patterns[1].SetSprite ("Circle", "Glow", "Green");
 
 				patterns.Add(new P_Maelstrom());
 				patterns[2].SetSprite ("Circle", "Glow", "Yellow");
-				patterns[2].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[2], 0, 14);
+				patterns[2].bulletMovement = new BMP_Explode (patterns[2], 6f, false);
 				patterns[2].bulletCount =  2 * difficultyMultiplier;
 				patterns[2].rotationDirection = -1;
 
@@ -52,32 +52,27 @@ public class Boss1 : Phaser
 
 				while (!phaser.endOfPhase) {
 					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
-
-					WaitForSecondsFloat(2f);
-					yield return new WaitUntil(() => timerDone == true);
-
+					
+					yield return new WaitForSeconds(2f);
+					
 					enemy.BossShoot (patterns[1]);
 					enemy.BossShoot (patterns[2]);
 
-					WaitForSecondsFloat(2.2f);
-					yield return new WaitUntil(() => timerDone == true);
+					yield return new WaitForSeconds(2.2f);
 
 					patterns[1].StopPattern();
 					patterns[2].StopPattern();
 
 					enemyMove.SetUpPatternAndMove (new EnemyMovementPattern (lib.rocking));
 
-					WaitForSecondsFloat(2f);
-					yield return new WaitUntil(() => timerDone == true);
+					yield return new WaitForSeconds(2f);
 					enemy.BossShoot (patterns[0]);
 
-					WaitForSecondsFloat(2.2f);
-					yield return new WaitUntil(() => timerDone == true);
+					yield return new WaitForSeconds(2.2f);
 
 					enemy.BossShoot (patterns[0]);
 
-					WaitForSecondsFloat(3f);
-					yield return new WaitUntil(() => timerDone == true);
+					yield return new WaitForSeconds(3f);
 				}
 			
 				break;
@@ -89,10 +84,10 @@ public class Boss1 : Phaser
 				patterns.Add(new P_Curtain());
 				patterns[0].bulletCount = Mathf.CeilToInt(1.8f * difficultyMultiplier);  
 				patterns[0].SetSprite ("Circle", "Bevel", "Lilac");
-				patterns[0].bulletMovement = new BulletMovementPattern (false, "TurnToSpears", 6f, patterns[0], 0, 14);
+				patterns[0].bulletMovement = new BMP_TurnToSpears(patterns[0], 6f);
 
 				patterns.Add(new P_Maelstrom());
-				patterns[1].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14);
+				patterns[1].bulletMovement = new BMP_Explode(patterns[1], 6f, false);
 				patterns[1].rotationDirection =  1;
 				patterns[1].bulletCount = 2 * difficultyMultiplier;
 				patterns[1].SetSprite ("Circle", "Glow", "Green");
@@ -100,9 +95,10 @@ public class Boss1 : Phaser
 
 				patterns.Add(new P_Maelstrom());
 				patterns[2].SetSprite ("Circle", "Glow", "Yellow");
-				patterns[2].bulletMovement = new BulletMovementPattern (true, "Explode", 4f, patterns[2], 0, 14);
+				patterns[2].bulletMovement = new BMP_Explode(patterns[2], 4f, false);
 				patterns[2].rotationDirection =  -1;
 				patterns[2].bulletCount = 2 * difficultyMultiplier;
+
 
 				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (-15, 6f, 0f), false, 0));
 				movementPatterns[0].Customize ("Speed", 7f);
@@ -112,44 +108,38 @@ public class Boss1 : Phaser
 
 
 				enemyMove.SetUpPatternAndMove (movementPatterns[0]);
-				WaitForSecondsFloat(1f);
-				yield return new WaitUntil(() => timerDone == true);
+				yield return new WaitForSeconds(1f);
 				
 				while (!phaser.endOfPhase) {
 					yield return new WaitUntil (() => movementPatterns[0].CheckIfReachedDestination (enemyMove) == true);
 					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
 					enemy.BossShoot (patterns[0]);
 					yield return new WaitUntil (() => movementPatterns[0].CheckIfReachedDestination (enemyMove) == true);
-                    WaitForSecondsFloat(1f);
-					yield return new WaitUntil(() => timerDone == true);
+                    yield return new WaitForSeconds(1f);
                     enemy.BossShoot (patterns[1]);
 					enemy.BossShoot (patterns[2]);
-					WaitForSecondsFloat(2.2f);
-					yield return new WaitUntil(() => timerDone == true);
+					yield return new WaitForSeconds(2.2f);
 					patterns[1].StopPattern();
 					patterns[2].StopPattern();
-					WaitForSecondsFloat(1f);
-					yield return new WaitUntil(() => timerDone == true);
+					yield return new WaitForSeconds(1f);
 					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
 					enemy.BossShoot (patterns[0]);
 					yield return new WaitUntil (() => movementPatterns[0].CheckIfReachedDestination (enemyMove) == true);
-					WaitForSecondsFloat(1f);
-					yield return new WaitUntil(() => timerDone == true);
+					yield return new WaitForSeconds(1f);
 					enemy.BossShoot (patterns[1]);
 					enemy.BossShoot (patterns[2]);
-					WaitForSecondsFloat(2.2f);
-					yield return new WaitUntil(() => timerDone == true);
+					yield return new WaitForSeconds(2.2f);
 					patterns[1].StopPattern();
 					patterns[2].StopPattern();
-					WaitForSecondsFloat(1f);
-					yield return new WaitUntil(() => timerDone == true);
+					yield return new WaitForSeconds(1f);
 				}
 
 				break;
 			
 			case 2:
 				patterns.Add(new P_Spiral());
-				patterns[0].bulletMovement = new BulletMovementPattern (true, "WaitAndExplode", 5f, patterns[0], 0, 14);
+				//patterns[0].bulletMovement = new BulletMovementPattern (true, "WaitAndExplode", 5f, patterns[0], 0, 14);
+				patterns[0].bulletMovement = new BMP_WaitAndExplode(patterns[0], 5f);
 				patterns[0].loopCircles = 288 * difficultyMultiplier;
 				patterns[0].bulletCount = 20 * difficultyMultiplier;
 				patterns[0].SetSprite ("Circle", "Glow", "Green");
@@ -162,12 +152,10 @@ public class Boss1 : Phaser
 				while (!phaser.endOfPhase) {
 					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
 					enemy.BossShoot(patterns[0]);
-					WaitForSecondsFloat(5f);
-					yield return new WaitUntil(() => timerDone == true);
+					yield return new WaitForSeconds(5f);
 					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
 					enemy.BossShoot(patterns[0]);
-					WaitForSecondsFloat(5f);
-					yield return new WaitUntil(() => timerDone == true);
+					yield return new WaitForSeconds(5f);
 				}
 				break;
 			case 3:
@@ -178,7 +166,8 @@ public class Boss1 : Phaser
 				patterns[0].SetSprite ("Fireball", "Glow", "Orange");
 
 				patterns.Add(new P_Maelstrom());
-				patterns[1].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14);
+				//patterns[1].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14);
+				patterns[1].bulletMovement = new BMP_Explode(patterns[1], 6f, false);
 				patterns[1].rotationDirection = 1;
 				patterns[1].SetSprite ("Circle", "Big", "Red");
 				patterns[1].bulletCount =  Mathf.CeilToInt(1.2f * difficultyMultiplier);
@@ -192,24 +181,20 @@ public class Boss1 : Phaser
 
 				while (!endOfPhase) {
 					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
-					WaitForSecondsFloat(2f);
-					yield return new WaitUntil(() => timerDone == true);
+					yield return new WaitForSeconds(2f);
 
 					enemy.BossShoot (patterns[0]);
 
-					WaitForSecondsFloat(4f);
-					yield return new WaitUntil(() => timerDone == true);
+					yield return new WaitForSeconds(4f);
 					
 					movementPatterns[0].Customize ("Speed", 7f);
 
 					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
-					WaitForSecondsFloat(1f);
-					yield return new WaitUntil(() => timerDone == true);
+					yield return new WaitForSeconds(1f);
 
 					enemy.BossShoot (patterns[1]);
 
-					WaitForSecondsFloat(4f);
-					yield return new WaitUntil(() => timerDone == true);
+					yield return new WaitForSeconds(4f);
 
 					patterns[1].StopPattern();
 				}

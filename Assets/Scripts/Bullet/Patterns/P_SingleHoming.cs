@@ -13,6 +13,6 @@ public class P_SingleHoming : Pattern
 		pos = enemy.transform.position;
 
                 Game.control.sound.PlaySound ("Enemy", "Shoot", false);
-		InstantiateBullet (enemyBullet);
+		InstantiateBullet (enemyBullet, bulletMovement);
         }
 }

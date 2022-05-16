@@ -20,40 +20,36 @@ public class EnemyBulletMovement : MonoBehaviour {
 		initialPosition = transform.position;
 		playerPosition = Game.control.player.gameObject.transform.position - initialPosition;
 
-			bWallPos = Game.control.ui.GetBoundaries()[0] - 2f;
-			lWallPos = Game.control.ui.GetBoundaries()[1] - 2f;
-			tWallPos = Game.control.ui.GetBoundaries()[2] + 2f;
-			rWallPos = Game.control.ui.GetBoundaries()[3] + 2f;		
+		bWallPos = Game.control.ui.GetBoundaries()[0] - 2f;
+		lWallPos = Game.control.ui.GetBoundaries()[1] - 2f;
+		tWallPos = Game.control.ui.GetBoundaries()[2] + 2f;
+		rWallPos = Game.control.ui.GetBoundaries()[3] + 2f;		
 	}
 
 
 	void Update () {
 		float y = transform.position.y;
 		float x = transform.position.x;
-
+//		Debug.Log(movement);
+//		Debug.Log(movement.scale);
 		transform.localScale = movement.scale;
 
 		if(movement.isMoving){
-			if (movement.isHoming)
-				movementDirection = playerPosition;
-			else {
-				movementDirection = Vector3.down;
-			}
+			//Debug.Log("rotation " + movement.rotation);
 
+			if (movement.isHoming)  movementDirection = playerPosition;
+			else					movementDirection = Vector3.down;
 
-			if (movement.rotateOnAxis) {
+			if (movement.rotateOnAxis)
 				transform.RotateAround (movement.RotateOnAxis (), Vector3.back, (Time.deltaTime * movement.movementSpeed));
-			} 
 
 			else {
-					transform.rotation = movement.rotation;
-					transform.Translate (movementDirection * (Time.deltaTime * movement.movementSpeed));
+				transform.rotation = movement.rotation;
+				transform.Translate (movementDirection * (Time.deltaTime * movement.movementSpeed));
 
-					if(y <= bWallPos || x <= lWallPos || x >= rWallPos || y >= tWallPos){
-						if (!movement.dontDestroy) {
-							Destroy (this.gameObject);
-						}
-					}
+				if(y <= bWallPos || x <= lWallPos || x >= rWallPos || y >= tWallPos){
+					if (!movement.dontDestroy) Destroy (this.gameObject);
+				}
 			}
 		}
 			

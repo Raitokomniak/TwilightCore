@@ -25,17 +25,16 @@ public class Boss2 : Phaser
 		
 
         switch (phase) {
-			case 0:
+			case 3:
 				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (2.63f, 7.63f, 0f), false, 0));
 				
 				patterns.Add(new P_Spiral());
 				patterns[0].SetSprite ("Arrow", "Glow", "Red");
 				patterns[0].bulletCount =  10;
 				patterns[0].rotationDirection =  1;
-				patterns[0].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[0], 0, 14);
+				patterns[0].bulletMovement = new BMP_WaitAndExplode(patterns[0], 6f);
 
 				patterns.Add(new P_SpiderWeb());
-				patterns[1].bulletMovement = new BulletMovementPattern (false, "DownAndExplode", 0.5f, patterns[1], 0, 14);
 				patterns[1].SetSprite ("Circle", "Glow", "Red");
 
 				while (!phaser.endOfPhase) {	
@@ -48,7 +47,6 @@ public class Boss2 : Phaser
 					yield return new WaitForSeconds(2);
 					
 					enemy.BossShoot (patterns[1]);
-					patterns[0].bulletMovement = new BulletMovementPattern (true, "Stop", 6f, patterns[0], 0, 14);
 					enemy.BossShoot(patterns[0]);
 					yield return new WaitForSeconds(2);
 					patterns[0].StopPattern();
@@ -62,11 +60,11 @@ public class Boss2 : Phaser
 				movementPatterns.Add(new EnemyMovementPattern(lib.enterFromTop));
 
 				patterns.Add(new P_GiantWeb());
-				patterns[0].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[0], 0, 14);
+				patterns[0].bulletMovement = new BMP_Explode(patterns[0], 6f, false);
 				patterns[0].SetSprite("Circle", "Big", "Red");
 
 				patterns.Add(new P_Maelstrom());
-				patterns[1].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14);
+				patterns[1].bulletMovement = new BMP_Explode(patterns[1], 6f, false);
 				patterns[1].rotationDirection =  1;
 				patterns[1].SetSprite ("Diamond", "Glow", "Red");
 
@@ -96,7 +94,7 @@ public class Boss2 : Phaser
 				patterns.Add(new P_RepeatedHoming());
 				patterns[1].SetSprite("Spider_Glow");
 				patterns[1].coolDown = 3f;
-				patterns[1].bulletMovement = new BulletMovementPattern(false, "SlowWaving", 3f, patterns[1], 0, 14);
+				patterns[1].bulletMovement = new BMP_SlowWaving(patterns[1], 3f);
 
 				while (!phaser.endOfPhase) {	
 					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
@@ -123,23 +121,19 @@ public class Boss2 : Phaser
 
 				}
 				break;
-			case 3:
+			case 0:
 				enemyMove.SetUpPatternAndMove (new EnemyMovementPattern (lib.centerHor));
 				yield return new WaitForSeconds (2f);
 				Game.control.ui.ShowActivatedPhase ("Boss", "Void Dance");
 
-				patterns.Add(new Pattern (new P_Spiral()));
+				patterns.Add(new P_Spiral());
 				patterns[0].bulletCount = 6;
-				patterns[0].bulletMovement = new BulletMovementPattern (true, "WaitAndExplode", 6f, patterns[0], 0, 14);
+				patterns[0].bulletMovement = new BMP_WaitAndExplode(patterns[0], 6f);
 				patterns[0].SetSprite ("Circle", "Glow", "White");
 				patterns.Add(new P_GiantWeb());
 				patterns[1] = new P_Maelstrom();
-				patterns[1].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14);
+				patterns[1].bulletMovement = new BMP_Explode(patterns[0], 6f, false);
 				patterns[1].SetSprite ("Diamond", "Glow", "Red");
-
-				patterns.Add(new P_SingleHoming());
-				patterns[2].bulletMovement = new BulletMovementPattern (true, null, 0.5f, patterns[2], 0, 14);
-				patterns[2].SetSprite("Circle", "Big", "Red");
 
 
 

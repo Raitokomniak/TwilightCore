@@ -19,9 +19,9 @@ public class P_PacMan : Pattern
 				//sprite = Resources.Load<Sprite> ("Sprites/Circle_Glow_Red");
 				newPosition = pos + new Vector3 (0f, 0f, 0f);
 				bulletRotation = Quaternion.Euler (0f, 0f, startingRotation + (float)i * rotationMultiplier);
-				bulletMovement = new BulletMovementPattern (false, null, 0.5f, this, 0, tempMagnitude);
+				//bulletMovement = new BulletMovementPattern (false, null, 0.5f, this, 0, tempMagnitude);
 				startingRotation += 0.1f;
-				InstantiateBullet (enemyBullet);
+				InstantiateBullet (enemyBullet, bulletMovement);
 				bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
 			}
             

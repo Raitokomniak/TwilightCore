@@ -15,7 +15,7 @@ public class P_RepeatedHoming : Pattern
         while(!stop && enemyShoot != null){
 				newPosition = enemyShoot.transform.position;
 				Game.control.sound.PlaySound ("Enemy", "Shoot", false);
-				InstantiateBullet (enemyBullet);
+				InstantiateBullet (enemyBullet, bulletMovement);
 				yield return new WaitForSeconds (coolDown);
 			}
             

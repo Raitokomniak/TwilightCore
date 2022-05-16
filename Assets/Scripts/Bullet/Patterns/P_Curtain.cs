@@ -20,9 +20,9 @@ public class P_Curtain : Pattern
 					newPosition = SpawnInLine (-15, 20, lineDirection, i);
 				else
 					newPosition = SpawnInLine (2, 20, lineDirection, i);
-				bulletMovement = new BulletMovementPattern (bulletMovement);
+				//bulletMovement = new BMP_TurnToSpears(patterns[0], 6f);
 
-				InstantiateBullet (enemyBullet);
+				InstantiateBullet (enemyBullet, bulletMovement);
 				bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
 
 				yield return new WaitForSeconds (coolDown);

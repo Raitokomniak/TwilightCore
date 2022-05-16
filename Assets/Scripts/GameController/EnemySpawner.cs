@@ -51,7 +51,6 @@ public class EnemySpawner : MonoBehaviour {
 			yield return new WaitUntil(() => Game.control.stageHandler.stageTimer >= wave.spawnTime);
 			wave.spawned = true;
 			if (wave.isBoss || wave.isMidBoss){
-				//bossEnter = true;
 				DestroyAllProjectiles ();
 			}
 

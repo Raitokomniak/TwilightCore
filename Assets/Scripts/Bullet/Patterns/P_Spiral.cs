@@ -22,7 +22,7 @@ public class P_Spiral : Pattern
 			allBulletsSpawned = false;
 			for (int i = 0; i < bulletCount; i++) {
 				newPosition = SpawnInCircle (pos, 1f + (i * 0.1f), GetAng (i, loopCircles));
-				InstantiateBullet (enemyBullet);
+				InstantiateBullet (enemyBullet, bulletMovement);
 				yield return new WaitForSeconds (coolDown);
 				Game.control.sound.PlaySound ("Enemy", "Shoot", false);
 			}

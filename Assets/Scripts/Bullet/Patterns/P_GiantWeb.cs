@@ -27,8 +27,9 @@ public class P_GiantWeb : Pattern
 							newPosition = pos + new Vector3 (0f, 0f, 0f);
 							bulletRotation = Quaternion.Euler (0f, 0f, i * (360 / b));
 							animation = (Resources.Load ("Images/Animations/SmallWeb") as GameObject);
-							bulletMovement = new BulletMovementPattern (false, "StopAndRotate", 20f, this, tempLayer, tempMagnitude);
-							InstantiateBullet (enemyBullet);
+							//bulletMovement = new BulletMovementPattern (false, "StopAndRotate", 20f, this, tempLayer, tempMagnitude);
+							bulletMovement = new BMP_StopAndRotate(this, tempLayer, tempMagnitude);
+							InstantiateBullet (enemyBullet, bulletMovement);
 							bullet.GetComponent<SpriteRenderer> ().sprite = Game.control.spriteLib.SetBulletSprite ("Circle", "Big", "Red");
 							bullets.Add (enemyBullet);
 						}

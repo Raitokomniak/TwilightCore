@@ -20,7 +20,7 @@ public class P_Maelstrom : Pattern
 				newPosition = SpawnInCircle (pos, 1.5f, GetAng (i, 360) + startingRotation);
 				bulletRotation = SpawnInCircle (i, startingRotation);
 				startingRotation += 0.5f * rotationDirection;
-				InstantiateBullet (enemyBullet);
+				InstantiateBullet (enemyBullet, bulletMovement);
 				if(circleDelay > 0) yield return new WaitForSeconds(circleDelay);
 			}
 			yield return new WaitForSeconds (coolDown);
