@@ -70,7 +70,7 @@ public class SaveLoadHandler : MonoBehaviour {
 
         compared.Sort(CompareScores);
         Game.control.stageHandler.stats.hiScore = compared[0].score;
-        Game.control.ui.UpdateHiScore(compared[0].score);
+        Game.control.ui.RIGHT_SIDE_PANEL.UpdateHiScore(compared[0].score);
         //return compared[0].score;
     }
 

@@ -39,27 +39,12 @@ public class UIController : MonoBehaviour {
 	bool bossStayTimerOn;
 
 	//Level
-
-	public TextMeshProUGUI lives;
-	public Text xp;
 	public GameObject stageEndPanel;
 	public TextMeshProUGUI stageText;
 	public TextMeshProUGUI rightPanelStageText;
 	public GameObject stagePanel;
 	public TextMeshProUGUI toast;
 
-	//Stats
-	public Text pointsToAssign;
-
-	public Text DMGstat;
-	public Text SPDstat;
-	public Text SCAstat;
-	public Slider DMGstatSlider;
-	public Slider SPDstatSlider;
-	public Slider SCAstatSlider;
-
-	public TextMeshProUGUI hiScore;
-	public TextMeshProUGUI score;
 
 	//Special
 	public Slider dayCoreSlider;
@@ -505,31 +490,6 @@ public class UIController : MonoBehaviour {
 		yield return new WaitForSeconds (2f);
 		toast.gameObject.SetActive (false);
 	}
-
-
-	public void UpdateStatPoints(string stat, int value, int cap){
-		Text text = null;
-		Slider slider = null;
-
-		switch (stat) {
-		case "DMG":
-			text = DMGstat;
-			slider = DMGstatSlider;
-			break;
-		case "SPD":
-			text = SPDstat;
-			slider = SPDstatSlider;
-			break;
-		case "SCA":
-			text = SCAstat;
-			slider = SCAstatSlider;
-			break;
-		}
-
-		text.text = value.ToString () + "/" + cap;
-		slider.maxValue = cap;
-		slider.value = value;
-	}
 	
 	public void ToggleLoadingScreen(bool toggle){
 		loadingScreen.SetActive(toggle);
@@ -591,12 +551,6 @@ public class UIController : MonoBehaviour {
 		}
 	}
 
-	public void UpdateScore(long _score){
-		score.text = "Score: " + _score.ToString();
-	}
-	public void UpdateHiScore(long _hiScore){
-		hiScore.text = "HiScore: " + _hiScore.ToString();
-	}
 
 	//////////////////////////
 	// DIALOG

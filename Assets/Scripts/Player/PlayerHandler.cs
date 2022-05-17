@@ -76,7 +76,7 @@ public class PlayerHandler : MonoBehaviour {
 	public void Init(){
 		health.Init ();
 		combat.Init ();
-		Game.control.ui.UpdateScore (Game.control.stageHandler.stats.score);
+		Game.control.ui.RIGHT_SIDE_PANEL.UpdateScore (Game.control.stageHandler.stats.score);
 		Game.control.ui.RIGHT_SIDE_PANEL.UpdateLives(Game.control.stageHandler.stats.lives);
 	}
 
@@ -85,9 +85,9 @@ public class PlayerHandler : MonoBehaviour {
 		stats.score += gained * Game.control.stageHandler.difficultyMultiplier;
 		if (stats.score >= stats.hiScore) {
 			stats.hiScore =stats.score;
-			Game.control.ui.UpdateHiScore (stats.hiScore);
+			Game.control.ui.RIGHT_SIDE_PANEL.UpdateHiScore (stats.hiScore);
 		}
-		Game.control.ui.UpdateScore (stats.score);
+		Game.control.ui.RIGHT_SIDE_PANEL.UpdateScore (stats.score);
 	}
 
 

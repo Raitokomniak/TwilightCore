@@ -12,6 +12,9 @@ public class UI_RightSidePanel : MonoBehaviour
     public TextMeshProUGUI xp;
     public TextMeshProUGUI difficulty;
 
+	public TextMeshProUGUI hiScore;
+	public TextMeshProUGUI score;
+
    	public void UpdateTimer(float value){
 		levelTimer.text = "Level Time: " + value.ToString ("F2");
 	}
@@ -30,5 +33,12 @@ public class UI_RightSidePanel : MonoBehaviour
 
 	public void UpdateDifficulty(string _difficulty){
 		difficulty.text = _difficulty;
+	}
+    
+	public void UpdateScore(long _score){
+		score.text = "Score: " + _score.ToString();
+	}
+	public void UpdateHiScore(long _hiScore){
+		hiScore.text = "HiScore: " + _hiScore.ToString();
 	}
 }
