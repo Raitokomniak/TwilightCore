@@ -78,6 +78,7 @@ public class PlayerHandler : MonoBehaviour {
 		combat.Init ();
 		Game.control.ui.RIGHT_SIDE_PANEL.UpdateScore (Game.control.stageHandler.stats.score);
 		Game.control.ui.RIGHT_SIDE_PANEL.UpdateLives(Game.control.stageHandler.stats.lives);
+		Game.control.ui.RIGHT_SIDE_PANEL.UpdateXP(Game.control.stageHandler.stats.xp);
 	}
 
 	public long GainScore(int gained){
