@@ -37,7 +37,7 @@ public class Game : MonoBehaviour {
 		Application.targetFrameRate = -1;
 		QualitySettings.vSyncCount = 0;
 		MainMenu();
-		io.LoadScore();///////////////////////////////////////////
+		io.LoadScore();
 	}
 
 	void Awake(){

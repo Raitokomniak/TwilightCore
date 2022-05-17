@@ -143,6 +143,7 @@ public class MenuController : MonoBehaviour
 		mainMenuItems.Add ("Start Game");
 		mainMenuItems.Add ("Hiscores");
 		mainMenuItems.Add ("Options");
+		mainMenuItems.Add ("Main Menu");
 		mainMenuItems.Add ("Quit Game");
 
 		difficultyMenuItems = new List<string>();
@@ -216,11 +217,12 @@ public class MenuController : MonoBehaviour
 			}
 			if(selectedIndex == 1) Game.control.stageHandler.RestartStage ();
 			if(selectedIndex == 2) Menu("OptionsMenu");
-			if(selectedIndex == 3) Game.control.QuitGame();
+			if(selectedIndex == 3) Game.control.MainMenu();
+			if(selectedIndex == 4) Game.control.QuitGame();
 			Game.control.ui.UpdateMenuSelection (context, 0);
 		}
 		else if(context == "GameOverMenu"){
-			if(selectedIndex == 0) Game.control.stageHandler.RestartStage ();
+			if(selectedIndex == 0) Game.control.stageHandler.StartGame();
 			if(selectedIndex == 1) Game.control.MainMenu();
 			if(selectedIndex == 2) Game.control.QuitGame();
 		}

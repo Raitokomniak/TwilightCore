@@ -5,16 +5,13 @@ public class BulletMovementPattern
 {
 	public GameObject bullet;
 	public Vector3 centerPoint;
-
-	public string name;
-
+	
 	public float targetMagnitude;
 	public bool isHoming;
 	public bool isMoving;
 
 	public bool rotateOnAxis = false; //DEFAULT
 	public bool dontDestroy;
-	public string property;
 
 	public float movementSpeed;
 	public float accelSpeed = 6f;

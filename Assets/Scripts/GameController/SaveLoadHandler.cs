@@ -31,6 +31,9 @@ public class ScoreSave {
 	public ScoreSave(){
 
 	}
+
+    
+    
 }
 
 public class SaveLoadHandler : MonoBehaviour {
@@ -41,9 +44,9 @@ public class SaveLoadHandler : MonoBehaviour {
     void Awake(){
         //appDataPath = Application.dataPath;           //FOR DEVVING
 		appDataPath = Application.persistentDataPath;   //FOR BUILD
-
         scoreList = new ScoreList();
     }
+    
 
     public bool SaveScore(string name, long hiscore, string difficulty){
         ScoreSave score = new ScoreSave(name, hiscore, difficulty);
@@ -52,6 +55,23 @@ public class SaveLoadHandler : MonoBehaviour {
 
         File.WriteAllText(appDataPath + "/score.json", dataString);
         return true;
+    }
+
+    public static int CompareScores(ScoreSave x, ScoreSave y){
+        return y.score.CompareTo(x.score);
+    }
+
+    public void LoadHiscoreByDifficulty(string difficulty){
+        List<ScoreSave> compared = new List<ScoreSave>();
+
+        foreach(ScoreSave score in scoreList.allScores){
+            if(score.difficulty == difficulty) compared.Add(score);
+        }
+
+        compared.Sort(CompareScores);
+        Game.control.stageHandler.stats.hiScore = compared[0].score;
+        Game.control.ui.UpdateHiScore(compared[0].score);
+        //return compared[0].score;
     }
 
     public bool LoadScore(){

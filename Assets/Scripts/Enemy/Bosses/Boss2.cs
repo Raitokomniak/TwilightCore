@@ -25,7 +25,7 @@ public class Boss2 : Phaser
 		
 
         switch (phase) {
-			case 3:
+			case 0:
 				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (2.63f, 7.63f, 0f), false, 0));
 				
 				patterns.Add(new P_Spiral());
@@ -121,7 +121,7 @@ public class Boss2 : Phaser
 
 				}
 				break;
-			case 0:
+			case 3:
 				enemyMove.SetUpPatternAndMove (new EnemyMovementPattern (lib.centerHor));
 				yield return new WaitForSeconds (2f);
 				Game.control.ui.ShowActivatedPhase ("Boss", "Void Dance");

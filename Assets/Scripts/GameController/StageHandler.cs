@@ -141,7 +141,6 @@ public class StageHandler : MonoBehaviour {
 	IEnumerator StageCompleteHandling ()
 	{	
 		stats.lives = Game.control.player.health.lives;
-		Debug.Log("lives stats " + stats.lives);
 		Game.control.ui.HideBossTimer();
 		Game.control.ui.ToggleBossHealthSlider (false, 0, "");
 		yield return new WaitUntil(() => CheckIfAllPickUpsGone() == true);
@@ -176,7 +175,7 @@ public class StageHandler : MonoBehaviour {
 
 	public void StartGame(){
 		stats = new PlayerStats();
-		StartStage(2);
+		StartStage(1);
 	}
 
 	public void StartStage (int stage){
@@ -212,7 +211,7 @@ public class StageHandler : MonoBehaviour {
 
 		Game.control.enemyLib.InitEnemyLib ();
 		Game.control.scene.SetUpEnvironment ();
-		//Game.control.io.LoadScore();
+		Game.control.io.LoadHiscoreByDifficulty(difficultyAsString);
 
 		Game.control.dialog.Init();
 		Game.control.ui.InitStage ();
