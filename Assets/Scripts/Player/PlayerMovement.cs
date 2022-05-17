@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 			magneticRange.Scale (1);
 			magneticRange.GetComponent<AnimationController> ().rotating = true;
 			GetComponent<PlayerShoot> ().FocusWeapons (1);
-			if(Game.control.ui != null) Game.control.ui.CoreInUse ("Night");
+			if(Game.control.ui != null) Game.control.ui.LEFT_SIDE_PANEL.HighLightCoreInUse ("Night");
 		} else if(Game.control.stageHandler.stats != null)  {
 			focusMode = false;
 			hitBox.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 0);
@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
 			magneticRange.Scale (-1);
 			magneticRange.GetComponent<AnimationController> ().rotating = false;
 			GetComponent<PlayerShoot> ().FocusWeapons (-1);
-			if(Game.control.ui != null) Game.control.ui.CoreInUse ("Day");
+			if(Game.control.ui != null) Game.control.ui.LEFT_SIDE_PANEL.HighLightCoreInUse ("Day");
 		}
 	}
 

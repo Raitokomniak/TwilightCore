@@ -145,7 +145,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 		}
 
 		if (special) {
-			Game.control.ui.DepleteCoreCharge(core, 4f, points, limit);
+			Game.control.ui.LEFT_SIDE_PANEL.DepleteCoreCharge(core, 4f, points, limit);
 			points = limit;
 		}
 
@@ -157,7 +157,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			nightCoreThreshold = threshold;
 		}
 
-		Game.control.ui.UpdateCoreCharge (core, points);
+		Game.control.ui.LEFT_SIDE_PANEL.UpdateCoreCharge (core, points);
 		PowerUpdate (core, false);
 	}
 
@@ -200,7 +200,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			corePoints = nightCorePoints;
 		}
 
-		Game.control.ui.UpdateCoreCharge (core, corePoints);
+		Game.control.ui.LEFT_SIDE_PANEL.UpdateCoreCharge (core, corePoints);
 	}
 
 	public void PowerUpdate(string core, bool up){
