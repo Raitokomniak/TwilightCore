@@ -11,10 +11,20 @@ public class MiniToast : MonoBehaviour
     
 
     public void PlayScoreToast(int value){
+        string toastText = "+" + value.ToString() + " score";
+        Toast(toastText);
+    }
+
+    public void PlayCorePointToast(int value, string core){
+        string toastText = "+" + value.ToString() + " " + core + " point";
+        Toast(toastText);
+    }
+
+    void Toast(string toastText){
         GameObject miniToastObject = Instantiate(miniToastPrefab) as GameObject;
         miniToastObject.transform.SetParent(fxCanvas.transform);
         miniToastObject.transform.position = transform.position + new Vector3(1f,0,0);
-        miniToastObject.GetComponent<TextMeshProUGUI>().text = "+" + value.ToString() + " score";
+        miniToastObject.GetComponent<TextMeshProUGUI>().text = toastText;
         IEnumerator toastRoutine = ShowToastRoutine(miniToastObject);
         StartCoroutine(toastRoutine);
     }
@@ -25,7 +35,6 @@ public class MiniToast : MonoBehaviour
             yield return new WaitForSeconds(Time.deltaTime);
             toastObject.GetComponent<TextMeshProUGUI>().color = new Color(1,1,1,i);
         }
-       // yield return new WaitForSeconds(1f);
         Destroy(toastObject);
     }
 }

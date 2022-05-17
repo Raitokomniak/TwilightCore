@@ -200,6 +200,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			corePoints = nightCorePoints;
 		}
 
+		GetComponent<MiniToast>().PlayCorePointToast(gainedCharge, core);
 		Game.control.ui.LEFT_SIDE_PANEL.UpdateCoreCharge (core, corePoints);
 	}
 
