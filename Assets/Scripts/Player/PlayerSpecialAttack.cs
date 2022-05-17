@@ -70,7 +70,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 		DepleteCore (true);
 
 		if (core == "Day") {
-			Game.control.ui.ShowActivatedPhase ("Player", "Day Core: StarLight Special");
+			Game.control.ui.ShowActivatedPlayerPhase ("Day Core: StarLight Special");
 			daySpecial.SetActive (true);
 			dayAnimatedSprite.GetComponent<AnimationController> ().Scale (1, .5f, true, false);
 			dayAnimatedSprite.GetComponent<AnimationController> ().rotating = true;
@@ -98,7 +98,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 
 		
 		} else if(core == "Night") {
-			Game.control.ui.ShowActivatedPhase ("Player", "Night Core: Trick or Treat");
+			Game.control.ui.ShowActivatedPlayerPhase ("Night Core: Trick or Treat");
 
 			nightSpecial.SetActive (true);
 			nightAnimatedSprite.GetComponent<AnimationController> ().Scale (1, 2.5f, true, true);

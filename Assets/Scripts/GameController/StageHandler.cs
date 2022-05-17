@@ -107,7 +107,7 @@ public class StageHandler : MonoBehaviour {
 
 	IEnumerator GameCompleteHandling(){
 		gameOver = true;
-		Game.control.ui.HideBossTimer();
+		Game.control.ui.BOSS.HideBossTimer();
 		yield return new WaitForSeconds (2);
 
 		Game.control.sound.StopMusic ();
@@ -124,7 +124,7 @@ public class StageHandler : MonoBehaviour {
 	IEnumerator DeathHandling ()
 	{
 		gameOver = true;
-		Game.control.ui.HideBossTimer();
+		Game.control.ui.BOSS.HideBossTimer();
 		yield return new WaitForSeconds (2);
 
 		Game.control.sound.StopMusic ();
@@ -141,8 +141,8 @@ public class StageHandler : MonoBehaviour {
 	IEnumerator StageCompleteHandling ()
 	{	
 		stats.lives = Game.control.player.health.lives;
-		Game.control.ui.HideBossTimer();
-		Game.control.ui.ToggleBossHealthSlider (false, 0, "");
+		Game.control.ui.BOSS.HideBossTimer();
+		Game.control.ui.BOSS.ToggleBossHealthSlider (false, 0, "");
 		yield return new WaitUntil(() => CheckIfAllPickUpsGone() == true);
 		yield return new WaitForSeconds (1);
 		stageCompleted = true;

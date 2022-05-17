@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour {
 	public UI_RightSidePanel RIGHT_SIDE_PANEL;
 	public UI_LeftSidePanel LEFT_SIDE_PANEL;
 	public UI_Dialog DIALOG;
+	public UI_Boss BOSS;
 
 
 	public float[] wallBoundaries;
@@ -21,25 +22,10 @@ public class UIController : MonoBehaviour {
 	public GameObject[] topLayers;
 	public GameObject[] bgs;
 
-	public GameObject bossInvulnerableImage;
+
 
 	//Boss
-	public Slider bossHealthSlider;
-	public GameObject bossMiniHealthBar;
-	GameObject miniHealthBar;
-	List<GameObject> bars;
-	public GameObject bossNamePanel;
-	public TextMeshProUGUI bossName;
 
-	public GameObject bossX;
-	public GameObject bossPattern;
-	public TextMeshProUGUI bossPatternText;
-	public TextMeshProUGUI bossTimer;
-
-	//THESE MIGHT NOT BELONG HERE, MOVE THEM SOMEWHERE ELSE
-	float bossStayTimer;
-	float bossStayTime;
-	bool bossStayTimerOn;
 
 	//Level
 	public GameObject stageEndPanel;
@@ -83,22 +69,10 @@ public class UIController : MonoBehaviour {
 
 	void Awake(){
 		ToggleLoadingScreen(false);
-		ToggleBossHealthSlider(false, 0, "");
-		HideBossTimer();
 		ToggleOptionsScreen(false);
 	}
 
 	void Update(){
-		if(bossStayTimerOn) {
-			if(bossStayTimer > 0){
-				bossStayTimer-=Time.deltaTime;
-				UpdateBossTimer(bossStayTimer);
-			}
-			else {
-				HideBossTimer();
-			}
-		}
-
 		if(scoreSaveNameInput.gameObject.activeSelf){
 			if(Input.GetKeyDown(KeyCode.Return)){
 				//DONT DO LIKE THIS, THIS IS JUST A TEMP SOLUTION
@@ -159,9 +133,9 @@ public class UIController : MonoBehaviour {
 		LEFT_SIDE_PANEL.UpdateCoreCharge ("Day", 0);
 		LEFT_SIDE_PANEL.UpdateCoreCharge ("Night", 0);
 
-		bossHealthSlider.gameObject.SetActive(false);
-		bossTimer.gameObject.SetActive(false);
-		bossNamePanel.SetActive (false);
+		BOSS.bossHealthSlider.gameObject.SetActive(false);
+		BOSS.bossTimer.gameObject.SetActive(false);
+		BOSS.bossNamePanel.SetActive (false);
 		stageEndPanel.SetActive(false);
 		saveScoreScreen.SetActive(false);
 		gameOver.SetActive(false);
@@ -190,103 +164,28 @@ public class UIController : MonoBehaviour {
 
 	////////////////
 	//BOSS
-	public void UpdateBossXPos(float posX, bool enabled){
-		if (enabled)
-			bossX.SetActive (true);
-		else
-			bossX.SetActive (false);
-		
-		bossX.transform.position = new Vector3 (posX, bossX.transform.position.y, 0);
-	}
+	
 
-	public void HideBossTimer(){
-		bossStayTimerOn = false;
-		bossTimer.gameObject.SetActive(false);
-	}
-	public void StartBossTimer(float time){
-		bossTimer.gameObject.SetActive(true);
-		bossStayTime = time;
-		bossStayTimer = time;
-		bossTimer.text = time.ToString("F1");
-		bossStayTimerOn = true;
-	}
-
-	public void UpdateBossTimer(float value){
-		bossTimer.text = value.ToString("F1");
-	}
-
-	public void ToggleBossHealthSlider(bool value, float maxHealth, string name){
-		bossX.SetActive (value	);
-		bossName	.gameObject.SetActive(value);
-		bossHealthSlider.gameObject.SetActive(value);
-		bossHealthSlider.maxValue = maxHealth;
-		bossHealthSlider.value = maxHealth;
-		bossNamePanel.SetActive (value);
-		bossName.text = name;
-	}
-
-
-	public void UpdateBossHealth(float h)
+	public void ShowActivatedPlayerPhase(string text)
 	{
-		bossHealthSlider.value = h;
+		StartCoroutine (_ShowActivatedPlayerPhase (text));
 	}
 
-	public void ToggleInvulnerable(bool toggle){
-		bossInvulnerableImage.SetActive(toggle);
-	}
-
-	public void UpdateBossHealthBars(int h){
-		if (h > 1) {
-			if (miniHealthBar == null)
-				for (int i = 0; i < h - 1; i++) {
-					miniHealthBar = Instantiate (bossMiniHealthBar, Vector3.zero, transform.rotation) as GameObject;
-					miniHealthBar.transform.SetParent (bossHealthSlider.transform);
-					miniHealthBar.transform.position = new Vector3 (130 + i * 20, 630, 0);
-					bars = new List<GameObject> ();
-					bars.Add (miniHealthBar);
-				}
-			else {
-				
-				/*for (int i = 0; i <= h; i++) {
-					Destroy (bars [i]);
-
-				}*/
-			}
-		} else {
-			Destroy (miniHealthBar);
-		}
-	}
-
-	public void ShowActivatedPhase(string target, string text)
-	{
-		StartCoroutine (_ShowActivatedPhase (target, text));
-	}
-
-	IEnumerator _ShowActivatedPhase(string target, string text){
-		GameObject targetPanel;
-		TextMeshProUGUI targetText;
-
-		if (target == "Boss") {
-			targetPanel = bossPattern;
-			targetText = bossPatternText;
-		} else {
-			targetPanel = playerSpecialPanel;
-			targetText = playerSpecialText;
-		}
-		targetPanel.SetActive (true);
-		targetText.text = text;
+	IEnumerator _ShowActivatedPlayerPhase(string text){
+		playerSpecialPanel.SetActive (true);
+		playerSpecialText.text = text;
 
 		int dir = -1;
 
 		for (int j = 0; j < 2; j++) {
 			for (int i = 0; i < 60; i+=1) {
-				targetPanel.transform.position += new Vector3 (dir + (7 * dir), 0, 0);
+				playerSpecialPanel.transform.position += new Vector3 (dir + (7 * dir), 0, 0);
 				yield return new WaitForSeconds (0.005f);
 			}
 			dir = 1;
 			yield return new WaitForSeconds (5f);
 		}
-		targetPanel.SetActive (false);
+		playerSpecialPanel.SetActive (false);
 	}
 
 	//////////////////////////////
@@ -302,7 +201,6 @@ public class UIController : MonoBehaviour {
 		}
 	}
 
-
 	public void UpdateTopPlayer(string phase){
 		StartCoroutine (_UpdateTopLayer (phase));
 	}
@@ -313,45 +211,6 @@ public class UIController : MonoBehaviour {
 			layer.GetComponent<TopLayerParallaxController> ().scrollSpeed = speed;
 		}
 	}
-	/*
-	public void UpdateBG(string type)
-	{
-		Sprite sprite;
-
-		foreach (GameObject bg in bgs) {
-			sprite = Resources.Load<Sprite> ("Images/Backgrounds/" + type);
-			bg.GetComponent<Image> ().sprite = sprite;
-			//bg.GetComponent<ParallaxController> ().scrollSpeed = 15;
-		}
-	}
-	public void UpdateBG(float speed)
-	{
-		foreach (GameObject bg in bgs) {
-			StartCoroutine (SmoothTransitionBG (bg.GetComponent<ParallaxController>(), speed));
-		}
-	}*/
-
-	IEnumerator SmoothTransitionBG(ParallaxController par, float speed)
-	{
-		float difference = par.scrollSpeed - speed;
-
-		//Acceleration
-		if (difference < 0) {
-			for (float i = par.scrollSpeed; i < speed; i += 0.01f) {
-				par.scrollSpeed = i;
-				yield return new WaitForSeconds (0.01f);
-			}
-		}//Deceleration 
-		else {
-			for (float i = speed; i > par.scrollSpeed; i -= 0.01f) {
-				par.scrollSpeed = i;
-				yield return new WaitForSeconds (0.01f);
-			}
-		}
-
-		yield return new WaitForSeconds (0.01f);
-	}
-
 
 	public IEnumerator _UpdateTopLayer(string type)
 	{
@@ -378,36 +237,6 @@ public class UIController : MonoBehaviour {
 			layer2.GetComponent<Image> ().color = new Color (1, 1, 1, i);
 			yield return new WaitForSeconds (0.1f);
 		}
-			/*switch (type) {
-			/*case "Boss1_0":
-				sprite = Resources.Load<Sprite> ("Images/Backgrounds/TopLayers/bossWeb");
-				layer.GetComponent<Image> ().sprite = sprite;
-				layer.GetComponent<ParallaxController> ().scrollSpeed = 15;
-				break;
-			case "Boss1_1":
-				sprite = Resources.Load<Sprite> ("Images/Backgrounds/TopLayers/bossWeb2");
-				layer.GetComponent<Image> ().sprite = sprite;
-				layer.GetComponent<ParallaxController> ().scrollSpeed = 15;
-				break;
-			case "Boss1_2":
-				sprite = Resources.Load<Sprite> ("Images/Backgrounds/TopLayers/bossWeb");
-			layer.GetComponent<Image> ().sprite = sprite;
-			layer.GetComponent<ParallaxController> ().scrollSpeed = 15;
-			break;
-			case "Boss1_3":
-				sprite = Resources.Load<Sprite> ("Images/Backgrounds/TopLayers/bossWeb3");
-				layer.GetComponent<Image> ().sprite = sprite;
-				layer.GetComponent<ParallaxController> ().scrollSpeed = 15;
-				break;
-			case "Stage1":
-				sprite = Resources.Load<Sprite> ("Images/Backgrounds/TopLayers/sparkle");
-				layer.GetComponent<Image> ().sprite = sprite;
-				layer.GetComponent<ParallaxController> ().scrollSpeed = 26;
-				break;
-		}*/
-
-	
-
 	}
 
 	
@@ -433,7 +262,7 @@ public class UIController : MonoBehaviour {
 
 	public void StageCompleted(bool value)
 	{
-		HideBossTimer();
+		BOSS.HideBossTimer();
 		stageEndPanel.SetActive(value);
 	}
 
@@ -469,9 +298,6 @@ public class UIController : MonoBehaviour {
 	}
 
 
-	//////////////////////////
-	// RIGHTSIDE PANEL
-
 	public void PlayToast(string text){
 		toast.text = text;
 	}
@@ -485,20 +311,6 @@ public class UIController : MonoBehaviour {
 	public void ToggleLoadingScreen(bool toggle){
 		loadingScreen.SetActive(toggle);
 	}
-
-	//////////////////////////
-	// PLAYER SPECIAL
-
-
-
-
-
-
-
-	//////////////////////////
-	// DIALOG
-
-	
 
 	//OPTIONS
 	public void ToggleOptionsScreen(bool toggle){

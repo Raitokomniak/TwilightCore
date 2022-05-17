@@ -79,7 +79,7 @@ public class Boss1 : Phaser
             
 			case 1:
 				Game.control.sound.PlaySpellSound ("Enemy");
-				Game.control.ui.ShowActivatedPhase ("Boss", "Hoodwink: Ninetailed Spear");
+				Game.control.ui.BOSS.ShowActivatedPhase ("Hoodwink: Ninetailed Spear");
 
 				patterns.Add(new P_Curtain());
 				patterns[0].bulletCount = Mathf.CeilToInt(1.8f * difficultyMultiplier);  
@@ -159,7 +159,7 @@ public class Boss1 : Phaser
 				}
 				break;
 			case 3:
-				Game.control.ui.ShowActivatedPhase ("Boss", "Hoodwink: Fox Fires");
+				Game.control.ui.BOSS.ShowActivatedPhase ("Hoodwink: Fox Fires");
 
 				patterns.Add(new P_Cluster(difficultyMultiplier));
 																						//0.01f

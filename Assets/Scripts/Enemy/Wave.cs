@@ -138,11 +138,11 @@ public class Wave
 			else {
 				enemy.tag = "MidBoss";
 				enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0f, this);
-				Game.control.ui.StartBossTimer (movementPattern.stayTime);
+				Game.control.ui.BOSS.StartBossTimer (movementPattern.stayTime);
 			}
 
 			bossScript.NextPhase ();
-			Game.control.ui.ToggleBossHealthSlider (true, enemy.GetComponent<EnemyLife> ().maxHealth, bossName);
+			Game.control.ui.BOSS.ToggleBossHealthSlider (true, enemy.GetComponent<EnemyLife> ().maxHealth, bossName);
 
 		} 
 		else {

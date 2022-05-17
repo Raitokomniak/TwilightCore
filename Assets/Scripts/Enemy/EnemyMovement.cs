@@ -38,7 +38,7 @@ public class EnemyMovement : MonoBehaviour {
 			}
 			if (tag == "Boss" || tag == "MidBoss") {
 				
-				Game.control.ui.UpdateBossXPos (transform.position.x, !teleporting);
+				Game.control.ui.BOSS.UpdateBossXPos (transform.position.x, !teleporting);
 			}
 		}
 

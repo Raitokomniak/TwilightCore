@@ -11364,6 +11364,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3939676775362210420}
+  - component: {fileID: 3939676775362210422}
   m_Layer: 5
   m_Name: Boss
   m_TagString: Untagged
@@ -11371,6 +11372,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &3939676775362210422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3939676775362210421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10366bf787c83dd449c3eaedf59a794c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossHealthSlider: {fileID: 3939676773945534509}
+  bossNamePanel: {fileID: 3939676774749440287}
+  bossName: {fileID: 1775060522}
+  bossInvulnerableImage: {fileID: 3939676773774708203}
+  bossX: {fileID: 1647895773721546137}
+  bossSpellToast: {fileID: 3939676773938290620}
+  bossSpellText: {fileID: 2098722817}
+  bossTimer: {fileID: 1806288057}
 --- !u!224 &3939676775573021512
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11791,6 +11812,7 @@ MonoBehaviour:
   RIGHT_SIDE_PANEL: {fileID: 3939676775113848759}
   LEFT_SIDE_PANEL: {fileID: 3939676774021696789}
   DIALOG: {fileID: 3939676774758167052}
+  BOSS: {fileID: 3939676775362210422}
   wallBoundaries: []
   playAreaLeftWall: {fileID: 0}
   playAreaRightWall: {fileID: 0}
@@ -11800,15 +11822,6 @@ MonoBehaviour:
   - {fileID: 1647895773309832779}
   - {fileID: 2955796329539244925}
   bgs: []
-  bossInvulnerableImage: {fileID: 3939676773774708203}
-  bossHealthSlider: {fileID: 3939676773945534509}
-  bossMiniHealthBar: {fileID: 0}
-  bossNamePanel: {fileID: 3939676774749440287}
-  bossName: {fileID: 1775060522}
-  bossX: {fileID: 1647895773721546137}
-  bossPattern: {fileID: 3939676773938290620}
-  bossPatternText: {fileID: 2098722817}
-  bossTimer: {fileID: 1806288057}
   stageEndPanel: {fileID: 3939676775608429872}
   stageText: {fileID: 136471821}
   rightPanelStageText: {fileID: 944290787}

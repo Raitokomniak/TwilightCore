@@ -55,7 +55,7 @@ public class Boss2 : Phaser
 				break;
 			case 1:
                 Game.control.sound.PlaySpellSound ("Enemy");
-				Game.control.ui.ShowActivatedPhase ("Boss", "Indra's Net");
+				Game.control.ui.BOSS.ShowActivatedPhase ("Indra's Net");
 
 				movementPatterns.Add(new EnemyMovementPattern(lib.enterFromTop));
 
@@ -124,7 +124,7 @@ public class Boss2 : Phaser
 			case 3:
 				enemyMove.SetUpPatternAndMove (new EnemyMovementPattern (lib.centerHor));
 				yield return new WaitForSeconds (2f);
-				Game.control.ui.ShowActivatedPhase ("Boss", "Void Dance");
+				Game.control.ui.BOSS.ShowActivatedPhase ("Void Dance");
 
 				patterns.Add(new P_Spiral());
 				patterns[0].bulletCount = 6;

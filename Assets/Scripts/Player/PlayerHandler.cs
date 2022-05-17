@@ -91,7 +91,7 @@ public class PlayerHandler : MonoBehaviour {
 	}
 
 
-/*
+
 	//////////////////////////////////////////////////
 	//////////////////////////////////////////////////
 	//NOT USED
@@ -103,12 +103,12 @@ public class PlayerHandler : MonoBehaviour {
 		if(Game.control.stageHandler.stats.xp >= Game.control.stageHandler.stats.xpCap) {
 			Game.control.stageHandler.stats.xp = Game.control.stageHandler.stats.xp - Game.control.stageHandler.stats.xpCap;
 			Game.control.stageHandler.stats.xpCap += 5;
-			LevelUp();
+			//LevelUp();
 		}
 
-		Game.control.ui.UpdateStatPanel("XP", Game.control.stageHandler.stats.xp);
+		Game.control.ui.RIGHT_SIDE_PANEL.UpdateXP(Game.control.stageHandler.stats.xp);
 	}
-
+/*
 	void LevelUp(){
 		Game.control.stageHandler.stats.level++;
 		Game.control.stageHandler.stats.upgradePoints++;

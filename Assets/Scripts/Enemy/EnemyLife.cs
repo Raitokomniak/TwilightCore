@@ -28,7 +28,7 @@ public class EnemyLife : MonoBehaviour {
 
 	public void SetInvulnerable(bool value){
 		invulnerable = value;
-		Game.control.ui.ToggleInvulnerable(invulnerable);
+		Game.control.ui.BOSS.ToggleInvulnerable(invulnerable);
 	}
 
 	public bool GetInvulnerableState(){
@@ -51,7 +51,7 @@ public class EnemyLife : MonoBehaviour {
 					currentHealth -= damage;
 				}
 			}
-			if(tag == "Boss" || tag == "MidBoss") Game.control.ui.UpdateBossHealth(currentHealth);
+			if(tag == "Boss" || tag == "MidBoss") Game.control.ui.BOSS.UpdateBossHealth(currentHealth);
 		}
 
 
@@ -71,7 +71,7 @@ public class EnemyLife : MonoBehaviour {
 				Die ();
 			} else {
 				currentHealth = maxHealth;
-				Game.control.ui.UpdateBossHealth (currentHealth);
+				Game.control.ui.BOSS.UpdateBossHealth (currentHealth);
 				//Game.control.ui.UpdateBossHealthBars (healthBars);
 				invulnerable = true;
 				wave.bossScript.superPhase = false;			
@@ -101,8 +101,8 @@ public class EnemyLife : MonoBehaviour {
 			}
 				
 			Game.control.ui.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
-			Game.control.ui.ToggleBossHealthSlider(false, 0, "");
-			Game.control.ui.HideBossTimer();
+			Game.control.ui.BOSS.ToggleBossHealthSlider(false, 0, "");
+			Game.control.ui.BOSS.HideBossTimer();
 			if (tag == "Boss") {
 				Game.control.stageHandler.EndHandler ("StageComplete");
 			}
