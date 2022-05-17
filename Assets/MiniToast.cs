@@ -21,7 +21,7 @@ public class MiniToast : MonoBehaviour
 
     IEnumerator ShowToastRoutine(GameObject toastObject){
          for(float i = 1; i > 0; i-=Time.deltaTime){
-            toastObject.transform.position += new Vector3(0,Time.deltaTime,0);
+            toastObject.transform.position += new Vector3(0,Time.deltaTime * 2,0);
             yield return new WaitForSeconds(Time.deltaTime);
             toastObject.GetComponent<TextMeshProUGUI>().color = new Color(1,1,1,i);
         }
