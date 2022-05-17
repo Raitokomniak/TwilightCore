@@ -11,7 +11,7 @@ public class UI_RightSidePanel : MonoBehaviour
     public TextMeshProUGUI lives;
     public TextMeshProUGUI xp;
     public TextMeshProUGUI difficulty;
-
+	public TextMeshProUGUI stage;
 	public TextMeshProUGUI hiScore;
 	public TextMeshProUGUI score;
 
@@ -41,4 +41,8 @@ public class UI_RightSidePanel : MonoBehaviour
 	public void UpdateHiScore(long _hiScore){
 		hiScore.text = "HiScore: " + _hiScore.ToString();
 	}
+
+    public void UpdateStage(string value){
+        stage.text = value;
+    }
 }

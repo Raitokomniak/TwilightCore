@@ -23,14 +23,10 @@ public class UIController : MonoBehaviour {
 	public GameObject[] bgs;
 
 
-
-	//Boss
-
-
 	//Level
 	public GameObject stageEndPanel;
 	public TextMeshProUGUI stageText;
-	public TextMeshProUGUI rightPanelStageText;
+
 	public GameObject stagePanel;
 	public TextMeshProUGUI toast;
 
@@ -244,7 +240,7 @@ public class UIController : MonoBehaviour {
 	public void UpdateStageText(int stageID, string stageName, string BGMtext)
 	{
 		stageText.text = "Stage " + stageID.ToString() + " - " + stageName + '\n' + "BGM: " + BGMtext;
-		rightPanelStageText.text = stageName;
+		RIGHT_SIDE_PANEL.UpdateStage(stageName);
 	}
 
 	public void ShowStageText(){
