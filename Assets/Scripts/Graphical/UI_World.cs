@@ -17,10 +17,10 @@ public class UI_World : MonoBehaviour
 		this.gameObject.SetActive(true);
 	}
     public void GetWalls(){
-        playAreaLeftWall = transform.GetChild (2).GetChild (0).gameObject;
-		playAreaRightWall = transform.GetChild (2).GetChild (1).gameObject;
-		playAreaTopWall = transform.GetChild (2).GetChild (2).gameObject;
-		playAreaBottomWall = transform.GetChild (2).GetChild (3).gameObject;
+        //playAreaLeftWall = transform.GetChild (2).GetChild (0).gameObject;
+		//playAreaRightWall = transform.GetChild (2).GetChild (1).gameObject;
+		//playAreaTopWall = transform.GetChild (2).GetChild (2).gameObject;
+		//playAreaBottomWall = transform.GetChild (2).GetChild (3).gameObject;
     }
 
     public float[] GetBoundaries(){

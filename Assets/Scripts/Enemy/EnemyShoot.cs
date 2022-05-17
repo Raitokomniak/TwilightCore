@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyShoot : MonoBehaviour {
 	EnemyLife enemyLife;
@@ -7,6 +8,8 @@ public class EnemyShoot : MonoBehaviour {
 	GameObject enemyBullet;
 	public ArrayList bulletsShot;
 	float shootSpeed;
+
+	public bool canShoot = true;
 
 	void Awake () {
 		enemyBullet = Resources.Load("Prefabs/enemyBullet") as GameObject;
@@ -25,10 +28,9 @@ public class EnemyShoot : MonoBehaviour {
 		StartCoroutine (ShootRoutine (p));
 	}
 
-	IEnumerator ShootRoutine(Pattern pattern){
-		while (!enemyLife.GetInvulnerableState ()) {
-			
-			StartCoroutine (pattern.Execute (enemyBullet, this));
+	IEnumerator ShootRoutine(Pattern _pattern){
+		while (!enemyLife.GetInvulnerableState () && canShoot) {
+			StartCoroutine (_pattern.Execute (enemyBullet, this));
 			yield return new WaitForSeconds (shootSpeed);
 		}
 	}

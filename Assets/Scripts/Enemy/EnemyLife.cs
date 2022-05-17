@@ -38,20 +38,19 @@ public class EnemyLife : MonoBehaviour {
 
 	public void TakeHit(float damage)
 	{
+		GetComponent<MiniToast>().PlayScoreToast(Mathf.RoundToInt(damage));
 		Game.control.player.GainScore(Mathf.RoundToInt(damage));
 		
 		if(!invulnerable && !Game.control.stageHandler.gameOver){
 			if(GetComponent<Phaser>() != null)
 			{
 				if (GetComponent<Phaser>().superPhase) 
-				{
 					currentHealth -= damage / 4;
-				}
-				else {
+				else 
 					currentHealth -= damage;
-				}
 			}
-			if(tag == "Boss" || tag == "MidBoss") Game.control.ui.BOSS.UpdateBossHealth(currentHealth);
+			if(tag == "Boss" || tag == "MidBoss") 
+				Game.control.ui.BOSS.UpdateBossHealth(currentHealth);
 		}
 
 
@@ -84,8 +83,20 @@ public class EnemyLife : MonoBehaviour {
 
 
 	public void Die() {
-		Destroy(this.gameObject);
+		//Destroy(this.gameObject);
 		Game.control.sound.PlaySound ("Enemy", "Die", true);
+
+		IEnumerator animateDeathRoutine = AnimateDeath();
+		StartCoroutine(animateDeathRoutine);
+	}
+
+	public IEnumerator AnimateDeath(){
+		GetComponent<SpriteRenderer>().enabled = false;
+		GetComponent<EnemyMovement>().enabled = false;
+		GetComponent<BoxCollider2D>().enabled = false;
+		GetComponent<EnemyShoot>().canShoot = false;
+		GetComponent<EnemyShoot>().enabled = false;
+
 
 		if(Random.Range(0, 2) == 0)
 			Instantiate(Resources.Load("Prefabs/nightCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
@@ -108,6 +119,9 @@ public class EnemyLife : MonoBehaviour {
 			}
 			shooter.wave.dead = true;
 		}
+
+		yield return new WaitForSeconds(3f);
+		Destroy(this.gameObject);
 	}
 
 	public void OnTriggerStay2D(Collider2D c){
