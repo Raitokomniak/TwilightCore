@@ -11,7 +11,7 @@ public class PlayerLife : MonoBehaviour {
 
 	public void Init(){
 		lives = Game.control.stageHandler.stats.lives;
-		Game.control.ui.UpdateStatPanel("Lives", lives);
+		Game.control.ui.RIGHT_SIDE_PANEL.UpdateLives(lives);
 		GetComponent<SpriteRenderer> ().enabled = true;
 		invulnerable = false;
 		dead = false;
@@ -34,7 +34,7 @@ public class PlayerLife : MonoBehaviour {
 
 	void LoseLife(){
 		lives -= 1;
-		Game.control.ui.UpdateStatPanel("Lives", lives);
+		Game.control.ui.RIGHT_SIDE_PANEL.UpdateLives(lives);
 		invulnerabilityRoutine = AnimateInvulnerabilityRoutine();
 		StartCoroutine(invulnerabilityRoutine);
 		Game.control.player.special.DepleteCore (false);

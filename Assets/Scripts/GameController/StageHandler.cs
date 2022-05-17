@@ -30,7 +30,7 @@ public class StageHandler : MonoBehaviour {
 		if(stageOn){
 			if(stageTimerOn) {
 				stageTimer += Time.deltaTime;
-				Game.control.ui.UpdateTimer(stageTimer);
+				Game.control.ui.RIGHT_SIDE_PANEL.UpdateTimer(stageTimer);
 			}
 		}
 		else {

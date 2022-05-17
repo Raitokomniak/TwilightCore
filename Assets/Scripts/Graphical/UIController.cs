@@ -6,6 +6,8 @@ using TMPro;
 
 public class UIController : MonoBehaviour {
 
+	public UI_RightSidePanel RIGHT_SIDE_PANEL;
+
 	public GameObject stageWorldUI;
 	public float[] wallBoundaries;
 	public GameObject playAreaLeftWall;
@@ -37,12 +39,9 @@ public class UIController : MonoBehaviour {
 	bool bossStayTimerOn;
 
 	//Level
-	public TextMeshProUGUI levelTimer;
+
 	public TextMeshProUGUI lives;
 	public Text xp;
-
-	public TextMeshProUGUI difficultyText;
-	public TextMeshProUGUI wave;
 	public GameObject stageEndPanel;
 	public TextMeshProUGUI stageText;
 	public TextMeshProUGUI rightPanelStageText;
@@ -193,7 +192,7 @@ public class UIController : MonoBehaviour {
 		PauseScreen(false);
 		dialog.SetActive(false);
 
-		UpdateDifficulty(Game.control.stageHandler.difficultyAsString);
+		RIGHT_SIDE_PANEL.UpdateDifficulty(Game.control.stageHandler.difficultyAsString);
 		//xp.text = "XP: " + 0 + " / " + Game.control.player.stats.xpCap;
 
 		foreach (GameObject parallax in topLayers) {
@@ -212,13 +211,6 @@ public class UIController : MonoBehaviour {
 		return wallBoundaries;
 	}
 
-	public void UpdateTimer(float value){
-		levelTimer.text = "Level Time: " + value.ToString ("F2");
-	}
-
-	public void UpdateDifficulty(string difficulty){
-		difficultyText.text = difficulty;
-	}
 
 	////////////////
 	//BOSS
@@ -514,25 +506,6 @@ public class UIController : MonoBehaviour {
 		toast.gameObject.SetActive (false);
 	}
 
-
-	public void UpdateStatPanel(string key, float value)
-	{
-		switch (key) {
-		case "XP":
-			xp.text = "XP: " + value.ToString () + " / " + Game.control.stageHandler.stats.xpCap;
-			break;
-		case "Lives":
-			lives.text = "Lives: " + value.ToString();
-			break;
-		case "UpgradePoints":
-			pointsToAssign.text = "Points to assign: " + value.ToString();
-			break;
-		case "Wave":
-			wave.text = "Wave: " + value.ToString();
-			break;
-		}
-
-	}
 
 	public void UpdateStatPoints(string stat, int value, int cap){
 		Text text = null;

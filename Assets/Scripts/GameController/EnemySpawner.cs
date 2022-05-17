@@ -101,7 +101,7 @@ public class EnemySpawner : MonoBehaviour {
 		if (currentWave < waves.Count) {	
 			curWave = waves [currentWave] as Wave;
 			currentWave++;
-			Game.control.ui.UpdateStatPanel ("Wave", currentWave);
+			Game.control.ui.RIGHT_SIDE_PANEL.UpdateWave(currentWave);
 		}
 	}
 
