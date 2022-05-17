@@ -14,7 +14,6 @@ public class UIController : MonoBehaviour {
 	public UI_GameOver GAMEOVER;
 	public UI_StageToastPanel STAGETOAST;
 
-
 	public TextMeshProUGUI toast;
 
 
@@ -74,7 +73,6 @@ public class UIController : MonoBehaviour {
 		BOSS.HideBossTimer();
 		stageEndScreen.SetActive(value);
 	}
-
 
 
 	public void UpdateMenuSelection(string context, int index){

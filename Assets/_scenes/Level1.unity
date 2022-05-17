@@ -11822,10 +11822,10 @@ MonoBehaviour:
   playerSpecialPanel: {fileID: 3939676774296435278}
   playerSpecialText: {fileID: 1155120649}
   pauseScreen: {fileID: 3939676775667824397}
-  pauseMenuOptions: {fileID: 3939676775135301316}
-  stageEndPanel: {fileID: 3939676775608429872}
+  stageEndScreen: {fileID: 3939676775608429872}
   loadingScreen: {fileID: 1017986071}
   optionsScreen: {fileID: 1531168767}
+  pauseMenuOptions: {fileID: 3939676775135301316}
   optionsContainer: {fileID: 202183673699886707}
   optionsValueContainer: {fileID: 985659703}
 --- !u!1001 &6419937176398465768

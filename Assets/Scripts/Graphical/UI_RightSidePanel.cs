@@ -15,6 +15,8 @@ public class UI_RightSidePanel : MonoBehaviour
 	public TextMeshProUGUI hiScore;
 	public TextMeshProUGUI score;
 
+    int scoreAdditionalZeroes = 9;
+
    	public void UpdateTimer(float value){
 		levelTimer.text = "Level Time: " + value.ToString ("F2");
 	}
@@ -36,11 +38,25 @@ public class UI_RightSidePanel : MonoBehaviour
 	}
     
 	public void UpdateScore(long _score){
-		score.text = "Score: " + _score.ToString();
+		score.text = "Score: " + GetZeroes(_score.ToString()) + _score.ToString();
 	}
+
 	public void UpdateHiScore(long _hiScore){
-		hiScore.text = "HiScore: " + _hiScore.ToString();
+		hiScore.text = "HiScore: " + GetZeroes(_hiScore.ToString()) + _hiScore.ToString();
 	}
+
+    
+    string GetZeroes(string score){
+        string scoreString = "";
+        string zero = "0";
+        int maxZeroes = 9;
+
+        for(int i = 0; i < maxZeroes - score.ToString().Length; i++){
+            scoreString += zero;
+        }
+
+        return scoreString;
+    }
 
     public void UpdateStage(string value){
         stage.text = value;
