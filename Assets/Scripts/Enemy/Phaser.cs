@@ -89,6 +89,12 @@ public class Phaser : MonoBehaviour {
 		routineOver = true;
 	}
 
+	public void StopPats(){
+		foreach(Pattern p in patterns){
+			p.StopPattern();
+		}
+	}
+
 	public void InterruptPreviousPhase(){
 		endOfPhase = true;
 		StopCoro();

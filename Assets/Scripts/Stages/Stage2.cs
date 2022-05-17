@@ -216,7 +216,7 @@ public class Stage2 : Stage
 		lib.NewWave (new Wave (70f, mp, p, 10, false, 0,  3f / difficultyMultiplier, "default"), new ArrayList { lib.topLeft });
 
 
-		boss = new Wave(mp, 113f, 150, true, 2, "boss2");
+		boss = new Wave(mp, 114f, 150, true, 2, "boss2");
 		boss.SetUpBoss (2, "Joanette, Queen of Spiders", false);
 		boss.movementPattern = lib.enterFromTop;
 		lib.NewWave (boss, new ArrayList { lib.middleTop });

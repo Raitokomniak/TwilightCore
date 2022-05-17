@@ -12,8 +12,11 @@ public class Boss1 : Phaser
 
 	public override void StopCoro(){
 		if(phaseExecuteRoutine != null) StopCoroutine (phaseExecuteRoutine);
+		
 		routineOver = true;
 	}
+
+//	public 
 
     public override void ExecutePhase(int phase, Phaser _phaser){
 		phaseExecuteRoutine = Execute (phase, _phaser);
