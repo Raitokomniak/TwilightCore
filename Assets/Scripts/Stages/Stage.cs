@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Stage : MonoBehaviour
 {
+    public string stageName;
+    public string bgmName;
+    public int stageindex;
+
 	public StageHandler stageHandler;
+    public SceneHandler scene;
 	public IEnumerator stageHandlerRoutine;
     public Wave boss;
 
@@ -13,10 +18,9 @@ public class Stage : MonoBehaviour
 
     public EnemyLib lib = Game.control.enemyLib;
 
-    void Awake(){
-        stageHandler = Game.control.stageHandler;
-        InitWaves(stageHandler.difficultyMultiplier);
-		
+    public void UpdateStageInfoToUI(){
+        Game.control.ui.RIGHT_SIDE_PANEL.UpdateStage(name);
+		Game.control.ui.STAGETOAST.UpdateStageToastText (stageindex, name, bgmName);
     }
     public virtual void StopStage(){
        if(stageHandlerRoutine != null) StopCoroutine(stageHandlerRoutine);

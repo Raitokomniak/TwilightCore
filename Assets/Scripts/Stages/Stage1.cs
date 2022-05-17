@@ -5,6 +5,17 @@ using UnityEngine;
 public class Stage1 : Stage
 {
 
+	void Awake(){
+		name = "Asura's Path";
+		bgmName = "Asura who remain Asura";
+		stageindex = 1;
+
+		scene = Game.control.scene;
+		stageHandler = Game.control.stageHandler;
+		UpdateStageInfoToUI();
+		InitWaves(stageHandler.difficultyMultiplier);
+	}
+
 	public override void StartStageHandler(){
 		stageHandlerRoutine = StageHandlerRoutine();
 		StartCoroutine(stageHandlerRoutine);
@@ -12,8 +23,6 @@ public class Stage1 : Stage
 
 
 	IEnumerator StageHandlerRoutine(){
-		SceneHandler scene = Game.control.scene;
-		Game.control.ui.UpdateStageText (1, "Asura's Path", "Asura who remain Asura");
 		while (Game.control.dialog.handlingDialog) yield return null;
 		
 		while (stageHandler.stageTimer < 4f) yield return null;
@@ -26,7 +35,7 @@ public class Stage1 : Stage
 		scene.RotateCamera (35, 0, -5);
 		scene.SetPlaneSpeed (1f);
 		while (stageHandler.stageTimer < 24f) yield return null;
-		Game.control.ui.ShowStageText();
+		Game.control.ui.PlayStageToast();
 
 		scene.MoveCamera (50, 0, 72);
 		scene.RotateCamera (25, 0, 5);

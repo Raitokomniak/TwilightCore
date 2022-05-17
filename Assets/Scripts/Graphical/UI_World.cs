@@ -13,6 +13,9 @@ public class UI_World : MonoBehaviour
     public GameObject[] topLayers;
 
 
+	void Awake(){
+		this.gameObject.SetActive(true);
+	}
     public void GetWalls(){
         playAreaLeftWall = transform.GetChild (2).GetChild (0).gameObject;
 		playAreaRightWall = transform.GetChild (2).GetChild (1).gameObject;

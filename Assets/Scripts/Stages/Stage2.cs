@@ -4,16 +4,27 @@ using UnityEngine;
 
 public class Stage2 : Stage
 {
+	void Awake(){
+		name = "Forest of Void Rituals";
+		bgmName = "?";
+		stageindex = 2;
+
+
+		scene = Game.control.scene;
+		stageHandler = Game.control.stageHandler;
+		UpdateStageInfoToUI();
+		InitWaves(stageHandler.difficultyMultiplier);
+	}
+	
+
 	public override void StartStageHandler(){
 		stageHandlerRoutine = StageHandlerRoutine();
 		StartCoroutine(stageHandlerRoutine);
 	}
 
 	IEnumerator StageHandlerRoutine(){
-		SceneHandler scene = Game.control.scene;
-		Game.control.ui.UpdateStageText (2, "Forest of Void Rituals", "Stage2");
 		while (stageHandler.stageTimer < 24f) yield return null;
-		Game.control.ui.ShowStageText();
+		Game.control.ui.PlayStageToast();
 		while (Game.control.dialog.handlingDialog) yield return null;
 		while (stageHandler.stageTimer < 112f) yield return null;
 		

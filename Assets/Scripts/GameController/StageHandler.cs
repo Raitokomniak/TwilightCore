@@ -35,7 +35,7 @@ public class StageHandler : MonoBehaviour {
 		}
 		else {
 			if (CanAdvanceStage() && Input.GetKeyDown (KeyCode.Z)) {
-				Game.control.ui.StageCompleted (false);
+				Game.control.ui.ToggleStageCompletedScreen (false);
 				NextStage ();
 			}
 		}
@@ -147,13 +147,13 @@ public class StageHandler : MonoBehaviour {
 		yield return new WaitForSeconds (1);
 		stageCompleted = true;
 		stageOn = false;
-		Game.control.ui.StageCompleted (true);
+		Game.control.ui.ToggleStageCompletedScreen (true);
 	}
 
 	void NextStage ()
 	{
 		//Game.control.MainMenu ();
-		Game.control.ui.StageCompleted (false);
+		Game.control.ui.ToggleStageCompletedScreen (false);
 		currentStage++;
 		StartStage(currentStage);
 	}
@@ -215,6 +215,7 @@ public class StageHandler : MonoBehaviour {
 
 		Game.control.dialog.Init();
 		Game.control.ui.InitStage ();
+		
 		Game.control.menu.InitMenu();
 		Game.control.player.Init();
 		Game.control.player.gameObject.SetActive (true);

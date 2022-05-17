@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using TMPro;
 
 public class UIController : MonoBehaviour {
-	public GameObject stageWorldUI;
 
 	public UI_RightSidePanel RIGHT_SIDE_PANEL;
 	public UI_LeftSidePanel LEFT_SIDE_PANEL;
@@ -13,11 +12,11 @@ public class UIController : MonoBehaviour {
 	public UI_Boss BOSS;
 	public UI_World WORLD;
 	public UI_GameOver GAMEOVER;
+	public UI_StageToastPanel STAGETOAST;
 
 
 	//stage toast panel
-	public TextMeshProUGUI stageText;
-	public GameObject stagePanel;
+
 
 
 	public TextMeshProUGUI toast;
@@ -29,9 +28,8 @@ public class UIController : MonoBehaviour {
 
 
 	//Screens
-	public GameObject gameOver;
 	public GameObject pauseScreen;
-	public GameObject pauseMenuPanel;
+	public GameObject pauseMenuOptions;
 	public GameObject stageEndPanel;
 	public GameObject loadingScreen;
 	public GameObject optionsScreen;
@@ -50,8 +48,22 @@ public class UIController : MonoBehaviour {
 		ToggleOptionsScreen(false);
 	}
 
+	public void TogglePauseScreen(bool value){
+		pauseScreen.SetActive(value);
+	}
+	
+	public void ToggleLoadingScreen(bool toggle){
+		loadingScreen.SetActive(toggle);
+	}
 
-	public void ToggleSaveScorePrompt(){
+	public void ToggleOptionsScreen(bool toggle){
+		pauseMenuOptions.SetActive(!toggle);
+		optionsScreen.SetActive(toggle);
+	}
+
+	public void ToggleStageCompletedScreen(bool value){
+		BOSS.HideBossTimer();
+		stageEndPanel.SetActive(value);
 	}
 
 	public void UpdateMenuSelection(string context, int index){
@@ -59,7 +71,7 @@ public class UIController : MonoBehaviour {
 		TextMeshProUGUI[] optionsValues = null;
 
 		if (context == "PauseMenu") {
-			allSelections = pauseMenuPanel.transform.GetComponentsInChildren<TextMeshProUGUI> ();
+			allSelections = pauseMenuOptions.transform.GetComponentsInChildren<TextMeshProUGUI> ();
 		}
 		else if(context == "OptionsMenu"){
 			allSelections = optionsContainer.transform.GetComponentsInChildren<TextMeshProUGUI> ();
@@ -91,8 +103,6 @@ public class UIController : MonoBehaviour {
 	
 
 	public void InitStage(){
-		stageWorldUI.SetActive (true);
-
 		WORLD.GetWalls();
 		LEFT_SIDE_PANEL.UpdateCoreCharge ("Day", 0);
 		LEFT_SIDE_PANEL.UpdateCoreCharge ("Night", 0);
@@ -102,23 +112,13 @@ public class UIController : MonoBehaviour {
 		BOSS.bossNamePanel.SetActive (false);
 		stageEndPanel.SetActive(false);
 		GAMEOVER.saveScoreScreen.SetActive(false);
-		gameOver.SetActive(false);
-		PauseScreen(false);
+		GAMEOVER.gameObject.SetActive(false);
+		TogglePauseScreen(false);
 		DIALOG.dialogPanel.SetActive(false);
-
 		RIGHT_SIDE_PANEL.UpdateDifficulty(Game.control.stageHandler.difficultyAsString);
 		WORLD.InitParallaxes();
 		WORLD.ResetTopLayer ();
 	}
-
-
-
-
-
-
-	////////////////
-	//BOSS
-	
 
 	public void ShowActivatedPlayerPhase(string text)
 	{
@@ -142,46 +142,9 @@ public class UIController : MonoBehaviour {
 		playerSpecialPanel.SetActive (false);
 	}
 
-	//////////////////////////////
-	/// 
-	/// 
-	/// 
-
-	
-
-	
-
-
-	public void UpdateStageText(int stageID, string stageName, string BGMtext)
-	{
-		stageText.text = "Stage " + stageID.ToString() + " - " + stageName + '\n' + "BGM: " + BGMtext;
-		RIGHT_SIDE_PANEL.UpdateStage(stageName);
-	}
-
-	public void ShowStageText(){
-		IEnumerator stageText = StageText();
-		StartCoroutine(stageText);
-	}
-
-	IEnumerator StageText()
-	{
-		stagePanel.SetActive (true);
-		yield return new WaitForSeconds(3);
-		stagePanel.gameObject.SetActive(false);
-	}
-
-
-	public void StageCompleted(bool value)
-	{
-		BOSS.HideBossTimer();
-		stageEndPanel.SetActive(value);
-	}
-
-	
-
-
-	public void PauseScreen(bool value){
-		pauseScreen.SetActive(value);
+	public void PlayStageToast(){
+		STAGETOAST.gameObject.SetActive(true);
+		STAGETOAST.Play();
 	}
 
 
@@ -194,16 +157,8 @@ public class UIController : MonoBehaviour {
 		yield return new WaitForSeconds (2f);
 		toast.gameObject.SetActive (false);
 	}
-	
-	public void ToggleLoadingScreen(bool toggle){
-		loadingScreen.SetActive(toggle);
-	}
 
-	//OPTIONS
-	public void ToggleOptionsScreen(bool toggle){
-		pauseMenuPanel.SetActive(!toggle);
-		optionsScreen.SetActive(toggle);
-	}
+	
 
 
 }
