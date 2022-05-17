@@ -20,7 +20,6 @@ public class UI_StageToastPanel : MonoBehaviour
 
 	IEnumerator StageText()
 	{
-		//this.gameObject.SetActive (true);
 		yield return new WaitForSeconds(3);
 		this.gameObject.SetActive(false);
 	}

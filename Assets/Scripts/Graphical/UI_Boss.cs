@@ -29,6 +29,12 @@ public class UI_Boss : MonoBehaviour
 		HideBossTimer();
     }
     
+	public void HideUI(){
+		bossHealthSlider.gameObject.SetActive(false);
+		bossTimer.gameObject.SetActive(false);
+		bossNamePanel.SetActive (false);
+	}
+
     void Update(){
 		if(bossStayTimerOn) {
 			if(bossStayTimer > 0){

@@ -37,6 +37,11 @@ public class UI_LeftSidePanel : MonoBehaviour
 		}
 	}
 
+	public void EmptyCores(){
+		dayCoreSlider.value = 0;
+		nightCoreSlider.value = 0;
+	}
+
 	public void UpdateCoreCharge(string core, int updatedCharge){
 		if (core == "Day") {
 			dayCoreSlider.value = updatedCharge;

@@ -15,10 +15,6 @@ public class UIController : MonoBehaviour {
 	public UI_StageToastPanel STAGETOAST;
 
 
-	//stage toast panel
-
-
-
 	public TextMeshProUGUI toast;
 
 
@@ -29,19 +25,32 @@ public class UIController : MonoBehaviour {
 
 	//Screens
 	public GameObject pauseScreen;
-	public GameObject pauseMenuOptions;
-	public GameObject stageEndPanel;
+	public GameObject stageEndScreen;
 	public GameObject loadingScreen;
 	public GameObject optionsScreen;
 
 
-
 	//OPTIONS
+	public GameObject pauseMenuOptions;
     public GameObject optionsContainer;
 	public GameObject optionsValueContainer;
 
-	//GAMEOVER
+	public void InitStage(){
+		WORLD.GetWalls();
+		LEFT_SIDE_PANEL.EmptyCores();
+		BOSS.HideUI();
 
+		stageEndScreen.SetActive(false);
+		GAMEOVER.saveScoreScreen.SetActive(false);
+		GAMEOVER.gameObject.SetActive(false);
+		TogglePauseScreen(false);
+		DIALOG.dialogPanel.SetActive(false);
+		
+		WORLD.InitParallaxes();
+		WORLD.ResetTopLayer ();
+
+		RIGHT_SIDE_PANEL.UpdateDifficulty(Game.control.stageHandler.difficultyAsString);
+	}
 
 	void Awake(){
 		ToggleLoadingScreen(false);
@@ -63,8 +72,10 @@ public class UIController : MonoBehaviour {
 
 	public void ToggleStageCompletedScreen(bool value){
 		BOSS.HideBossTimer();
-		stageEndPanel.SetActive(value);
+		stageEndScreen.SetActive(value);
 	}
+
+
 
 	public void UpdateMenuSelection(string context, int index){
 		TextMeshProUGUI[] allSelections = null;
@@ -101,27 +112,7 @@ public class UIController : MonoBehaviour {
 		option.text = text;
 	}
 	
-
-	public void InitStage(){
-		WORLD.GetWalls();
-		LEFT_SIDE_PANEL.UpdateCoreCharge ("Day", 0);
-		LEFT_SIDE_PANEL.UpdateCoreCharge ("Night", 0);
-
-		BOSS.bossHealthSlider.gameObject.SetActive(false);
-		BOSS.bossTimer.gameObject.SetActive(false);
-		BOSS.bossNamePanel.SetActive (false);
-		stageEndPanel.SetActive(false);
-		GAMEOVER.saveScoreScreen.SetActive(false);
-		GAMEOVER.gameObject.SetActive(false);
-		TogglePauseScreen(false);
-		DIALOG.dialogPanel.SetActive(false);
-		RIGHT_SIDE_PANEL.UpdateDifficulty(Game.control.stageHandler.difficultyAsString);
-		WORLD.InitParallaxes();
-		WORLD.ResetTopLayer ();
-	}
-
-	public void ShowActivatedPlayerPhase(string text)
-	{
+	public void ShowActivatedPlayerPhase(string text){
 		StartCoroutine (_ShowActivatedPlayerPhase (text));
 	}
 
@@ -147,7 +138,6 @@ public class UIController : MonoBehaviour {
 		STAGETOAST.Play();
 	}
 
-
 	public void PlayToast(string text){
 		toast.text = text;
 	}
@@ -157,8 +147,5 @@ public class UIController : MonoBehaviour {
 		yield return new WaitForSeconds (2f);
 		toast.gameObject.SetActive (false);
 	}
-
-	
-
 
 }
