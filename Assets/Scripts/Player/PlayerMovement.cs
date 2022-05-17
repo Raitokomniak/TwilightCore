@@ -26,19 +26,19 @@ public class PlayerMovement : MonoBehaviour
 			float ver = Input.GetAxisRaw ("Vertical");
 
 			if (ver < 0) //BOTTOM
-				if (transform.position.y >= Game.control.ui.GetBoundaries()[0] + .5f)
+				if (transform.position.y >= Game.control.ui.WORLD.GetBoundaries()[0] + .5f)
 					Move (0, ver);
 
 			if (hor < 0) //LEFT
-				if (transform.position.x > Game.control.ui.GetBoundaries()[1] + .5f) 
+				if (transform.position.x > Game.control.ui.WORLD.GetBoundaries()[1] + .5f) 
 					Move (hor, 0);
 
 			if (ver > 0) //TOP 
-				if (transform.position.y <= Game.control.ui.GetBoundaries()[2] - 2f) 
+				if (transform.position.y <= Game.control.ui.WORLD.GetBoundaries()[2] - 2f) 
 					Move (0, ver);
 				
 			if (hor > 0) //RIGHT 
-				if (transform.position.x <= Game.control.ui.GetBoundaries()[3] - .5f) 
+				if (transform.position.x <= Game.control.ui.WORLD.GetBoundaries()[3] - .5f) 
 					Move (hor, 0);
 		}
 	}

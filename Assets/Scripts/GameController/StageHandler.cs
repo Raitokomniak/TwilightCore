@@ -112,7 +112,7 @@ public class StageHandler : MonoBehaviour {
 
 		Game.control.sound.StopMusic ();
 		Game.control.menu.Menu("SaveScorePrompt");
-		Game.control.ui.GameCompleteScreen(true);
+		Game.control.ui.GAMEOVER.GameCompleteScreen(true);
 
 		stageOn = false;
 		stageTimerOn = false;
@@ -129,7 +129,7 @@ public class StageHandler : MonoBehaviour {
 
 		Game.control.sound.StopMusic ();
 		Game.control.menu.Menu("SaveScorePrompt");
-		Game.control.ui.GameOverScreen (true);
+		Game.control.ui.GAMEOVER.GameOverScreen (true);
 
 		stageOn = false;
 		stageTimerOn = false;

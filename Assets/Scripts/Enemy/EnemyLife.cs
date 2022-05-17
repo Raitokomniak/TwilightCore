@@ -100,7 +100,7 @@ public class EnemyLife : MonoBehaviour {
 					Instantiate(Resources.Load("Prefabs/nightCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
 			}
 				
-			Game.control.ui.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
+			Game.control.ui.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
 			Game.control.ui.BOSS.ToggleBossHealthSlider(false, 0, "");
 			Game.control.ui.BOSS.HideBossTimer();
 			if (tag == "Boss") {

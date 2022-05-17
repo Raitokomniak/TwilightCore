@@ -128,7 +128,7 @@ public class MenuController : MonoBehaviour
 		}
 		else if(context == "GameOverMenu"){
 			selectedList = gameOverMenuItems;
-			Game.control.ui.GameOverSelections(true);
+			Game.control.ui.GAMEOVER.GameOverSelections(true);
 			Game.control.ui.UpdateMenuSelection ("GameOverMenu", 0);
 		}
 	}
@@ -227,7 +227,7 @@ public class MenuController : MonoBehaviour
 			if(selectedIndex == 2) Game.control.QuitGame();
 		}
 		else if(context == "SaveScorePrompt"){
-			if(selectedIndex == 0) {Game.control.ui.SaveScoreScreen(true); context = "SaveScoreScreen";}
+			if(selectedIndex == 0) {Game.control.ui.GAMEOVER.SaveScoreScreen(true); context = "SaveScoreScreen";}
 			if(selectedIndex == 1) Menu("GameOverMenu");
 		}
 	}

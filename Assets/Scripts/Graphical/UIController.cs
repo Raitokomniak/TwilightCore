@@ -11,23 +11,15 @@ public class UIController : MonoBehaviour {
 	public UI_LeftSidePanel LEFT_SIDE_PANEL;
 	public UI_Dialog DIALOG;
 	public UI_Boss BOSS;
+	public UI_World WORLD;
+	public UI_GameOver GAMEOVER;
 
 
-	public float[] wallBoundaries;
-	public GameObject playAreaLeftWall;
-	public GameObject playAreaRightWall;
-	public GameObject playAreaTopWall;
-	public GameObject playAreaBottomWall;
-
-	public GameObject[] topLayers;
-	public GameObject[] bgs;
-
-
-	//Level
-	public GameObject stageEndPanel;
+	//stage toast panel
 	public TextMeshProUGUI stageText;
-
 	public GameObject stagePanel;
+
+
 	public TextMeshProUGUI toast;
 
 
@@ -40,45 +32,24 @@ public class UIController : MonoBehaviour {
 	public GameObject gameOver;
 	public GameObject pauseScreen;
 	public GameObject pauseMenuPanel;
+	public GameObject stageEndPanel;
 	public GameObject loadingScreen;
 	public GameObject optionsScreen;
-	public GameObject saveScoreScreen;
 
 
-	//Dialog
 
 	//OPTIONS
     public GameObject optionsContainer;
 	public GameObject optionsValueContainer;
 
 	//GAMEOVER
-	public GameObject saveScorePrompt;
-	public GameObject saveScoreContainer;
-	public GameObject gameOverOptionsContainer;
-	
-	public Transform gameOverImage;
-	public Transform gameCompleteImage;
 
-	public TMP_InputField scoreSaveNameInput;
-
-	public TextMeshProUGUI scoreInfo;
 
 	void Awake(){
 		ToggleLoadingScreen(false);
 		ToggleOptionsScreen(false);
 	}
 
-	void Update(){
-		if(scoreSaveNameInput.gameObject.activeSelf){
-			if(Input.GetKeyDown(KeyCode.Return)){
-				//DONT DO LIKE THIS, THIS IS JUST A TEMP SOLUTION
-				if(gameOverImage.gameObject.activeSelf) Game.control.menu.Menu("GameOverMenu");
-				else if(gameCompleteImage.gameObject.activeSelf) Game.control.MainMenu();
-				Game.control.io.SaveScore(scoreSaveNameInput.text, Game.control.stageHandler.stats.score, Game.control.stageHandler.difficultyAsString);
-			}
-		}
-
-	}
 
 	public void ToggleSaveScorePrompt(){
 	}
@@ -95,10 +66,10 @@ public class UIController : MonoBehaviour {
 			optionsValues = optionsValueContainer.transform.GetComponentsInChildren<TextMeshProUGUI> ();
 		}
 		else if(context == "GameOverMenu"){
-			allSelections = gameOverOptionsContainer.transform.GetComponentsInChildren<TextMeshProUGUI> ();
+			allSelections = GAMEOVER.gameOverOptionsContainer.transform.GetComponentsInChildren<TextMeshProUGUI> ();
 		}
 		else if(context == "SaveScorePrompt"){
-			allSelections = saveScoreContainer.transform.GetComponentsInChildren<TextMeshProUGUI> ();
+			allSelections = GAMEOVER.saveScoreContainer.transform.GetComponentsInChildren<TextMeshProUGUI> ();
 		}
 		
 		foreach (TextMeshProUGUI text in allSelections) {
@@ -122,10 +93,7 @@ public class UIController : MonoBehaviour {
 	public void InitStage(){
 		stageWorldUI.SetActive (true);
 
-		playAreaLeftWall = Game.control.ui.stageWorldUI.transform.GetChild (2).GetChild (0).gameObject;
-		playAreaRightWall = Game.control.ui.stageWorldUI.transform.GetChild (2).GetChild (1).gameObject;
-		playAreaTopWall = Game.control.ui.stageWorldUI.transform.GetChild (2).GetChild (2).gameObject;
-		playAreaBottomWall = Game.control.ui.stageWorldUI.transform.GetChild (2).GetChild (3).gameObject;
+		WORLD.GetWalls();
 		LEFT_SIDE_PANEL.UpdateCoreCharge ("Day", 0);
 		LEFT_SIDE_PANEL.UpdateCoreCharge ("Night", 0);
 
@@ -133,29 +101,19 @@ public class UIController : MonoBehaviour {
 		BOSS.bossTimer.gameObject.SetActive(false);
 		BOSS.bossNamePanel.SetActive (false);
 		stageEndPanel.SetActive(false);
-		saveScoreScreen.SetActive(false);
+		GAMEOVER.saveScoreScreen.SetActive(false);
 		gameOver.SetActive(false);
 		PauseScreen(false);
 		DIALOG.dialogPanel.SetActive(false);
 
 		RIGHT_SIDE_PANEL.UpdateDifficulty(Game.control.stageHandler.difficultyAsString);
-		//xp.text = "XP: " + 0 + " / " + Game.control.player.stats.xpCap;
-
-		foreach (GameObject parallax in topLayers) {
-			parallax.GetComponent<TopLayerParallaxController> ().Init ();
-		}
-		foreach (GameObject parallax in bgs) {
-			parallax.GetComponent<ParallaxController> ().Init ();
-		}
-		ResetTopLayer ();
-		
-		
+		WORLD.InitParallaxes();
+		WORLD.ResetTopLayer ();
 	}
 
-	public float[] GetBoundaries(){
-		wallBoundaries = new float[4]{playAreaBottomWall.transform.position.y, playAreaLeftWall.transform.position.x, playAreaTopWall.transform.position.y, playAreaRightWall.transform.position.x};
-		return wallBoundaries;
-	}
+
+
+
 
 
 	////////////////
@@ -189,53 +147,10 @@ public class UIController : MonoBehaviour {
 	/// 
 	/// 
 
-	void ResetTopLayer(){
-		foreach (GameObject layer in topLayers) {
-			Sprite sprite = Resources.Load<Sprite> ("Images/Backgrounds/TopLayers/Stage"+ Game.control.stageHandler.currentStage);
-			layer.GetComponent<Image> ().sprite = sprite;
-			layer.GetComponent<TopLayerParallaxController> ().scrollSpeed = 26;
-		}
-	}
-
-	public void UpdateTopPlayer(string phase){
-		StartCoroutine (_UpdateTopLayer (phase));
-	}
-
-	public void UpdateTopPlayer(float speed)
-	{
-		foreach (GameObject layer in topLayers) {
-			layer.GetComponent<TopLayerParallaxController> ().scrollSpeed = speed;
-		}
-	}
-
-	public IEnumerator _UpdateTopLayer(string type)
-	{
-//		Debug.Log ("update " + type);
-		Sprite sprite;
-		GameObject layer1 = topLayers [0];
-		GameObject layer2 = topLayers [1];
-
-		for (float i = 2; i >= 0; i -= 0.1f) {
-			layer1.GetComponent<Image> ().color = new Color (1, 1, 1, i);
-			layer2.GetComponent<Image> ().color = new Color (1, 1, 1, i);
-			yield return new WaitForSeconds (0.05f);
-		}
-		sprite = Resources.Load<Sprite> ("Images/Backgrounds/TopLayers/" + type);
-		foreach (GameObject layer in topLayers) {
-			layer.GetComponent<Image> ().sprite = sprite;
-			layer.GetComponent<TopLayerParallaxController> ().scrollSpeed = 5f;
-		}
-
-		layer1.GetComponent<Image> ().color = new Color (1, 1, 1, 0);
-		layer2.GetComponent<Image> ().color = new Color (1, 1, 1, 0);
-		for (float i = 0; i < 2; i += 0.1f) {
-			layer1.GetComponent<Image> ().color = new Color (1, 1, 1, i);
-			layer2.GetComponent<Image> ().color = new Color (1, 1, 1, i);
-			yield return new WaitForSeconds (0.1f);
-		}
-	}
+	
 
 	
+
 
 	public void UpdateStageText(int stageID, string stageName, string BGMtext)
 	{
@@ -262,31 +177,7 @@ public class UIController : MonoBehaviour {
 		stageEndPanel.SetActive(value);
 	}
 
-	public void SaveScoreScreen(bool value){
-		saveScoreScreen.SetActive(value);
-		saveScorePrompt.SetActive(false);
-		scoreInfo.text = Game.control.stageHandler.stats.score.ToString() + " " + Game.control.stageHandler.difficultyAsString;
-	}
-
-	public void GameCompleteScreen(bool value){
-		gameOver.SetActive(value);
-		gameOverImage.gameObject.SetActive(false);
-		gameCompleteImage.gameObject.SetActive(true);
-		saveScorePrompt.SetActive(true);
-	}
-
-	public void GameOverScreen(bool value){
-		gameOver.SetActive(value);
-		gameOverImage.gameObject.SetActive(true);
-		gameCompleteImage.gameObject.SetActive(false);
-		saveScorePrompt.SetActive(true);
-	}
-
-	public void GameOverSelections(bool value){
-		saveScorePrompt.SetActive(false);
-		SaveScoreScreen(false);
-		gameOverOptionsContainer.SetActive(true);
-	}
+	
 
 
 	public void PauseScreen(bool value){

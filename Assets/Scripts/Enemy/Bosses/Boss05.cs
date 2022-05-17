@@ -32,7 +32,7 @@ public class Boss05 : Phaser
 				break;
 			case 1:
 				
-				Game.control.ui.UpdateTopPlayer (1f);
+				Game.control.ui.WORLD.UpdateTopPlayer (1f);
 
 			    GetComponent<EnemyLife>().SetInvulnerable (true);
 
@@ -70,7 +70,7 @@ public class Boss05 : Phaser
 				NextPhase();
 				break;
 			case 2:
-				Game.control.ui.UpdateTopPlayer (1f);
+				Game.control.ui.WORLD.UpdateTopPlayer (1f);
 				Game.control.ui.BOSS.ShowActivatedPhase ("Twilight Core: Depulsio");
 				GetComponent<EnemyLife>().SetInvulnerable (true);
 

@@ -5,7 +5,7 @@ public class PointDestructor : MonoBehaviour {
 	bool onMagneticRange = false;
 	
 	void Update () {
-		if(transform.position.y <= Game.control.ui.playAreaBottomWall.transform.position.y){
+		if(transform.position.y <= Game.control.ui.WORLD.playAreaBottomWall.transform.position.y){
 			Destroy(this.gameObject);
 		}
 		if (onMagneticRange) {

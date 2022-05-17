@@ -113,6 +113,6 @@ public class Phaser : MonoBehaviour {
 		endOfPhase = false;
 		GetComponent<EnemyLife>().SetInvulnerable(false);
 		ExecutePhase (bossPhase, this);
-		Game.control.ui.UpdateTopPlayer ("Boss" + bossIndex + "_" + (bossPhase));
+		Game.control.ui.WORLD.UpdateTopPlayer ("Boss" + bossIndex + "_" + (bossPhase));
 	}
 }

@@ -8,7 +8,7 @@ public class ProjectileMovement : MonoBehaviour {
 	public Vector3 targetPos;
 
 	void Update () {
-		if(transform.position.y < Game.control.ui.playAreaTopWall.transform.position.y && !Game.control.pause.paused) {
+		if(transform.position.y < Game.control.ui.WORLD.playAreaTopWall.transform.position.y && !Game.control.pause.paused) {
 			if (homing) {
 				if (targetPos != Vector3.up) {
 					transform.position = Vector3.Lerp (transform.position, targetPos + new Vector3(0, 15,0), Time.deltaTime * movementSpeed * 10);
