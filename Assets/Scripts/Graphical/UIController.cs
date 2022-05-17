@@ -40,6 +40,8 @@ public class UIController : MonoBehaviour {
 	public TextMeshProUGUI levelTimer;
 	public TextMeshProUGUI lives;
 	public Text xp;
+
+	public TextMeshProUGUI difficultyText;
 	public TextMeshProUGUI wave;
 	public GameObject stageEndPanel;
 	public TextMeshProUGUI stageText;
@@ -191,6 +193,7 @@ public class UIController : MonoBehaviour {
 		PauseScreen(false);
 		dialog.SetActive(false);
 
+		UpdateDifficulty(Game.control.stageHandler.difficultyAsString);
 		//xp.text = "XP: " + 0 + " / " + Game.control.player.stats.xpCap;
 
 		foreach (GameObject parallax in topLayers) {
@@ -211,6 +214,10 @@ public class UIController : MonoBehaviour {
 
 	public void UpdateTimer(float value){
 		levelTimer.text = "Level Time: " + value.ToString ("F2");
+	}
+
+	public void UpdateDifficulty(string difficulty){
+		difficultyText.text = difficulty;
 	}
 
 	////////////////
