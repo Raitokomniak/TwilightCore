@@ -19,6 +19,8 @@ public class SoundController : MonoBehaviour {
 	AudioClip shoot;
 	AudioClip enemyDie;
 	AudioClip takeHit;
+	AudioClip bonus;
+
 
 	//Volumes
 	public float SFXVolume;
@@ -36,6 +38,7 @@ public class SoundController : MonoBehaviour {
 		shoot = Resources.Load ("Sound/Shoot") as AudioClip;
 		takeHit = Resources.Load ("Sound/TakeHit") as AudioClip;
 		enemyDie = Resources.Load ("Sound/Die") as AudioClip;
+		bonus = Resources.Load("Sound/Cancel2") as AudioClip;
 	}
 
 	public float GetBGMVolume(){
@@ -84,7 +87,7 @@ public class SoundController : MonoBehaviour {
 	public void PlayExampleSound(){
 		playerSoundFXSource.PlayOneShot (shoot);
 	}
-
+	
 	public void PlaySound(string source, string sound, bool oneShot)
 	{
 		AudioSource s = null;
@@ -96,6 +99,9 @@ public class SoundController : MonoBehaviour {
 			c = enemyDie;
 		if(sound == "TakeHit")
 			c = takeHit;
+		if(sound == "Bonus")
+			c = bonus;
+
 
 
 		if(source == "Player")

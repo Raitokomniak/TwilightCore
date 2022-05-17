@@ -6,6 +6,8 @@ public class Boss1 : Phaser
 {
 	void Awake(){
 		bossIndex = 1;
+		Game.control.stageHandler.bossOn = true;
+		Game.control.stageHandler.bossBonus = true;
 	}
 
 	public override void StopCoro(){

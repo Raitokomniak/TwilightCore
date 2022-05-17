@@ -38,6 +38,12 @@ public class PlayerLife : MonoBehaviour {
 		invulnerabilityRoutine = AnimateInvulnerabilityRoutine();
 		StartCoroutine(invulnerabilityRoutine);
 		Game.control.player.special.DepleteCore (false);
+		if(Game.control.stageHandler.bossOn) Game.control.stageHandler.bossBonus = false;
+	}
+
+	public void GainLife(){
+		lives += 1;
+		Game.control.ui.RIGHT_SIDE_PANEL.UpdateLives(lives);
 	}
 
 	void Die(){

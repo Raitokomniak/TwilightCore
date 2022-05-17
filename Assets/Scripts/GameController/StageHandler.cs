@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System.IO;
 
@@ -16,6 +17,10 @@ public class StageHandler : MonoBehaviour {
 	public bool gameOver;
 	public bool stageCompleted;
 	public float stageTimer;
+	public bool countingStageEndBonuses;
+
+	public bool bossOn;
+	public bool bossBonus = false;
 
 	int stageCount = 2;
 	public int currentStage;
@@ -35,7 +40,7 @@ public class StageHandler : MonoBehaviour {
 		}
 		else {
 			if (CanAdvanceStage() && Input.GetKeyDown (KeyCode.Z)) {
-				Game.control.ui.ToggleStageCompletedScreen (false);
+				Game.control.ui.HideStageCompletedScreen();
 				NextStage ();
 			}
 		}
@@ -44,7 +49,33 @@ public class StageHandler : MonoBehaviour {
 	bool CanAdvanceStage(){
 		if(gameOver) return false;
 		if(!stageCompleted) return false;
+		if(countingStageEndBonuses) return false;
 		else return true;
+	}
+
+
+	public List<int> CalculateBonuses(){
+		List<int> bonuses = new List<int>();
+		int timeBonus = (500 - Mathf.RoundToInt(stageTimer)) * 10;
+		int dayBonus = Game.control.player.special.dayCorePoints * 1000;
+		int nightBonus = Game.control.player.special.nightCorePoints * 1000;
+
+		Game.control.player.GainScore(timeBonus);
+		Game.control.player.GainScore(dayBonus);
+		Game.control.player.GainScore(nightBonus);
+
+		int bossBonusScore = 0;
+		if(bossBonus) {
+			bossBonusScore = 10000;
+			Game.control.player.GainScore(bossBonusScore);
+		}
+		
+		bonuses.Add(timeBonus);
+		bonuses.Add(dayBonus);
+		bonuses.Add(nightBonus);
+		bonuses.Add(bossBonusScore);
+
+		return bonuses;
 	}
 	
 	public void InitWaves(int stage){
@@ -63,7 +94,7 @@ public class StageHandler : MonoBehaviour {
 
 	public void ToggleTimer(bool value){
 		stageTimerOn = value;
-		stageTimer = 0;
+		//stageTimer = 0;
 	}
 
 
@@ -76,7 +107,8 @@ public class StageHandler : MonoBehaviour {
 
 	public void EndHandler (string endType)
 	{
-		
+		bossOn = false;
+
 		if(stageScript != null) stageScript.StopStage();
 
 		switch (endType) {
@@ -147,13 +179,13 @@ public class StageHandler : MonoBehaviour {
 		yield return new WaitForSeconds (1);
 		stageCompleted = true;
 		stageOn = false;
-		Game.control.ui.ToggleStageCompletedScreen (true);
+		Game.control.ui.ShowStageCompletedScreen ();
 	}
 
 	void NextStage ()
 	{
 		//Game.control.MainMenu ();
-		Game.control.ui.ToggleStageCompletedScreen (false);
+		Game.control.ui.HideStageCompletedScreen ();
 		currentStage++;
 		StartStage(currentStage);
 	}

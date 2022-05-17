@@ -270,7 +270,7 @@ public class Stage1 : Stage
 			///*
 			mp = new EnemyMovementPattern (lib.enterFromTop);
 			mp.Customize ("StayTime", 0);
-			boss = new Wave(mp, 100f, 60 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss1");
+			boss = new Wave(mp, 100f, 80 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss1");
 			boss.movementPattern = lib.enterFromTop;
 			//*/
 

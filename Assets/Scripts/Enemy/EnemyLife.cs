@@ -104,6 +104,7 @@ public class EnemyLife : MonoBehaviour {
 		else 
 			Instantiate(Resources.Load("Prefabs/dayCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
 
+		
 		if(tag == "Boss" || tag == "MidBoss"){
 			Game.control.enemySpawner.DestroyAllProjectiles();
 			for(int i = 0; i < 9; i++){

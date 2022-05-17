@@ -25,7 +25,7 @@ public class PlayerStats {
 
 		maxLives = 5;
 		lives = maxLives;
-		xpCap = 5;
+		xpCap = 30;
 		xp = 0;
 		level = 1;
 		damage = damageMin;
@@ -81,17 +81,15 @@ public class PlayerHandler : MonoBehaviour {
 	}
 
 	public long GainScore(int gained){
-		PlayerStats stats = Game.control.stageHandler.stats;
 		long gainedScore = gained * Game.control.stageHandler.difficultyMultiplier;
-		stats.score += gainedScore;
-		if (stats.score >= stats.hiScore) {
-			stats.hiScore =stats.score;
-			Game.control.ui.RIGHT_SIDE_PANEL.UpdateHiScore (stats.hiScore);
+		Game.control.stageHandler.stats.score += gainedScore;
+		if (Game.control.stageHandler.stats.score >= Game.control.stageHandler.stats.hiScore) {
+			Game.control.stageHandler.stats.hiScore = Game.control.stageHandler.stats.score;
+			Game.control.ui.RIGHT_SIDE_PANEL.UpdateHiScore (Game.control.stageHandler.stats.hiScore);
 		}
-		Game.control.ui.RIGHT_SIDE_PANEL.UpdateScore (stats.score);
+		Game.control.ui.RIGHT_SIDE_PANEL.UpdateScore (Game.control.stageHandler.stats.score);
 
 		return gainedScore;
-		
 	}
 
 
@@ -102,13 +100,15 @@ public class PlayerHandler : MonoBehaviour {
 	////////////////////////////////////////////////
 	public void GainXP(int gainedXP)
 	{
-		Game.control.stageHandler.stats.xp += gainedXP;
+		PlayerStats stats = Game.control.stageHandler.stats;
+		stats.xp += gainedXP;
 		GetComponent<MiniToast>().PlayXPToast(gainedXP);
 
-		if(Game.control.stageHandler.stats.xp >= Game.control.stageHandler.stats.xpCap) {
-			Game.control.stageHandler.stats.xp = Game.control.stageHandler.stats.xp - Game.control.stageHandler.stats.xpCap;
-			Game.control.stageHandler.stats.xpCap += 5;
-			//LevelUp();
+		if(stats.xp >= stats.xpCap) {
+			stats.xp = stats.xp - stats.xpCap;
+			stats.xpCap += 50;
+			stats.lives += 1;
+			GetComponent<PlayerLife>().GainLife();
 		}
 
 		Game.control.ui.RIGHT_SIDE_PANEL.UpdateXP(Game.control.stageHandler.stats.xp);

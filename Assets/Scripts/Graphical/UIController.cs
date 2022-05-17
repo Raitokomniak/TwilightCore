@@ -13,6 +13,8 @@ public class UIController : MonoBehaviour {
 	public UI_World WORLD;
 	public UI_GameOver GAMEOVER;
 	public UI_StageToastPanel STAGETOAST;
+	public UI_StageComplete STAGEEND;
+
 
 	public TextMeshProUGUI toast;
 
@@ -24,7 +26,6 @@ public class UIController : MonoBehaviour {
 
 	//Screens
 	public GameObject pauseScreen;
-	public GameObject stageEndScreen;
 	public GameObject loadingScreen;
 	public GameObject optionsScreen;
 
@@ -39,7 +40,7 @@ public class UIController : MonoBehaviour {
 		LEFT_SIDE_PANEL.EmptyCores();
 		BOSS.HideUI();
 
-		stageEndScreen.SetActive(false);
+		STAGEEND.gameObject.SetActive(false);
 		GAMEOVER.saveScoreScreen.SetActive(false);
 		GAMEOVER.gameObject.SetActive(false);
 		TogglePauseScreen(false);
@@ -69,9 +70,15 @@ public class UIController : MonoBehaviour {
 		optionsScreen.SetActive(toggle);
 	}
 
-	public void ToggleStageCompletedScreen(bool value){
+	public void HideStageCompletedScreen(){
 		BOSS.HideBossTimer();
-		stageEndScreen.SetActive(value);
+		STAGEEND.gameObject.SetActive(false);
+	}
+	
+	public void ShowStageCompletedScreen(){
+		BOSS.HideBossTimer();
+		STAGEEND.gameObject.SetActive(true);
+		STAGEEND.UpdateScoreBreakDown();
 	}
 
 
