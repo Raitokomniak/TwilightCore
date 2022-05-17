@@ -80,14 +80,18 @@ public class PlayerHandler : MonoBehaviour {
 		Game.control.ui.RIGHT_SIDE_PANEL.UpdateLives(Game.control.stageHandler.stats.lives);
 	}
 
-	public void GainScore(int gained){
+	public long GainScore(int gained){
 		PlayerStats stats = Game.control.stageHandler.stats;
-		stats.score += gained * Game.control.stageHandler.difficultyMultiplier;
+		long gainedScore = gained * Game.control.stageHandler.difficultyMultiplier;
+		stats.score += gainedScore;
 		if (stats.score >= stats.hiScore) {
 			stats.hiScore =stats.score;
 			Game.control.ui.RIGHT_SIDE_PANEL.UpdateHiScore (stats.hiScore);
 		}
 		Game.control.ui.RIGHT_SIDE_PANEL.UpdateScore (stats.score);
+
+		return gainedScore;
+		
 	}
 
 
@@ -99,6 +103,7 @@ public class PlayerHandler : MonoBehaviour {
 	public void GainXP(int gainedXP)
 	{
 		Game.control.stageHandler.stats.xp += gainedXP;
+		GetComponent<MiniToast>().PlayXPToast(gainedXP);
 
 		if(Game.control.stageHandler.stats.xp >= Game.control.stageHandler.stats.xpCap) {
 			Game.control.stageHandler.stats.xp = Game.control.stageHandler.stats.xp - Game.control.stageHandler.stats.xpCap;

@@ -38,8 +38,9 @@ public class EnemyLife : MonoBehaviour {
 
 	public void TakeHit(float damage)
 	{
-		GetComponent<MiniToast>().PlayScoreToast(Mathf.RoundToInt(damage));
-		Game.control.player.GainScore(Mathf.RoundToInt(damage));
+		
+		long gainedScore = Game.control.player.GainScore(Mathf.RoundToInt(damage));
+		GetComponent<MiniToast>().PlayScoreToast(Mathf.RoundToInt(gainedScore));
 		
 		if(!invulnerable && !Game.control.stageHandler.gameOver){
 			if(GetComponent<Phaser>() != null)

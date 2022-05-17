@@ -36,6 +36,8 @@ public class EnemyShoot : MonoBehaviour {
 	}
 
 	public void BossShoot(Pattern pat){
-		StartCoroutine (pat.Execute (enemyBullet, this));
+		if(canShoot){
+			StartCoroutine (pat.Execute (enemyBullet, this));
+		}
 	}
 }

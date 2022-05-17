@@ -14,6 +14,11 @@ public class MiniToast : MonoBehaviour
         string toastText = "+" + value.ToString() + " score";
         Toast(toastText);
     }
+    public void PlayXPToast(int value){
+        string toastText = "+" + value.ToString() + " XP";
+        Toast(toastText);
+    }
+
 
     public void PlayCorePointToast(int value, string core){
         string toastText = "+" + value.ToString() + " " + core + " point";
