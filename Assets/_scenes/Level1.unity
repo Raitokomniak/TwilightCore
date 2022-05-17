@@ -10308,6 +10308,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3939676774758167050}
+  - component: {fileID: 3939676774758167052}
   m_Layer: 5
   m_Name: Dialog
   m_TagString: Untagged
@@ -10315,6 +10316,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &3939676774758167052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3939676774758167051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e50d9e9d351e6804187ac0b4c0801a7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogPanel: {fileID: 3939676774758167051}
+  dialogBG: {fileID: 3939676774083541318}
+  dialogName: {fileID: 1870151761}
+  dialogContent: {fileID: 1723636427}
+  dialogRightChar: {fileID: 3939676775083258600}
+  dialogLeftChar: {fileID: 3939676775132728310}
+  bossDialogName: {fileID: 509476110}
+  bossDialogDescription: {fileID: 924889370}
+  autoScrollInfo: {fileID: 868373471}
 --- !u!114 &3939676774778880856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10989,7 +11011,7 @@ GameObject:
   - component: {fileID: 3939676775143983210}
   - component: {fileID: 3939676775143983205}
   m_Layer: 5
-  m_Name: DialogPanel
+  m_Name: DialogContentPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11768,6 +11790,7 @@ MonoBehaviour:
   stageWorldUI: {fileID: 1647895774941261686}
   RIGHT_SIDE_PANEL: {fileID: 3939676775113848759}
   LEFT_SIDE_PANEL: {fileID: 3939676774021696789}
+  DIALOG: {fileID: 3939676774758167052}
   wallBoundaries: []
   playAreaLeftWall: {fileID: 0}
   playAreaRightWall: {fileID: 0}
@@ -11799,15 +11822,6 @@ MonoBehaviour:
   loadingScreen: {fileID: 1017986071}
   optionsScreen: {fileID: 1531168767}
   saveScoreScreen: {fileID: 1075675876}
-  dialog: {fileID: 3939676774758167051}
-  dialogBG: {fileID: 3939676774083541318}
-  dialogName: {fileID: 1870151761}
-  dialogContent: {fileID: 1723636427}
-  dialogRightChar: {fileID: 3939676775083258600}
-  dialogLeftChar: {fileID: 3939676775132728310}
-  bossDialogName: {fileID: 509476110}
-  bossDialogDescription: {fileID: 924889370}
-  autoScrollInfo: {fileID: 868373471}
   optionsContainer: {fileID: 202183673699886707}
   optionsValueContainer: {fileID: 985659703}
   saveScorePrompt: {fileID: 819371224}

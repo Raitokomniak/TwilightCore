@@ -9,6 +9,7 @@ public class UIController : MonoBehaviour {
 
 	public UI_RightSidePanel RIGHT_SIDE_PANEL;
 	public UI_LeftSidePanel LEFT_SIDE_PANEL;
+	public UI_Dialog DIALOG;
 
 
 	public float[] wallBoundaries;
@@ -63,16 +64,6 @@ public class UIController : MonoBehaviour {
 
 
 	//Dialog
-	public GameObject dialog;
-	public Image dialogBG;
-	public TextMeshProUGUI dialogName;
-	public TextMeshProUGUI dialogContent;
-	public Image dialogRightChar;
-	public Image dialogLeftChar;
-	public TextMeshProUGUI bossDialogName;
-	public TextMeshProUGUI bossDialogDescription;
-
-	public TextMeshProUGUI autoScrollInfo;
 
 	//OPTIONS
     public GameObject optionsContainer;
@@ -175,7 +166,7 @@ public class UIController : MonoBehaviour {
 		saveScoreScreen.SetActive(false);
 		gameOver.SetActive(false);
 		PauseScreen(false);
-		dialog.SetActive(false);
+		DIALOG.dialogPanel.SetActive(false);
 
 		RIGHT_SIDE_PANEL.UpdateDifficulty(Game.control.stageHandler.difficultyAsString);
 		//xp.text = "XP: " + 0 + " / " + Game.control.player.stats.xpCap;
@@ -507,64 +498,7 @@ public class UIController : MonoBehaviour {
 	//////////////////////////
 	// DIALOG
 
-	public void ToggleDialog(bool value){
-		dialog.SetActive(value);
-		bossDialogName.transform.parent.gameObject.SetActive (false);
-	}
-
-	public void InitPlayerSpeaker(){
-		dialogRightChar.gameObject.SetActive (false);
-		dialogLeftChar.gameObject.SetActive (false);
 	
-		dialogRightChar.gameObject.SetActive (true);	
-		dialogRightChar.sprite = Resources.Load<Sprite> ("Images/DialogCharacters/mainchar");
-	}
-
-	public void InitBossSpeaker(string boss){
-		bossDialogName.transform.parent.gameObject.SetActive (true);
-		dialogLeftChar.gameObject.SetActive (true);
-		dialogLeftChar.sprite = Resources.Load<Sprite> ("Images/DialogCharacters/" + boss);
-	}
-
-	public void UpdateAutoScrollInfo(bool autoScroll){
-		if(autoScroll) autoScrollInfo.text = "Autoscroll: ON";
-		else autoScrollInfo.text = "Autoscroll: OFF";
-	}
-	public void UpdateDialog(string speaker, string content){
-		dialogContent.text = content;
-
-		if (speaker == "Boss") {
-
-			dialogBG.transform.localScale = new Vector3 (-1, 1, 1);
-
-			if (dialogRightChar.GetComponent<Image>().color.a != .3f) {
-				dialogRightChar.transform.position += new Vector3 (10, 0, 0);
-				dialogLeftChar.transform.position += new Vector3 (10, 0, 0);
-			}
-			dialogLeftChar.GetComponent<Image> ().color = new Color (1, 1, 1, 1);
-			dialogRightChar.GetComponent<Image> ().color = new Color (1, 1, 1, .3f);
-		}
-		else 
-		{
-			
-			dialogBG.transform.localScale = new Vector3 (1, 1, 1);
-			
-			if (dialogLeftChar.GetComponent<Image>().color.a != .3f) {
-				dialogLeftChar.transform.position -= new Vector3 (10, 0, 0);
-				dialogRightChar.transform.position -= new Vector3 (10, 0, 0);
-			}
-			dialogLeftChar.GetComponent<Image> ().color = new Color (1, 1, 1, .3f);
-			dialogRightChar.GetComponent<Image> ().color = new Color (1, 1, 1, 1f);
-		}
-
-
-	}
-
-	public void UpdateBossInfo(string name, string description){
-		bossDialogName.transform.parent.gameObject.SetActive (true);
-		bossDialogName.text = name;
-		bossDialogDescription.text = description;
-	}
 
 	//OPTIONS
 	public void ToggleOptionsScreen(bool toggle){
