@@ -21,7 +21,7 @@ public class MiniToast : MonoBehaviour
 
 
     public void PlayCorePointToast(int value, string core){
-        string toastText = "+" + value.ToString() + " " + core + " point";
+        string toastText = "+" + core;
         Toast(toastText);
     }
 
