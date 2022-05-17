@@ -57,9 +57,10 @@ public class StageHandler : MonoBehaviour {
 	public List<int> CalculateBonuses(){
 		List<int> bonuses = new List<int>();
 		int timeBonus = (500 - Mathf.RoundToInt(stageTimer)) * 10;
-		int dayBonus = Game.control.player.special.dayCorePoints * 1000;
-		int nightBonus = Game.control.player.special.nightCorePoints * 1000;
-
+		int dayBonus = Game.control.player.special.dayCorePoints * 100;
+		int nightBonus = Game.control.player.special.nightCorePoints * 100;
+		stageTimer = 0;
+		
 		Game.control.player.GainScore(timeBonus);
 		Game.control.player.GainScore(dayBonus);
 		Game.control.player.GainScore(nightBonus);

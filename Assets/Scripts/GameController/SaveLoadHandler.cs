@@ -68,9 +68,11 @@ public class SaveLoadHandler : MonoBehaviour {
             if(score.difficulty == difficulty) compared.Add(score);
         }
 
-        compared.Sort(CompareScores);
-        Game.control.stageHandler.stats.hiScore = compared[0].score;
-        Game.control.ui.RIGHT_SIDE_PANEL.UpdateHiScore(compared[0].score);
+        if(compared.Count != 0){
+            compared.Sort(CompareScores);
+            Game.control.stageHandler.stats.hiScore = compared[0].score;
+            Game.control.ui.RIGHT_SIDE_PANEL.UpdateHiScore(compared[0].score);
+        }
         //return compared[0].score;
     }
 
