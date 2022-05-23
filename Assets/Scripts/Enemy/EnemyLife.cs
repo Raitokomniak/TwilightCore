@@ -105,7 +105,7 @@ public class EnemyLife : MonoBehaviour {
 	}
 
 	void DisableEnemy(){
-		if(wave.isBoss) wave.bossScript.StopPats();
+		if(wave.isBoss || wave.isMidBoss) wave.bossScript.StopPats();
 		else GetComponent<EnemyShoot>().StopPattern();
 		GetComponent<SpriteRenderer>().enabled = false;
 		GetComponent<EnemyMovement>().enabled = false;

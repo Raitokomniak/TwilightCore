@@ -52,8 +52,16 @@ public class Stage1 : Stage
 		scene.SetPlaneSpeed (15f);
 
 		while (stageHandler.stageTimer < boss.spawnTime - 1) yield return null;
+
+		
 		Game.control.dialog.StartDialog ("Boss1");
 		scene.SetPlaneSpeed (3f);
+
+		while(Game.control.dialog.handlingDialog) {
+			if(stageHandler.stageTimer > 116f) break;
+			else yield return null;
+		}
+		Game.control.sound.PlayMusic ("Boss", 1);
 
 		while(!Game.control.enemySpawner.bossWave.dead) yield return null;
 		
