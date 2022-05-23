@@ -124,11 +124,12 @@ public class SoundController : MonoBehaviour {
 
 	IEnumerator FadeOutRoutine(){
 		float tempVol = bgMusicSource.volume;
-		for(float i = tempVol; i > 0; i-=Time.deltaTime){
+		for(float i = tempVol; i >= 0; i-=Time.deltaTime){
 			bgMusicSource.volume = i;
 			yield return new WaitForSeconds(Time.deltaTime);
 		}
 		bgMusicSource.Stop();
+		bgMusicSource.volume = tempVol;
 	}
 
 	public void PauseMusic(){
