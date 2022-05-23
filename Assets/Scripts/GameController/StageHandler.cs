@@ -95,7 +95,7 @@ public class StageHandler : MonoBehaviour {
 
 	public void ToggleTimer(bool value){
 		stageTimerOn = value;
-		//stageTimer = 0;
+		if(!stageTimerOn) stageTimer = 0;
 	}
 
 
@@ -127,12 +127,13 @@ public class StageHandler : MonoBehaviour {
 				StartCoroutine (stageCompleteRoutine);
 			}
 			break;
-
+		}
+/* NOT IN USE YET
 		case "TimeUp":
 			IEnumerator timeUpRoutine = TimeUp();
 			StartCoroutine(timeUpRoutine);
 			break;
-		}
+		}*/
 
 		ToggleTimer(false);
 		Game.control.sound.StopMusic ();
@@ -173,6 +174,7 @@ public class StageHandler : MonoBehaviour {
 
 	IEnumerator StageCompleteHandling ()
 	{	
+		Debug.Log("stagecompletehandling");
 		stats.lives = Game.control.player.health.lives;
 		Game.control.ui.BOSS.HideBossTimer();
 		Game.control.ui.BOSS.ToggleBossHealthSlider (false, 0, "");
@@ -212,9 +214,9 @@ public class StageHandler : MonoBehaviour {
 	}
 
 	public void StartStage (int stage){
+		ToggleTimer(false);
 		gameOver = false;
 		stageCompleted = false;
-		stageTimerOn = false;
 		currentStage = stage;
 		startStageRoutine = StartStageRoutine();
 		StartCoroutine(startStageRoutine);
@@ -225,7 +227,7 @@ public class StageHandler : MonoBehaviour {
 		if(diff == 1) difficultyAsString = "Very Easy";
 		if(diff == 3) difficultyAsString = "Easy";
 		if(diff == 5) difficultyAsString = "Normal";
-		if(diff == 10) difficultyAsString = "Nightmarish";
+		if(diff == 10) difficultyAsString = "Nightmare";
 	}
 
 

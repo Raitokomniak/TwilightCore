@@ -5,10 +5,9 @@ public class EnemySpawner : MonoBehaviour {
 	ArrayList waves;
 	public int currentWave;
 	public Wave curWave;
-	public Wave bossWave;
 	public Wave midBossWave;
 	bool spawnerOn;
-	//bool bossEnter;
+
 	IEnumerator spawnRoutine;
 	IEnumerator spawnerRoutine;
 
@@ -18,52 +17,28 @@ public class EnemySpawner : MonoBehaviour {
 		DestroyAllProjectiles ();
 	}
 
-
-	//SHOULD I MAKE THIS INTO A ROUTINE? THIS SEEMS VERY VOLATILE
-	void Update () {
-		/*
-		if (spawnerOn) {
-			foreach (Wave wave in waves) {
-				if (Game.control.stageHandler.stageTimer >= wave.spawnTime && !wave.spawned) {
-					wave.spawned = true;
-					if (wave.isBoss || wave.isMidBoss){
-						DestroyAllProjectiles ();
-					}
-
-					InitializeWave ();
-					spawnRoutine = Spawn (wave);
-					StartCoroutine (spawnRoutine);
-				}
-			}
-		}*/
-
-		/*
-		//this is for clearing the stage when boss dialog starts, might not work idk
-		//EDIT if autoscroll is off, no projectiles spawn when the textbox is open so dont do dis
-		if(Game.control.dialog.handlingDialog && GameObject.FindGameObjectsWithTag("EnemyProjectile") != null)
-			DestroyAllProjectiles();
-			*/
-	}
-
 	IEnumerator SpawnerRoutine(){
 		Game.control.stageHandler.ToggleTimer(true);
 		foreach (Wave wave in waves) {
 			yield return new WaitUntil(() => Game.control.stageHandler.stageTimer >= wave.spawnTime);
-			wave.spawned = true;
-			if (wave.isBoss || wave.isMidBoss){
-				DestroyAllProjectiles ();
+			if (wave.isBoss || wave.isMidBoss){ DestroyAllProjectiles (); }
+
+			if (currentWave < waves.Count) {	
+				curWave = waves [currentWave] as Wave;
+				currentWave++;
+				Game.control.ui.RIGHT_SIDE_PANEL.UpdateWave(currentWave);
 			}
 
-			InitializeWave ();
 			spawnRoutine = Spawn (wave);
 			if(spawnerOn) StartCoroutine (spawnRoutine);
+			else break;
 		}
 	}
 
 	public bool AbortSpawner(){
 		spawnerOn = false;
-		if(spawnRoutine != null) StopCoroutine(spawnRoutine);
-		if(spawnerRoutine != null) StopCoroutine(spawnerRoutine);
+		if(spawnRoutine != null) 	StopCoroutine(spawnRoutine);
+		if(spawnerRoutine != null) 	StopCoroutine(spawnerRoutine);
 
 		DestroyAllEnemies();
 		DestroyAllProjectiles();
@@ -73,19 +48,14 @@ public class EnemySpawner : MonoBehaviour {
 		
 	public void StartSpawner(int currentStage)
 	{
-		spawnerOn = false;
 		Game.control.stageHandler.InitWaves (currentStage);
 		currentWave = 0;
 		waves = Game.control.enemyLib.stageWaves;
+		
 		if(waves.Count != 0) {
-			bossWave = (Wave)waves [waves.Count - 1];
-
 			foreach (Wave w in waves) {
 				if (w.isMidBoss) {
 					midBossWave = w;
-				}
-				if (w.isBoss) {
-					bossWave = w;
 				}
 			}
 			spawnerOn = true;
@@ -97,13 +67,6 @@ public class EnemySpawner : MonoBehaviour {
 		}
 	}
 
-	void InitializeWave(){
-		if (currentWave < waves.Count) {	
-			curWave = waves [currentWave] as Wave;
-			currentWave++;
-			Game.control.ui.RIGHT_SIDE_PANEL.UpdateWave(currentWave);
-		}
-	}
 
 	public IEnumerator Spawn(Wave wave){
 		for(float i = wave.enemyCounter; i>0; i--){

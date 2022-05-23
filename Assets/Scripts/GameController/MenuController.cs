@@ -143,7 +143,6 @@ public class MenuController : MonoBehaviour
 		mainMenuItems.Add ("Start Game");
 		mainMenuItems.Add ("Hiscores");
 		mainMenuItems.Add ("Options");
-		mainMenuItems.Add ("Main Menu");
 		mainMenuItems.Add ("Quit Game");
 
 		difficultyMenuItems = new List<string>();
@@ -156,6 +155,7 @@ public class MenuController : MonoBehaviour
 		pauseMenuItems.Add ("Resume");
 		pauseMenuItems.Add ("Restart");
 		pauseMenuItems.Add ("Options");
+		pauseMenuItems.Add ("Main Menu");
 		pauseMenuItems.Add ("Quit");
 
 		optionsMenuItems = new List<string>();

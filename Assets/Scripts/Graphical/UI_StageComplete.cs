@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 public class UI_StageComplete : MonoBehaviour
 {
+    IEnumerator bonusRoutine;
     public TextMeshProUGUI scorebreakDown;
     public string scoreText;
 
@@ -18,8 +19,10 @@ public class UI_StageComplete : MonoBehaviour
 
         scoreText = "BONUSES" + '\n' + '\n';
        // scorebreakDown.text = "BONUSES" + '\n' + '\n' + "Level Time: " + timeBonus + '\n' + "Day Points: " + dayBonus + '\n'  + "Night Points: " + nightBonus + '\n'  + '\n' + "Final score: " + finalScore;
-
-        IEnumerator bonusRoutine = BonusRoutine(timeBonus, dayBonus, nightBonus, bossBonus, finalScore);
+        
+        
+        if(bonusRoutine != null) StopCoroutine(bonusRoutine); //FOR SOME REASON THIS ROUTINE FIRED TWICE, SO THIS IS JUST A FAILSAFE
+        bonusRoutine = BonusRoutine(timeBonus, dayBonus, nightBonus, bossBonus, finalScore);
         StartCoroutine(bonusRoutine);
     
     }

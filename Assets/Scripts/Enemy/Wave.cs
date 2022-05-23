@@ -148,9 +148,7 @@ public class Wave
 		else {
 			enemy.GetComponent<SpriteRenderer> ().sprite = sprite;
 			enemy.GetComponent<EnemyShoot> ().SetUpAndShoot (shootPattern, shootSpeed);
-			
 		}
-		spawned = true;
 	}
 
 
