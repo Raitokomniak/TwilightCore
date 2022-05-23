@@ -73,7 +73,7 @@ public class Stage1 : Stage
 		EnemyMovementPattern mp;
 		
 	
-		
+		/*
 			//1st PHASE
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.Customize ("LeaveDir", "Left");
@@ -270,13 +270,13 @@ public class Stage1 : Stage
 
 
 			//DEBUG
-			/*
+			
 			mp = new EnemyMovementPattern (lib.enterFromTop);
 			mp.Customize ("StayTime", 0);
 			boss = new Wave(mp, 1f, 10 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss1");
 			boss.movementPattern = lib.enterFromTop;
-			*/
-
+			//*/
+/*
 			// BIG BOSS
 			
 			mp = new EnemyMovementPattern (lib.enterFromTop);

@@ -149,6 +149,11 @@ public class Boss1 : Phaser
 				patterns[0].bulletCount = 20 * difficultyMultiplier;
 				patterns[0].SetSprite ("Circle", "Glow", "Green");
 
+				patterns.Add(new P_SingleHoming());
+				patterns[1].bulletMovement = new BMP_TurnToSpears(patterns[1], 5f);
+				patterns[1].bulletCount = 1;
+				patterns[1].SetSprite ("Circle", "Bevel", "Lilac");
+
 				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (lib.centerX + 4f, enemy.transform.position.y, 0), false, 0));
 				movementPatterns[0].Customize ("Teleport", 1);
 				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (lib.centerX - 4f, enemy.transform.position.y, 0), false, 0));
@@ -157,10 +162,27 @@ public class Boss1 : Phaser
 				while (!phaser.endOfPhase) {
 					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
 					enemy.BossShoot(patterns[0]);
-					yield return new WaitForSeconds(5f);
+					yield return new WaitForSeconds(1f);
+					enemy.BossShoot(patterns[1]);
+					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
+					yield return new WaitForSeconds(2f);
+					enemy.BossShoot(patterns[1]);
+					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
+					yield return new WaitForSeconds(2f);
+					enemy.BossShoot(patterns[1]);
+
+
 					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
 					enemy.BossShoot(patterns[0]);
-					yield return new WaitForSeconds(5f);
+					yield return new WaitForSeconds(1f);
+					enemy.BossShoot(patterns[1]);
+					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
+					yield return new WaitForSeconds(2f);
+					enemy.BossShoot(patterns[1]);
+					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
+					yield return new WaitForSeconds(2f);
+					enemy.BossShoot(patterns[1]);
+
 				}
 				break;
 			case 3:
