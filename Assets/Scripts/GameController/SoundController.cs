@@ -117,6 +117,8 @@ public class SoundController : MonoBehaviour {
 		}
 	}
 
+	
+
 	public void PauseMusic(){
 		bgMusicSource.Pause ();
 	}

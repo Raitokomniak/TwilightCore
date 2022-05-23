@@ -114,11 +114,13 @@ public class StageHandler : MonoBehaviour {
 
 		switch (endType) {
 		case "GameOver":
+			Game.control.sound.StopMusic ();
 			IEnumerator deathRoutine = DeathHandling();
 			StartCoroutine (deathRoutine);
 			break;
 		case "StageComplete":
 			if(currentStage == stageCount) {
+				
 				IEnumerator gameCompleteRoutine = GameCompleteHandling();
 				StartCoroutine(gameCompleteRoutine);
 			}
@@ -136,7 +138,7 @@ public class StageHandler : MonoBehaviour {
 		}*/
 
 		ToggleTimer(false);
-		Game.control.sound.StopMusic ();
+		
 	}
 
 	IEnumerator GameCompleteHandling(){
@@ -173,7 +175,6 @@ public class StageHandler : MonoBehaviour {
 	}
 
 	IEnumerator StageCompleteHandling ()
-
 	{	
 		Debug.Log("stagecompletehandling");
 		stats.lives = Game.control.player.health.lives;

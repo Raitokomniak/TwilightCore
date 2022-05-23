@@ -127,7 +127,8 @@ public class EnemyLife : MonoBehaviour {
 				if(Random.Range(0, 2) == 0)
 					Instantiate(Resources.Load("Prefabs/nightCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
 			}
-				
+			Game.control.ui.BOSS.HideBossTimer();
+			Game.control.ui.BOSS.ToggleBossHealthSlider (false, 0, "");
 			Game.control.ui.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
 			shooter.wave.dead = true;
 	}
