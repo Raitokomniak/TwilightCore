@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class EnemyLife : MonoBehaviour {
+	bool dead;
 	Wave wave;
 	EnemyShoot shooter;
 	public float maxHealth;
@@ -84,30 +85,43 @@ public class EnemyLife : MonoBehaviour {
 
 
 	public void Die() {
-		//Destroy(this.gameObject);
-		Game.control.sound.PlaySound ("Enemy", "Die", true);
+		if(!dead){
+			dead = true;
+			//Destroy(this.gameObject);
+			Game.control.sound.PlaySound ("Enemy", "Die", true);
 
-		IEnumerator animateDeathRoutine = AnimateDeath();
-		StartCoroutine(animateDeathRoutine);
+			IEnumerator animateDeathRoutine = AnimateDeath();
+			StartCoroutine(animateDeathRoutine);
+		}
 	}
 
 	public IEnumerator AnimateDeath(){
+		DisableEnemy();
+		DropLoot();
+		if(tag == "Boss" || tag == "MidBoss") 
+			BossDeath();
+		yield return new WaitForSeconds(3f);
+		Destroy(this.gameObject);
+	}
+
+	void DisableEnemy(){
 		if(wave.isBoss) wave.bossScript.StopPats();
 		GetComponent<SpriteRenderer>().enabled = false;
 		GetComponent<EnemyMovement>().enabled = false;
 		GetComponent<BoxCollider2D>().enabled = false;
 		GetComponent<EnemyShoot>().canShoot = false;
 		GetComponent<EnemyShoot>().enabled = false;
+	}
 
-
+	void DropLoot(){
 		if(Random.Range(0, 2) == 0)
 			Instantiate(Resources.Load("Prefabs/nightCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
 		else 
 			Instantiate(Resources.Load("Prefabs/dayCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
+	}
 
-		
-		if(tag == "Boss" || tag == "MidBoss"){
-			Game.control.enemySpawner.DestroyAllProjectiles();
+	void BossDeath(){
+		Game.control.enemySpawner.DestroyAllProjectiles();
 			for(int i = 0; i < 9; i++){
 				Instantiate(Resources.Load("Prefabs/expPoint"), transform.position + new Vector3(Random.Range(-5, 5), Random.Range(-5, 5)), transform.rotation);
 				if(Random.Range(0, 2) == 0)
@@ -115,16 +129,7 @@ public class EnemyLife : MonoBehaviour {
 			}
 				
 			Game.control.ui.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
-			Game.control.ui.BOSS.ToggleBossHealthSlider(false, 0, "");
-			Game.control.ui.BOSS.HideBossTimer();
-			if (tag == "Boss") {
-				Game.control.stageHandler.EndHandler ("StageComplete");
-			}
 			shooter.wave.dead = true;
-		}
-
-		yield return new WaitForSeconds(3f);
-		Destroy(this.gameObject);
 	}
 
 	public void OnTriggerStay2D(Collider2D c){

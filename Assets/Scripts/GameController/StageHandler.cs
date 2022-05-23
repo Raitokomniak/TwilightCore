@@ -173,9 +173,11 @@ public class StageHandler : MonoBehaviour {
 	}
 
 	IEnumerator StageCompleteHandling ()
+
 	{	
 		Debug.Log("stagecompletehandling");
 		stats.lives = Game.control.player.health.lives;
+		Game.control.ui.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
 		Game.control.ui.BOSS.HideBossTimer();
 		Game.control.ui.BOSS.ToggleBossHealthSlider (false, 0, "");
 		yield return new WaitUntil(() => CheckIfAllPickUpsGone() == true);

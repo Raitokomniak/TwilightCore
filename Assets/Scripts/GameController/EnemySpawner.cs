@@ -6,6 +6,7 @@ public class EnemySpawner : MonoBehaviour {
 	public int currentWave;
 	public Wave curWave;
 	public Wave midBossWave;
+	public Wave bossWave;
 	bool spawnerOn;
 
 	IEnumerator spawnRoutine;
@@ -56,6 +57,9 @@ public class EnemySpawner : MonoBehaviour {
 			foreach (Wave w in waves) {
 				if (w.isMidBoss) {
 					midBossWave = w;
+				}
+				else if(w.isBoss){
+					bossWave = w;
 				}
 			}
 			spawnerOn = true;

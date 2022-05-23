@@ -54,6 +54,10 @@ public class Stage1 : Stage
 		while (stageHandler.stageTimer < boss.spawnTime - 1) yield return null;
 		Game.control.dialog.StartDialog ("Boss1");
 		scene.SetPlaneSpeed (3f);
+
+		while(!Game.control.enemySpawner.bossWave.dead) yield return null;
+		
+		Game.control.stageHandler.EndHandler ("StageComplete");
 	}
 
 	public override void InitWaves(float difficultyMultiplier) {
@@ -62,7 +66,7 @@ public class Stage1 : Stage
 		Pattern p;
 		EnemyMovementPattern mp;
 		
-	/*
+	
 		
 			//1st PHASE
 			mp = new EnemyMovementPattern (lib.enterLeave);
@@ -260,15 +264,15 @@ public class Stage1 : Stage
 
 
 			//DEBUG
-			
+			/*
 			mp = new EnemyMovementPattern (lib.enterFromTop);
 			mp.Customize ("StayTime", 0);
 			boss = new Wave(mp, 1f, 10 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss1");
 			boss.movementPattern = lib.enterFromTop;
-			
+			*/
 
 			// BIG BOSS
-			/*
+			
 			mp = new EnemyMovementPattern (lib.enterFromTop);
 			mp.Customize ("StayTime", 0);
 			boss = new Wave(mp, 100f, 80 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss1");
