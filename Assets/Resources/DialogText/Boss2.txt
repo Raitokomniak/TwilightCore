@@ -1,2 +1,6 @@
-Boss	Youkoso to my spider webbu
-Player	Oh no
+Boss	How are you here? Did that idiot of a fox let you through?
+Boss	Ah, doesn't matter. You're trapped now~~
+Player	Listen, I'm just looking for an asura. He stole something of mine
+Player	Actually, there are lots of them here. Where are they coming from?
+Boss	Not your concern!
+Boss	But feel free to open up some more, makes it easier to crawl inside you~~

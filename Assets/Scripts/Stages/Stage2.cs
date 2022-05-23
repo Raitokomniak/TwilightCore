@@ -31,7 +31,7 @@ public class Stage2 : Stage
 		Game.control.dialog.StartDialog ("Boss2");
 
 		while(Game.control.dialog.handlingDialog) {
-			if(stageHandler.stageTimer > 126f) break;
+			if(stageHandler.stageTimer > 125.7f) break;
 			else yield return null;
 		}
 		Game.control.sound.PlayMusic ("Boss", 2);
