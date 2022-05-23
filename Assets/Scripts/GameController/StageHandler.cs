@@ -41,7 +41,11 @@ public class StageHandler : MonoBehaviour {
 		else {
 			if (CanAdvanceStage() && Input.GetKeyDown (KeyCode.Z)) {
 				Game.control.ui.HideStageCompletedScreen();
-				NextStage ();
+				if(currentStage == stageCount) {
+					IEnumerator gameCompleteRoutine =  GameOverRoutine(false);
+					StartCoroutine(gameCompleteRoutine);
+				}
+				else NextStage ();
 			}
 		}
 	}
@@ -57,24 +61,30 @@ public class StageHandler : MonoBehaviour {
 	public List<int> CalculateBonuses(){
 		List<int> bonuses = new List<int>();
 		int timeBonus = (500 - Mathf.RoundToInt(stageTimer)) * 10;
-		int dayBonus = Game.control.player.special.dayCorePoints * 100;
-		int nightBonus = Game.control.player.special.nightCorePoints * 100;
+		if(timeBonus < 0) timeBonus = 0;
+		int dayBonus = Game.control.player.special.dayCorePoints * 10;
+		int nightBonus = Game.control.player.special.nightCorePoints * 10;
 		stageTimer = 0;
-		
-		Game.control.player.GainScore(timeBonus);
-		Game.control.player.GainScore(dayBonus);
-		Game.control.player.GainScore(nightBonus);
 
 		int bossBonusScore = 0;
 		if(bossBonus) {
-			bossBonusScore = 10000;
-			Game.control.player.GainScore(bossBonusScore);
+			bossBonusScore = 1000;
+			//Game.control.player.GainScore(bossBonusScore);
 		}
 		
+		int bonusTimesDifficulty = Mathf.CeilToInt((timeBonus + dayBonus + nightBonus + bossBonusScore) * (0.3f * difficultyMultiplier));
+
+		//Game.control.player.GainScore(timeBonus);
+		//Game.control.player.GainScore(dayBonus);
+		//Game.control.player.GainScore(nightBonus);
+
+		Game.control.player.GainScore(bonusTimesDifficulty);
+
 		bonuses.Add(timeBonus);
 		bonuses.Add(dayBonus);
 		bonuses.Add(nightBonus);
 		bonuses.Add(bossBonusScore);
+		bonuses.Add(difficultyMultiplier);
 
 		return bonuses;
 	}
@@ -109,45 +119,30 @@ public class StageHandler : MonoBehaviour {
 	public void EndHandler (string endType)
 	{
 		bossOn = false;
+		
 
-		if(stageScript != null) stageScript.StopStage();
+		Game.control.sound.FadeOutMusic();
 
 		if(endType == "GameOver"){
-			Game.control.sound.FadeOutMusic();
-			IEnumerator deathRoutine = DeathHandling();
+			IEnumerator deathRoutine = GameOverRoutine(true);
 			StartCoroutine (deathRoutine);
 		}
 		else if(endType == "StageComplete"){
-			Game.control.sound.FadeOutMusic();
+			
 			IEnumerator stageCompleteRoutine = StageCompleteHandling();
 			StartCoroutine (stageCompleteRoutine);
 		}
 		ToggleTimer(false);
 	}
 
-	IEnumerator GameCompleteHandling(){
+	IEnumerator GameOverRoutine(bool death){
+		
 		gameOver = true;
 		Game.control.ui.BOSS.HideBossTimer();
 		yield return new WaitForSeconds (2);
 
-		Game.control.sound.StopMusic ();
-		Game.control.menu.Menu("SaveScorePrompt");
-		Game.control.ui.GAMEOVER.GameCompleteScreen(true);
+		if(stageScript != null) stageScript.StopStage();
 
-		stageOn = false;
-		stageTimerOn = false;
-		Game.control.enemySpawner.AbortSpawner();
-		Game.control.dialog.EndDialog();
-	}
-
-
-	IEnumerator DeathHandling ()
-	{
-		gameOver = true;
-		Game.control.ui.BOSS.HideBossTimer();
-		yield return new WaitForSeconds (2);
-
-		Game.control.sound.StopMusic ();
 		Game.control.menu.Menu("SaveScorePrompt");
 		Game.control.ui.GAMEOVER.GameOverScreen (true);
 
@@ -155,12 +150,10 @@ public class StageHandler : MonoBehaviour {
 		stageTimerOn = false;
 		Game.control.enemySpawner.AbortSpawner();
 		Game.control.dialog.EndDialog();
-
 	}
 
 	IEnumerator StageCompleteHandling ()
 	{	
-		Debug.Log("stagecompletehandling");
 		stats.lives = Game.control.player.health.lives;
 		Game.control.ui.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
 		Game.control.ui.BOSS.HideBossTimer();
@@ -172,10 +165,7 @@ public class StageHandler : MonoBehaviour {
 		Game.control.ui.ShowStageCompletedScreen ();
 		yield return new WaitUntil(() => countingStageEndBonuses == false);
 
-		if(currentStage == stageCount) {
-			IEnumerator gameCompleteRoutine = GameCompleteHandling();
-			StartCoroutine(gameCompleteRoutine);
-		}
+		
 	}
 
 	void NextStage ()

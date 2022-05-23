@@ -126,7 +126,6 @@ public class Pattern
 	public void Animate (float targetScale, float scaleTime, Vector3 centerPoint)
 	{
 		if (animation != null && !animating) {
-			Debug.Log("animate");
 			animating = true;
 			animation = (Object.Instantiate (animation, centerPoint, Quaternion.Euler (Vector3.zero)) as GameObject);
 			animation.GetComponent<BulletAnimationController> ().SetScale (targetScale, scaleTime);

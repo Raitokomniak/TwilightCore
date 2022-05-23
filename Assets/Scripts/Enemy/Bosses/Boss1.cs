@@ -162,25 +162,25 @@ public class Boss1 : Phaser
 				while (!phaser.endOfPhase) {
 					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
 					enemy.BossShoot(patterns[0]);
-					yield return new WaitForSeconds(1f);
+					yield return new WaitForSeconds(2f);
 					enemy.BossShoot(patterns[1]);
 					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
-					yield return new WaitForSeconds(2f);
+					yield return new WaitForSeconds(4f);
 					enemy.BossShoot(patterns[1]);
 					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
-					yield return new WaitForSeconds(2f);
+					yield return new WaitForSeconds(4f);
 					enemy.BossShoot(patterns[1]);
 
 
 					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
 					enemy.BossShoot(patterns[0]);
-					yield return new WaitForSeconds(1f);
+					yield return new WaitForSeconds(2f);
 					enemy.BossShoot(patterns[1]);
 					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
-					yield return new WaitForSeconds(2f);
+					yield return new WaitForSeconds(4f);
 					enemy.BossShoot(patterns[1]);
 					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
-					yield return new WaitForSeconds(2f);
+					yield return new WaitForSeconds(4f);
 					enemy.BossShoot(patterns[1]);
 
 				}

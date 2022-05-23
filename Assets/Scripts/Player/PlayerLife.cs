@@ -50,6 +50,7 @@ public class PlayerLife : MonoBehaviour {
 		Game.control.sound.PlaySound ("Player", "Die", true);
 		invulnerable = true;
 		GetComponent<PlayerShoot>().DisableWeapons();
+		GetComponentInChildren<Hitbox>().gameObject.SetActive(false);
 		GetComponent<SpriteRenderer>().enabled = false;
 		Game.control.stageHandler.EndHandler("GameOver");
 		GetComponent<PlayerMovement>().FocusMode(false);

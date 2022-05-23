@@ -56,11 +56,12 @@ public class Stage1 : Stage
 		scene.SetPlaneSpeed (3f);
 
 		while(Game.control.dialog.handlingDialog) {
-			if(stageHandler.stageTimer > 117f) break;
+			if(stageHandler.stageTimer > 116.7f) break;
 			else yield return null;
 		}
 		Game.control.sound.PlayMusic ("Boss", 1);
 
+		//USING THIS DISABLES SOME DEBUGGING BECAUSE STAGE DOESNT END IF BOSS DIES BEFORE THIS POINT
 		while(!Game.control.enemySpawner.bossWave.dead) yield return null;
 		
 		Game.control.stageHandler.EndHandler ("StageComplete");
@@ -73,7 +74,7 @@ public class Stage1 : Stage
 		EnemyMovementPattern mp;
 		
 	
-		/*
+		
 			//1st PHASE
 			mp = new EnemyMovementPattern (lib.enterLeave);
 			mp.Customize ("LeaveDir", "Left");
@@ -265,9 +266,9 @@ public class Stage1 : Stage
 			lib.NewWave (new Wave (90.5f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"), new ArrayList { lib.leftTop });
 
 
-			//*/
 			
-
+			
+/*
 
 			//DEBUG
 			
@@ -275,8 +276,8 @@ public class Stage1 : Stage
 			mp.Customize ("StayTime", 0);
 			boss = new Wave(mp, 1f, 10 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss1");
 			boss.movementPattern = lib.enterFromTop;
-			//*/
-/*
+			
+*/
 			// BIG BOSS
 			
 			mp = new EnemyMovementPattern (lib.enterFromTop);

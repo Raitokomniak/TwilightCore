@@ -8,26 +8,33 @@ public class UI_StageComplete : MonoBehaviour
     IEnumerator bonusRoutine;
     public TextMeshProUGUI scorebreakDown;
     public string scoreText;
+    int timeBonus;
+    int dayBonus;
+    int nightBonus;
+    int bossBonus;
+    int difficultyMultiplier;
+    long finalScore;
 
     public void UpdateScoreBreakDown(){
         List<int> bonuses = Game.control.stageHandler.CalculateBonuses();
-        int timeBonus = bonuses[0];
-        int dayBonus = bonuses[1];
-        int nightBonus = bonuses[2];
-        int bossBonus = bonuses[3];
-        long finalScore = Game.control.stageHandler.stats.score;
+        timeBonus = bonuses[0];
+        dayBonus = bonuses[1];
+        nightBonus = bonuses[2];
+        bossBonus = bonuses[3];
+        difficultyMultiplier = bonuses[4];
+        finalScore = Game.control.stageHandler.stats.score;
 
         scoreText = "BONUSES" + '\n' + '\n';
        // scorebreakDown.text = "BONUSES" + '\n' + '\n' + "Level Time: " + timeBonus + '\n' + "Day Points: " + dayBonus + '\n'  + "Night Points: " + nightBonus + '\n'  + '\n' + "Final score: " + finalScore;
         
         
         if(bonusRoutine != null) StopCoroutine(bonusRoutine); //BOSS DIED TWICE SO THIS FIRED TWICE, SO THIS IS JUST A FAILSAFE
-        bonusRoutine = BonusRoutine(timeBonus, dayBonus, nightBonus, bossBonus, finalScore);
+        bonusRoutine = BonusRoutine();
         StartCoroutine(bonusRoutine);
     
     }
 
-    IEnumerator BonusRoutine(int timeBonus, int dayBonus, int nightBonus, int bossBonus, long finalScore){
+    IEnumerator BonusRoutine(){
         Game.control.stageHandler.countingStageEndBonuses = true;
         scorebreakDown.text = scoreText;
         Game.control.sound.PlaySound("Player", "Bonus", true);
@@ -54,6 +61,11 @@ public class UI_StageComplete : MonoBehaviour
             Game.control.sound.PlaySound("Player", "Bonus", true);
             yield return new WaitForSeconds(.8f);
         }
+/////////////////////////
+        scoreText += "Difficulty multiplier: " + (0.3f * difficultyMultiplier).ToString("F1") + "x" + '\n';
+        scorebreakDown.text = scoreText;
+        Game.control.sound.PlaySound("Player", "Bonus", true);
+        yield return new WaitForSeconds(.8f);
 
         scoreText += "Final score: " + finalScore.ToString() + '\n' + '\n';
         scorebreakDown.text = scoreText;

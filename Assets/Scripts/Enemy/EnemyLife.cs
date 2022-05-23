@@ -96,41 +96,47 @@ public class EnemyLife : MonoBehaviour {
 	}
 
 	public IEnumerator AnimateDeath(){
-		DisableEnemy();
-		DropLoot();
-		if(tag == "Boss" || tag == "MidBoss") 
+		DropLoot("Core");
+		if(tag == "Boss" || tag == "MidBoss") {
 			BossDeath();
+		}
+		DisableEnemy();
 		yield return new WaitForSeconds(3f);
 		Destroy(this.gameObject);
 	}
 
 	void DisableEnemy(){
 		if(wave.isBoss || wave.isMidBoss) wave.bossScript.StopPats();
-		else GetComponent<EnemyShoot>().StopPattern();
+		GetComponent<EnemyShoot>().canShoot = false;
 		GetComponent<SpriteRenderer>().enabled = false;
 		GetComponent<EnemyMovement>().enabled = false;
 		GetComponent<BoxCollider2D>().enabled = false;
 		GetComponent<EnemyShoot>().enabled = false;
 	}
 
-	void DropLoot(){
-		if(Random.Range(0, 2) == 0)
-			Instantiate(Resources.Load("Prefabs/nightCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
-		else 
-			Instantiate(Resources.Load("Prefabs/dayCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
+	void DropLoot(string type){
+		if(type == "Core"){
+			if(Random.Range(0, 2) == 0)
+				Instantiate(Resources.Load("Prefabs/nightCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
+			else 
+				Instantiate(Resources.Load("Prefabs/dayCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
+		}
+		if(type == "Exp"){
+			for(int i = 0; i < 9; i++){
+				Instantiate(Resources.Load("Prefabs/expPoint"), transform.position + new Vector3(Random.Range(-5, 5), Random.Range(-5, 5)), transform.rotation);
+			}
+		}
 	}
 
 	void BossDeath(){
 		Game.control.enemySpawner.DestroyAllProjectiles();
-			for(int i = 0; i < 9; i++){
-				Instantiate(Resources.Load("Prefabs/expPoint"), transform.position + new Vector3(Random.Range(-5, 5), Random.Range(-5, 5)), transform.rotation);
-				if(Random.Range(0, 2) == 0)
-					Instantiate(Resources.Load("Prefabs/nightCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
-			}
+			DropLoot("Exp");
 			Game.control.ui.BOSS.HideBossTimer();
 			Game.control.ui.BOSS.ToggleBossHealthSlider (false, 0, "");
 			Game.control.ui.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
 			shooter.wave.dead = true;
+
+			if(wave.isBoss) Game.control.stageHandler.EndHandler ("StageComplete");
 	}
 
 	public void OnTriggerStay2D(Collider2D c){

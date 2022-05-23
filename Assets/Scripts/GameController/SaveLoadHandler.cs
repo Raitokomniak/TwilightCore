@@ -73,6 +73,7 @@ public class SaveLoadHandler : MonoBehaviour {
             Game.control.stageHandler.stats.hiScore = compared[0].score;
             Game.control.ui.RIGHT_SIDE_PANEL.UpdateHiScore(compared[0].score);
         }
+        else Game.control.ui.RIGHT_SIDE_PANEL.UpdateHiScore(Game.control.stageHandler.stats.hiScore);
         //return compared[0].score;
     }
 
