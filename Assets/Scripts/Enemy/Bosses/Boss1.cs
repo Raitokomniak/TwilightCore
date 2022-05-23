@@ -70,14 +70,14 @@ public class Boss1 : Phaser
 
 					enemyMove.SetUpPatternAndMove (new EnemyMovementPattern (lib.rocking));
 
-					yield return new WaitForSeconds(2f);
+					yield return new WaitForSeconds(1f);
 					enemy.BossShoot (patterns[0]);
 
 					yield return new WaitForSeconds(2.2f);
 
 					enemy.BossShoot (patterns[0]);
 
-					yield return new WaitForSeconds(3f);
+					yield return new WaitForSeconds(1f);
 				}
 			
 				break;
