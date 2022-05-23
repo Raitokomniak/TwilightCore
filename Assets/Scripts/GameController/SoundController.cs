@@ -117,7 +117,19 @@ public class SoundController : MonoBehaviour {
 		}
 	}
 
-	
+	public void FadeOutMusic(){
+		IEnumerator fadeOutRoutine = FadeOutRoutine();
+		StartCoroutine(fadeOutRoutine);
+	}
+
+	IEnumerator FadeOutRoutine(){
+		float tempVol = bgMusicSource.volume;
+		for(float i = tempVol; i > 0; i-=Time.deltaTime){
+			bgMusicSource.volume = i;
+			yield return new WaitForSeconds(Time.deltaTime);
+		}
+		bgMusicSource.Stop();
+	}
 
 	public void PauseMusic(){
 		bgMusicSource.Pause ();

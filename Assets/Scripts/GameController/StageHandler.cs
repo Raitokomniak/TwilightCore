@@ -112,33 +112,17 @@ public class StageHandler : MonoBehaviour {
 
 		if(stageScript != null) stageScript.StopStage();
 
-		switch (endType) {
-		case "GameOver":
-			Game.control.sound.StopMusic ();
+		if(endType == "GameOver"){
+			Game.control.sound.FadeOutMusic();
 			IEnumerator deathRoutine = DeathHandling();
 			StartCoroutine (deathRoutine);
-			break;
-		case "StageComplete":
-			if(currentStage == stageCount) {
-				
-				IEnumerator gameCompleteRoutine = GameCompleteHandling();
-				StartCoroutine(gameCompleteRoutine);
-			}
-			else {
-				IEnumerator stageCompleteRoutine = StageCompleteHandling();
-				StartCoroutine (stageCompleteRoutine);
-			}
-			break;
 		}
-/* NOT IN USE YET
-		case "TimeUp":
-			IEnumerator timeUpRoutine = TimeUp();
-			StartCoroutine(timeUpRoutine);
-			break;
-		}*/
-
+		else if(endType == "StageComplete"){
+			Game.control.sound.FadeOutMusic();
+			IEnumerator stageCompleteRoutine = StageCompleteHandling();
+			StartCoroutine (stageCompleteRoutine);
+		}
 		ToggleTimer(false);
-		
 	}
 
 	IEnumerator GameCompleteHandling(){
@@ -186,6 +170,12 @@ public class StageHandler : MonoBehaviour {
 		stageCompleted = true;
 		stageOn = false;
 		Game.control.ui.ShowStageCompletedScreen ();
+		yield return new WaitUntil(() => countingStageEndBonuses == false);
+
+		if(currentStage == stageCount) {
+			IEnumerator gameCompleteRoutine = GameCompleteHandling();
+			StartCoroutine(gameCompleteRoutine);
+		}
 	}
 
 	void NextStage ()

@@ -24,8 +24,6 @@ public class Stage1 : Stage
 
 	IEnumerator StageHandlerRoutine(){
 		while (Game.control.dialog.handlingDialog) yield return null;
-		
-		while (stageHandler.stageTimer < 4f) yield return null;
 
 		while (stageHandler.stageTimer < 8f) yield return null;
 		scene.SetPlaneSpeed (10f);
@@ -58,7 +56,7 @@ public class Stage1 : Stage
 		scene.SetPlaneSpeed (3f);
 
 		while(Game.control.dialog.handlingDialog) {
-			if(stageHandler.stageTimer > 116f) break;
+			if(stageHandler.stageTimer > 117f) break;
 			else yield return null;
 		}
 		Game.control.sound.PlayMusic ("Boss", 1);
