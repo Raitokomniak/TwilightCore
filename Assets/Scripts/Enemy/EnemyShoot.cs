@@ -8,6 +8,8 @@ public class EnemyShoot : MonoBehaviour {
 	GameObject enemyBullet;
 	public ArrayList bulletsShot;
 	float shootSpeed;
+	Pattern pattern;
+
 
 	public bool canShoot = true;
 
@@ -24,13 +26,19 @@ public class EnemyShoot : MonoBehaviour {
 	}
 	
 	public void SetUpAndShoot(Pattern p, float _shootSpeed){
+		pattern = p;
 		shootSpeed = _shootSpeed;
-		StartCoroutine (ShootRoutine (p));
+		StartCoroutine (ShootRoutine ());
 	}
 
-	IEnumerator ShootRoutine(Pattern _pattern){
+	public void StopPattern(){
+		pattern.StopPattern();
+		canShoot = false;
+	}
+
+	IEnumerator ShootRoutine(){
 		while (!enemyLife.GetInvulnerableState () && canShoot) {
-			StartCoroutine (_pattern.Execute (enemyBullet, this));
+			StartCoroutine (pattern.Execute (enemyBullet, this));
 			yield return new WaitForSeconds (shootSpeed);
 		}
 	}
