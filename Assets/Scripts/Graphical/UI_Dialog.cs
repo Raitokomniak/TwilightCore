@@ -35,6 +35,8 @@ public class UI_Dialog : MonoBehaviour
 		bossDialogName.transform.parent.gameObject.SetActive (true);
 		dialogLeftChar.gameObject.SetActive (true);
 		dialogLeftChar.sprite = Resources.Load<Sprite> ("Images/DialogCharacters/" + boss);
+		if(boss == "Boss1") Game.control.ui.DIALOG.UpdateBossInfo ("Maaya", "Friendly Huldra");
+		if(boss == "Boss2") Game.control.ui.DIALOG.UpdateBossInfo ("Joanette", "Void Spinner");
 	}
 
 	public void UpdateAutoScrollInfo(bool autoScroll){

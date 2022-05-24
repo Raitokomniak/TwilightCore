@@ -136,7 +136,8 @@ public class EnemyLife : MonoBehaviour {
 			Game.control.ui.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
 			shooter.wave.dead = true;
 
-			if(wave.isBoss) Game.control.stageHandler.EndHandler ("StageComplete");
+			//USE THIS FOR DEBUGGING STAGE
+			//if(wave.isBoss) Game.control.stageHandler.EndHandler ("StageComplete");
 	}
 
 	public void OnTriggerStay2D(Collider2D c){

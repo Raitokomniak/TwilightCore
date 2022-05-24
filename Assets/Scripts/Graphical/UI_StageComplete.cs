@@ -74,7 +74,6 @@ public class UI_StageComplete : MonoBehaviour
 
         scoreText += "Press Z to continue";
         scorebreakDown.text = scoreText;
-        yield return new WaitForSeconds(1.6f);
         Game.control.stageHandler.countingStageEndBonuses = false;
     }
 }

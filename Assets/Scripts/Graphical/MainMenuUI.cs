@@ -35,12 +35,7 @@ public class MainMenuUI : MonoBehaviour
 		}
 		menuTexts[index].fontStyle = FontStyles.Bold;
 	}
-
-	public void UpdateAutoScrollInfo(bool autoScroll){
-		if(autoScroll) menuTexts[0].text = "Autoscroll: ON";
-		else menuTexts[0].text = "Autoscroll: OFF";
-	}
-
+	
 	public void ToggleMainMenu(bool toggle){
 		difficultyPanel.gameObject.SetActive(false);
 		optionsPanel.SetActive(false);

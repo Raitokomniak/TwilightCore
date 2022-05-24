@@ -24,6 +24,7 @@ public class Stage1 : Stage
 
 	IEnumerator StageHandlerRoutine(){
 		while (Game.control.dialog.handlingDialog) yield return null;
+		Game.control.dialog.StartDialog ("Stage1_0");
 
 		while (stageHandler.stageTimer < 8f) yield return null;
 		scene.SetPlaneSpeed (10f);
@@ -63,6 +64,9 @@ public class Stage1 : Stage
 
 		//USING THIS DISABLES SOME DEBUGGING BECAUSE STAGE DOESNT END IF BOSS DIES BEFORE THIS POINT
 		while(!Game.control.enemySpawner.bossWave.dead) yield return null;
+		
+		Game.control.dialog.StartDialog ("Boss1_1");
+		while (Game.control.dialog.handlingDialog) yield return null;
 		
 		Game.control.stageHandler.EndHandler ("StageComplete");
 	}

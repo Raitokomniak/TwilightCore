@@ -56,7 +56,7 @@ public class Boss05 : Phaser
 
 				enemyMove.SetUpPatternAndMove (movementPatterns[0]);
 
-				while(Game.control.stageHandler.stageTimer < enemy.wave.spawnTime + 11f)
+				while(Game.control.stageHandler.stageTimer < enemy.wave.spawnTime + 9f)
 				{
 					yield return new WaitForSeconds (2f);
 					enemy.BossShoot (patterns[0]);

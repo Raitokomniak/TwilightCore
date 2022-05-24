@@ -159,7 +159,7 @@ public class MenuController : MonoBehaviour
 		pauseMenuItems.Add ("Quit");
 
 		optionsMenuItems = new List<string>();
-		optionsMenuItems.Add("AutoScroll");
+		optionsMenuItems.Add("Dialog AutoScroll");
 		optionsMenuItems.Add("BGM Volume");
 		optionsMenuItems.Add("SFX Volume");
 

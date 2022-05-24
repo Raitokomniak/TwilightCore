@@ -41,7 +41,6 @@ public class DialogController : MonoBehaviour {
 	public void ToggleAutoScroll(bool toggle){
 		autoScroll = toggle;
 		if(Game.control.mainMenuUI == null) Game.control.ui.DIALOG.UpdateAutoScrollInfo(autoScroll);
-		else  Game.control.mainMenuUI.UpdateAutoScrollInfo(autoScroll);
 	}
 
 	public void Init(){
@@ -54,23 +53,17 @@ public class DialogController : MonoBehaviour {
 	public void StartDialog(string _phase)
 	{	
 		Game.control.ui.DIALOG.ToggleDialog(true);
-		if(_phase.Contains("Boss")) Game.control.ui.DIALOG.InitBossSpeaker(_phase);
-		else Game.control.ui.DIALOG.InitPlayerSpeaker();
-
-		handlingDialog = true;
-
-		if (_phase == "Boss1") {
-			Game.control.ui.DIALOG.UpdateBossInfo ("Maaya", "Friendly Huldra");
-		}
-		if (_phase == "Boss2") {
-			Game.control.ui.DIALOG.UpdateBossInfo ("Joanette", "Void Spinner");
-		}
+		
+		if(!_phase.Contains("Boss")) Game.control.ui.DIALOG.InitPlayerSpeaker();
+		if (_phase.Contains("Boss1")) { Game.control.ui.DIALOG.InitBossSpeaker("Boss1"); }
+		if (_phase.Contains("Boss2")) { Game.control.ui.DIALOG.InitBossSpeaker("Boss2"); }
 
 		TextAsset dialogueText = Resources.Load<TextAsset> ("DialogText/" + _phase);
 		lineList = new ArrayList ();
 		lineList.InsertRange(0, dialogueText.text.Split("\n" [0]));
 		lineIndex = -1;
 
+		handlingDialog = true;
 		dialogRoutine = DialogRoutine();
 		StartCoroutine(dialogRoutine);
 	}
