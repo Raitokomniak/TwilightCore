@@ -33,7 +33,10 @@ public class EnemyShoot : MonoBehaviour {
 
 	public void StopPattern(){
 		pattern.StopPattern();
-		canShoot = false;
+	}
+
+	bool CanShoot(){
+		return true;
 	}
 
 	IEnumerator ShootRoutine(){

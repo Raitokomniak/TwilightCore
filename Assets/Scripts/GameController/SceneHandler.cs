@@ -7,9 +7,8 @@ public class SceneHandler : MonoBehaviour
 	public GameObject environment;
 	public GameObject directionalLight;
 	public GameObject parent;
-	//public Camera environmentCamera;
 	public GameObject[] planes;
-	public CameraController camera;
+	public CameraController e_camera;
 
 	public void SetUpEnvironment ()
 	{
@@ -45,7 +44,7 @@ public class SceneHandler : MonoBehaviour
 		planes [1] = GameObject.Find ("Environment2");
 		planes [2] = GameObject.Find ("Environment3");
 
-		camera = GameObject.Find ("EnvironmentCamera").GetComponent<CameraController>();
+		e_camera = GameObject.Find ("EnvironmentCamera").GetComponent<CameraController>();
 	}
 
 	public void SetPlaneSpeed (float speed)
@@ -54,19 +53,4 @@ public class SceneHandler : MonoBehaviour
 			plane.GetComponent<EnvironmentController> ().SetScrollSpeed (speed);
 		}
 	}
-
-/*
-	public void RotateCamera (float x, float y, float z)
-	{
-		Quaternion newRotation = Quaternion.Euler (x, y, z);
-		//environmentCamera = GameObject.Find ("EnvironmentCamera").GetComponent<Camera> ();
-		environmentCamera.Rotate (newRotation);
-	}
-
-	public void MoveCamera (float x, float y, float z)
-	{
-		Vector3 newPosition = new Vector3 (x, y, z);
-		//environmentCamera = GameObject.Find ("EnvironmentCamera").GetComponent<Camera> ();
-		environmentCamera.Move (newPosition);
-	}*/
 }

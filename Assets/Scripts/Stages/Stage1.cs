@@ -28,16 +28,16 @@ public class Stage1 : Stage
 
 		while (stageHandler.stageTimer < 8f) yield return null;
 		scene.SetPlaneSpeed (10f);
-		scene.camera.Rotate (new Vector3(35, 0, 0));
+		scene.e_camera.Rotate (new Vector3(35, 0, 0));
 
 		while (stageHandler.stageTimer < 14f) yield return null;
-		scene.camera.Rotate (new Vector3(35, 0, -5));
+		scene.e_camera.Rotate (new Vector3(35, 0, -5));
 		scene.SetPlaneSpeed (1f);
 		while (stageHandler.stageTimer < 24f) yield return null;
 		Game.control.ui.PlayStageToast();
 
-		scene.camera.Move (new Vector3(50, 0, 72));
-		scene.camera.Rotate (new Vector3(25, 0, 5));
+		scene.e_camera.Move (new Vector3(50, 0, 72));
+		scene.e_camera.Rotate (new Vector3(25, 0, 5));
 
 		scene.SetPlaneSpeed (10f);
 		while(stageHandler.stageTimer < 50f) yield return null;
