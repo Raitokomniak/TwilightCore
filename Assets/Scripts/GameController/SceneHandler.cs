@@ -7,8 +7,9 @@ public class SceneHandler : MonoBehaviour
 	public GameObject environment;
 	public GameObject directionalLight;
 	public GameObject parent;
-	public Camera environmentCamera;
+	//public Camera environmentCamera;
 	public GameObject[] planes;
+	public CameraController camera;
 
 	public void SetUpEnvironment ()
 	{
@@ -44,32 +45,28 @@ public class SceneHandler : MonoBehaviour
 		planes [1] = GameObject.Find ("Environment2");
 		planes [2] = GameObject.Find ("Environment3");
 
-		environmentCamera = GameObject.Find ("EnvironmentCamera").GetComponent<Camera>();
+		camera = GameObject.Find ("EnvironmentCamera").GetComponent<CameraController>();
 	}
 
 	public void SetPlaneSpeed (float speed)
 	{
-		//planes [0] = GameObject.Find ("Environment");
-		//planes [1] = GameObject.Find ("Environment2");
-		//planes [2] = GameObject.Find ("Environment3");
 		foreach (GameObject plane in planes) {
-			//if (!plane.GetComponent<EnvironmentController> ().init)
-			//	plane.GetComponent<EnvironmentController> ().Init ();
 			plane.GetComponent<EnvironmentController> ().SetScrollSpeed (speed);
 		}
 	}
 
+/*
 	public void RotateCamera (float x, float y, float z)
 	{
 		Quaternion newRotation = Quaternion.Euler (x, y, z);
-		environmentCamera = GameObject.Find ("EnvironmentCamera").GetComponent<Camera> ();
-		environmentCamera.GetComponent<CameraController> ().Rotate (newRotation);
+		//environmentCamera = GameObject.Find ("EnvironmentCamera").GetComponent<Camera> ();
+		environmentCamera.Rotate (newRotation);
 	}
 
 	public void MoveCamera (float x, float y, float z)
 	{
 		Vector3 newPosition = new Vector3 (x, y, z);
-		environmentCamera = GameObject.Find ("EnvironmentCamera").GetComponent<Camera> ();
-		environmentCamera.GetComponent<CameraController> ().Move (newPosition);
-	}
+		//environmentCamera = GameObject.Find ("EnvironmentCamera").GetComponent<Camera> ();
+		environmentCamera.Move (newPosition);
+	}*/
 }

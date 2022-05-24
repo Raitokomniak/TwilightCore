@@ -6,6 +6,8 @@ public class CameraController : MonoBehaviour {
 	Quaternion targetRotation;
 	Vector3 targetPosition;
 	bool moving;
+	Vector3 defaultPosition;
+	Quaternion defaultRotation;
 
 	void Awake(){
 		transform.position = new Vector3 (50, 5, 72);
@@ -20,9 +22,9 @@ public class CameraController : MonoBehaviour {
 			transform.position = Vector3.Lerp (transform.position, targetPosition, Time.deltaTime);
 	}
 
-	public void Rotate(Quaternion targetRot)
+	public void Rotate(Vector3 targetRot)
 	{
-		targetRotation = targetRot;
+		targetRotation = Quaternion.Euler (targetRot.x, targetRot.y, targetRot.z);
 		rotating = true;
 	}
 
@@ -30,5 +32,31 @@ public class CameraController : MonoBehaviour {
 	{
 		targetPosition = targetPos;
 		moving = true;
+	}
+
+	public void MoveToDefault(){
+		targetPosition = defaultPosition;
+		moving = true;
+	}
+
+	public void RotateToDefault(){
+		targetRotation = defaultRotation;
+		rotating = true;
+	}
+
+	public void SetPosition(Vector3 targetPos){
+		transform.position = targetPos;
+	}
+
+	public void SetRotation(Vector3 targetRot){
+		transform.rotation = Quaternion.Euler (targetRot.x, targetRot.y, targetRot.z);
+	}
+
+	public void SetPositionToDefault(){
+		transform.position = defaultPosition;
+	}
+
+	public void SetRotationToDefault(){
+		transform.rotation = defaultRotation;
 	}
 }

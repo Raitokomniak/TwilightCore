@@ -23,8 +23,24 @@ public class Stage2 : Stage
 	}
 
 	IEnumerator StageHandlerRoutine(){
+		
+		scene.camera.SetPosition (new Vector3(50,20,72));
+		scene.camera.SetRotation (new Vector3(50, 0, 5));
+
+		while (stageHandler.stageTimer < 0.1f) yield return null;
+
+		
+		
+		
+
+		//scene.SetPlaneSpeed (10f);
+
 		while (stageHandler.stageTimer < 24f) yield return null;
 		Game.control.ui.PlayStageToast();
+		scene.camera.Move (new Vector3(50, 0, 72));
+		scene.camera.Rotate (new Vector3(25, 0, 5));
+
+		scene.SetPlaneSpeed (10f);
 		while (Game.control.dialog.handlingDialog) yield return null;
 		while (stageHandler.stageTimer < 112f) yield return null;
 		
