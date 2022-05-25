@@ -69,14 +69,9 @@ public class StageHandler : MonoBehaviour {
 		int bossBonusScore = 0;
 		if(bossBonus) {
 			bossBonusScore = 1000;
-			//Game.control.player.GainScore(bossBonusScore);
 		}
 		
 		int bonusTimesDifficulty = Mathf.CeilToInt((timeBonus + dayBonus + nightBonus + bossBonusScore) * (0.3f * difficultyMultiplier));
-
-		//Game.control.player.GainScore(timeBonus);
-		//Game.control.player.GainScore(dayBonus);
-		//Game.control.player.GainScore(nightBonus);
 
 		Game.control.player.GainScore(bonusTimesDifficulty);
 
@@ -176,6 +171,7 @@ public class StageHandler : MonoBehaviour {
 		StartStage(currentStage);
 	}
 
+/*
 	//If time is up, boss leaves the screen and stage is completed
 	IEnumerator TimeUp ()
 	{
@@ -184,7 +180,7 @@ public class StageHandler : MonoBehaviour {
 		boss.GetComponent<EnemyMovement> ().SetUpPatternAndMove (Game.control.enemyLib.leaving);
 		yield return new WaitForSeconds (2);
 		StartCoroutine (StageCompleteHandling ());
-	}
+	}*/
 	
 	public void RestartStage(){
 		if(stageScript != null) stageScript.StopStage();
@@ -193,7 +189,7 @@ public class StageHandler : MonoBehaviour {
 
 	public void StartGame(){
 		stats = new PlayerStats();
-		StartStage(2);
+		StartStage(1);
 	}
 
 	public void StartStage (int stage){

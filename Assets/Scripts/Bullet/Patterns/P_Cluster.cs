@@ -19,7 +19,7 @@ public class P_Cluster : Pattern
 
         			int dir = 1;
 			for (int i = 0; i < bulletCount; i++) {	
-				newPosition = enemyShoot.GetLocalPosition () + new Vector3 (Random.Range (-.8f, .8f), 1.5f * dir, 0);
+				newPosition = enemyShoot.transform.position + new Vector3 (Random.Range (-.8f, .8f), 1.5f * dir, 0);
 				bulletRotation = bulletRotation * Quaternion.Euler (0, 0, 180f + (Random.Range (-10, 10)));
 				bulletMovement = new BMP_Aurora(this, 10f, tempMagnitude);
 				InstantiateBullet (enemyBullet, bulletMovement);

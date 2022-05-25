@@ -108,7 +108,7 @@ public class Pattern
 
 	public Vector3 SpawnInLine (float first, float magnitude, int dir, int index)
 {
-		Vector3 pos = new Vector3 (first + (dir * (index * (magnitude / bulletCount))), enemyShoot.GetLocalPosition ().y, 0);
+		Vector3 pos = new Vector3 (first + (dir * (index * (magnitude / bulletCount))), enemyShoot.transform.position.y, 0);
 		return pos;
 	}
 

@@ -13,6 +13,7 @@ public class Stage : MonoBehaviour
 	public IEnumerator stageHandlerRoutine;
     public Wave boss;
 
+    public Wave w;
     public Pattern p;
 	public EnemyMovementPattern mp;
 

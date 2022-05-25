@@ -49,15 +49,11 @@ public class Boss1 : Phaser
 				patterns[2].bulletCount =  2 * difficultyMultiplier;
 				patterns[2].rotationDirection = -1;
 
-				movementPatterns.Add(new EnemyMovementPattern (lib.centerHor));
-				movementPatterns[0].Customize ("Speed", 7f);
-				movementPatterns.Add(new EnemyMovementPattern (lib.rocking));
-				movementPatterns[1].Customize ("Speed", 7f);
-
+				movementPatterns.Add(new EMP_Rock());
+				movementPatterns[0].speed = 7f;
 
 				while (!phaser.endOfPhase) {
-					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
-					
+					enemyMove.movementPattern.UpdateDirection(lib.centerX, lib.topCenterY);
 					yield return new WaitForSeconds(2f);
 					
 					enemy.BossShoot (patterns[1]);
@@ -68,7 +64,7 @@ public class Boss1 : Phaser
 					patterns[1].StopPattern();
 					patterns[2].StopPattern();
 
-					enemyMove.SetUpPatternAndMove (new EnemyMovementPattern (lib.rocking));
+					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
 
 					yield return new WaitForSeconds(1f);
 					enemy.BossShoot (patterns[0]);
@@ -79,7 +75,6 @@ public class Boss1 : Phaser
 
 					yield return new WaitForSeconds(1f);
 				}
-			
 				break;
             
 			case 1:
@@ -96,7 +91,6 @@ public class Boss1 : Phaser
 				patterns[1].rotationDirection =  1;
 				patterns[1].bulletCount = 2 * difficultyMultiplier;
 				patterns[1].SetSprite ("Circle", "Glow", "Green");
-				
 
 				patterns.Add(new P_Maelstrom());
 				patterns[2].SetSprite ("Circle", "Glow", "Yellow");
@@ -104,22 +98,15 @@ public class Boss1 : Phaser
 				patterns[2].rotationDirection =  -1;
 				patterns[2].bulletCount = 2 * difficultyMultiplier;
 
-
-				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (-15, 6f, 0f), false, 0));
-				movementPatterns[0].Customize ("Speed", 7f);
-
-				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (1, 6, 0), false, 0));
-				movementPatterns[1].Customize ("Speed", 7f);
-
-
-				enemyMove.SetUpPatternAndMove (movementPatterns[0]);
+				enemyMove.movementPattern.UpdateDirection(-15, 6);
 				yield return new WaitForSeconds(1f);
 				
 				while (!phaser.endOfPhase) {
-					yield return new WaitUntil (() => movementPatterns[0].CheckIfReachedDestination (enemyMove) == true);
-					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
+					yield return new WaitUntil (() => enemyMove.movementPattern.CheckIfReachedDestination (enemyMove) == true);
+					//enemyMove.SetUpPatternAndMove (movementPatterns[1]);
+					enemyMove.movementPattern.UpdateDirection(1, 6);
 					enemy.BossShoot (patterns[0]);
-					yield return new WaitUntil (() => movementPatterns[0].CheckIfReachedDestination (enemyMove) == true);
+					yield return new WaitUntil (() => enemyMove.movementPattern.CheckIfReachedDestination (enemyMove) == true);
                     yield return new WaitForSeconds(1f);
                     enemy.BossShoot (patterns[1]);
 					enemy.BossShoot (patterns[2]);
@@ -127,9 +114,10 @@ public class Boss1 : Phaser
 					patterns[1].StopPattern();
 					patterns[2].StopPattern();
 					yield return new WaitForSeconds(1f);
-					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
+					//enemyMove.SetUpPatternAndMove (movementPatterns[0]);
+					enemyMove.movementPattern.UpdateDirection(-15, 6);
 					enemy.BossShoot (patterns[0]);
-					yield return new WaitUntil (() => movementPatterns[0].CheckIfReachedDestination (enemyMove) == true);
+					yield return new WaitUntil (() => enemyMove.movementPattern.CheckIfReachedDestination (enemyMove) == true);
 					yield return new WaitForSeconds(1f);
 					enemy.BossShoot (patterns[1]);
 					enemy.BossShoot (patterns[2]);
@@ -154,32 +142,37 @@ public class Boss1 : Phaser
 				patterns[1].bulletCount = 1;
 				patterns[1].SetSprite ("Circle", "Bevel", "Lilac");
 
-				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (lib.centerX + 4f, enemy.transform.position.y, 0), false, 0));
-				movementPatterns[0].Customize ("Teleport", 1);
-				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (lib.centerX - 4f, enemy.transform.position.y, 0), false, 0));
-				movementPatterns[1].Customize ("Teleport", 1);
+				Vector2 teleP1 = new Vector2(lib.centerX + 4f, enemy.transform.position.y);
+				Vector2 teleP2 = new Vector2(lib.centerX - 4f, enemy.transform.position.y);
+
+				movementPatterns.Add(new EMP_Teleport());
 
 				while (!phaser.endOfPhase) {
+					movementPatterns[0].UpdateDirection(teleP1.x, teleP1.y);
 					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
 					enemy.BossShoot(patterns[0]);
 					yield return new WaitForSeconds(2f);
 					enemy.BossShoot(patterns[1]);
-					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
+					movementPatterns[0].UpdateDirection(teleP2.x, teleP2.y);
+					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
 					yield return new WaitForSeconds(4f);
 					enemy.BossShoot(patterns[1]);
+					movementPatterns[0].UpdateDirection(teleP1.x, teleP1.y);
 					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
 					yield return new WaitForSeconds(4f);
 					enemy.BossShoot(patterns[1]);
 
-
-					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
+					movementPatterns[0].UpdateDirection(teleP2.x, teleP2.y);
+					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
 					enemy.BossShoot(patterns[0]);
 					yield return new WaitForSeconds(2f);
 					enemy.BossShoot(patterns[1]);
+					movementPatterns[0].UpdateDirection(teleP1.x, teleP1.y);
 					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
 					yield return new WaitForSeconds(4f);
 					enemy.BossShoot(patterns[1]);
-					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
+					movementPatterns[0].UpdateDirection(teleP2.x, teleP2.y);
+					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
 					yield return new WaitForSeconds(4f);
 					enemy.BossShoot(patterns[1]);
 
@@ -193,30 +186,28 @@ public class Boss1 : Phaser
 				patterns[0].SetSprite ("Fireball", "Glow", "Orange");
 
 				patterns.Add(new P_Maelstrom());
-				//patterns[1].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14);
 				patterns[1].bulletMovement = new BMP_Explode(patterns[1], 6f, false);
 				patterns[1].rotationDirection = 1;
 				patterns[1].SetSprite ("Circle", "Big", "Red");
 				patterns[1].bulletCount =  Mathf.CeilToInt(1.2f * difficultyMultiplier);
 				patterns[1].coolDown = 2.5f / difficultyMultiplier;
 
-				movementPatterns.Add(new EnemyMovementPattern ("Swing", new Vector3 (-13, enemy.transform.position.y, 0), false, 0));
-				movementPatterns[0].Customize ("Speed", 5f);
-				movementPatterns[0].Customize ("Direction", 1);
-
-				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (lib.centerX, lib.centerY, 0), false, 0));
-
+				movementPatterns.Add(new EMP_Swing(7, 1));
+				movementPatterns[0].centerPoint = new Vector3 (lib.centerX, lib.topCenterY, 0);
+				
 				while (!endOfPhase) {
+					enemyMove.movementPattern.UpdateDirection(lib.enterRight.x, lib.enterRight.y);
 					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
 					yield return new WaitForSeconds(2f);
 
 					enemy.BossShoot (patterns[0]);
 
 					yield return new WaitForSeconds(4f);
-					
-					movementPatterns[0].Customize ("Speed", 7f);
+					enemyMove.moving = false;
+					movementPatterns[0].speed = 7f;
 
-					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
+					movementPatterns[0].UpdateDirection(lib.centerX, lib.centerY);
+					enemyMove.moving = true;
 					yield return new WaitForSeconds(1f);
 
 					enemy.BossShoot (patterns[1]);

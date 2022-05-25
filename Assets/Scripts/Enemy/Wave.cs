@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Wave
 {
@@ -15,8 +16,9 @@ public class Wave
 	public bool isMidBoss = false;
 	public float shootSpeed;
 	public bool simultaneous;
-	public ArrayList spawnPositions;
-
+	public List<Vector3> spawnPositions;
+	public List<Vector3> enterDirections; //THE POSITION AN ENEMY WILL MOVE AFTER SPAWN
+	public List<Vector3> leaveDirections; //THE POSITION AN ENEMY WILL MOVE WHEN LEAVING
 	public EnemyMovementPattern movementPattern;
 	public Pattern shootPattern;
 	public ArrayList phases;
@@ -45,28 +47,12 @@ public class Wave
 
 		health = _health;
 		shootSpeed = _shootSpeed;
-		spawnPositions = new ArrayList ();
+		spawnPositions = new List<Vector3>();
+		enterDirections = new List<Vector3>();
+		leaveDirections = new List<Vector3>();
 		enemyCounter = enemyCount;
 		sprite = Game.control.spriteLib.SetEnemySprite(spriteName);
 	}
-
-	/*
-	public Wave(float _spawnTime, EnemyMovementPattern _movementPattern, Pattern _shootPattern, 
-				int _enemyCount, bool _simultaneous, int _health, bool _isBoss, float _shootSpeed, int _healthBars, string spriteName)
-	{
-		spawnTime = _spawnTime;
-		enemyCount = _enemyCount;
-		simultaneous = _simultaneous;
-		movementPattern = _movementPattern;
-		
-		if(_shootPattern != null) shootPattern = _shootPattern;
-
-		health = _health;
-		shootSpeed = _shootSpeed;
-		spawnPositions = new ArrayList ();
-		enemyCounter = enemyCount;
-		sprite = Game.control.spriteLib.SetEnemySprite(spriteName);
-	}*/
 
 	//FOR BOSSES
 	public Wave(EnemyMovementPattern _movementPattern, float _spawnTime, int _health, bool _isBoss, int _healthBars, string spriteName)
@@ -78,30 +64,12 @@ public class Wave
 		healthBars = _healthBars;
 		isBoss = _isBoss;
 		isMidBoss = !isBoss;
-		spawnPositions = new ArrayList ();
+		spawnPositions = new List<Vector3>();
+		enterDirections = new List<Vector3>();
+		leaveDirections = new List<Vector3>();
 		phases = new ArrayList ();
 		enemyCounter = enemyCount;
 		sprite = Game.control.spriteLib.SetCharacterSprite(spriteName);
-	}
-
-	public Wave(Wave w)
-	{
-		spawnTime = w.spawnTime;
-		enemyCount = w.enemyCount;
-		simultaneous = w.simultaneous;
-
-		movementPattern = w.movementPattern;
-		shootPattern = w.shootPattern;
-
-		health = w.health;
-		healthBars = w.healthBars;
-		isBoss = w.isBoss;
-		shootSpeed = w.shootSpeed;
-		spawnPositions = new ArrayList ();
-		phases = new ArrayList ();
-
-		bossIndex = w.bossIndex;
-		bossName = w.bossName;
 	}
 
 	public void SetUpBoss(float index, string name, bool _isMidBoss){
@@ -110,20 +78,40 @@ public class Wave
 		isMidBoss = _isMidBoss;
 	}
 
-	public void Spawn(int waveindex){
-		spawnPosition = (Vector3)spawnPositions [0];
-		if(spawnPositions.Count > 1){
-			spawnPositions.Reverse ();
-			spawnPosition =  (Vector3)spawnPositions [spawnPositions.Count - 1];
+	void SetMovementPatternDirs(EnemyMovementPattern movementPattern){
+		if(enterDirections.Count != 0){
+			movementPattern.enterDir = (Vector3)enterDirections [0];
+
+			if(enterDirections.Count > 1){
+				enterDirections.Reverse ();
+				movementPattern.enterDir =  (Vector3)enterDirections [enterDirections.Count - 1];
+			}
 		}
 
-		GameObject enemy = GameObject.Instantiate (Resources.Load ("Prefabs/Enemy"), spawnPosition, Quaternion.Euler (0, 0, 0)) as GameObject;
+		if(leaveDirections.Count != 0){
+			movementPattern.leaveDir = (Vector3)leaveDirections [0];
 
+			if(leaveDirections.Count > 1){
+				leaveDirections.Reverse ();
+				movementPattern.leaveDir =  (Vector3)leaveDirections [leaveDirections.Count - 1];
+			}
+		}
+	}
+
+	public void Spawn(int waveindex, int enemyIndex){
+		EnemyMovementPattern pat = movementPattern.GetNewEnemyMovement(movementPattern);
+		if(spawnPositions.Count > 1) pat.spawnPosition = spawnPositions[enemyIndex];
+		GameObject enemy = GameObject.Instantiate (Resources.Load ("Prefabs/Enemy"), pat.spawnPosition, Quaternion.Euler (0, 0, 0)) as GameObject;
 		enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0, this);
-		enemy.GetComponent<EnemyMovement> ().SetUpPatternAndMove (movementPattern);
+		
+		if(enterDirections.Count > 1) pat.enterDir = enterDirections[enemyIndex];
+		if(leaveDirections.Count > 1) pat.leaveDir = leaveDirections[enemyIndex];
+
+		enemy.GetComponent<EnemyMovement> ().SetUpPatternAndMove (pat);
+		
 
 		if (isBoss || isMidBoss) {
-			if(bossIndex == 0.5f) bossScript = enemy.AddComponent<Boss05> ();
+			if	 (bossIndex == 0.5f) bossScript = enemy.AddComponent<Boss05> ();
 			else if(bossIndex == 1f) bossScript = enemy.AddComponent<Boss1> ();
 			else if(bossIndex == 2f) bossScript = enemy.AddComponent<Boss2> ();
 			bossScript.Init();
@@ -148,13 +136,6 @@ public class Wave
 		else {
 			enemy.GetComponent<SpriteRenderer> ().sprite = sprite;
 			enemy.GetComponent<EnemyShoot> ().SetUpAndShoot (shootPattern, shootSpeed);
-		}
-	}
-
-
-	public void SetSpawnPositions(ArrayList positions){
-		foreach (Vector3 pos in positions) {
-			spawnPositions.Add (pos);
 		}
 	}
 }

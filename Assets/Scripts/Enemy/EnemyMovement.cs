@@ -2,16 +2,13 @@
 using System.Collections;
 
 public class EnemyMovement : MonoBehaviour {
-	EnemyShoot shooter;
-	EnemyMovementPattern pat;
+	public EnemyMovementPattern movementPattern;
 	SpriteRenderer spriteRenderer;
-
 	public bool moving;
 	public bool teleporting;
 	public bool rotateOnAxis;
 
 	void Awake () {
-		shooter = GetComponent<EnemyShoot>();
 		spriteRenderer = GetComponent<SpriteRenderer> ();
 		moving = false;
 	}
@@ -21,23 +18,22 @@ public class EnemyMovement : MonoBehaviour {
 	}
 
 	void Update () {
-		rotateOnAxis = pat.rotateOnAxis;
-		transform.rotation = pat.rotation;
+		rotateOnAxis = movementPattern.rotateOnAxis;
+	//	transform.rotation = movementPattern.rotation;
 
 		if (moving) {
-			CheckDirection ();
+			CheckSpriteDirection ();
+
 			if (rotateOnAxis) {
-				transform.RotateAround (pat.RotateOnAxis (), Vector3.back, (Time.deltaTime * pat.speed * pat.direction));
+				transform.RotateAround (movementPattern.centerPoint, Vector3.back, (Time.deltaTime * movementPattern.speed * movementPattern.movementDirection));
+				transform.rotation = Quaternion.Euler(0,0,0);
 			} else {
-				transform.position = Vector3.LerpUnclamped (this.transform.position, pat.targetPos, (pat.speed * Time.deltaTime));
+				transform.position = Vector3.LerpUnclamped (this.transform.position, movementPattern.targetPos, (movementPattern.speed * Time.deltaTime));
 			}
 
-			if (transform.position.y < -12 || transform.position.x < -19 || transform.position.x > 9) {
-				if(tag != "Boss")
-					Destroy (this.gameObject);
-			}
+			CheckOutOfBounds();
+
 			if (tag == "Boss" || tag == "MidBoss") {
-				
 				Game.control.ui.BOSS.UpdateBossXPos (transform.position.x, !teleporting);
 			}
 		}
@@ -46,9 +42,14 @@ public class EnemyMovement : MonoBehaviour {
 			EnableSprite(true);
 	}
 
+	void CheckOutOfBounds(){
+		if (transform.position.y < -12 || transform.position.x < -19 || transform.position.x > 9)
+			if(tag != "Boss") Destroy (this.gameObject);
+	}
+
 	public void SetUpPatternAndMove(EnemyMovementPattern p){
-		pat = p;
-		StartCoroutine (pat.Execute (this));
+		movementPattern = p;
+		StartCoroutine (movementPattern.Execute (this));
 		moving = true;
 	}
 
@@ -57,17 +58,16 @@ public class EnemyMovement : MonoBehaviour {
 	}
 
 	IEnumerator _SmoothAcceleration(){
-		float iniSpeed = pat.speed;
-		pat.speed = 0;
-		while (pat.speed != iniSpeed) {
-			pat.speed += (iniSpeed / 10);
+		float iniSpeed = movementPattern.speed;
+		movementPattern.speed = 0;
+		while (movementPattern.speed != iniSpeed) {
+			movementPattern.speed += (iniSpeed / 10);
 			yield return new WaitForSeconds (0.05f);
 		}
-
 	}
 
-	void CheckDirection(){
-		if (!pat.goingRight) {
+	void CheckSpriteDirection(){
+		if (!movementPattern.goingRight) {
 			GetComponent<SpriteRenderer> ().flipX = false;
 		} else {
 			GetComponent<SpriteRenderer> ().flipX = true;

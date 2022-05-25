@@ -26,7 +26,7 @@ public class Boss2 : Phaser
 
         switch (phase) {
 			case 0:
-				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (2.63f, 7.63f, 0f), false, 0));
+				//movementPatterns.Add(new EnemyMovementPattern (new Vector3 (2.63f, 7.63f, 0f), false, 0));
 				
 				patterns.Add(new P_Spiral());
 				patterns[0].SetSprite ("Arrow", "Glow", "Red");
@@ -37,12 +37,12 @@ public class Boss2 : Phaser
 				patterns.Add(new P_SpiderWeb());
 				patterns[1].SetSprite ("Circle", "Glow", "Red");
 
-				while (!phaser.endOfPhase) {	
-					enemyMove.SetUpPatternAndMove (new EnemyMovementPattern (lib.rocking));
+				while (!phaser.endOfPhase) {
+					enemyMove.SetUpPatternAndMove (new EMP_Rock());
 					enemy.BossShoot (patterns[1]);
 					yield return new WaitForSeconds(2);
-					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
-					yield return new WaitUntil(() => movementPatterns[0].CheckIfReachedDestination(enemyMove) == true);
+					enemyMove.movementPattern.UpdateDirection(2.63f, 7.63f);
+					yield return new WaitUntil(() => enemyMove.movementPattern.CheckIfReachedDestination(enemyMove) == true);
 					enemy.BossShoot(patterns[0]);
 					yield return new WaitForSeconds(2);
 					
@@ -57,7 +57,7 @@ public class Boss2 : Phaser
                 Game.control.sound.PlaySpellSound ("Enemy");
 				Game.control.ui.BOSS.ShowActivatedPhase ("Indra's Net");
 
-				movementPatterns.Add(new EnemyMovementPattern(lib.enterFromTop));
+				movementPatterns.Add(new EMP_EnterFromTop());
 
 				patterns.Add(new P_GiantWeb());
 				patterns[0].bulletMovement = new BMP_Explode(patterns[0], 6f, false);
@@ -83,9 +83,10 @@ public class Boss2 : Phaser
 				endOfPhase = true;
 				break;
 			case 2:
-				movementPatterns.Add(new EnemyMovementPattern (lib.enterFromTop));
-				movementPatterns.Add(new EnemyMovementPattern("ZigZagBoss", new Vector3(0f, 8f, 0f), false, 0));
-				movementPatterns.Add(new EnemyMovementPattern ("", new Vector3 (-15, 4f, 0f), false, 0));
+				movementPatterns.Add(new EMP_EnterFromTop());
+				movementPatterns.Add(new EMP_ZigZag());
+				movementPatterns[1].movementDirection = 2;
+
 
 				patterns.Add(new P_SpiderWebLaser());
 				patterns[0].bulletCount = 2 * difficultyMultiplier;
@@ -103,18 +104,16 @@ public class Boss2 : Phaser
 					enemy.BossShoot(patterns[1]);
 
 					yield return new WaitForSeconds (4f);
-					enemyMove.SetUpPatternAndMove (movementPatterns[2]);
+					enemyMove.movementPattern.UpdateDirection(-15, 4f);
 					yield return new WaitForSeconds (4f);
-					movementPatterns[1].Customize("Direction", 1);
+					movementPatterns[1].movementDirection = 1;
 					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
 					yield return new WaitUntil(() => movementPatterns[1].CheckIfReachedDestination(enemyMove) == true);
 					enemy.BossShoot (patterns[0]);
 
-
 					yield return new WaitForSeconds (4f);
 
-
-					movementPatterns[1].Customize("Direction", -1);
+					movementPatterns[1].movementDirection = -1;
 					enemyMove.SetUpPatternAndMove (movementPatterns[1]);
 
 					yield return new WaitForSeconds(4f);
@@ -122,7 +121,7 @@ public class Boss2 : Phaser
 				}
 				break;
 			case 3:
-				enemyMove.SetUpPatternAndMove (new EnemyMovementPattern (lib.centerHor));
+				enemyMove.SetUpPatternAndMove(new EMP_EnterFromTop());
 				yield return new WaitForSeconds (2f);
 				Game.control.ui.BOSS.ShowActivatedPhase ("Void Dance");
 

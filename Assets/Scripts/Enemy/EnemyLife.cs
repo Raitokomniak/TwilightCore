@@ -100,14 +100,14 @@ public class EnemyLife : MonoBehaviour {
 		if(tag == "Boss" || tag == "MidBoss") {
 			BossDeath();
 		}
-		DisableEnemy();
+		else DisableEnemy();
 		yield return new WaitForSeconds(3f);
 		Destroy(this.gameObject);
 	}
 
 	void DisableEnemy(){
 		if(wave.isBoss || wave.isMidBoss) wave.bossScript.StopPats();
-		GetComponent<EnemyShoot>().StopPattern();
+		if(GetComponent<EnemyShoot>()) GetComponent<EnemyShoot>().StopPattern();
 		GetComponent<SpriteRenderer>().enabled = false;
 		GetComponent<EnemyMovement>().enabled = false;
 		GetComponent<BoxCollider2D>().enabled = false;

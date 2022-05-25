@@ -9,8 +9,6 @@ public class EnemyShoot : MonoBehaviour {
 	public ArrayList bulletsShot;
 	float shootSpeed;
 	Pattern pattern;
-
-
 	public bool canShoot = true;
 
 	void Awake () {
@@ -21,9 +19,10 @@ public class EnemyShoot : MonoBehaviour {
 		bulletsShot = new ArrayList ();
 	}
 
+/*
 	public Vector3 GetLocalPosition(){
 		return transform.position;
-	}
+	}*/
 	
 	public void SetUpAndShoot(Pattern p, float _shootSpeed){
 		pattern = p;
@@ -33,10 +32,7 @@ public class EnemyShoot : MonoBehaviour {
 
 	public void StopPattern(){
 		pattern.StopPattern();
-	}
-
-	bool CanShoot(){
-		return true;
+		canShoot = false;
 	}
 
 	IEnumerator ShootRoutine(){

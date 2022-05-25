@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Boss05 : Phaser
 {
-
 	void Awake(){
 		bossIndex = 0.5f;
 		ignoreDialog = true;
 	}
 
-   public override void StopCoro(){
-		
+    public override void StopCoro(){
+		if(phaseExecuteRoutine != null) StopCoroutine (phaseExecuteRoutine);
+		routineOver = true;
 	}
 
 
@@ -37,7 +37,6 @@ public class Boss05 : Phaser
 			    GetComponent<EnemyLife>().SetInvulnerable (true);
 
 				patterns.Add(new P_Maelstrom());
-				//patterns[0].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[0], 0, 14);
 				patterns[0].bulletMovement = new BMP_Explode(patterns[0], 6f, false);
 				patterns[0].bulletCount =  Mathf.CeilToInt(4 * (difficultyMultiplier / 2f));
 				patterns[0].rotationDirection =  1;
@@ -46,14 +45,10 @@ public class Boss05 : Phaser
 				patterns.Add(new P_Maelstrom());
 				patterns[1].SetSprite ("Circle", "Glow", "Yellow");
 				patterns[1].bulletCount =  Mathf.CeilToInt(4 * (difficultyMultiplier / 2f));
-				//patterns[1].bulletMovement = new BulletMovementPattern (true, "Explode", 6f, patterns[1], 0, 14);
 				patterns[1].bulletMovement = new BMP_Explode(patterns[0], 6f, false);
 				patterns[1].rotationDirection =  -1;
 
-
-				movementPatterns.Add(new EnemyMovementPattern (lib.centerHor));
-				movementPatterns[0].Customize ("Speed", 7f);
-
+				movementPatterns.Add(enemy.wave.movementPattern);
 				enemyMove.SetUpPatternAndMove (movementPatterns[0]);
 
 				while(Game.control.stageHandler.stageTimer < enemy.wave.spawnTime + 9f)
@@ -77,7 +72,6 @@ public class Boss05 : Phaser
 				patterns.Add(new P_Spiral());
 				patterns[0].SetSprite ("Circle", "Glow", "BlackPurple");
 				patterns[0].bulletCount =  Mathf.CeilToInt(4 * (difficultyMultiplier / 2f));
-				//patterns[0].bulletMovement = new BulletMovementPattern (true, "WaitAndExplode", 3f, patterns[0], 0, 14);
 				patterns[0].bulletMovement = new BMP_WaitAndExplode(patterns[0], 3f);
 				patterns[0].bulletMovement.accelSpeed = 4f;
 				patterns[0].loopCircles = 288 * difficultyMultiplier;
@@ -86,7 +80,6 @@ public class Boss05 : Phaser
 				patterns.Add(new P_Spiral());
 				patterns[1].SetSprite ("Circle", "Glow", "BlackLilac");
 				patterns[1].bulletCount =  Mathf.CeilToInt(4 * (difficultyMultiplier / 2f));
-				//patterns[1].bulletMovement = new BulletMovementPattern (true, "WaitAndExplode", 3f, patterns[1], 0, 14);
 				patterns[1].bulletMovement = new BMP_WaitAndExplode(patterns[0], 3f);
 				patterns[1].bulletMovement.accelSpeed = 4f;
 				patterns[1].loopCircles = 288 * difficultyMultiplier;
@@ -101,9 +94,9 @@ public class Boss05 : Phaser
 					enemy.BossShoot (patterns[1]);
 				}
 
-				
-				movementPatterns.Add(new EnemyMovementPattern ("Leaving", new Vector3 (lib.centerX, 13, 0), false, 0));
+				movementPatterns.Add(enemy.wave.movementPattern);
 				enemyMove.SetUpPatternAndMove (movementPatterns[0]);
+				movementPatterns[0].ForceLeave();
 				yield return new WaitForSeconds(2f);
 				GetComponent<EnemyLife>().Die ();
 

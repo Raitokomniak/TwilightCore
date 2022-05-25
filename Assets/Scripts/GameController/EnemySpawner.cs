@@ -73,8 +73,8 @@ public class EnemySpawner : MonoBehaviour {
 
 
 	public IEnumerator Spawn(Wave wave){
-		for(float i = wave.enemyCounter; i>0; i--){
-			if(spawnerOn) wave.Spawn (currentWave);
+		for(int i = 0; i < wave.enemyCounter; i++){
+			if(spawnerOn) wave.Spawn (currentWave, i);
 			else break;
 			yield return new WaitForSeconds (1f);
 		}

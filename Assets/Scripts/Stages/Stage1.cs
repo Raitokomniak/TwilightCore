@@ -76,221 +76,189 @@ public class Stage1 : Stage
 		lib.stageWaves.Clear ();
 		Pattern p;
 		EnemyMovementPattern mp;
+
+
+		//PHASE 1
+
+		mp = new EMP_EnterLeave(lib.topWallRightSide, .5f);
+		mp.SetEnterLeaveDirection(lib.enterCenter, lib.leaveLeft);
+		p = new P_SingleHoming();
+		p.bulletMovement = new BMP_Explode(p, 0.5f, true);
+		p.SetSprite ("Circle", "Big", "Red");
+		lib.NewWave (new Wave (3.5f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"));
+
+		mp = new EMP_EnterLeave(lib.topWallLeftSide, .5f);
+		mp.SetEnterLeaveDirection(lib.enterCenter, lib.leaveLeft);
+		p = new P_SingleHoming();
+		p.bulletMovement = new BMP_Explode(p, 0.5f, true);
+		p.SetSprite ("Circle", "Big", "Red");
+		lib.NewWave (new Wave (5f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"));
+				
 		
-	
-		
-			//1st PHASE
-			mp = new EnemyMovementPattern (lib.enterLeave);
-			mp.Customize ("LeaveDir", "Left");
-			mp.Customize ("StayTime", .5f);
-			p = new P_SingleHoming();
-			p.bulletMovement = new BMP_Explode(p, 0.5f, true);
-			p.SetSprite ("Circle", "Big", "Red");
-			lib.NewWave (new Wave (3.5f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.rightTop });
-									
-			
-			
-			mp = new EnemyMovementPattern (lib.enterLeave);
-			mp.Customize ("LeaveDir", "Right");
-			mp.Customize ("StayTime", 2f);
-			p = new P_SingleHoming();
-			p.bulletMovement = new BMP_Explode(p, 0.5f, true);
-			p.SetSprite ("Circle", "Big", "Red");
-			lib.NewWave (new Wave (7f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.leftTop });
+		mp = new EMP_EnterLeave(lib.topWallLeftSide, 2f);
+		mp.SetEnterLeaveDirection(lib.enterCenter, lib.leaveRight);
+		p = new P_SingleHoming();
+		p.bulletMovement = new BMP_Explode(p, 0.5f, true);
+		p.SetSprite ("Circle", "Big", "Red");
+		lib.NewWave (new Wave (7f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"));
 																				// .6f
 			
+		//2ND PHASE
 
-			//2ND PHASE
-			if(difficultyMultiplier > 3){
+		if(difficultyMultiplier > 3){
+			mp = new EMP_EnterLeave(lib.topWallRightSide, .5f);
+			mp.SetEnterLeaveDirection(lib.enterCenter, lib.leaveRight);
+			p = new P_SingleHoming();
+			p.bulletMovement = new BMP_Explode(p, 0.5f, true);
+			p.SetSprite ("Circle", "Big", "Red");	
+			lib.NewWave (new Wave (8f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"));
 				
-				mp = new EnemyMovementPattern (lib.enterLeave);
-				mp.Customize ("LeaveDir", "Right");
-				mp.Customize ("StayTime", .5f);
-				p = new P_SingleHoming();
-				p.bulletMovement = new BMP_Explode(p, 0.5f, true);
-				p.SetSprite ("Circle", "Big", "Red");	
-				lib.NewWave (new Wave (8f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.rightTop });
-
-				
-				mp = new EnemyMovementPattern (lib.enterLeave);
-				mp.Customize ("LeaveDir", "Left");
-				mp.Customize ("StayTime", 2f);
-				p = new P_SingleHoming();
-				p.bulletMovement = new BMP_Explode(p, 0.5f, true);
-				p.SetSprite ("Circle", "Big", "Red");	
-				lib.NewWave (new Wave (15f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.leftTop });
-		
-			}
-		
-	
-			mp = new EnemyMovementPattern (lib.zigZag);
-			mp.Customize("Direction", 1);
-			p = new P_Circle();
-			p.bulletCount = Mathf.CeilToInt(2.8f * (difficultyMultiplier / 2));
-			p.bulletMovement = new BMP_Explode(p, 7f, false);
-			p.SetSprite ("Circle", "Glow", "Green");	
-			lib.NewWave (new Wave (16f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.rightTop });
-
-
-			mp = new EnemyMovementPattern (lib.snake);
-			mp.Customize ("LeaveDir", "Right");
-			p = new P_Circle();
-			p.bulletMovement = new BMP_Explode(p, 7f, false);
-			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (17f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.topLeft });
+			mp = new EMP_EnterLeave(lib.topWallLeftSide, 2f);
+			mp.SetEnterLeaveDirection(lib.enterCenter, lib.leaveLeft);
+			p = new P_SingleHoming();
+			p.bulletMovement = new BMP_Explode(p, 0.5f, true);
+			p.SetSprite ("Circle", "Big", "Red");	
+			lib.NewWave (new Wave (15f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"));
+		}
 
 		
-			//PHASE3
+		mp = new EMP_ZigZag(lib.topWallRightSide, 0, 1);
+		mp.SetEnterLeaveDirection(new Vector3(0f, 8f, 0f), lib.leaveLeft);
+		p = new P_Circle();
+		p.bulletCount = Mathf.CeilToInt(2.8f * (difficultyMultiplier / 2));
+		p.bulletMovement = new BMP_Explode(p, 7f, false);
+		p.SetSprite ("Circle", "Glow", "Green");	
+		lib.NewWave (new Wave (16f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"));
 
-			mp = new EnemyMovementPattern (lib.snake);
-			mp.Customize ("LeaveDir", "Right");
-			//mp.targetPos = new Vector3 (-14, 7, 0);
-			p = new P_Circle();
-			p.bulletMovement = new BMP_Explode(p, 7f, false);
-			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (28f, mp, p, 5, false, 0,  3f / difficultyMultiplier,  "default"), new ArrayList { lib.topLeft });
-												 //28f
-			mp = new EnemyMovementPattern (lib.snake);
-			mp.Customize ("LeaveDir", "Left");
-			mp.targetPos = new Vector3 (1, 6, 0);
-			p = new P_Circle();
-			p.bulletMovement = new BMP_Explode(p, 7f, false);
-			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (31f, mp, p, 5, false, 0,  3f / difficultyMultiplier, "default"), new ArrayList { lib.topRight });
+
+		mp = new EMP_EnterLeave(lib.leftWallTopSide, 1);
+		mp.SetEnterLeaveDirection(lib.enterRight, lib.leaveLeft);
+		p = new P_Circle();
+		p.bulletMovement = new BMP_Explode(p, 7f, false);
+		p.SetSprite ("Circle", "Glow", "Green");	 
+		lib.NewWave (new Wave (17f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"));
+
+			
+		//INTERLUDE -> PHASE3
+
+		mp = new EMP_EnterLeave(lib.leftWallTopSide, 0);
+		mp.SetEnterLeaveDirection(lib.enterLeft, lib.leaveRight);
+		p = new P_Circle();
+		p.bulletMovement = new BMP_Explode(p, 7f, false);
+		p.SetSprite ("Circle", "Glow", "Green");	 
+		lib.NewWave (new Wave (28f, mp, p, 5, false, 0,  3f / difficultyMultiplier,  "default"));
+		
+		mp = new EMP_EnterLeave(lib.rightWallTopSide, 0);
+		mp.SetEnterLeaveDirection(lib.enterRight, lib.leaveLeft);
+		p = new P_Circle();
+		p.bulletMovement = new BMP_Explode(p, 7f, false);
+		p.SetSprite ("Circle", "Glow", "Green");	 
+		lib.NewWave (new Wave (31f, mp, p, 5, false, 0,  3f / difficultyMultiplier, "default"));
 												 //31f
-
-			mp = new EnemyMovementPattern (lib.snake);
-			mp.Customize ("LeaveDir", "Right");
-			//mp.targetPos = new Vector3 (-14, 7, 0);
-			p = new P_Circle();
-			p.bulletCount =  10;
-			p.bulletMovement = new BMP_Explode(p, 7f, false);
-			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (33f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.topRight });
-
-			mp = new EnemyMovementPattern (lib.snake);
-			mp.Customize ("LeaveDir", "Left");
-			mp.targetPos = new Vector3 (1, 6, 0);
-			p = new P_Circle();
-			p.bulletCount =  10;
-			//p.bulletMovement = new BulletMovementPattern (false, "Explode", 7f, p, 0, 14);
-			p.bulletMovement = new BMP_Explode(p, 7f, false);
-			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (36f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.topLeft });
+		mp = new EMP_EnterLeave(lib.rightWallTopSide, 0);
+		mp.SetEnterLeaveDirection(lib.enterLeft, lib.leaveRight);
+		p = new P_Circle();
+		p.bulletCount =  10;
+		p.bulletMovement = new BMP_Explode(p, 7f, false);
+		p.SetSprite ("Circle", "Glow", "Green");	 
+		lib.NewWave (new Wave (33f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"));
 
 
-			mp = new EnemyMovementPattern (lib.enterLeave);
-			mp.targetPos = new Vector3 (0, 7, 0);
-			mp.speed = 2f;
-			mp.Customize ("LeaveDir", "Right");
-			mp.Customize ("StayTime", 4f);
-			p = new P_Circle();
-			p.bulletCount = Mathf.CeilToInt(4 * difficultyMultiplier);
-			p.bulletMovement = new BMP_Explode(p, 11f, false);
-			p.SetSprite ("Circle", "Glow", "Green");
-			lib.NewWave (new Wave (41f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"), new ArrayList { lib.rightTop });
-
-			mp = new EnemyMovementPattern (lib.enterLeave);
-			mp.targetPos = new Vector3 (-14, 7, 0);
-			mp.speed = 2f;
-			mp.Customize ("LeaveDir", "Left");
-			mp.Customize ("StayTime", 4f);
-			p = new P_Circle();
-			p.bulletCount = Mathf.CeilToInt(4 * difficultyMultiplier);
-			p.bulletMovement = new BMP_Explode(p, 11f, false);
-			p.SetSprite ("Circle", "Glow", "Yellow");
-			lib.NewWave (new Wave (41.5f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"), new ArrayList { lib.leftTop });
+		mp = new EMP_EnterLeave(lib.leftWallTopSide, 0);
+		mp.SetEnterLeaveDirection(lib.enterRight, lib.leaveLeft);
+		p = new P_Circle();
+		p.bulletCount =  10;
+		p.bulletMovement = new BMP_Explode(p, 7f, false);
+		p.SetSprite ("Circle", "Glow", "Green");	 
+		lib.NewWave (new Wave (36f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"));
 
 
-			//MID-BOSS
-
-			mp = new EnemyMovementPattern (lib.enterLeave);
-			mp.Customize ("StayTime", 24f);
-			mp.Customize ("LeaveDir", "Up");
-			Wave bossMid1 = new Wave(mp, 55f, 150, false, 1, "boss0.5"); //55f
-			bossMid1.SetUpBoss (0.5f, "Asura", true);
-
-			lib.NewWave (bossMid1, new ArrayList { lib.middleTop });
-
+		mp = new EMP_EnterLeave(lib.topWallRightSide, 4f);
+		mp.speed = 2f;
+		mp.SetEnterLeaveDirection(lib.enterRight, lib.leaveRight);
+		p = new P_Circle();
+		p.bulletCount = Mathf.CeilToInt(4 * difficultyMultiplier);
+		p.bulletMovement = new BMP_Explode(p, 11f, false);
+		p.SetSprite ("Circle", "Glow", "Green");
+		lib.NewWave (new Wave (41f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"));
 
 
-			//CONTD
-			mp = new EnemyMovementPattern (lib.snake);
-			mp.Customize ("LeaveDir", "Left");
-			mp.targetPos = new Vector3 (1, 6, 0);
-			p = new P_Circle();
-			//p.bulletMovement = new BulletMovementPattern (false, "Explode", 7f, p, 0, 14);
-			p.bulletMovement = new BMP_Explode(p, 7f, false);
-			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (83f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.topRight });
-
-
-			mp = new EnemyMovementPattern (lib.snake);
-			mp.Customize ("LeaveDir", "Left");
-			//mp.targetPos = new Vector3 (-14, 7, 0);
-			p = new P_Circle();
-			p.bulletCount =  Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
-			//p.bulletMovement = new BulletMovementPattern (false, "Explode", 7f, p, 0, 14);
-			p.bulletMovement = new BMP_Explode(p, 7f, false);
-			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (87f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.topRight });
-
-			mp = new EnemyMovementPattern (lib.snake);
-			mp.Customize ("LeaveDir", "Right");
-			mp.targetPos = new Vector3 (1, 6, 0);
-			p = new P_Circle();
-			p.bulletCount =  Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
-			//p.bulletMovement = new BulletMovementPattern (false, "Explode", 7f, p, 0, 14);
-			p.bulletMovement = new BMP_Explode(p, 7f, false);
-			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (90f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"), new ArrayList { lib.topLeft });
-
-			mp = new EnemyMovementPattern (lib.enterLeave);
-			mp.targetPos = new Vector3 (0, 7, 0);
-			mp.speed = 2f;
-			mp.Customize ("LeaveDir", "Left");
-			mp.Customize ("StayTime", 4f);
-			p = new P_Circle();
-			p.bulletCount =  Mathf.CeilToInt(4 * difficultyMultiplier);
-			//.bulletMovement = new BulletMovementPattern (false, "Explode", 11f, p, 0, 14);
-			p.bulletMovement = new BMP_Explode(p, 11f, false);
-			p.SetSprite ("Circle", "Glow", "Green");	 
-			lib.NewWave (new Wave (90f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"), new ArrayList { lib.rightTop });
-
-			mp = new EnemyMovementPattern (lib.enterLeave);
-			mp.targetPos = new Vector3 (-14, 7, 0);
-			mp.speed = 2f;
-			mp.Customize ("LeaveDir", "Right");
-			mp.Customize ("StayTime", 4f);
-			p = new P_Circle();
-			p.bulletCount =  Mathf.CeilToInt(4 * difficultyMultiplier);
-			//p.bulletMovement = new BulletMovementPattern (false, "Explode", 11f, p, 0, 14);
-			p.bulletMovement = new BMP_Explode(p, 11f, false);
-			p.SetSprite ("Circle", "Glow", "Yellow");	 
-			lib.NewWave (new Wave (90.5f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"), new ArrayList { lib.leftTop });
-
+		mp = new EMP_EnterLeave(lib.topWallLeftSide, 4);
+		mp.SetEnterLeaveDirection(lib.enterLeft, lib.leaveLeft);
+		mp.speed = 2f;
+		p = new P_Circle();
+		p.bulletCount = Mathf.CeilToInt(4 * difficultyMultiplier);
+		p.bulletMovement = new BMP_Explode(p, 11f, false);
+		p.SetSprite ("Circle", "Glow", "Yellow");
+		lib.NewWave (new Wave (41.5f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"));
 
 			
-			
+		//MID-BOSS
+		mp = new EMP_EnterFromTop();
+		mp.SetEnterLeaveDirection(lib.enterCenterBoss, lib.leaveCenter);
+		mp.stayTime = 24f;
+		Wave midBoss = new Wave(mp, 55f, 150, false, 1, "boss0.5"); //55f
+		midBoss.SetUpBoss (0.5f, "Asura", true);
+		lib.NewWave (midBoss);
+
+
+
+		//CONTD
+		mp = new EMP_EnterLeave(lib.rightWallTopSide, 0);
+		mp.SetEnterLeaveDirection(lib.enterRight, lib.leaveLeft);
+		p = new P_Circle();
+		p.bulletMovement = new BMP_Explode(p, 7f, false);
+		p.SetSprite ("Circle", "Glow", "Green");	 
+		lib.NewWave (new Wave (83f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"));
+
+		mp = new EMP_EnterLeave(lib.rightWallTopSide, 0);
+		mp.SetEnterLeaveDirection(lib.enterRight, lib.leaveLeft);
+		p = new P_Circle();
+		p.bulletMovement = new BMP_Explode(p, 7f, false);
+		p.SetSprite ("Circle", "Glow", "Green");	 
+		lib.NewWave (new Wave (87f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"));
+
+		mp = new EMP_EnterLeave(lib.leftWallTopSide, 0);
+		mp.SetEnterLeaveDirection(lib.enterRight, lib.leaveRight);
+		p = new P_Circle();
+		p.bulletCount =  Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
+		p.bulletMovement = new BMP_Explode(p, 7f, false);
+		p.SetSprite ("Circle", "Glow", "Green");	 
+		lib.NewWave (new Wave (90f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"));
+
+		mp = new EMP_EnterLeave(lib.topWallRightSide, 4);
+		mp.SetEnterLeaveDirection(lib.enterRight, lib.leaveLeft);
+		mp.speed = 2f;
+		p = new P_Circle();
+		p.bulletCount =  Mathf.CeilToInt(4 * difficultyMultiplier);
+		p.bulletMovement = new BMP_Explode(p, 11f, false);
+		p.SetSprite ("Circle", "Glow", "Green");	 
+		lib.NewWave (new Wave (90f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"));
+
+		mp = new EMP_EnterLeave(lib.topWallLeftSide, 4);
+		mp.SetEnterLeaveDirection(lib.enterLeft, lib.leaveRight);
+		mp.speed = 2f;
+		p = new P_Circle();
+		p.bulletCount =  Mathf.CeilToInt(4 * difficultyMultiplier);
+		p.bulletMovement = new BMP_Explode(p, 11f, false);
+		p.SetSprite ("Circle", "Glow", "Yellow");	 
+		lib.NewWave (new Wave (90.5f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"));
+
 /*
-
-			//DEBUG
-			
-			mp = new EnemyMovementPattern (lib.enterFromTop);
-			mp.Customize ("StayTime", 0);
-			boss = new Wave(mp, 1f, 10 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss1");
-			boss.movementPattern = lib.enterFromTop;
-			
+		//debug BOSS 1
+		mp = new EMP_EnterFromTop();
+		mp.SetEnterLeaveDirection(lib.enterCenterBoss, Vector3.zero);
+		boss = new Wave(mp, 1f, 80 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss1");
+		boss.SetUpBoss (1, "Maaya, Forest Guardian", false);
+		lib.NewWave (boss);
 */
-			// BIG BOSS
-			
-			mp = new EnemyMovementPattern (lib.enterFromTop);
-			mp.Customize ("StayTime", 0);
-			boss = new Wave(mp, 100f, 80 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss1");
-			boss.movementPattern = lib.enterFromTop;
-			//*/
-
-			boss.SetUpBoss (1, "Maaya, Forest Guardian", false);
-			lib.NewWave (boss, new ArrayList { lib.middleTop });
+		
+		//BOSS 1
+		mp = new EMP_EnterFromTop();
+		mp.SetEnterLeaveDirection(lib.enterCenterBoss, Vector3.zero);
+		boss = new Wave(mp, 100f, 80 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss1");
+		boss.SetUpBoss (1, "Maaya, Forest Guardian", false);
+		lib.NewWave (boss);
+		
 	}
 }

@@ -18,7 +18,7 @@ public class P_GiantWeb : Pattern
 		
         bullets = new ArrayList ();
 				yield return new WaitForSeconds (2f);
-				pos = enemyShoot.GetLocalPosition ();
+				pos = enemyShoot.transform.position;
 				
 				for(tempLayer = 0; tempLayer < 4; tempLayer++){
 					if (tempMagnitude > 0) {

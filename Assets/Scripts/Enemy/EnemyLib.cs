@@ -6,102 +6,87 @@ using UnityEngine;
 public class EnemyLib : MonoBehaviour
 {
 	SpriteLibrary spriteLib;
-
-	//public Pattern singleHoming;
-	//public Pattern repeatedHoming;
-	//public Pattern circle;
-	//public Pattern maelStrom;
-	//public Pattern pacMan;
-	//public Pattern spiderWeb;
-	//public Pattern giantWeb;
-	//public Pattern laser;
-	//public Pattern spiral;
-	//public Pattern curtain;
-	//public Pattern spiderWebLaser;
-
-	public EnemyMovementPattern leaving;
-	public EnemyMovementPattern zigZag;
-	public EnemyMovementPattern snake;
-	public EnemyMovementPattern doubleSnake;
-	public EnemyMovementPattern enterFromTop;
-	public EnemyMovementPattern enterLeave;
-
-	public EnemyMovementPattern rocking;
-	public EnemyMovementPattern centerHor;
-	public EnemyMovementPattern centerVer;
-	public EnemyMovementPattern swipeLeftToRight;
-
 	public ArrayList stageWaves;
 
 	public float centerX;
 	public float centerY;
+	public float topCenterY;
 	public float rightOut;
 	public float leftOut;
 
-	public Vector3 middleTop;
-	public Vector3 topRight;
-	public Vector3 leftTop;
-	public Vector3 rightTop;
-	public Vector3 topLeft;
+	public Vector3 centerTopOOB;
+	public Vector3 center;
+	public Vector3 rightWallTopSide;
+	public Vector3 topWallLeftSide;
+	public Vector3 topWallRightSide;
+	public Vector3 leftWallTopSide;
+
+	//SOME DEFAULT VALUES FOR ENTER/LEAVE DIRS
+	public Vector3 enterRight;
+	public Vector3 enterCenter;
+	public Vector3 enterCenterBoss;
+	public Vector3 enterLeft;
+
+	public Vector3 leaveRight;
+	public Vector3 leaveCenter;
+	public Vector3 leaveLeft;
+
+
 
 	public void InitEnemyLib(){
 		centerX = -6f;
 		centerY = 0f;
+		topCenterY = 8f;
 		leftOut = -22f;
 		rightOut = 10f;
 
-		middleTop = new Vector3(centerX, 12f, 0f);
-		topRight = new Vector3(7f, 6f, 0f); //RIGHT WALL
-		topLeft = new Vector3 (-18, 6f, 0f); //LEFT WALL
-		leftTop = new Vector3 (-14, 12f, 0f); //TOP WALL LEFT  SIDE
-		rightTop = new Vector3 (3, 12f, 0f); //TOP WALL RIGHT SIDE
+		centerTopOOB = new Vector3(centerX, 12f, 0f);
+		rightWallTopSide = new Vector3(7f, 6f, 0f); //RIGHT WALL
+		leftWallTopSide = new Vector3 (-18, 6f, 0f); //LEFT WALL
+		center = new Vector3(centerX, 6f, 0f);
+		topWallLeftSide = new Vector3 (-14, 12f, 0f); //TOP WALL LEFT  SIDE
+		topWallRightSide = new Vector3 (3, 12f, 0f); //TOP WALL RIGHT SIDE
+
+
+		//DEFAULTS FOR ENTER/LEAVE
+		enterRight = new Vector3(3, 6, 0);
+		enterCenter = new Vector3(Game.control.enemyLib.centerX, 6, 0);
+		enterCenterBoss = new Vector3(Game.control.enemyLib.centerX, 8, 0);
+		enterLeft = new Vector3(-14, 6, 0);
+
+		leaveRight = new Vector3(Game.control.enemyLib.rightOut, 6f, 0);
+		leaveCenter = new Vector3(Game.control.enemyLib.centerX, 18, 0);
+		leaveLeft = new Vector3(Game.control.enemyLib.leftOut, 6f, 0);
 
 		spriteLib = Game.control.spriteLib;
-
-		CreateMovementPatterns();
-		CreatePatterns();
 
 		stageWaves = new ArrayList();
 	}
 
-	void CreateMovementPatterns()
-	{
-		leaving = 			new EnemyMovementPattern("Leaving", new Vector3(centerX, 14f, 0f), false, 0);
-		zigZag = 			new EnemyMovementPattern("ZigZag", new Vector3(0f, 8f, 0f), false, 0);
-		snake = 			new EnemyMovementPattern("SnakeRightToLeft", new Vector3(0f, 6f, 0f), false, 0);
-		doubleSnake = 		new EnemyMovementPattern("DoubleSnake", new Vector3(0f, 6f, 0f), false, 0);
-		enterFromTop = 		new EnemyMovementPattern("Enter", new Vector3(centerX, 8f, 0f), false, 0);
-		enterLeave = 		new EnemyMovementPattern("EnterLeave", new Vector3 (-7f, 8f, 0f), false, 18);
-		rocking = 			new EnemyMovementPattern("Rocking", new Vector3(-2f, 8f, 0f), true, 0);
-		centerHor = 		new EnemyMovementPattern("CenterHor", new Vector3(centerX, 8f, 0f), true, 0);
-		centerVer = 		new EnemyMovementPattern("CenterVer", new Vector3(-7f, centerY, 0f), true, 0);
-		swipeLeftToRight = new EnemyMovementPattern("SwipeLeftToRight", new Vector3 (-15, 6f, 0f), true, 0);
-	}
-
-	void CreatePatterns()
-	{
-		//SingleHoming singleHoming = new Pattern("SingleHoming", false, 1, 0f, 1f, 1, 100) as SingleHoming;
-		//singleHoming = 
-		//repeatedHoming = new Pattern("RepeatedHoming", false, 1, 0f, 1f, 1, 100);
-		//circle = new Pattern("Circle", false, 7, 0f, 1f, 1, 100);
-		//maelStrom = new Pattern("Maelstrom", false, 10, 0f, 0.2f, 1, 100);
-		//pacMan = new Pattern("PacMan", false, 45, 6f, 1f, 1, 100);
-		//spiderWeb = new Pattern("SpiderWeb", true, 10, 0f, 3f, 1, 100);
-		//giantWeb = new Pattern("GiantWeb", true, 30, 0f, 1f, 2, 12);
-		//laser = new Pattern ("Laser", false, 1, 0, 10, 0, 15);
-		//spiral = new Pattern ("Spiral", false, 30, 0f, 0.001f, 1, 2);
-		//curtain = new Pattern ("Curtain", false, 8, 0f, .1f, 0, 10);
-		//spiderWebLaser = new Pattern ("SpiderWebLaser", false, 8, 0, 0.5f, 0, 14);
-	}
-
-
-	public void NewWave(Wave w, ArrayList spawnPositions){
-		w.SetSpawnPositions (spawnPositions);
-
+	public void NewWave(Wave w){
 		if (w.isBoss || w.isMidBoss) {
-			w.sprite =spriteLib.SetCharacterSprite ("Boss" + w.bossIndex);
+			w.sprite = spriteLib.SetCharacterSprite ("Boss" + w.bossIndex);
 		}
 		stageWaves.Add(w);
 	}
+
+	public void NewWave(Wave w, List<Vector3> spawnPositions){
+		if (w.isBoss || w.isMidBoss) {
+			w.sprite = spriteLib.SetCharacterSprite ("Boss" + w.bossIndex);
+		}
+		w.spawnPositions = spawnPositions;
+		stageWaves.Add(w);
+	}
+
+	public void NewWave(Wave w, List<Vector3> spawnPositions, List<Vector3> enterDirections, List<Vector3> leaveDirections){
+		if (w.isBoss || w.isMidBoss) {
+			w.sprite = spriteLib.SetCharacterSprite ("Boss" + w.bossIndex);
+		}
+		w.spawnPositions = spawnPositions;
+		w.enterDirections = enterDirections;
+		w.leaveDirections = leaveDirections;
+		stageWaves.Add(w);
+	}
+
 }
 
