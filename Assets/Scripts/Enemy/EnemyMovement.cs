@@ -31,19 +31,25 @@ public class EnemyMovement : MonoBehaviour {
 				transform.position = Vector3.LerpUnclamped (this.transform.position, movementPattern.targetPos, (movementPattern.speed * Time.deltaTime));
 			}
 
-			CheckOutOfBounds();
+			
 
 			if (tag == "Boss" || tag == "MidBoss") {
 				Game.control.ui.BOSS.UpdateBossXPos (transform.position.x, !teleporting);
 			}
 		}
 
+		CheckOutOfBounds();
+
+		
+	/* 
+		this doesnt work with hideSpriteOnSpawn. if boss1 sprite doesnt reappear after teleport, force it somewhere else
+
 		if(!teleporting && !GetComponent<EnemyLife>().GetInvulnerableState())
-			EnableSprite(true);
+			EnableSprite(true);*/
 	}
 
 	void CheckOutOfBounds(){
-		if (transform.position.y < -12 || transform.position.x < -19 || transform.position.x > 9)
+		if (transform.position.y > 15 || transform.position.y < -12 || transform.position.x < -19 || transform.position.x > 9)
 			if(tag != "Boss") Destroy (this.gameObject);
 	}
 

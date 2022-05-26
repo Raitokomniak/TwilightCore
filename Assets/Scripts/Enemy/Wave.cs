@@ -50,7 +50,7 @@ public class Wave
 		spawnPositions = new List<Vector3>();
 		enterDirections = new List<Vector3>();
 		leaveDirections = new List<Vector3>();
-		enemyCounter = enemyCount;
+		enemyCounter = enemyCount;	
 		sprite = Game.control.spriteLib.SetEnemySprite(spriteName);
 	}
 
@@ -78,12 +78,39 @@ public class Wave
 		isMidBoss = _isMidBoss;
 	}
 
+	public void FillPositionArray(List<Vector3> array){
+		int timesToMultiply = 0;
+		int tempPosCount = array.Count;
+
+		if(array.Count > 1){
+			if(enemyCount > tempPosCount){
+				timesToMultiply = Mathf.FloorToInt(enemyCount / array.Count - 1);
+
+				if(timesToMultiply > 0){
+					for(int i = 0; i < timesToMultiply; i++){
+						for(int j = 0; j < tempPosCount; j++)	{
+							array.Add(array[j]);
+						}
+					}
+				}
+			}
+		}
+	}
+	//if more enemies than spawn/enter/leave positions, multiplies the amount of positions so enemyindex is not OOB
+	public void FillPositionsArraysByEnemyCount(){
+		FillPositionArray(spawnPositions);
+		FillPositionArray(enterDirections);
+		FillPositionArray(leaveDirections);
+	}
+	
 	public void Spawn(int waveindex, int enemyIndex){
 		EnemyMovementPattern pat = movementPattern.GetNewEnemyMovement(movementPattern);
+
 		if(spawnPositions.Count > 1) pat.spawnPosition = spawnPositions[enemyIndex];
+		
 		GameObject enemy = GameObject.Instantiate (Resources.Load ("Prefabs/Enemy"), pat.spawnPosition, Quaternion.Euler (0, 0, 0)) as GameObject;
 		enemy.GetComponent<EnemyLife> ().SetHealth (health, healthBars, 0, this);
-		
+
 		if(enterDirections.Count > 1) pat.enterDir = enterDirections[enemyIndex];
 		if(leaveDirections.Count > 1) pat.leaveDir = leaveDirections[enemyIndex];
 
@@ -118,5 +145,7 @@ public class Wave
 			enemy.GetComponent<SpriteRenderer> ().sprite = sprite;
 			enemy.GetComponent<EnemyShoot> ().SetUpAndShoot (shootPattern, shootSpeed);
 		}
+
+		if(pat.hideSpriteOnSpawn) enemy.GetComponent<EnemyMovement>().EnableSprite(false);
 	}
 }

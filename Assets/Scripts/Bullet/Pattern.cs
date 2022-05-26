@@ -29,6 +29,7 @@ public class Pattern
 	public int layers = 1;  //DEFAULT
 	public int tempLayer;
 
+	public bool infinite = true; //DEFAULT BECAUSE BOSSES, SEE IF YOU BOTHER TO CHANGE THIS
 	public bool stop;
 
 	public float originMagnitude = 100;  //DEFAULT

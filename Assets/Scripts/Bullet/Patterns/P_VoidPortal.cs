@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class P_VoidPortal : Pattern
 {
-
-    public P_VoidPortal(){
+    float stayTime;
+    
+    public P_VoidPortal(float _stayTime){
         bulletCount = 10;
 		coolDown = 3;
 		tempMagnitude = originMagnitude;
+        stayTime = _stayTime;
     }
 
 
@@ -19,17 +21,20 @@ public class P_VoidPortal : Pattern
         bullets = new ArrayList ();
 
         animation = (Resources.Load ("Images/Animations/A_VoidPortal") as GameObject);
-        animation.GetComponent<BulletAnimationController> ().stayTime = 5f;
+        animation.GetComponent<BulletAnimationController> ().stayTime = stayTime;
+        animation.GetComponent<BulletAnimationController> ().scaleDown = true;
         animating = false;
 
         bulletRotation = rot;
 			
 		for (int i = 0; i < bulletCount; i++) {
 			bulletRotation = Quaternion.Euler (0f, 0f, i * (360 / bulletCount));
-			//bulletMovement = new BulletMovementPattern (bulletMovement);
             bulletMovement = bulletMovement.GetNewBulletMovement(bulletMovement);
 			InstantiateBullet (enemyBullet, bulletMovement);
-			bullet.GetComponent<SpriteRenderer> ().sprite = Game.control.spriteLib.SetBulletSprite ("Circle", "Glow", "Red");
+            Animate(5, 1, enemy.transform.position);
 		}
+        yield return new WaitForSeconds(2f);
+        animation.GetComponent<BulletAnimationController> ().FadeAway();
+        
     }
 }

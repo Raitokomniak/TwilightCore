@@ -10,6 +10,7 @@ public class EnemyShoot : MonoBehaviour {
 	float shootSpeed;
 	Pattern pattern;
 	public bool canShoot = true;
+	IEnumerator shootRoutine;
 
 	void Awake () {
 		enemyBullet = Resources.Load("Prefabs/enemyBullet") as GameObject;
@@ -26,13 +27,15 @@ public class EnemyShoot : MonoBehaviour {
 	}
 
 	public void StopPattern(){
+		StopCoroutine(shootRoutine);
 		pattern.StopPattern();
 		canShoot = false;
 	}
 
 	IEnumerator ShootRoutine(){
 		while (!enemyLife.GetInvulnerableState () && canShoot) {
-			StartCoroutine (pattern.Execute (enemyBullet, this));
+			shootRoutine = pattern.Execute (enemyBullet, this);
+			StartCoroutine (shootRoutine);
 			yield return new WaitForSeconds (shootSpeed);
 		}
 	}

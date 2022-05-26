@@ -10,6 +10,7 @@ public class EnemyMovementPattern
 	public Vector3 enterDir;
 	public Vector3 leaveDir;
 
+	public bool hideSpriteOnSpawn;
 	public int movementDirection;
 	public bool teleport;
 	public bool rotateOnAxis;
@@ -55,6 +56,7 @@ public class EnemyMovementPattern
 		emp.teleport = _emp.teleport;
 		emp.rotateOnAxis = _emp.rotateOnAxis;
 		emp.centerPoint = _emp.centerPoint;
+		emp.hideSpriteOnSpawn = _emp.hideSpriteOnSpawn;
 		return emp;
 	}
 

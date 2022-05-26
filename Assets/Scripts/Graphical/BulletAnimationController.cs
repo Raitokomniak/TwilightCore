@@ -8,7 +8,7 @@ public class BulletAnimationController : MonoBehaviour {
 	float scalingTime = 0.03f;
 	float targetScale;
 	public float stayTime = 0;
-
+	public bool scaleDown;
 	void Awake(){
 		_renderer = GetComponent<SpriteRenderer>();
 	}
@@ -25,14 +25,15 @@ public class BulletAnimationController : MonoBehaviour {
 	}
 
 	public void FadeAway(){
-		StartCoroutine (_FadeAway ());
+		IEnumerator fadeAway = _FadeAway();
+		StartCoroutine (fadeAway);
 	}
 
 	IEnumerator _FadeAway(){
-		
-		for (int i = 10; i > 0; i--) {
-			_renderer.color = new Color (1, 1, 1, 0.1f * i);
-			yield return new WaitForSeconds (0.1f);
+		for (int i = 0; i < (10*targetScale); i++) {
+			_renderer.color -= new Color (1, 1, 1, 0.1f);
+			if(scaleDown) transform.localScale -= new Vector3 (0.1f, 0.1f, 0.1f);
+			yield return new WaitForSeconds (0.03f * scalingTime);
 		}
 
 		Destroy (this.gameObject);
@@ -49,7 +50,6 @@ public class BulletAnimationController : MonoBehaviour {
 		}
 		yield return new WaitForSeconds (0.2f);
 		fadedIn = true;
-		yield return new WaitForSeconds (targetScale);
 		yield return new WaitForSeconds(stayTime);
 		FadeAway ();
 	}

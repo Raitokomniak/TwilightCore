@@ -75,6 +75,7 @@ public class EnemyLib : MonoBehaviour
 			w.sprite = spriteLib.SetCharacterSprite ("Boss" + w.bossIndex);
 		}
 		w.spawnPositions = spawnPositions;
+		w.FillPositionsArraysByEnemyCount();
 		stageWaves.Add(w);
 	}
 
@@ -85,6 +86,7 @@ public class EnemyLib : MonoBehaviour
 		w.spawnPositions = spawnPositions;
 		w.enterDirections = enterDirections;
 		w.leaveDirections = leaveDirections;
+		w.FillPositionsArraysByEnemyCount();
 		stageWaves.Add(w);
 	}
 

@@ -102,7 +102,7 @@ public class Stage1 : Stage
 		p = new P_SingleHoming();
 		p.bulletMovement = new BMP_Explode(p, 0.5f, true);
 		p.SetSprite ("Circle", "Big", "Red");
-		lib.NewWave (new Wave (7f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"));
+		lib.NewWave (new Wave (7f, mp, p, 2, false, 0, 3f / difficultyMultiplier, "default"));
 																				// .6f
 			
 		//2ND PHASE

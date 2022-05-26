@@ -13,10 +13,24 @@ public class P_Maelstrom : Pattern
         yield return new WaitForSeconds(delayBeforeAttack);
 		pos = enemy.transform.position;
 
-		while (!stop) {
+		if(infinite){
+			while (!stop) {
+				Game.control.sound.PlaySound ("Enemy", "Shoot", true);
+				
+				for (int i = 0; i < bulletCount; i++) {
+					newPosition = SpawnInCircle (pos, 1.5f, GetAng (i, 360) + startingRotation);
+					bulletRotation = SpawnInCircle (i, startingRotation);
+					startingRotation += 0.5f * rotationDirection;
+					InstantiateBullet (enemyBullet, bulletMovement);
+					if(circleDelay > 0) yield return new WaitForSeconds(circleDelay);
+				}
+				yield return new WaitForSeconds (coolDown);
+			}
+		}
+		else {
 			Game.control.sound.PlaySound ("Enemy", "Shoot", true);
-			
-            for (int i = 0; i < bulletCount; i++) {
+				
+			for (int i = 0; i < bulletCount; i++) {
 				newPosition = SpawnInCircle (pos, 1.5f, GetAng (i, 360) + startingRotation);
 				bulletRotation = SpawnInCircle (i, startingRotation);
 				startingRotation += 0.5f * rotationDirection;
