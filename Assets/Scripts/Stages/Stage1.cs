@@ -65,6 +65,9 @@ public class Stage1 : Stage
 		//USING THIS DISABLES SOME DEBUGGING BECAUSE STAGE DOESNT END IF BOSS DIES BEFORE THIS POINT
 		while(!Game.control.enemySpawner.bossWave.dead) yield return null;
 		
+		yield return new WaitUntil(() => Game.control.stageHandler.CheckIfAllPickUpsGone() == true);
+		yield return new WaitForSeconds(1f);
+
 		Game.control.dialog.StartDialog ("Boss1_1");
 		while (Game.control.dialog.handlingDialog) yield return null;
 		
@@ -248,7 +251,7 @@ public class Stage1 : Stage
 		//debug BOSS 1
 		mp = new EMP_EnterFromTop();
 		mp.SetEnterLeaveDirection(lib.enterCenterBoss, Vector3.zero);
-		boss = new Wave(mp, 1f, 80 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss1");
+		boss = new Wave(mp, 1f, 10 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss1");
 		boss.SetUpBoss (1, "Maaya, Forest Guardian", false);
 		lib.NewWave (boss);
 */

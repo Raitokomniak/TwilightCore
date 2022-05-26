@@ -107,7 +107,7 @@ public class EnemyLife : MonoBehaviour {
 
 	void DisableEnemy(){
 		if(wave.isBoss || wave.isMidBoss) wave.bossScript.StopPats();
-		if(GetComponent<EnemyShoot>()) GetComponent<EnemyShoot>().StopPattern();
+		else GetComponent<EnemyShoot>().StopPattern();
 		GetComponent<SpriteRenderer>().enabled = false;
 		GetComponent<EnemyMovement>().enabled = false;
 		GetComponent<BoxCollider2D>().enabled = false;
@@ -130,14 +130,14 @@ public class EnemyLife : MonoBehaviour {
 
 	void BossDeath(){
 		Game.control.enemySpawner.DestroyAllProjectiles();
-			DropLoot("Exp");
-			Game.control.ui.BOSS.HideBossTimer();
-			Game.control.ui.BOSS.ToggleBossHealthSlider (false, 0, "");
-			Game.control.ui.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
-			shooter.wave.dead = true;
-
-			//USE THIS FOR DEBUGGING STAGE
-			//if(wave.isBoss) Game.control.stageHandler.EndHandler ("StageComplete");
+		DropLoot("Exp");
+		Game.control.ui.BOSS.HideBossTimer();
+		Game.control.ui.BOSS.ToggleBossHealthSlider (false, 0, "");
+		Game.control.ui.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
+		shooter.wave.dead = true;
+		DisableEnemy();
+		//USE THIS FOR DEBUGGING STAGE
+		//if(wave.isBoss) Game.control.stageHandler.EndHandler ("StageComplete");
 	}
 
 	public void OnTriggerStay2D(Collider2D c){
