@@ -38,6 +38,7 @@ public class PlayerStats {
 		upgradePoints = 0;
 	}
 
+/*
 	public PlayerStats(PlayerStats ps){
 		damageMin = ps.damageMin;
 
@@ -54,7 +55,7 @@ public class PlayerStats {
 		shootSpeed = ps.shootSpeed;
 
 		upgradePoints = ps.upgradePoints;
-	}
+	}*/
 }
 
 public class PlayerHandler : MonoBehaviour {
@@ -63,7 +64,6 @@ public class PlayerHandler : MonoBehaviour {
 	public PlayerMovement movement;
 	public PlayerLife health;
 	public PlayerSpecialAttack special;
-	public GameObject hitBox;
 
 
 	void Awake(){
@@ -94,11 +94,6 @@ public class PlayerHandler : MonoBehaviour {
 	}
 
 
-
-	//////////////////////////////////////////////////
-	//////////////////////////////////////////////////
-	//NOT USED
-	////////////////////////////////////////////////
 	public void GainXP(int gainedXP)
 	{
 		PlayerStats stats = Game.control.stageHandler.stats;
@@ -114,11 +109,4 @@ public class PlayerHandler : MonoBehaviour {
 
 		Game.control.ui.RIGHT_SIDE_PANEL.UpdateXP(Game.control.stageHandler.stats.xp);
 	}
-/*
-	void LevelUp(){
-		Game.control.stageHandler.stats.level++;
-		Game.control.stageHandler.stats.upgradePoints++;
-		Game.control.ui.UpdateStatPanel ("UpgradePoints", Game.control.stageHandler.stats.upgradePoints);
-	}*/
-
 }

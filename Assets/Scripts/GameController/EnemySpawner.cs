@@ -92,19 +92,7 @@ public class EnemySpawner : MonoBehaviour {
 			enemy.GetComponent<EnemyLife>().Die();
 		}
 	}
-
-	public void DestroyEnemyProjectiles(ArrayList bullets){
-		ArrayList projectilesToDestroy = bullets;
-		int i = 0;
-
-		while(i < projectilesToDestroy.Count){
-			GameObject bullet = (GameObject)projectilesToDestroy [i];
-			bullets.Remove (bullet);
-			Destroy(bullet.gameObject);
-			i++;
-		}
-	}
-
+	
 	public void DestroyAllProjectiles()
 	{
 		GameObject[] projectilesToDestroy = GameObject.FindGameObjectsWithTag("EnemyProjectile");

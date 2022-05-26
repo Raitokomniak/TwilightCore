@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Stage1 : Stage
 {
-
 	void Awake(){
-		name = "Asura's Path";
+		stageName = "Asura's Path";
 		bgmName = "Asura who remain Asura";
 		stageindex = 1;
 

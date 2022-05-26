@@ -78,26 +78,6 @@ public class Wave
 		isMidBoss = _isMidBoss;
 	}
 
-	void SetMovementPatternDirs(EnemyMovementPattern movementPattern){
-		if(enterDirections.Count != 0){
-			movementPattern.enterDir = (Vector3)enterDirections [0];
-
-			if(enterDirections.Count > 1){
-				enterDirections.Reverse ();
-				movementPattern.enterDir =  (Vector3)enterDirections [enterDirections.Count - 1];
-			}
-		}
-
-		if(leaveDirections.Count != 0){
-			movementPattern.leaveDir = (Vector3)leaveDirections [0];
-
-			if(leaveDirections.Count > 1){
-				leaveDirections.Reverse ();
-				movementPattern.leaveDir =  (Vector3)leaveDirections [leaveDirections.Count - 1];
-			}
-		}
-	}
-
 	public void Spawn(int waveindex, int enemyIndex){
 		EnemyMovementPattern pat = movementPattern.GetNewEnemyMovement(movementPattern);
 		if(spawnPositions.Count > 1) pat.spawnPosition = spawnPositions[enemyIndex];

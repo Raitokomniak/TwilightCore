@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 public class Game : MonoBehaviour {
 
 	public static Game control;
-	public static bool paused;
-
-	public bool InStages;
 
 	[SerializeField] public MainMenuUI mainMenuUI;
 	[SerializeField] public UIController ui;
@@ -27,7 +24,6 @@ public class Game : MonoBehaviour {
 	[SerializeField] public GameObject soundObject;
 	[SerializeField] public SoundController sound;
 
-	IEnumerator startGameRoutine;
 
 	public void QuitGame(){
 		Application.Quit ();
@@ -66,7 +62,6 @@ public class Game : MonoBehaviour {
 	}
 
 	public void MainMenu (){
-		//InStages = false;
 		stageHandler.enabled = false;
 		StartCoroutine(LoadMainMenu());
 	}
@@ -90,7 +85,6 @@ public class Game : MonoBehaviour {
 		sound.StopMusic();
 		stageHandler.enabled = true;
 		stageHandler.StartGame();
-		//InStages = true;
 	}
 
 	public string GetCurrentScene (){

@@ -15,12 +15,9 @@ public class OptionsValues {
 public class Options : MonoBehaviour
 {
     public void UpdateOption(bool increase, int index){
-        if(index == 0)
-            AutoScrollOption();
-        else if(index == 1)
-            BGMVolume(increase);
-        else if(index == 2)
-            SFXVolume(increase);
+        if(index == 0)      AutoScrollOption();
+        else if(index == 1) BGMVolume(increase);
+        else if(index == 2) SFXVolume(increase);
 
         UpdateValueToUI(index);
         Game.control.io.SaveOptions();
@@ -33,12 +30,10 @@ public class Options : MonoBehaviour
     void BGMVolume(bool increase){
         float tempValue = Game.control.sound.GetBGMVolume();
 
-        if(increase && tempValue < 1) {
+        if(increase && tempValue < 1) 
             tempValue += 0.1f;
-        }
-        else if(!increase && tempValue > 0){
+        else if(!increase && tempValue > 0)
             tempValue -= 0.1f;
-        }
 
         Game.control.sound.SetBGMVolume(tempValue);
     }
@@ -46,12 +41,10 @@ public class Options : MonoBehaviour
     void SFXVolume(bool increase){
         float tempValue = Game.control.sound.SFXVolume;
 
-        if(increase && tempValue < 1) {
+        if(increase && tempValue < 1)
             tempValue += 0.1f;
-        }
-        else if(!increase && tempValue > 0){
+        else if(!increase && tempValue > 0)
             tempValue -= 0.1f;
-        }
 
         Game.control.sound.SetSFXVolume(tempValue);
         Game.control.sound.PlayExampleSound();

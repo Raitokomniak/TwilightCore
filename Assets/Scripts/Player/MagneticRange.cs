@@ -5,11 +5,10 @@ public class MagneticRange : MonoBehaviour {
 	SpriteRenderer spriteRenderer;
 	CircleCollider2D _collider;
 
-	void Awake(){
+	public void Scale(int dir){
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		_collider = GetComponent<CircleCollider2D>();
-	}
-	public void Scale(int dir){
+
 		if (dir > 0)
 			spriteRenderer.enabled = true;
 

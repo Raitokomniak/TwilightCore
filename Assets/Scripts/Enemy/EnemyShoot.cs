@@ -19,11 +19,6 @@ public class EnemyShoot : MonoBehaviour {
 		bulletsShot = new ArrayList ();
 	}
 
-/*
-	public Vector3 GetLocalPosition(){
-		return transform.position;
-	}*/
-	
 	public void SetUpAndShoot(Pattern p, float _shootSpeed){
 		pattern = p;
 		shootSpeed = _shootSpeed;

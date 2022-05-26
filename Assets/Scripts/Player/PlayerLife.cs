@@ -17,7 +17,6 @@ public class PlayerLife : MonoBehaviour {
 		dead = false;
 	}
 
-
 	void Update(){
 		if(!invulnerable)
 			GetComponent<SpriteRenderer> ().enabled = true;
@@ -25,11 +24,13 @@ public class PlayerLife : MonoBehaviour {
 
 	public void TakeHit()
 	{
-		Game.control.sound.PlaySound ("Player", "TakeHit", true);
-		Game.control.enemySpawner.DestroyAllProjectiles ();
+		if(!invulnerable && !Game.control.stageHandler.gameOver){
+			Game.control.sound.PlaySound ("Player", "TakeHit", true);
+			Game.control.enemySpawner.DestroyAllProjectiles ();
 
-		if(lives > 0) {  LoseLife(); }
-		else if(lives <= 0) {  Die();  }
+			if(lives > 0) {  LoseLife(); }
+			else if(lives <= 0) {  Die();  }
+		}
 	}
 
 	void LoseLife(){

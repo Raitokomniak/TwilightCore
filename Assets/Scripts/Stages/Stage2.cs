@@ -5,7 +5,7 @@ using UnityEngine;
 public class Stage2 : Stage
 {
 	void Awake(){
-		name = "Forest of Void Rituals";
+		stageName = "Forest of Void Rituals";
 		bgmName = "?";
 		stageindex = 2;
 

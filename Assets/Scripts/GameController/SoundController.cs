@@ -9,36 +9,44 @@ public class SoundController : MonoBehaviour {
 	AudioSource bgMusicSource;
 
 	//Music
-	AudioClip mainmenu;
+	AudioClip BGM_mainmenu;
 
-	AudioClip[] stageMusic;
+	AudioClip[] BGM_stageMusic;
 
-	AudioClip[] bossMusic;
+	AudioClip[] BGM_bossMusic;
 
 	//Sound
-	AudioClip shoot;
-	AudioClip enemyDie;
-	AudioClip takeHit;
-	AudioClip bonus;
+	AudioClip SFX_shoot;
+	AudioClip SFX_enemyDie;
+	AudioClip SFX_takeHit;
+	AudioClip SFX_bonus;
 
 
 	//Volumes
 	public float SFXVolume;
 
 	void Awake(){
-		mainmenu = Resources.Load ("Sound/Music/MainMenu") as AudioClip;
-		stageMusic = new AudioClip[2];
-		stageMusic[0] = Resources.Load("Sound/Music/asura-who-remain-asura_piano") as AudioClip; //THIS IS JUST FOR FUN /// Resources.Load ("Sound/Music/Stage1") as AudioClip;
-		stageMusic[1] = Resources.Load("Sound/Music/stage2") as AudioClip;
+		LoadMusic();
+		LoadSFX();
+	}
 
-		bossMusic = new AudioClip[2];
-		bossMusic[0] = Resources.Load ("Sound/Music/Boss1") as AudioClip;
-		bossMusic[1] = Resources.Load ("Sound/Music/void-dance") as AudioClip;
+	void LoadMusic(){
+		BGM_mainmenu = Resources.Load ("Sound/Music/MainMenu") as AudioClip;
 
-		shoot = Resources.Load ("Sound/Shoot") as AudioClip;
-		takeHit = Resources.Load ("Sound/TakeHit") as AudioClip;
-		enemyDie = Resources.Load ("Sound/Die") as AudioClip;
-		bonus = Resources.Load("Sound/Cancel2") as AudioClip;
+		BGM_stageMusic = new AudioClip[2];
+		BGM_stageMusic[0] = Resources.Load("Sound/Music/asura-who-remain-asura_piano") as AudioClip; //THIS IS JUST FOR FUN /// Resources.Load ("Sound/Music/Stage1") as AudioClip;
+		BGM_stageMusic[1] = Resources.Load("Sound/Music/stage2") as AudioClip;
+
+		BGM_bossMusic = new AudioClip[2];
+		BGM_bossMusic[0] = Resources.Load ("Sound/Music/Boss1") as AudioClip;
+		BGM_bossMusic[1] = Resources.Load ("Sound/Music/void-dance") as AudioClip;
+	}
+
+	void LoadSFX(){
+		SFX_shoot = Resources.Load ("Sound/Shoot") as AudioClip;
+		SFX_takeHit = Resources.Load ("Sound/TakeHit") as AudioClip;
+		SFX_enemyDie = Resources.Load ("Sound/Die") as AudioClip;
+		SFX_bonus = Resources.Load("Sound/Cancel2") as AudioClip;
 	}
 
 	public float GetBGMVolume(){
@@ -85,7 +93,7 @@ public class SoundController : MonoBehaviour {
 	}
 
 	public void PlayExampleSound(){
-		playerSoundFXSource.PlayOneShot (shoot);
+		playerSoundFXSource.PlayOneShot (SFX_shoot);
 	}
 	
 	public void PlaySound(string source, string sound, bool oneShot)
@@ -94,14 +102,13 @@ public class SoundController : MonoBehaviour {
 		AudioClip c = null;
 
 		if(sound == "Shoot")
-			c = shoot;
+			c = SFX_shoot;
 		if(sound == "Die")
-			c = enemyDie;
+			c = SFX_enemyDie;
 		if(sound == "TakeHit")
-			c = takeHit;
+			c = SFX_takeHit;
 		if(sound == "Bonus")
-			c = bonus;
-
+			c = SFX_bonus;
 
 
 		if(source == "Player")
@@ -152,11 +159,11 @@ public class SoundController : MonoBehaviour {
 		i = i - 1;
 
 		if(type == "MainMenu")
-			c = mainmenu;
+			c = BGM_mainmenu;
 		else if(type == "Stage")
-			c = stageMusic[i];
+			c = BGM_stageMusic[i];
 		else if(type == "Boss")
-			c = bossMusic[i];
+			c = BGM_bossMusic[i];
 
 		bgMusicSource.clip = c;
 		bgMusicSource.loop = true;

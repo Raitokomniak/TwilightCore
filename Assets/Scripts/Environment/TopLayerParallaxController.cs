@@ -6,12 +6,9 @@ public class TopLayerParallaxController : MonoBehaviour {
 	public float tileSize;
 	Vector2 startPosition;
 	public bool moving;
-
-	void Awake () {
-		startPosition = transform.position;
-	}
-
+	
 	public void Init(){
+		startPosition = transform.position;
 		moving = true;
 	}
 

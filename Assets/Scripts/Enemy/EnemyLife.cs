@@ -44,15 +44,12 @@ public class EnemyLife : MonoBehaviour {
 		GetComponent<MiniToast>().PlayScoreToast(Mathf.RoundToInt(gainedScore));
 		
 		if(!invulnerable && !Game.control.stageHandler.gameOver){
-			if(GetComponent<Phaser>() != null)
-			{
-				if (GetComponent<Phaser>().superPhase) 
-					currentHealth -= damage / 4;
-				else 
-					currentHealth -= damage;
+			if(GetComponent<Phaser>() != null){
+				if (GetComponent<Phaser>().superPhase) currentHealth -= damage / 4;
+				else currentHealth -= damage;
 			}
-			if(tag == "Boss" || tag == "MidBoss") 
-				Game.control.ui.BOSS.UpdateBossHealth(currentHealth);
+
+			if(tag == "Boss" || tag == "MidBoss") Game.control.ui.BOSS.UpdateBossHealth(currentHealth);
 		}
 
 
@@ -64,7 +61,6 @@ public class EnemyLife : MonoBehaviour {
 				Game.control.enemySpawner.DestroyAllProjectiles ();
 			}
 		}
-
 
 		if(currentHealth <= 0){
 			healthBars-= 1;
@@ -81,8 +77,6 @@ public class EnemyLife : MonoBehaviour {
 			}
 		}
 	}
-
-
 
 	public void Die() {
 		if(!dead){

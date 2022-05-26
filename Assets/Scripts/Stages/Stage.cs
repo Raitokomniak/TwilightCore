@@ -13,15 +13,14 @@ public class Stage : MonoBehaviour
 	public IEnumerator stageHandlerRoutine;
     public Wave boss;
 
-    public Wave w;
     public Pattern p;
 	public EnemyMovementPattern mp;
 
     public EnemyLib lib = Game.control.enemyLib;
 
     public void UpdateStageInfoToUI(){
-        Game.control.ui.RIGHT_SIDE_PANEL.UpdateStage(name);
-		Game.control.ui.STAGETOAST.UpdateStageToastText (stageindex, name, bgmName);
+        Game.control.ui.RIGHT_SIDE_PANEL.UpdateStage(stageName);
+		Game.control.ui.STAGETOAST.UpdateStageToastText (stageindex, stageName, bgmName);
     }
     public virtual void StopStage(){
        if(stageHandlerRoutine != null) StopCoroutine(stageHandlerRoutine);

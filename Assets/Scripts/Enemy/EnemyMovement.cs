@@ -53,6 +53,7 @@ public class EnemyMovement : MonoBehaviour {
 		moving = true;
 	}
 
+	//not used yet
 	public void SmoothAcceleration(){
 		StartCoroutine (_SmoothAcceleration ());
 	}

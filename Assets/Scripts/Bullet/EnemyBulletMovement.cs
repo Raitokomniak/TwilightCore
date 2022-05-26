@@ -30,12 +30,10 @@ public class EnemyBulletMovement : MonoBehaviour {
 	void Update () {
 		float y = transform.position.y;
 		float x = transform.position.x;
-//		Debug.Log(movement);
-//		Debug.Log(movement.scale);
+
 		transform.localScale = movement.scale;
 
 		if(movement.isMoving){
-			//Debug.Log("rotation " + movement.rotation);
 
 			if (movement.isHoming)  movementDirection = playerPosition;
 			else					movementDirection = Vector3.down;

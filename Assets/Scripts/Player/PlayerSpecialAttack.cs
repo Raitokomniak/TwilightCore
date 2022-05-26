@@ -52,7 +52,6 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			else
 				Game.control.ui.PlayToast("Not enough points");
 		}
-
 	}
 
 	bool CanUseSpecial(){

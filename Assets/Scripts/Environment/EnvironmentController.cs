@@ -33,11 +33,8 @@ public class EnvironmentController : MonoBehaviour {
 	public void SetScrollSpeed(float speed){
 		initialSpeed = scrollSpeed;
 		targetSpeed = speed;
-		if (targetSpeed > scrollSpeed) {
-			offSet = targetSpeed - scrollSpeed;
-		} else {
-			offSet = scrollSpeed - targetSpeed;
-		}
+		if (targetSpeed > scrollSpeed) offSet = targetSpeed - scrollSpeed;
+		else offSet = scrollSpeed - targetSpeed;
 	}
 
 }

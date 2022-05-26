@@ -2,9 +2,8 @@
 using System.Collections;
 
 public class PlayerShoot : MonoBehaviour {
-
+	
 	bool init;
-	GameObject projectile;
 	public float bulletScale;
 
 	float coolDownTimer;
@@ -18,7 +17,6 @@ public class PlayerShoot : MonoBehaviour {
 
 
 	void Awake () {
-		projectile = Resources.Load("Sprites/BulletSprites/playerProjectile") as GameObject;
 		coolDownTimer = 0f;
 		coolDown = .1f;
 		bulletScale = 1f;
@@ -60,17 +58,21 @@ public class PlayerShoot : MonoBehaviour {
 	}
 
 	void Update () {
-		if(init && !Game.control.menu.menuOn){
-			if(Input.GetKey	(KeyCode.Z) 
-			&& coolDownTimer <= 0 
-			&& !Game.control.stageHandler.gameOver 
-			&& !Game.control.pause.paused
-				&& !Game.control.dialog.handlingDialog){
+		if(init){
+			if(Input.GetKey	(KeyCode.Z) && CanShoot())
 				Shoot();
-			}
-			//Shooting coolDownTimer
+
 			if(coolDownTimer > 0)  coolDownTimer -= Time.deltaTime;
 		}
+	}
+
+	public bool CanShoot(){
+		if(Game.control.menu.menuOn) return false;
+		if(coolDownTimer > 0) return false;
+		if(Game.control.stageHandler.gameOver) return false;
+		if(Game.control.pause.paused) return false;
+		if(Game.control.dialog.handlingDialog) return false;
+		return true;
 	}
 
 	public void DisableWeapons(){

@@ -13,13 +13,11 @@ public class PauseController : MonoBehaviour {
 	public void HandlePause()
 	{
 		if(Game.control.stageHandler.stageOn){
-			if(!paused)
-				Pause();
-			else
-				Unpause (true);
+			if(!paused) Pause();
+			else Unpause (true);
 		}
 	}
-
+	
 	void Pause(){
 		paused = true;
 		Game.control.sound.PauseMusic ();

@@ -3,19 +3,10 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
-	PlayerHandler player;
 	public GameObject hitBox;
 	public MagneticRange magneticRange;
-
 	float movementSpeed;
 	public bool focusMode;
-
-
-	void Awake ()
-	{
-		hitBox.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 0);
-		player = GetComponent<PlayerHandler>();
-	}
 
 	void Update ()
 	{
@@ -46,14 +37,15 @@ public class PlayerMovement : MonoBehaviour
 	bool CanMove(){
 		if(!Game.control.stageHandler.stageOn) return false;
 		if(GetComponent<PlayerLife>().dead) return false;
-		if(player == null) return false;
+		if(GetComponent<PlayerHandler>() == null) return false;
 		return true;
 	}
 
 	public void FocusMode (bool focus)
 	{
+		focusMode = focus;
+
 		if (focus) {
-			focusMode = true;
 			hitBox.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
 			movementSpeed = Game.control.stageHandler.stats.movementSpeed * Time.deltaTime / 2;
 			magneticRange.Scale (1);
@@ -61,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
 			GetComponent<PlayerShoot> ().FocusWeapons (1);
 			if(Game.control.ui != null) Game.control.ui.LEFT_SIDE_PANEL.HighLightCoreInUse ("Night");
 		} else if(Game.control.stageHandler.stats != null)  {
-			focusMode = false;
 			hitBox.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 0);
 			movementSpeed = Game.control.stageHandler.stats.movementSpeed * Time.deltaTime;
 			magneticRange.Scale (-1);
@@ -73,13 +64,8 @@ public class PlayerMovement : MonoBehaviour
 
 	void Move (float x, float y)
 	{
-		float hor = x * movementSpeed;
-		float ver = y * movementSpeed;
-
 		if (!Game.control.pause.paused) {
-			transform.position += new Vector3 (hor, ver, 0);
+			transform.position += new Vector3 (x * movementSpeed, y * movementSpeed, 0);
 		}
 	}
-
-
 }

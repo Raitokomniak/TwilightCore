@@ -14,7 +14,6 @@ public class MenuController : MonoBehaviour
 
 	List<string> selectedList;
 	int selectedIndex;
-	string selection;
 	string context;
 
 	public bool menuOn = false;
@@ -176,21 +175,17 @@ public class MenuController : MonoBehaviour
 
 	int MoveUp ()
 	{
-		if (selectedIndex == 0)
+		if (selectedIndex == 0) 
 			selectedIndex = selectedList.Count - 1;
-		else
-			selectedIndex--;
-
+		else selectedIndex--;
 		return selectedIndex;
 	}
 
 	int MoveDown ()
 	{
-		if (selectedIndex == selectedList.Count - 1)
+		if (selectedIndex == selectedList.Count - 1) 
 			selectedIndex = 0;
-		else
-			selectedIndex++;
-
+		else selectedIndex++;
 		return selectedIndex;
 	}
 

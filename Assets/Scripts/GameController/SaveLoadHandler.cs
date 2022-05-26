@@ -28,12 +28,7 @@ public class ScoreSave {
         date = System.DateTime.Now.ToShortDateString();
 	}
 
-	public ScoreSave(){
-
-	}
-
-    
-    
+	public ScoreSave(){}
 }
 
 public class SaveLoadHandler : MonoBehaviour {
@@ -47,7 +42,6 @@ public class SaveLoadHandler : MonoBehaviour {
         scoreList = new ScoreList();
     }
     
-
     public bool SaveScore(string name, long hiscore, string difficulty){
         ScoreSave score = new ScoreSave(name, hiscore, difficulty);
         scoreList.allScores.Add(score);
@@ -74,7 +68,6 @@ public class SaveLoadHandler : MonoBehaviour {
             Game.control.ui.RIGHT_SIDE_PANEL.UpdateHiScore(compared[0].score);
         }
         else Game.control.ui.RIGHT_SIDE_PANEL.UpdateHiScore(Game.control.stageHandler.stats.hiScore);
-        //return compared[0].score;
     }
 
     public bool LoadScore(){
@@ -82,9 +75,6 @@ public class SaveLoadHandler : MonoBehaviour {
 			ScoreSave loadedHiScore = new ScoreSave();
             string rawJson = File.ReadAllText(appDataPath + "/score.json");
             scoreList = JsonUtility.FromJson<ScoreList>(rawJson);
-
-			//Game.control.player.stats.hiScore = loadedHiScore.score;
-			//Game.control.ui.UpdateHiScore(Game.control.player.stats.hiScore);
             return true;
         }
         else return false;
@@ -117,6 +107,4 @@ public class SaveLoadHandler : MonoBehaviour {
             Game.control.options.DefaultOptions();
         }
     }
-
-
 }

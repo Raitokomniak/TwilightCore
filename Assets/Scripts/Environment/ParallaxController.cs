@@ -7,13 +7,10 @@ public class ParallaxController : MonoBehaviour {
 
 	Vector2 startPosition;
 
-	public bool moving;
+	bool moving;
 
 	void Awake () {
 		startPosition = transform.position;
-	}
-	
-	public void Init(){
 		moving = true;
 	}
 

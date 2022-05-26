@@ -10,7 +10,6 @@ public class DialogController : MonoBehaviour {
 	bool endOfDialogueChain;
 	public bool autoScroll;
 
-	public bool playerActiveSpeaker;
 	IEnumerator dialogRoutine;
 	float autoScrollTimer = 0;
 	float autoScrollTime = 3.5f;
@@ -27,9 +26,8 @@ public class DialogController : MonoBehaviour {
 					AdvanceDialog();
 			}
 
-			if (Input.GetKeyDown (KeyCode.Z)){
+			if (Input.GetKeyDown (KeyCode.Z)) 
 				AdvanceDialog();
-			}
 		}
 	}
 

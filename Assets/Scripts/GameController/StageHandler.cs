@@ -10,7 +10,6 @@ public class StageHandler : MonoBehaviour {
 	Stage stageScript;
 
 	public PlayerStats stats;
-	PlayerStats statsAtStageStart;
 
 	public int difficultyMultiplier; //1 easy //3 normal //5 hard //8+ nightmarish
 	public string difficultyAsString;
