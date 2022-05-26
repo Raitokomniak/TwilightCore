@@ -116,6 +116,7 @@ public class Wave
 			else if(bossIndex == 2f) bossScript = enemy.AddComponent<Boss2> ();
 			bossScript.Init();
 
+			Game.control.enemySpawner.DestroyAllProjectiles();
 			enemy.GetComponent<SpriteRenderer> ().sprite = sprite;
 
 			//this is such a stupid way to do this, make this better

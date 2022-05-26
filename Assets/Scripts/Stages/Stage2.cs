@@ -86,7 +86,7 @@ VOID PORTAL DEBUG
 		p.SetSprite ("Circle", "Glow", "Red");
 		p.delayBeforeAttack= 1f;
 		p.coolDown = .5f;
-		lib.NewWave (	new Wave (1f, mp, p, 2, false, 0, 10f / difficultyMultiplier, "default"), 
+		lib.NewWave (	new Wave (3f, mp, p, 2, false, 0, 10f / difficultyMultiplier, "default"), 
 						new List<Vector3> { lib.centerTopOOB, lib.topWallRightSide, lib.topWallLeftSide},
 						new List<Vector3>{lib.enterCenter, lib.enterRight, lib.enterLeft},
 						new List<Vector3>{lib.leaveRight, lib.leaveLeft, lib.leaveCenter});

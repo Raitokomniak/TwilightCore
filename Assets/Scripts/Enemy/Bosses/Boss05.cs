@@ -51,7 +51,7 @@ public class Boss05 : Phaser
 				movementPatterns.Add(enemy.wave.movementPattern);
 				enemyMove.SetUpPatternAndMove (movementPatterns[0]);
 
-				while(Game.control.stageHandler.stageTimer < enemy.wave.spawnTime + 9f)
+				while(Game.control.stageHandler.stageTimer < enemy.wave.spawnTime + 12f)
 				{
 					yield return new WaitForSeconds (2f);
 					enemy.BossShoot (patterns[0]);
@@ -94,15 +94,11 @@ public class Boss05 : Phaser
 					enemy.BossShoot (patterns[1]);
 				}
 
-				movementPatterns.Add(enemy.wave.movementPattern);
-				enemyMove.SetUpPatternAndMove (movementPatterns[0]);
-				movementPatterns[0].ForceLeave();
-				yield return new WaitForSeconds(2f);
-				GetComponent<EnemyLife>().Die ();
-
-
 				patterns[0].StopPattern();
 				patterns[1].StopPattern();
+				enemyMove.movementPattern.ForceLeave();
+				yield return new WaitForSeconds(2f);
+				GetComponent<EnemyLife>().Die ();
 				break;
             }
 

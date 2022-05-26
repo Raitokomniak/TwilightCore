@@ -40,7 +40,7 @@ public class Stage1 : Stage
 		scene.e_camera.Rotate (new Vector3(25, 0, 5));
 
 		scene.SetPlaneSpeed (10f);
-		while(stageHandler.stageTimer < 50f) yield return null;
+		while(stageHandler.stageTimer < 52f) yield return null;
 		Game.control.dialog.StartDialog ("Stage1_1");
 		while (stageHandler.stageTimer < 55f) yield return null;
 		
@@ -88,7 +88,7 @@ public class Stage1 : Stage
 		p = new P_SingleHoming();
 		p.bulletMovement = new BMP_Explode(p, 0.5f, true);
 		p.SetSprite ("Circle", "Big", "Red");
-		lib.NewWave (new Wave (3.5f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"));
+		lib.NewWave (new Wave (3f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"));
 
 		mp = new EMP_EnterLeave(lib.topWallLeftSide, .5f);
 		mp.SetEnterLeaveDirection(lib.enterCenter, lib.leaveLeft);
@@ -121,7 +121,7 @@ public class Stage1 : Stage
 			p = new P_SingleHoming();
 			p.bulletMovement = new BMP_Explode(p, 0.5f, true);
 			p.SetSprite ("Circle", "Big", "Red");	
-			lib.NewWave (new Wave (15f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"));
+			lib.NewWave (new Wave (14f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"));
 		}
 
 		
@@ -199,7 +199,7 @@ public class Stage1 : Stage
 		//MID-BOSS
 		mp = new EMP_EnterFromTop();
 		mp.SetEnterLeaveDirection(lib.enterCenterBoss, lib.leaveCenter);
-		mp.stayTime = 24f;
+		mp.stayTime = 23f;
 		Wave midBoss = new Wave(mp, 55f, 150, false, 1, "boss0.5"); //55f
 		midBoss.SetUpBoss (0.5f, "Asura", true);
 		lib.NewWave (midBoss);
@@ -259,7 +259,7 @@ public class Stage1 : Stage
 		//BOSS 1
 		mp = new EMP_EnterFromTop();
 		mp.SetEnterLeaveDirection(lib.enterCenterBoss, Vector3.zero);
-		boss = new Wave(mp, 100f, 80 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss1");
+		boss = new Wave(mp, 102f, 80 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss1");
 		boss.SetUpBoss (1, "Maaya, Forest Guardian", false);
 		lib.NewWave (boss);
 		

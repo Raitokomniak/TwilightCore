@@ -59,6 +59,7 @@ public class EnemyMovementPattern
 	}
 
 	public void ForceLeave(){
+		speed = 3f;
 		UpdateDirection(leaveDir.x, leaveDir.y);
 	}
 

@@ -22,7 +22,6 @@ public class EnemySpawner : MonoBehaviour {
 		Game.control.stageHandler.ToggleTimer(true);
 		foreach (Wave wave in waves) {
 			yield return new WaitUntil(() => Game.control.stageHandler.stageTimer >= wave.spawnTime);
-			if (wave.isBoss || wave.isMidBoss){ DestroyAllProjectiles (); }
 
 			if (currentWave < waves.Count) {	
 				curWave = waves [currentWave] as Wave;
