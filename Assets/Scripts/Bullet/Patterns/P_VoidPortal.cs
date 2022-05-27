@@ -27,7 +27,7 @@ public class P_VoidPortal : Pattern
         animation.GetComponent<BulletAnimationController> ().scaleDown = true;
         animating = false;
 		
-        InstantiateBullet (enemyBullet, bulletMovement);
+        //InstantiateBullet (enemyBullet, bulletMovement);
         Animate(targetScale, 1, enemy.transform.position); 
     }
 }

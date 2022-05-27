@@ -31,7 +31,7 @@ public class EnemyMovement : MonoBehaviour {
 				if(movementPattern.smoothedMovement){
 
 					//Vector3 targetPos = Vector3.Slerp(transform.position, movementPattern.targetPos, (movementPattern.speed * Time.deltaTime));
-					transform.position = Vector3.MoveTowards(transform.position,  movementPattern.targetPos, (movementPattern.speed * Time.deltaTime));
+					transform.position = Vector3.MoveTowards(transform.position,  movementPattern.targetPos, (movementPattern.speed * Time.deltaTime) * 3); //MULTIPLIER BECAUSE LERP IS SO MUCH FASTER COMPARED
 				}
 				else if(movementPattern.smoothArc) { //SLERPPI
 					//Vector3 targetPos = Vector3.Slerp(transform.position, movementPattern.targetPos, (movementPattern.speed * Time.deltaTime));

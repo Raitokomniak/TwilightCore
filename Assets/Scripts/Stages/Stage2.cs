@@ -77,7 +77,7 @@ public class Stage2 : Stage
 		mp = new EMP_EnterLeave(lib.centerTopOOB, 2f);
 		p = new P_Maelstrom();
 		p.infinite = false;
-		p.bulletCount = 15;
+		p.bulletCount = 3 * Mathf.CeilToInt(difficultyMultiplier);
 		p.bulletMovement = new BMP_Explode(p, 8f, false);
 		p.SetSprite ("Circle", "Glow", "Red");
 		p.delayBeforeAttack= 1f;
@@ -90,7 +90,7 @@ public class Stage2 : Stage
 		mp = new EMP_EnterLeave(lib.centerTopOOB, 2f);
 		p = new P_Maelstrom();
 		p.infinite = false;
-		p.bulletCount = 15;
+		p.bulletCount = 3 * Mathf.CeilToInt(difficultyMultiplier);
 		p.bulletMovement = new BMP_Explode(p, 8f, false);
 		p.SetSprite ("Circle", "Glow", "White");
 		p.delayBeforeAttack= 1f;
@@ -121,7 +121,7 @@ public class Stage2 : Stage
 		mp = new EMP_EnterLeave(lib.leftWallTopSide, 2f);
 		mp.SetEnterLeaveDirection(lib.enterRight, lib.leaveLeft);
 		p = new P_Maelstrom();
-		p.bulletCount = 5;
+		p.bulletCount = 1 * Mathf.CeilToInt(difficultyMultiplier);
 		p.infinite = false;
 		p.circleDelay= 1f;
 		p.SetSprite ("Spider_Glow");
@@ -158,7 +158,6 @@ public class Stage2 : Stage
 
 		mp = new EMP_EnterLeave(lib.leftWallTopSide, 0);
 		mp.SetEnterLeaveDirection(lib.enterRight, lib.leaveLeft);
-		mp.smoothedMovement = true;
 		p = new P_RepeatedHoming();
 		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
 		p.bulletMovement = new BMP_WaitToHome(p, 9f);
@@ -170,7 +169,7 @@ public class Stage2 : Stage
 		mp.smoothedMovement = true;
 		p = new P_Maelstrom();
 		p.infinite = false;
-		p.bulletCount = 15;
+		p.bulletCount = 3 * Mathf.CeilToInt(difficultyMultiplier);
 		p.SetSprite ("Circle", "Glow", "Red");
 		p.delayBeforeAttack= 1f;
 		p.coolDown = 1f;
@@ -185,7 +184,7 @@ public class Stage2 : Stage
 		mp.disableHitBox = true;
 		mp.hideSpriteOnSpawn = true;
 		p = new P_SpiderWebLaser();
-		p.bulletCount = 5;
+		p.bulletCount = 1 * Mathf.CeilToInt(difficultyMultiplier);
 		lib.NewWave (new Wave (56f, mp, p, 1, false, 100, 5, "default"));
 
 		mp = new EMP_EnterLeave(lib.leftWallTopSide, 2f);
@@ -202,14 +201,14 @@ public class Stage2 : Stage
 		mp.disableHitBox = true;
 		mp.hideSpriteOnSpawn = true;
 		p = new P_SpiderWebLaser();
-		p.bulletCount = 5;
+		p.bulletCount = 1 * Mathf.CeilToInt(difficultyMultiplier);
 		lib.NewWave (new Wave (65f, mp, p, 1, false, 100, 5, "default"));
 
 		mp = new EMP_EnterLeave(lib.topWallLeftSide, 2f);
 		mp.SetEnterLeaveDirection(lib.enterLeft, lib.leaveLeft);
 		p = new P_Maelstrom();
 		p.infinite = false;
-		p.bulletCount = 15;
+		p.bulletCount = 3 * Mathf.CeilToInt(difficultyMultiplier);
 		p.SetSprite ("Circle", "Glow", "White");
 		p.delayBeforeAttack= 1f;
 		p.coolDown = 1f;
@@ -232,7 +231,7 @@ public class Stage2 : Stage
 		mp.SetEnterLeaveDirection(lib.enterLeft, lib.leaveLeft);
 		p = new P_Maelstrom();
 		p.infinite = false;
-		p.bulletCount = 15;
+		p.bulletCount = 3 * Mathf.CeilToInt(difficultyMultiplier);
 		p.SetSprite ("Diamond", "Glow", "Red");
 		p.delayBeforeAttack= 1f;
 		p.coolDown = 1f;
@@ -289,7 +288,7 @@ public class Stage2 : Stage
 		mp.SetEnterLeaveDirection(lib.enterRight, lib.leaveRight); //REMEMBER SMOOTH CURVE AWAY????
 		p = new P_Spiral(20);
 		p.loopCircles =  288 * 2;
-		p.bulletMovement = new BMP_WaitAndExplode(p, 5f);
+		p.bulletMovement = new BMP_WaitAndExplode(p, .7f * difficultyMultiplier);
 		p.SetSprite ("Circle", "Glow", "Yellow");
 
 		lib.NewWave(new Wave(95f, mp, p, 9, false, 3, 4 / difficultyMultiplier, "default"),  ///// 100
@@ -321,7 +320,7 @@ public class Stage2 : Stage
 */
 
 		mp = new EMP_EnterFromTop();
-		boss = new Wave(mp, 114f, 150, true, 2, "boss2");
+		boss = new Wave(mp, 114f, 80 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss2");
 		boss.SetUpBoss (2, "Joanette, Queen of Spiders", false);
 		lib.NewWave (boss);
 		

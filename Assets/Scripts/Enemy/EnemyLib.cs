@@ -64,7 +64,7 @@ public class EnemyLib : MonoBehaviour
 		enterLeftWallBotSide = GetVector("C8");
 
 		leaveRight = GetVector("R3");
-		leaveCenter = new Vector3(centerX, topOut, 0);
+		leaveCenter = GetVector("XY");
 		leaveLeft = GetVector("L3");
 
 		spriteLib = Game.control.spriteLib;
@@ -80,6 +80,7 @@ public class EnemyLib : MonoBehaviour
 		float hor = 0;
 		
 		if(coordinate[0] == 'X') hor = -5.75f; 	//DEAD CENTER
+		if(coordinate[1] == 'Y') hor = 14f; 	//TOP OUT
 		if(coordinate[0] == 'L') hor = -23f; 	//LEFT OUT
 		if(coordinate[0] == 'R') hor = 10; 		//RIGHT OUT
 		
