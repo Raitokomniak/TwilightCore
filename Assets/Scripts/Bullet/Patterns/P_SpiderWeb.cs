@@ -18,6 +18,7 @@ public class P_SpiderWeb : Pattern
 
         bullets = new ArrayList ();
 		animation = (Resources.Load ("Images/Animations/SmallWeb") as GameObject);
+		animation.GetComponent<BulletAnimationController>().stayTime = 2f;
 		bulletRotation = rot;
 		animating = false;
 			

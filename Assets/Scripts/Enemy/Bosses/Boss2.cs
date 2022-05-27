@@ -27,10 +27,10 @@ public class Boss2 : Phaser
         switch (phase) {
 			case 0:
 				//movementPatterns.Add(new EnemyMovementPattern (new Vector3 (2.63f, 7.63f, 0f), false, 0));
+				Game.control.enemySpawner.DestroyAllEnvironmentalHazards();
 				
-				patterns.Add(new P_Spiral());
+				patterns.Add(new P_Spiral(10));
 				patterns[0].SetSprite ("Arrow", "Glow", "Red");
-				patterns[0].bulletCount =  10;
 				patterns[0].rotationDirection =  1;
 				patterns[0].bulletMovement = new BMP_WaitAndExplode(patterns[0], 6f);
 
@@ -125,8 +125,7 @@ public class Boss2 : Phaser
 				yield return new WaitForSeconds (2f);
 				Game.control.ui.BOSS.ShowActivatedPhase ("Void Dance");
 
-				patterns.Add(new P_Spiral());
-				patterns[0].bulletCount = 6;
+				patterns.Add(new P_Spiral(6));
 				patterns[0].bulletMovement = new BMP_WaitAndExplode(patterns[0], 6f);
 				patterns[0].SetSprite ("Circle", "Glow", "White");
 				patterns.Add(new P_GiantWeb());

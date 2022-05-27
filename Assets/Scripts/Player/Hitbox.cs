@@ -6,7 +6,7 @@ public class Hitbox : MonoBehaviour {
 	PlayerHandler player;
 	
 	void CheckHazard(string t){
-		if(t == "EnemyProjectile" || t == "Enemy" || t == "Boss" || t == "MidBoss"){
+		if(t == "EnemyProjectile" || t == "Enemy" || t == "Boss" || t == "MidBoss" || t == "EnvironmentalHazard"){
 			player.health.TakeHit ();
 		}
 	}

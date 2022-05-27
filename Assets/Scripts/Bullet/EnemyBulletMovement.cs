@@ -72,7 +72,7 @@ public class EnemyBulletMovement : MonoBehaviour {
 	}
 
 	IEnumerator _SmoothAcceleration(){
-		float iniSpeed = movement.movementSpeed;
+		float iniSpeed = movement.accelSpeed;
 		movement.movementSpeed = 0;
 		while (movement.movementSpeed != iniSpeed) {
 			movement.movementSpeed += 0.6f;

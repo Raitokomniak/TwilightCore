@@ -11,6 +11,7 @@ public class EnemyMovementPattern
 	public Vector3 leaveDir;
 
 	public bool hideSpriteOnSpawn;
+	public bool disableHitBox;
 	public int movementDirection;
 	public bool teleport;
 	public bool rotateOnAxis;
@@ -18,6 +19,9 @@ public class EnemyMovementPattern
 	public Vector3 targetPos;
 	public bool goingRight;
 	public Vector3 centerPoint;
+
+	public bool smoothedMovement;
+	public bool smoothArc;
 
 	public EnemyMovementPattern(){
 
@@ -57,6 +61,9 @@ public class EnemyMovementPattern
 		emp.rotateOnAxis = _emp.rotateOnAxis;
 		emp.centerPoint = _emp.centerPoint;
 		emp.hideSpriteOnSpawn = _emp.hideSpriteOnSpawn;
+		emp.disableHitBox = _emp.disableHitBox;
+		emp.smoothedMovement = _emp.smoothedMovement;
+		emp.smoothArc = _emp.smoothArc;
 		return emp;
 	}
 

@@ -101,4 +101,12 @@ public class EnemySpawner : MonoBehaviour {
 			Destroy(projectilesToDestroy[i].gameObject);
 		}
 	}
+
+	public void DestroyAllEnvironmentalHazards(){
+		GameObject[] hazardsToDestroy = GameObject.FindGameObjectsWithTag("EnvironmentalHazard");
+
+		for(int i = 0; i < hazardsToDestroy.Length; i++){
+			Destroy(hazardsToDestroy[i].gameObject);
+		}
+	}
 }

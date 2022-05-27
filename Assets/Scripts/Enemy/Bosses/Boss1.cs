@@ -31,10 +31,9 @@ public class Boss1 : Phaser
 
 		switch (phase) {
 			case 0:
-				patterns.Add(new P_Spiral());
+				patterns.Add(new P_Spiral(20 * difficultyMultiplier));
 				patterns[0].bulletMovement = new BMP_WaitAndExplode (patterns[0], 5f);
 				patterns[0].loopCircles =  288 * difficultyMultiplier;
-				patterns[0].bulletCount =  20 * difficultyMultiplier;
 				patterns[0].SetSprite ("Circle", "Glow", "Green");
 
 				patterns.Add(new P_Maelstrom());
@@ -130,11 +129,10 @@ public class Boss1 : Phaser
 				break;
 			
 			case 2:
-				patterns.Add(new P_Spiral());
+				patterns.Add(new P_Spiral(20 * difficultyMultiplier));
 				//patterns[0].bulletMovement = new BulletMovementPattern (true, "WaitAndExplode", 5f, patterns[0], 0, 14);
 				patterns[0].bulletMovement = new BMP_WaitAndExplode(patterns[0], 5f);
 				patterns[0].loopCircles = 288 * difficultyMultiplier;
-				patterns[0].bulletCount = 20 * difficultyMultiplier;
 				patterns[0].SetSprite ("Circle", "Glow", "Green");
 
 				patterns.Add(new P_SingleHoming());

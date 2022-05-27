@@ -31,5 +31,8 @@ public class ProjectileMovement : MonoBehaviour {
 			c.gameObject.GetComponent<EnemyLife> ().TakeHit (Game.control.stageHandler.stats.damage);
 			Destroy (this.gameObject);
 		}
+		if(c.tag == "EnvironmentalHazard"){
+			Destroy(this.gameObject);
+		}
 	}
 }

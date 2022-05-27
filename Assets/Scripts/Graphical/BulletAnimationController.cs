@@ -21,7 +21,8 @@ public class BulletAnimationController : MonoBehaviour {
 		targetScale = scale;
 		scalingTime = scaleTimeMultiplier;
 		fadedIn = false;
-		StartCoroutine (_FadeIn());
+		IEnumerator fadeIn = _FadeIn();
+		StartCoroutine (fadeIn);
 	}
 
 	public void FadeAway(){

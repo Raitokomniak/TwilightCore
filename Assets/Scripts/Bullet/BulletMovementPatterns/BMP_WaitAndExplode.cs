@@ -8,7 +8,7 @@ public class BMP_WaitAndExplode : BulletMovementPattern
 	public BMP_WaitAndExplode(){}
 
     public BMP_WaitAndExplode(Pattern p, float _movementSpeed){
-        movementSpeed = _movementSpeed;
+        accelSpeed = _movementSpeed;
         pattern = p;
 		scale = new Vector3 (2,2,2);
     }

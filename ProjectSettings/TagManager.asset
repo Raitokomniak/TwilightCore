@@ -18,6 +18,7 @@ TagManager:
   - NullField
   - NightCorePoint
   - CorePoint
+  - EnvironmentalHazard
   layers:
   - Default
   - TransparentFX

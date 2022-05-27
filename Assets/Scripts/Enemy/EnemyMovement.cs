@@ -28,8 +28,18 @@ public class EnemyMovement : MonoBehaviour {
 				transform.RotateAround (movementPattern.centerPoint, Vector3.back, (Time.deltaTime * movementPattern.speed * movementPattern.movementDirection));
 				transform.rotation = Quaternion.Euler(0,0,0);
 			} else {
-				transform.position = Vector3.LerpUnclamped (this.transform.position, movementPattern.targetPos, (movementPattern.speed * Time.deltaTime));
+				if(movementPattern.smoothedMovement){
+
+					//Vector3 targetPos = Vector3.Slerp(transform.position, movementPattern.targetPos, (movementPattern.speed * Time.deltaTime));
+					transform.position = Vector3.MoveTowards(transform.position,  movementPattern.targetPos, (movementPattern.speed * Time.deltaTime));
+				}
+				else if(movementPattern.smoothArc) { //SLERPPI
+					//Vector3 targetPos = Vector3.Slerp(transform.position, movementPattern.targetPos, (movementPattern.speed * Time.deltaTime));
+					transform.position = Vector3.MoveTowards(transform.position,  movementPattern.targetPos, (movementPattern.speed * Time.deltaTime));
+				}
+				else transform.position = Vector3.LerpUnclamped (transform.position, movementPattern.targetPos, (movementPattern.speed * Time.deltaTime));
 			}
+			
 
 			
 
@@ -49,7 +59,7 @@ public class EnemyMovement : MonoBehaviour {
 	}
 
 	void CheckOutOfBounds(){
-		if (transform.position.y > 15 || transform.position.y < -12 || transform.position.x < -19 || transform.position.x > 9)
+		if (transform.position.y > 15 || transform.position.y < -12 || transform.position.x < -22.5 || transform.position.x > 9)
 			if(tag != "Boss") Destroy (this.gameObject);
 	}
 

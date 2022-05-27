@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 624863593}
   m_Layer: 0
   m_Name: A_VoidPortal
-  m_TagString: EnemyProjectile
+  m_TagString: EnvironmentalHazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953fe6f02c46b1d4faf863c2de718eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stayTime: 2
+  stayTime: 6
   scaleDown: 1
 --- !u!58 &624863593
 CircleCollider2D:
@@ -109,7 +109,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.029045265, y: 0.014522633}

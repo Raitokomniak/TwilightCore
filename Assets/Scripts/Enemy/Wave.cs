@@ -147,5 +147,6 @@ public class Wave
 		}
 
 		if(pat.hideSpriteOnSpawn) enemy.GetComponent<EnemyMovement>().EnableSprite(false);
+		if(pat.disableHitBox) enemy.GetComponent<BoxCollider2D>().enabled = false;
 	}
 }

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class P_Spiral : Pattern
 {
-	public P_Spiral(){
-		bulletCount = 30;
-		coolDown = 0.001f;
+	public P_Spiral(int _bulletCount){
+		bulletCount = _bulletCount;
+		//coolDown = 0.001f;
+		coolDown = 5f;
 		originMagnitude = 2;
 		tempMagnitude = originMagnitude;
 	}
@@ -23,7 +24,7 @@ public class P_Spiral : Pattern
 			for (int i = 0; i < bulletCount; i++) {
 				newPosition = SpawnInCircle (pos, 1f + (i * 0.1f), GetAng (i, loopCircles));
 				InstantiateBullet (enemyBullet, bulletMovement);
-				yield return new WaitForSeconds (coolDown);
+				yield return new WaitForSeconds (coolDown * Time.deltaTime);
 				Game.control.sound.PlaySound ("Enemy", "Shoot", false);
 			}
 

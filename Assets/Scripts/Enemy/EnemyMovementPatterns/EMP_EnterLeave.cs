@@ -8,7 +8,7 @@ public class EMP_EnterLeave : EnemyMovementPattern
 
     public EMP_EnterLeave(Vector3 _spawnPosition, float _stayTime){
         spawnPosition = _spawnPosition;
-        enterDir = Game.control.enemyLib.center;
+        //enterDir = Game.control.enemyLib.center;
         stayTime = _stayTime;
         speed = 3f;
     }
