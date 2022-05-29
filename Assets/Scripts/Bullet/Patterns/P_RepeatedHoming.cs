@@ -12,12 +12,11 @@ public class P_RepeatedHoming : Pattern
         yield return new WaitForSeconds(delayBeforeAttack);
 		pos = enemy.transform.position;
 		
-        while(!stop && enemyShoot != null){
-				newPosition = enemyShoot.transform.position;
-				Game.control.sound.PlaySound ("Enemy", "Shoot", false);
-				InstantiateBullet (enemyBullet, bulletMovement);
-				yield return new WaitForSeconds (coolDown);
-			}
-            
-        }
+		while(!stop && enemyShoot != null){
+			newPosition = enemyShoot.transform.position;
+			Game.control.sound.PlaySound ("Enemy", "Shoot", false);
+			InstantiateBullet (enemyBullet, bulletMovement);
+			yield return new WaitForSeconds (coolDown);
+		}
+    }
 }

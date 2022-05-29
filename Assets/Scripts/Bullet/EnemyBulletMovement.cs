@@ -74,7 +74,7 @@ public class EnemyBulletMovement : MonoBehaviour {
 	IEnumerator _SmoothAcceleration(){
 		float iniSpeed = movement.accelSpeed;
 		movement.movementSpeed = 0;
-		while (movement.movementSpeed != iniSpeed) {
+		while (movement.movementSpeed < iniSpeed) {
 			movement.movementSpeed += 0.6f;
 			yield return new WaitForSeconds (0.01f);
 		}

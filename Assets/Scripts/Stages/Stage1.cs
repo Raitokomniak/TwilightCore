@@ -22,6 +22,7 @@ public class Stage1 : Stage
 
 
 	IEnumerator StageHandlerRoutine(){
+		scene.SetPlaneSpeed(15f);
 		while (Game.control.dialog.handlingDialog) yield return null;
 		Game.control.dialog.StartDialog ("Stage1_0");
 
@@ -62,8 +63,10 @@ public class Stage1 : Stage
 		Game.control.sound.PlayMusic ("Boss", 1);
 
 		//USING THIS DISABLES SOME DEBUGGING BECAUSE STAGE DOESNT END IF BOSS DIES BEFORE THIS POINT
+		//MAYBE FOR DEVVING RUN A SIMULTANEOUS ENDCHECKROUTINE THAT BYPASSES ALL THE TIMER CHECKS
 		while(!Game.control.enemySpawner.bossWave.dead) yield return null;
-		
+		Game.control.stageHandler.ToggleTimer(false);
+
 		yield return new WaitUntil(() => Game.control.stageHandler.CheckIfAllPickUpsGone() == true);
 		yield return new WaitForSeconds(1f);
 
@@ -194,10 +197,9 @@ public class Stage1 : Stage
 		p.SetSprite ("Circle", "Glow", "Yellow");
 		lib.NewWave (new Wave (41.5f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"));
 
-			
 		//MID-BOSS
 		mp = new EMP_EnterFromTop();
-		mp.SetEnterLeaveDirection(lib.enterCenterBoss, lib.leaveCenter);
+		mp.SetEnterLeaveDirection(lib.enterCenterBoss, lib.GetVector("XY"));
 		mp.stayTime = 23f;
 		Wave midBoss = new Wave(mp, 55f, 150, false, 1, "boss0.5"); //55f
 		midBoss.SetUpBoss (0.5f, "Asura", true);

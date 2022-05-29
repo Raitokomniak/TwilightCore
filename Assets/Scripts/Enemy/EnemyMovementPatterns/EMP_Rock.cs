@@ -16,6 +16,7 @@ public class EMP_Rock : EnemyMovementPattern
         //check for infinity bool ?
         UpdateDirection(-2f, 8f);
         yield return new WaitUntil (() => CheckIfReachedDestination (m) == true);
+        yield return new WaitForSeconds(1f);
 		UpdateDirection (-11f, 8f);
 		yield return new WaitUntil (() => CheckIfReachedDestination (m) == true);
     }

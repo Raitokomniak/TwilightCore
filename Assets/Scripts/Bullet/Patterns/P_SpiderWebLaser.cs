@@ -25,6 +25,7 @@ public class P_SpiderWebLaser : Pattern
                 bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
 
                 yield return new WaitForSeconds(0.2f);
+                if(stop) break;
             }
                     
             for (int i = -1; i < bulletCount / 2; i++) {
@@ -38,6 +39,7 @@ public class P_SpiderWebLaser : Pattern
 
                 bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
                 yield return new WaitForSeconds(0.2f);
+                if(stop) break;
             }
 
             for (int i = -1; i < bulletCount; i++) {
@@ -51,6 +53,7 @@ public class P_SpiderWebLaser : Pattern
 
                 bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
                 yield return new WaitForSeconds(0.2f);
+                if(stop) break;
             }
         }
 }

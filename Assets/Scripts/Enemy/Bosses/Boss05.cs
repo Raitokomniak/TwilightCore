@@ -95,6 +95,7 @@ public class Boss05 : Phaser
 				patterns[0].StopPattern();
 				patterns[1].StopPattern();
 				enemyMove.movementPattern.ForceLeave();
+				//enemyMove.movementPattern.UpdateDirection(lib.GetVector("XY").x, lib.GetVector("XY").y);
 				yield return new WaitForSeconds(2f);
 				GetComponent<EnemyLife>().Die ();
 				break;

@@ -52,6 +52,7 @@ public class PlayerLife : MonoBehaviour {
 		invulnerable = true;
 		GetComponent<PlayerShoot>().DisableWeapons();
 		GetComponentInChildren<Hitbox>().gameObject.SetActive(false);
+		GetComponentInChildren<MagneticRange>().gameObject.SetActive(false);
 		GetComponent<SpriteRenderer>().enabled = false;
 		Game.control.stageHandler.EndHandler("GameOver");
 		GetComponent<PlayerMovement>().FocusMode(false);

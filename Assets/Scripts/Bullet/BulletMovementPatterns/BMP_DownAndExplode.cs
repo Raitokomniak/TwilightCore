@@ -26,16 +26,19 @@ public class BMP_DownAndExplode : BulletMovementPattern
 
 
     public override IEnumerator ExecuteRoutine(){
+        movementSpeed = 5f;
 		yield return new WaitForSeconds (1f);
+        pattern.allBulletsSpawned = true;
 		centerPoint = bullet.transform.position;
 		CorrectRotation ();
+        movementSpeed = 6f;
 		Explode (2.5f);
-		pattern.Animate(1, 1, centerPoint);
+		
         yield return new WaitUntil (() => bullet.GetComponent<EnemyBulletMovement> ().CheckDistance () > targetMagnitude);
-
+        
 		Stop (bullet);
 
-		yield return new WaitForSeconds (0.3f);
+		//yield return new WaitForSeconds (0.3f);
 		RotateOnAxis (bullet, 1, 100f);
 
 		yield return new WaitForSeconds (1f);

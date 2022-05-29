@@ -30,15 +30,18 @@ public class BMP_StopAndRotate : BulletMovementPattern
 		rotation = bullet.transform.rotation;
 		movementSpeed = 10;
 		Explode (targetMagnitude);
-		pattern.Animate(4.5f, 1, centerPoint);
 		yield return new WaitUntil (() => bullet.GetComponent<EnemyBulletMovement> ().CheckDistance () > targetMagnitude);
-
 		Stop (bullet);
 		yield return new WaitForSeconds (1f);
+		pattern.allBulletsSpawned = true;
 
 		if (layer == 0) {
 			RotateOnAxis (bullet, -1, 80f);
 		} else if (layer == 1) {
+			RotateOnAxis (bullet, 1, 80f);
+		} else if (layer == 2) {
+			RotateOnAxis (bullet, -1, 80f);
+		} else if (layer == 3) {
 			RotateOnAxis (bullet, 1, 80f);
 		}
 

@@ -10,6 +10,8 @@ public class BulletMovementPattern
 	public bool isHoming;
 	public bool isMoving;
 
+	public bool randomDirs; //FOR SLOWWAVING ONLY BUT...
+
 	public bool rotateOnAxis = false; //DEFAULT
 	public bool dontDestroy;
 

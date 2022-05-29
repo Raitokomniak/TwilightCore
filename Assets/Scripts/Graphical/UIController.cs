@@ -15,6 +15,8 @@ public class UIController : MonoBehaviour {
 	public UI_StageToastPanel STAGETOAST;
 	public UI_StageComplete STAGEEND;
 
+	public Image EFFECT_OVERLAY;
+
 
 	public TextMeshProUGUI toast;
 
@@ -36,9 +38,11 @@ public class UIController : MonoBehaviour {
 	public GameObject optionsValueContainer;
 
 	public void InitStage(){
+		EffectOverlay("Black");
 		WORLD.GetWalls();
 		LEFT_SIDE_PANEL.EmptyCores();
 		BOSS.HideUI();
+		
 
 		STAGEEND.gameObject.SetActive(false);
 		GAMEOVER.saveScoreScreen.SetActive(false);
@@ -50,6 +54,7 @@ public class UIController : MonoBehaviour {
 		WORLD.ResetTopLayer ();
 
 		RIGHT_SIDE_PANEL.UpdateDifficulty(Game.control.stageHandler.difficultyAsString);
+		EffectOverlay("Black", false, 1);
 	}
 
 	void Awake(){
@@ -75,6 +80,40 @@ public class UIController : MonoBehaviour {
 		STAGEEND.gameObject.SetActive(false);
 	}
 	
+	public void EffectOverlay(string color, bool fadeIn, float fadeTime){
+		if(color == "White") EFFECT_OVERLAY.color = new Color(1,1,1,0);
+		if(color == "Black") EFFECT_OVERLAY.color = new Color(0,0,0,0);
+		IEnumerator animateRoutine = AnimateOverlay(fadeIn, fadeTime);
+		StartCoroutine(animateRoutine);
+	}
+
+	public void EffectOverlay(string color){
+		if(color == "White") EFFECT_OVERLAY.color = new Color(1,1,1,1);
+		if(color == "Black") EFFECT_OVERLAY.color = new Color(0,0,0,1);
+	}
+
+	IEnumerator AnimateOverlay(bool fadeIn, float fadeTime){
+		float r = EFFECT_OVERLAY.color.r;
+		float g = EFFECT_OVERLAY.color.g;
+		float b = EFFECT_OVERLAY.color.b;
+
+		if(fadeIn){
+			EFFECT_OVERLAY.color = new Color(EFFECT_OVERLAY.color.r,EFFECT_OVERLAY.color.g,EFFECT_OVERLAY.color.b,0);
+			for(float i = 0; i < 1; i+= Time.deltaTime){
+				EFFECT_OVERLAY.color = new Color(r,g,b,i);
+				yield return new WaitForSeconds(fadeTime * Time.deltaTime);
+			}
+		}
+		else {
+			EFFECT_OVERLAY.color = new Color(r,g,b,1);
+			for(float i = 1; i > 0; i-= Time.deltaTime){
+				EFFECT_OVERLAY.color = new Color(r,g,b,i);
+				yield return new WaitForSeconds(fadeTime * Time.deltaTime);
+			}
+		}
+		yield return null;
+	}
+
 	public void ShowStageCompletedScreen(){
 		BOSS.HideBossTimer();
 		STAGEEND.gameObject.SetActive(true);

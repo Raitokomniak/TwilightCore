@@ -6,9 +6,9 @@ public class BMP_WaitToHome : BulletMovementPattern
 {
     public BMP_WaitToHome(){}
     
-    public BMP_WaitToHome(Pattern p, float _movementSpeed){
+    public BMP_WaitToHome(Pattern p, float _accelSpeed){
         pattern = p;
-        movementSpeed = _movementSpeed;
+        accelSpeed = _accelSpeed;
         scale = new Vector3 (2,2,2);
     }
 
@@ -16,6 +16,7 @@ public class BMP_WaitToHome : BulletMovementPattern
         BMP_WaitToHome bmp = new BMP_WaitToHome();
 		bmp.pattern = _bmp.pattern;
         bmp.movementSpeed = _bmp.movementSpeed;
+        bmp.accelSpeed = _bmp.accelSpeed;
 		bmp.scale = _bmp.scale;
         return bmp;
     }
@@ -25,7 +26,8 @@ public class BMP_WaitToHome : BulletMovementPattern
 		yield return new WaitForSeconds (1f);
 		FindPlayer(bullet);
 		yield return new WaitForSeconds (.3f);
-		movementSpeed = 10f;
+	    //movementSpeed = 10f;
+        accelSpeed = 25; //REMOVE THIS LATER
 		bullet.GetComponent<EnemyBulletMovement> ().SmoothAcceleration ();
     }
 }

@@ -11,6 +11,12 @@ public class EnemyLib : MonoBehaviour
 	public float centerX;
 	public float centerY;
 	public float topCenterY;
+	
+	public float OOBTop;
+	public float OOBBot;
+	public float OOBRight;
+	public float OOBLeft;
+			
 
 	public Vector3 centerTopOOB;
 	public Vector3 centerTop;
@@ -40,11 +46,14 @@ public class EnemyLib : MonoBehaviour
 		centerX = -5.75f;
 		centerY = 0f;
 		topCenterY = 8f;
-		float topOut = 13;
+
+		OOBTop = 13.5f;
+		OOBBot = -12f;
+		OOBRight = 9f;
+		OOBLeft = -22.5f;
 
 		centerTopOOB = GetVector("X1");
 		rightWallTopSide = GetVector("J3");
-		//leftWallTopSide = new Vector3 (-18, 6f, 0f); //LEFT WALL
 		leftWallTopSide = GetVector("A3");
 
 		centerTop = new Vector3(centerX, 6f, 0f);
@@ -80,7 +89,7 @@ public class EnemyLib : MonoBehaviour
 		float hor = 0;
 		
 		if(coordinate[0] == 'X') hor = -5.75f; 	//DEAD CENTER
-		if(coordinate[1] == 'Y') hor = 14f; 	//TOP OUT
+		if(coordinate[1] == 'Y') ver = 14f; 	//TOP OUT
 		if(coordinate[0] == 'L') hor = -23f; 	//LEFT OUT
 		if(coordinate[0] == 'R') hor = 10; 		//RIGHT OUT
 		

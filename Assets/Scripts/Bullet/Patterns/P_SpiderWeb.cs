@@ -13,6 +13,7 @@ public class P_SpiderWeb : Pattern
 	}
 
    public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
+	   allBulletsSpawned = false;
         yield return new WaitForSeconds(delayBeforeAttack);
 		pos = enemy.transform.position;
 
@@ -24,11 +25,14 @@ public class P_SpiderWeb : Pattern
 			
 		for (int i = 0; i < bulletCount; i++) {
 			bulletRotation = Quaternion.Euler (0f, 0f, i * (360 / bulletCount));
-			//bulletMovement = new BulletMovementPattern (bulletMovement);
-			
 			InstantiateBullet (enemyBullet, bulletMovement);
-			bullet.GetComponent<SpriteRenderer> ().sprite = Game.control.spriteLib.SetBulletSprite ("Circle", "Glow", "Red");
+			//bullet.GetComponent<SpriteRenderer> ().sprite = Game.control.spriteLib.SetBulletSprite ("Circle", "Glow", "Red");
+			bullet.GetComponent<SpriteRenderer> ().sprite = Game.control.spriteLib.SetBulletSprite ("Spider_Glow");
 			bullets.Add (enemyBullet);
 		}
-    }
+		yield return new WaitUntil(() => allBulletsSpawned == true);
+		Animate(1, 2f, bulletMovement.centerPoint);
+		yield return new WaitForSeconds(0.5f);
+		if(animation) animation.GetComponent<BulletAnimationController>().rotationSpeed = 10f;
+	}
 }

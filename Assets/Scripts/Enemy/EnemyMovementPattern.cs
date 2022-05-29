@@ -107,4 +107,16 @@ public class EnemyMovementPattern
 
 		targetPos = new Vector3 (h, v, 0f);
 	}
+
+	public void UpdateDirection (Vector3 dir)
+	{	
+		float h = dir.x;
+		float v = dir.y;
+
+		//if(m.moving) m.SmoothAcceleration();
+		if (h < targetPos.x) goingRight = false;
+		else goingRight = true;
+
+		targetPos = new Vector3 (h, v, 0f);
+	}
 }

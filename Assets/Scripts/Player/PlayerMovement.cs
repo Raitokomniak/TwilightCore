@@ -7,6 +7,9 @@ public class PlayerMovement : MonoBehaviour
 	public MagneticRange magneticRange;
 	float movementSpeed;
 	public bool focusMode;
+	public bool forceMoving;
+
+	Vector3 forceMoveTarget;
 
 	void Update ()
 	{
@@ -32,11 +35,31 @@ public class PlayerMovement : MonoBehaviour
 				if (transform.position.x <= Game.control.ui.WORLD.GetBoundaries()[3] - .5f) 
 					Move (hor, 0);
 		}
+		
+		if(CanForceMove()){
+			transform.position = Vector3.Lerp(transform.position, forceMoveTarget, movementSpeed / 10);
+			//transform.position = Vector3.MoveTowards(transform.position, forceMoveTarget, (movementSpeed * Time.deltaTime) * 4);
+		}
+	}
+
+	public void ForceMove(Vector3 targetPos){
+		GetComponent<SpriteRenderer>().sortingOrder = 5;
+		GetComponentInChildren<Hitbox>().gameObject.SetActive(false);
+		forceMoveTarget = targetPos;
+		forceMoving = true;
+	}
+
+	bool CanForceMove(){
+		if(!forceMoving) return false;
+		if(GetComponent<PlayerLife>().dead) return false;
+		if(GetComponent<PlayerHandler>() == null) return false;
+		return true;
 	}
 
 	bool CanMove(){
 		if(!Game.control.stageHandler.stageOn) return false;
 		if(GetComponent<PlayerLife>().dead) return false;
+		if(forceMoving) return false;
 		if(GetComponent<PlayerHandler>() == null) return false;
 		return true;
 	}

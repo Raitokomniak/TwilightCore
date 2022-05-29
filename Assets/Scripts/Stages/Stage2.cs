@@ -27,7 +27,7 @@ public class Stage2 : Stage
 		scene.e_camera.SetRotation (new Vector3(50, 0, 5));
 
 		while (stageHandler.stageTimer < 0.1f) yield return null;
-
+		
 		scene.SetPlaneSpeed (3f);
 
 		while (stageHandler.stageTimer < 26.5f) yield return null;
@@ -35,6 +35,25 @@ public class Stage2 : Stage
 		scene.e_camera.Move (new Vector3(50, 0, 72));
 		scene.e_camera.Rotate (new Vector3(25, 0, 5));
 		scene.SetPlaneSpeed (10f);
+
+
+		while (stageHandler.stageTimer < 46f) yield return null;
+		scene.SetPlaneSpeed (5f);
+		scene.e_camera.Rotate (new Vector3(35, 0, 15));
+
+		while (stageHandler.stageTimer < 50f) yield return null;
+		scene.e_camera.Rotate (new Vector3(35, 0, -15));
+
+		while (stageHandler.stageTimer < 52f)  yield return null;
+		scene.e_camera.Rotate (new Vector3(35, 0, 15));
+
+		while (stageHandler.stageTimer < 56f) yield return null;
+		scene.e_camera.Rotate (new Vector3(20, 0, 5));
+		
+		scene.SetPlaneSpeed (10f);
+
+		while (stageHandler.stageTimer < 83f) yield return null;
+		scene.SetPlaneSpeed (1f);
 
 		while (Game.control.dialog.handlingDialog) yield return null;
 		while (stageHandler.stageTimer < Game.control.enemySpawner.bossWave.spawnTime - 1) yield return null;
@@ -48,7 +67,18 @@ public class Stage2 : Stage
 		Game.control.sound.PlayMusic ("Boss", 2);
 
 		while(!Game.control.enemySpawner.bossWave.dead) yield return null;
+		Game.control.stageHandler.ToggleTimer(false);
+
+		yield return new WaitUntil(() => Game.control.stageHandler.CheckIfAllPickUpsGone() == true);
+		yield return new WaitForSeconds(1f);
+
+		Game.control.dialog.StartDialog ("Boss2_1");
+		while (Game.control.dialog.handlingDialog) yield return null;
 		
+		//FORCE MOVE PLAYER TO THE PORTAL HERE
+		Game.control.player.movement.ForceMove(lib.GetVector("X3"));
+		Game.control.ui.EffectOverlay("White", true, 2.5f);
+		yield return new WaitForSeconds(4f);
 		Game.control.stageHandler.EndHandler ("StageComplete");
 	}
 
@@ -125,7 +155,7 @@ public class Stage2 : Stage
 		p.infinite = false;
 		p.circleDelay= 1f;
 		p.SetSprite ("Spider_Glow");
-		p.bulletMovement = new BMP_SlowWaving(p, 9f);
+		p.bulletMovement = new BMP_SlowWaving(p, 9f, true);
 		lib.NewWave (new Wave (18f, mp, p, 3, false, 0, 2f / difficultyMultiplier,  "default"));
 
 		//STAGE INTERLUDE
@@ -145,6 +175,14 @@ public class Stage2 : Stage
 		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
 		p.bulletMovement = new BMP_WaitToHome(p, 9f);
 		p.SetSprite ("Arrow", "Glow", "White");	
+		lib.NewWave (new Wave (35f, mp, p, 2, false, 0, 3f / difficultyMultiplier, "default"));
+
+		mp = new EMP_EnterLeave(lib.rightWallTopSide, 0);
+		mp.SetEnterLeaveDirection(lib.enterLeft, lib.leaveRight);
+		p = new P_RepeatedHoming();
+		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
+		p.bulletMovement = new BMP_WaitToHome(p, 9f);
+		p.SetSprite ("Arrow", "Glow", "White");	
 		lib.NewWave (new Wave (40f, mp, p, 2, false, 0, 3f / difficultyMultiplier, "default"));
 
 		mp = new EMP_EnterLeave(lib.rightWallTopSide, 0f);
@@ -154,7 +192,7 @@ public class Stage2 : Stage
 		p.rotationDirection = -1;
 		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
 		p.SetSprite ("Circle", "Glow", "White");	
-		lib.NewWave (new Wave (43f, mp, p, 10, false, 0, 3f / difficultyMultiplier, "default"));
+		lib.NewWave (new Wave (45f, mp, p, 10, false, 0, 3f / difficultyMultiplier, "default"));
 
 		mp = new EMP_EnterLeave(lib.leftWallTopSide, 0);
 		mp.SetEnterLeaveDirection(lib.enterRight, lib.leaveLeft);
@@ -162,7 +200,7 @@ public class Stage2 : Stage
 		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
 		p.bulletMovement = new BMP_WaitToHome(p, 9f);
 		p.SetSprite ("Arrow", "Glow", "Red");	 
-		lib.NewWave (new Wave (45f, mp, p, 1, false, 0,  3f / difficultyMultiplier, "default"));
+		lib.NewWave (new Wave (43f, mp, p, 1, false, 0,  3f / difficultyMultiplier, "default"));
 
 		mp = new EMP_EnterLeave(lib.topWallLeftSide, 3f);
 		mp.SetEnterLeaveDirection(lib.enterLeft, lib.leaveLeft);
@@ -173,7 +211,7 @@ public class Stage2 : Stage
 		p.SetSprite ("Circle", "Glow", "Red");
 		p.delayBeforeAttack= 1f;
 		p.coolDown = 1f;
-		lib.NewWave (new Wave (48f, mp, p, 1, false, 0, 3f / difficultyMultiplier, "default"));
+		lib.NewWave (new Wave (47f, mp, p, 1, false, 0, 3f / difficultyMultiplier, "default"));
 
 
 		//PHASE 4
@@ -190,19 +228,25 @@ public class Stage2 : Stage
 		mp = new EMP_EnterLeave(lib.leftWallTopSide, 2f);
 		mp.SetEnterLeaveDirection(lib.enterRight, lib.leaveLeft);
 		p = new P_Maelstrom();
+		p.bulletCount = 1 * Mathf.CeilToInt(difficultyMultiplier);
 		p.infinite = false;
 		p.circleDelay= 1f;
 		p.SetSprite ("Spider_Glow");
-		p.bulletMovement = new BMP_SlowWaving(p, 9f);
+		p.bulletMovement = new BMP_SlowWaving(p, 9f, true);
 		lib.NewWave (new Wave (60f, mp, p, 3, false, 0, 2f / difficultyMultiplier,  "default"));
 
-		mp = new EMP_EnterLeave(lib.topWallLeftSide, 10f);
+		mp = new EMP_EnterLeave(lib.topWallLeftSide, 2f);
 		mp.SetEnterLeaveDirection(lib.enterLeft, lib.leaveLeft);
-		mp.disableHitBox = true;
-		mp.hideSpriteOnSpawn = true;
-		p = new P_SpiderWebLaser();
-		p.bulletCount = 1 * Mathf.CeilToInt(difficultyMultiplier);
-		lib.NewWave (new Wave (65f, mp, p, 1, false, 100, 5, "default"));
+		p = new P_Maelstrom();
+		p.infinite = false;
+		p.bulletCount = 3 * Mathf.CeilToInt(difficultyMultiplier);
+		p.SetSprite ("Circle", "Glow", "White");
+		p.delayBeforeAttack= 1f;
+		p.coolDown = 1f;
+		lib.NewWave (new Wave (64f, mp, p, 2, false, 0, 3f / difficultyMultiplier, "default"),
+						new List<Vector3> {lib.topWallRightSide, lib.topWallLeftSide},
+						new List<Vector3>{lib.enterRight, lib.enterLeft},
+						new List<Vector3>{lib.leaveLeft, lib.leaveRight});
 
 		mp = new EMP_EnterLeave(lib.topWallLeftSide, 2f);
 		mp.SetEnterLeaveDirection(lib.enterLeft, lib.leaveLeft);
@@ -223,8 +267,9 @@ public class Stage2 : Stage
 		p = new P_Maelstrom();
 		p.infinite = false;
 		p.circleDelay= 1f;
+		p.bulletCount = 1 * Mathf.CeilToInt(difficultyMultiplier);
 		p.SetSprite ("Spider_Glow");
-		p.bulletMovement = new BMP_SlowWaving(p, 9f);
+		p.bulletMovement = new BMP_SlowWaving(p, 9f, true);
 		lib.NewWave (new Wave (71f, mp, p, 3, false, 0, 2f / difficultyMultiplier,  "default"));
 
 		mp = new EMP_EnterLeave(lib.topWallLeftSide, 2f);
@@ -247,7 +292,7 @@ public class Stage2 : Stage
 		mp = new EMP_EnterLeave(lib.centerTopOOB, 2f);
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
-		p = new P_VoidPortal(2f, 5);
+		p = new P_VoidPortal(3f, 5, 6);
 		p.delayBeforeAttack = 2f;
 		p.infinite = false;
 		p.bulletMovement = new BMP_Explode(p, 0, false);
@@ -259,9 +304,10 @@ public class Stage2 : Stage
 		
 		mp = new EMP_EnterLeave(lib.enterCenter, 5);
 		mp.SetEnterLeaveDirection(lib.enterCenter, lib.leaveRight); //REMEMBER SMOOTH CURVE AWAY????
-		p = new P_Spiral(30);
+		p = new P_Spiral(6 * (int)difficultyMultiplier);
 		p.loopCircles =  288 * 4;
 		p.rotationDirection = 1;
+		p.delayBeforeAttack = 1f;
 		p.infinite = false;
 		p.bulletMovement = new BMP_Explode(p, 3f, false);
 		p.SetSprite ("Circle", "Glow", "Yellow");
@@ -269,13 +315,12 @@ public class Stage2 : Stage
 		lib.NewWave(new Wave(85f, mp, p, 1, false, 3, 5 / difficultyMultiplier, "default")); ///// 85f
 
 
-		
 		////////////////////////////////////////////////////////
 		//3 PORTALS 9 ASURAS
 		mp = new EMP_EnterLeave(lib.centerTopOOB, 2f);
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
-		p = new P_VoidPortal(6f, 5);
+		p = new P_VoidPortal(9f, 5, 6);
 		p.delayBeforeAttack = 2f;
 		p.infinite = false;
 		p.bulletMovement = new BMP_Explode(p, 0, false); 
@@ -286,12 +331,13 @@ public class Stage2 : Stage
 
 		mp = new EMP_EnterLeave(lib.enterRight, 1);
 		mp.SetEnterLeaveDirection(lib.enterRight, lib.leaveRight); //REMEMBER SMOOTH CURVE AWAY????
-		p = new P_Spiral(20);
-		p.loopCircles =  288 * 2;
-		p.bulletMovement = new BMP_WaitAndExplode(p, .7f * difficultyMultiplier);
+		p = new P_Spiral(3 * (int)difficultyMultiplier);
+		p.loopCircles =  288 * 1;
+		p.bulletMovement = new BMP_WaitAndExplode(p, 11f);
+		p.bulletMovement.movementSpeed = 1f;
 		p.SetSprite ("Circle", "Glow", "Yellow");
 
-		lib.NewWave(new Wave(95f, mp, p, 9, false, 3, 4 / difficultyMultiplier, "default"),  ///// 100
+		lib.NewWave(new Wave(95f, mp, p, 9, false, 3, 6 / difficultyMultiplier, "default"),  ///// 100
 						new List<Vector3> { lib.enterCenter, lib.enterRight, lib.enterLeft},
 						new List<Vector3>{lib.enterCenter, lib.enterRight, lib.enterLeft},
 						new List<Vector3>{lib.leaveRight + new Vector3(0, -3, 0), lib.leaveRight + new Vector3(0, -3, 0), lib.leaveLeft + new Vector3(0, -3, 0)});
@@ -299,30 +345,30 @@ public class Stage2 : Stage
 
 		//TRAPPING VOIDS
 
-		mp = new EMP_EnterLeave(lib.centerTopOOB, 5f);
+		mp = new EMP_EnterLeave(lib.enterRight, 5f);
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
-		p = new P_VoidPortal(10f, 7);
+		p = new P_VoidPortal(13f, 7, 6);
 		p.delayBeforeAttack = 2f;
 		p.infinite = false;
 		p.bulletMovement = new BMP_Explode(p, 0, false);
 		//p.SetSprite ("Circle", "Glow", "White");
 		lib.NewWave (new Wave (105f, mp, p, 4, false, 5, 100, "default"), //SPAWNTIME 105
-						new List<Vector3> { lib.centerTopOOB, lib.topWallRightSide, lib.topWallLeftSide, lib.topWallLeftSide},
+						new List<Vector3> {lib.enterRight, lib.enterLeft, lib.enterRightWallBotSide, lib.enterLeftWallBotSide},
 						new List<Vector3>{lib.enterRight, lib.enterLeft, lib.enterRightWallBotSide, lib.enterLeftWallBotSide},
 						new List<Vector3>{lib.leaveRight, lib.leaveLeft, lib.leaveCenter, lib.leaveCenter});
 /*
 		//debug boss
 		mp = new EMP_EnterFromTop();
-		boss = new Wave(mp, 1f, 10, true, 2, "boss2");
+		boss = new Wave(mp, 1f, 30, true, 2, "boss2");
 		boss.SetUpBoss (2, "Joanette, Queen of Spiders", false);
 		lib.NewWave (boss);
 */
 
 		mp = new EMP_EnterFromTop();
-		boss = new Wave(mp, 114f, 80 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss2");
+		boss = new Wave(mp, 114f, 70 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss2");
 		boss.SetUpBoss (2, "Joanette, Queen of Spiders", false);
 		lib.NewWave (boss);
-		
+
 	}
 }

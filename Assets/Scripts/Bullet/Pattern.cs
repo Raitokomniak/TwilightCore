@@ -12,6 +12,7 @@ public class Pattern
 	public Quaternion bulletRotation;
 	public BulletMovementPattern bulletMovement;
 
+	public IEnumerator routine;
 	public GameObject enemyBullet;
 
 	public float delayBeforeAttack = 0; //DEFAULT
@@ -55,10 +56,10 @@ public class Pattern
 
 
 	public void StopPattern(){
+		//Debug.Log("stoppat");
 		stop = true;
 	}
-	
-	
+
 	public void InstantiateBullet (GameObject enemyBullet, BulletMovementPattern _bulletMovement)
 	{
 		if(bulletMovement == null) bulletMovement = new BMP_Explode(this, 5f, false); //DEFAULT
@@ -80,8 +81,8 @@ public class Pattern
 		bulletRotation = _enemy.transform.rotation;
 		stop = false;
 		 
-		IEnumerator co = ExecuteRoutine (_enemy);
-		return co;
+		routine = ExecuteRoutine (_enemy);
+		return routine;
 	}
 
     public virtual IEnumerator ExecuteRoutine (EnemyShoot enemy){

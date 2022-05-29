@@ -7,7 +7,7 @@ public class P_Spiral : Pattern
 	public P_Spiral(int _bulletCount){
 		bulletCount = _bulletCount;
 		//coolDown = 0.001f;
-		coolDown = 5f;
+		coolDown = 1f;
 		originMagnitude = 2;
 		tempMagnitude = originMagnitude;
 	}
@@ -25,6 +25,7 @@ public class P_Spiral : Pattern
 				newPosition = SpawnInCircle (pos, 1f + (i * 0.1f), GetAng (i, loopCircles));
 				InstantiateBullet (enemyBullet, bulletMovement);
 				yield return new WaitForSeconds (coolDown * Time.deltaTime);
+				if(stop) break;
 				Game.control.sound.PlaySound ("Enemy", "Shoot", false);
 			}
 

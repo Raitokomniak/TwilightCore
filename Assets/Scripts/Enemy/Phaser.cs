@@ -82,17 +82,25 @@ public class Phaser : MonoBehaviour {
 	public void StopPats(){
 		foreach(Pattern p in patterns){
 			p.StopPattern();
+			if(p.routine != null) StopCoroutine(p.routine);
+			if(p.animation){
+				if(!p.animation.GetComponent<BulletAnimationController>().dontDestroy) 
+					Destroy(p.animation);//
+				else p.animation.GetComponent<BulletAnimationController>().stop = true;
+			}
 		}
 	}
 
 	public void InterruptPreviousPhase(){
 		endOfPhase = true;
+		StopPats();
 		StopCoro();
 		foreach(Pattern p in patterns){ p.StopPattern(); }
 		routineOver = true;
 	}
 
 	public void NextPhase() {
+		
 		nextPhaseRoutine = PhasingTime();
 		StartCoroutine(nextPhaseRoutine);
 	}

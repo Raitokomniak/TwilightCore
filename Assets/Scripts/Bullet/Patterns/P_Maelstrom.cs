@@ -31,6 +31,7 @@ public class P_Maelstrom : Pattern
 			Game.control.sound.PlaySound ("Enemy", "Shoot", true);
 				
 			for (int i = 0; i < bulletCount; i++) {
+				if(stop) break;
 				newPosition = SpawnInCircle (pos, 1.5f, GetAng (i, 360) + startingRotation);
 				bulletRotation = SpawnInCircle (i, startingRotation);
 				startingRotation += 0.5f * rotationDirection;

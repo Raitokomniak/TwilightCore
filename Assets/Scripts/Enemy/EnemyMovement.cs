@@ -3,6 +3,7 @@ using System.Collections;
 
 public class EnemyMovement : MonoBehaviour {
 	public EnemyMovementPattern movementPattern;
+	EnemyLib lib;
 	SpriteRenderer spriteRenderer;
 	public bool moving;
 	public bool teleporting;
@@ -10,6 +11,7 @@ public class EnemyMovement : MonoBehaviour {
 
 	void Awake () {
 		spriteRenderer = GetComponent<SpriteRenderer> ();
+		lib = Game.control.enemyLib;
 		moving = false;
 	}
 
@@ -59,7 +61,7 @@ public class EnemyMovement : MonoBehaviour {
 	}
 
 	void CheckOutOfBounds(){
-		if (transform.position.y > 15 || transform.position.y < -12 || transform.position.x < -22.5 || transform.position.x > 9)
+		if (transform.position.y > lib.OOBTop || transform.position.y < lib.OOBBot  || transform.position.x < lib.OOBLeft || transform.position.x > lib.OOBRight)
 			if(tag != "Boss") Destroy (this.gameObject);
 	}
 
