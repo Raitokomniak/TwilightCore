@@ -363,10 +363,14 @@ public class Stage2 : Stage
 		boss = new Wave(mp, 1f, 30, true, 2, "boss2");
 		boss.SetUpBoss (2, "Joanette, Queen of Spiders", false);
 		lib.NewWave (boss);
-*/
+
+*/		float health = 0;
+		if(difficultyMultiplier < 5) health = 100 * difficultyMultiplier;
+		if(difficultyMultiplier >= 5) health = 70 * difficultyMultiplier;
+
 
 		mp = new EMP_EnterFromTop();
-		boss = new Wave(mp, 114f, 70 * Mathf.CeilToInt(difficultyMultiplier), true, 2, "boss2");
+		boss = new Wave(mp, 114f, Mathf.CeilToInt(health), true, 2, "boss2");
 		boss.SetUpBoss (2, "Joanette, Queen of Spiders", false);
 		lib.NewWave (boss);
 

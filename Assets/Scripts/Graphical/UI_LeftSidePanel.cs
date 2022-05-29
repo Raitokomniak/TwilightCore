@@ -10,6 +10,9 @@ public class UI_LeftSidePanel : MonoBehaviour
 	public Slider dayCoreSlider;
 	public Slider nightCoreSlider;
 
+	public Transform dayMultiplierTexts;
+	public Transform nightMultiplierTexts;
+
     IEnumerator depleteCoreChargeRoutine;
 
     public void HighLightCoreInUse(string core)
@@ -40,6 +43,26 @@ public class UI_LeftSidePanel : MonoBehaviour
 	public void EmptyCores(){
 		dayCoreSlider.value = 0;
 		nightCoreSlider.value = 0;
+		UpdatePower("Day", 0);
+		UpdatePower("Night", 0);
+	}
+
+	public void UpdatePower(string core, int power){
+		Transform textContainer = null;
+		if(core == "Day") textContainer = dayMultiplierTexts;
+		if(core == "Night") textContainer = nightMultiplierTexts;
+		
+		//if(power)
+		TextMeshProUGUI[] texts = textContainer.GetComponentsInChildren<TextMeshProUGUI>();
+		foreach(TextMeshProUGUI text in texts){
+			 text.color = new Color(1,1,1,.2f);
+		}
+
+		//if(power == 1) textContainer.GetChild(power - 1).GetComponent<TextMeshProUGUI>().color = new Color(1,1,1,1);
+
+		for(int i = 0; i < power; i++){
+			textContainer.GetChild(power - 1).GetComponent<TextMeshProUGUI>().color = new Color(1,1,1,1);
+		}
 	}
 
 	public void UpdateCoreCharge(string core, int updatedCharge){

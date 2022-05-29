@@ -80,6 +80,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			for (int i = 0; i < 10; i++) {
 				GameObject bomb = (GameObject)Instantiate (starLightBomb, new Vector3(-6 + Random.Range(-12, 12), 0 + Random.Range(-10, 10), 0), transform.rotation);
 				bomb.SetActive (true);
+				bomb.tag = "NullField";
 				bomb.GetComponent<AnimationController> ().rotating = true;
 				yield return new WaitForSeconds (.1f);
 				bomb.GetComponent<AnimationController> ().Scale (1, 3, true, false);
@@ -94,7 +95,6 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			}
 			Game.control.enemySpawner.DestroyAllProjectiles();
 			daySpecial.SetActive (false);
-
 		
 		} else if(core == "Night") {
 			Game.control.ui.ShowActivatedPlayerPhase ("Night Core: Trick or Treat");
@@ -217,6 +217,8 @@ public class PlayerSpecialAttack : MonoBehaviour {
 				if (dayCoreLevel > nightCoreLevel)
 					shoot.shootLevel = dayCoreLevel;
 			}
+
+			Game.control.ui.LEFT_SIDE_PANEL.UpdatePower("Day", dayCoreLevel);
 		} else if (core == "Night") {
 			if (up) {
 				nightCoreLevel++;
@@ -230,6 +232,8 @@ public class PlayerSpecialAttack : MonoBehaviour {
 				if (nightCoreLevel > dayCoreLevel)
 					shoot.shootLevel = nightCoreLevel;
 			}
+
+			Game.control.ui.LEFT_SIDE_PANEL.UpdatePower("Night", nightCoreLevel);
 		}
 
 		if (!up) {

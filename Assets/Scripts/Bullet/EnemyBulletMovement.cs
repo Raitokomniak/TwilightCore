@@ -86,4 +86,10 @@ public class EnemyBulletMovement : MonoBehaviour {
 			Destroy (this.gameObject);
 		}
 	}
+	public void OnTriggerEnter2D(Collider2D c)
+	{
+		if (c.tag == "NullField") {
+			Destroy (this.gameObject);
+		}
+	}
 }

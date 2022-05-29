@@ -62,7 +62,7 @@ public class EnemyMovement : MonoBehaviour {
 
 	void CheckOutOfBounds(){
 		if (transform.position.y > lib.OOBTop || transform.position.y < lib.OOBBot  || transform.position.x < lib.OOBLeft || transform.position.x > lib.OOBRight)
-			if(tag != "Boss") Destroy (this.gameObject);
+			if(tag != "Boss" && tag != "MidBoss") Destroy (this.gameObject);
 	}
 
 	public void SetUpPatternAndMove(EnemyMovementPattern p){

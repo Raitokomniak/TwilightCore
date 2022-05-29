@@ -32,12 +32,14 @@ public class Boss1 : Phaser
 				patterns[0].bulletMovement = new BMP_WaitAndExplode (patterns[0], 5f);
 				patterns[0].loopCircles =  288 * difficultyMultiplier;
 				patterns[0].SetSprite ("Circle", "Glow", "Green");
+				patterns[0].bulletMovement.accelSpeed = 30;
 
 				patterns.Add(new P_Maelstrom());
 				patterns[1].bulletMovement = new BMP_Explode (patterns[1], 6f, false);
 				patterns[1].rotationDirection =  1;
 				patterns[1].bulletCount =  2 * difficultyMultiplier;
 				patterns[1].SetSprite ("Circle", "Glow", "Green");
+				patterns[1].bulletMovement.accelSpeed = 30;
 
 				patterns.Add(new P_Maelstrom());
 				patterns[2].SetSprite ("Circle", "Glow", "Yellow");
@@ -81,6 +83,7 @@ public class Boss1 : Phaser
 				patterns[0].bulletCount = Mathf.CeilToInt(1.8f * difficultyMultiplier);  
 				patterns[0].SetSprite ("Circle", "Bevel", "Lilac");
 				patterns[0].bulletMovement = new BMP_TurnToSpears(patterns[0], 6f);
+				patterns[0].bulletMovement.accelSpeed = 30;
 
 				patterns.Add(new P_Maelstrom());
 				patterns[1].bulletMovement = new BMP_Explode(patterns[1], 6f, false);
@@ -131,11 +134,13 @@ public class Boss1 : Phaser
 				patterns[0].bulletMovement = new BMP_WaitAndExplode(patterns[0], 5f);
 				patterns[0].loopCircles = 288 * difficultyMultiplier;
 				patterns[0].SetSprite ("Circle", "Glow", "Green");
+				patterns[0].bulletMovement.accelSpeed = 30;
 
 				patterns.Add(new P_SingleHoming());
 				patterns[1].bulletMovement = new BMP_TurnToSpears(patterns[1], 5f);
 				patterns[1].bulletCount = 1;
 				patterns[1].SetSprite ("Circle", "Bevel", "Lilac");
+				patterns[1].bulletMovement.accelSpeed = 30;
 
 				Vector2 teleP1 = new Vector2(lib.centerX + 4f, enemy.transform.position.y);
 				Vector2 teleP2 = new Vector2(lib.centerX - 4f, enemy.transform.position.y);

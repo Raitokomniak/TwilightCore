@@ -72,14 +72,14 @@ public class Boss05 : Phaser
 				patterns.Add(new P_Spiral(Mathf.CeilToInt(4 * (difficultyMultiplier / 2f))));
 				patterns[0].SetSprite ("Circle", "Glow", "BlackPurple");
 				patterns[0].bulletMovement = new BMP_WaitAndExplode(patterns[0], 3f);
-				patterns[0].bulletMovement.accelSpeed = 4f;
+				patterns[0].bulletMovement.accelSpeed = 20f;
 				patterns[0].loopCircles = 288 * difficultyMultiplier;
 				patterns[0].bulletCount = 5 * difficultyMultiplier;
 
 				patterns.Add(new P_Spiral(Mathf.CeilToInt(4 * (difficultyMultiplier / 2f))));
 				patterns[1].SetSprite ("Circle", "Glow", "BlackLilac");
 				patterns[1].bulletMovement = new BMP_WaitAndExplode(patterns[0], 3f);
-				patterns[1].bulletMovement.accelSpeed = 4f;
+				patterns[1].bulletMovement.accelSpeed = 20f;
 				patterns[1].loopCircles = 288 * difficultyMultiplier;
 				patterns[1].bulletCount = 5 * difficultyMultiplier;
 				patterns[1].rotationDirection = -1;
