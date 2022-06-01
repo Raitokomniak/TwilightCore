@@ -51,7 +51,7 @@ public class Boss1 : Phaser
 				movementPatterns[0].speed = 7f;
 
 				while (!phaser.endOfPhase) {
-					enemyMove.movementPattern.UpdateDirection(lib.centerX, lib.topCenterY);
+					enemyMove.movementPattern.UpdateDirection(vectorLib.centerX, vectorLib.topCenterY);
 					yield return new WaitForSeconds(2f);
 					
 					enemy.BossShoot (patterns[1]);
@@ -142,8 +142,8 @@ public class Boss1 : Phaser
 				patterns[1].SetSprite ("Circle", "Bevel", "Lilac");
 				patterns[1].bulletMovement.accelSpeed = 30;
 
-				Vector2 teleP1 = new Vector2(lib.centerX + 4f, enemy.transform.position.y);
-				Vector2 teleP2 = new Vector2(lib.centerX - 4f, enemy.transform.position.y);
+				Vector2 teleP1 = new Vector2(vectorLib.centerX + 4f, enemy.transform.position.y);
+				Vector2 teleP2 = new Vector2(vectorLib.centerX - 4f, enemy.transform.position.y);
 
 				movementPatterns.Add(new EMP_Teleport());
 
@@ -193,10 +193,10 @@ public class Boss1 : Phaser
 				patterns[1].coolDown = 2.5f / difficultyMultiplier;
 
 				movementPatterns.Add(new EMP_Swing(7, 1));
-				movementPatterns[0].centerPoint = new Vector3 (lib.centerX, lib.topCenterY, 0);
+				movementPatterns[0].centerPoint = new Vector3 (vectorLib.centerX, vectorLib.topCenterY, 0);
 				
 				while (!endOfPhase) {
-					enemyMove.movementPattern.UpdateDirection(lib.enterRight.x, lib.enterRight.y);
+					enemyMove.movementPattern.UpdateDirection(vectorLib.enterRight.x, vectorLib.enterRight.y);
 					enemyMove.SetUpPatternAndMove (movementPatterns[0]);
 					yield return new WaitForSeconds(2f);
 
@@ -206,7 +206,7 @@ public class Boss1 : Phaser
 					enemyMove.moving = false;
 					movementPatterns[0].speed = 7f;
 
-					movementPatterns[0].UpdateDirection(lib.centerX, lib.centerY);
+					movementPatterns[0].UpdateDirection(vectorLib.centerX, vectorLib.centerY);
 					enemyMove.moving = true;
 					yield return new WaitForSeconds(1f);
 

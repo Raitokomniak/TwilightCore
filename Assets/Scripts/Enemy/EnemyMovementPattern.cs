@@ -74,7 +74,7 @@ public class EnemyMovementPattern
 
 	float Mirror (float pos)
 	{
-		float mirroredPos = Game.control.enemyLib.centerX + Mathf.Abs (pos - Game.control.enemyLib.centerX);
+		float mirroredPos = Game.control.vectorLib.centerX + Mathf.Abs (pos - Game.control.vectorLib.centerX);
 		return mirroredPos;
 	}
 

@@ -56,10 +56,10 @@ public class Boss2 : Phaser
 					yield return new WaitUntil(() => enemyMove.movementPattern.CheckIfReachedDestination(enemyMove) == true);
 					enemy.BossShoot(patterns[0]);
 					yield return new WaitForSeconds(3);
-					enemyMove.movementPattern.UpdateDirection(lib.GetVector("H4"));
+					enemyMove.movementPattern.UpdateDirection(vectorLib.GetVector("H4"));
 					enemy.BossShoot (patterns[1]);
 					yield return new WaitForSeconds(3);
-					enemyMove.movementPattern.UpdateDirection(lib.GetVector("C4"));
+					enemyMove.movementPattern.UpdateDirection(vectorLib.GetVector("C4"));
 					enemy.BossShoot (patterns[1]);
 					patterns[0].StopPattern();
 					yield return new WaitForSeconds(3);
@@ -136,14 +136,14 @@ public class Boss2 : Phaser
 					
 
 					yield return new WaitForSeconds (2f);
-					enemyMove.movementPattern.UpdateDirection(lib.GetVector("C4"));
+					enemyMove.movementPattern.UpdateDirection(vectorLib.GetVector("C4"));
 					enemy.BossShoot (patterns[2]);
 					yield return new WaitForSeconds (2f);
 					enemy.BossShoot(patterns[1]);
 					enemy.BossShoot (patterns[0]);
 
 					yield return new WaitForSeconds (2f);
-					enemyMove.movementPattern.UpdateDirection(lib.GetVector("H4"));
+					enemyMove.movementPattern.UpdateDirection(vectorLib.GetVector("H4"));
 
 					yield return new WaitForSeconds(2f);
 					patterns[1].StopPattern();

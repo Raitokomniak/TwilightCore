@@ -205,42 +205,22 @@ public class PlayerSpecialAttack : MonoBehaviour {
 
 	public void PowerUpdate(string core, bool up){
 		if (core == "Day") {
-			if (up) {
-				dayCoreLevel++;
-				if (dayCoreLevel > nightCoreLevel) {
-					shoot.shootLevel = dayCoreLevel;
-					Game.control.ui.PlayToast ("Power Up!");
-				}
-			} else {
-				if (dayCoreLevel != 0)
-					dayCoreLevel--;
-				if (dayCoreLevel > nightCoreLevel)
-					shoot.shootLevel = dayCoreLevel;
-			}
-
-			Game.control.ui.LEFT_SIDE_PANEL.UpdatePower("Day", dayCoreLevel);
-		} else if (core == "Night") {
-			if (up) {
-				nightCoreLevel++;
-				if (dayCoreLevel <= nightCoreLevel) {
-					shoot.shootLevel = nightCoreLevel;
-					Game.control.ui.PlayToast ("Power Up!");
-				}
-			} else {
-				if (nightCoreLevel != 0)
-					nightCoreLevel--;
-				if (nightCoreLevel > dayCoreLevel)
-					shoot.shootLevel = nightCoreLevel;
-			}
-
-			Game.control.ui.LEFT_SIDE_PANEL.UpdatePower("Night", nightCoreLevel);
+			if (up) dayCoreLevel++;
+			else
+				if (dayCoreLevel != 0) dayCoreLevel--;
+		} 
+		else if (core == "Night") {
+			if (up) nightCoreLevel++;
+			else 
+				if (nightCoreLevel != 0) nightCoreLevel--;
 		}
 
-		if (!up) {
-			Game.control.ui.PlayToast ("Power Down");
-		}
-			
-		shoot.UpdateShootLevel ();
+		Game.control.ui.LEFT_SIDE_PANEL.UpdatePower("Day", dayCoreLevel);
+		Game.control.ui.LEFT_SIDE_PANEL.UpdatePower("Night", nightCoreLevel);
+
+		//Debug.Log("day core level " + dayCoreLevel);
+		//Debug.Log("night core level " + nightCoreLevel);
+		shoot.UpdateShootLevel (dayCoreLevel, nightCoreLevel);
 	}
 
 }

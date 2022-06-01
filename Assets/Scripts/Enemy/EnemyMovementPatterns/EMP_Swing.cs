@@ -16,7 +16,7 @@ public class EMP_Swing : EnemyMovementPattern
     }
 
     public override IEnumerator ExecuteRoutine(EnemyMovement m){
-        UpdateDirection(Game.control.enemyLib.enterLeft.x, 8);
+        UpdateDirection(Game.control.vectorLib.enterLeft.x, 8);
 		yield return new WaitForSeconds (1f);
 		RotateOnAxis (50f * speed);
 		yield return new WaitForSeconds (4f);

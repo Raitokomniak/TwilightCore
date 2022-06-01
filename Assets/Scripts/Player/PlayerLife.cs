@@ -18,10 +18,14 @@ public class PlayerLife : MonoBehaviour {
 	}
 
 	void Update(){
+		DevGodMode(); ///////////////////////////////////////////////////////////////
 		if(!invulnerable)
 			GetComponent<SpriteRenderer> ().enabled = true;
 	}
 
+	void DevGodMode(){
+		invulnerable = true;
+	}
 	public void TakeHit()
 	{
 		if(!invulnerable && !Game.control.stageHandler.gameOver){

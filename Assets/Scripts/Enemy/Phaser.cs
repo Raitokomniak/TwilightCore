@@ -6,7 +6,7 @@ using UnityEngine;
 public class Phaser : MonoBehaviour {
 	public EnemyShoot enemy;
     public EnemyMovement enemyMove;
-	public EnemyLib lib;
+	public VectorLib vectorLib;
 
 	public List<EnemyMovementPattern> movementPatterns;
 	public List<Pattern> patterns;
@@ -36,7 +36,8 @@ public class Phaser : MonoBehaviour {
 		enemy = GetComponent<EnemyShoot>();
         enemyMove = GetComponent<EnemyMovement>();
 
-		lib = Game.control.enemyLib;
+		//lib = Game.control.enemyLib;
+		vectorLib = Game.control.vectorLib;
 		movementPatterns = new List<EnemyMovementPattern> ();
 		patterns = new List<Pattern> ();
 		bossPhase = -1;
@@ -45,7 +46,7 @@ public class Phaser : MonoBehaviour {
 	public void ResetLists(){
 		patterns = new List<Pattern>();
 		movementPatterns = new List<EnemyMovementPattern>();
-		lib = Game.control.enemyLib;
+	//	lib = Game.control.enemyLib;
 	}
 
 	void LateUpdate(){

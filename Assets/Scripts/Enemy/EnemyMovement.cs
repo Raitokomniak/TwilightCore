@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyMovement : MonoBehaviour {
 	public EnemyMovementPattern movementPattern;
-	EnemyLib lib;
+	VectorLib lib;
 	SpriteRenderer spriteRenderer;
 	public bool moving;
 	public bool teleporting;
@@ -11,7 +11,7 @@ public class EnemyMovement : MonoBehaviour {
 
 	void Awake () {
 		spriteRenderer = GetComponent<SpriteRenderer> ();
-		lib = Game.control.enemyLib;
+		lib = Game.control.vectorLib;
 		moving = false;
 	}
 

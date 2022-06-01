@@ -3,9 +3,10 @@ using System.Collections;
 
 public class ProjectileMovement : MonoBehaviour {
 
-	float movementSpeed = 50f;
+	float movementSpeed = 40f;
 	public bool homing;
 	public Vector3 targetPos;
+   
 
 	void Update () {
 		if(transform.position.y < Game.control.ui.WORLD.playAreaTopWall.transform.position.y && !Game.control.pause.paused) {

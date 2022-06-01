@@ -16,7 +16,7 @@ public class Stage : MonoBehaviour
     public Pattern p;
 	public EnemyMovementPattern mp;
 
-    public EnemyLib lib = Game.control.enemyLib;
+    public VectorLib lib = Game.control.vectorLib;
 
     public void UpdateStageInfoToUI(){
         Game.control.ui.RIGHT_SIDE_PANEL.UpdateStage(stageName);

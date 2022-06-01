@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4442655861058145958}
   - component: {fileID: 4442655861058145959}
   - component: {fileID: 4442655861058145952}
+  - component: {fileID: 3448859271703106073}
   - component: {fileID: 4442655861058145954}
   - component: {fileID: 4442655861058145955}
   - component: {fileID: 4442655861058145964}
@@ -81,9 +82,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficultyMultiplier: 0
+  difficultyAsString: 
   gameOver: 0
   stageCompleted: 0
   stageTimer: 0
+  countingStageEndBonuses: 0
+  bossOn: 0
+  bossBonus: 0
   currentStage: 0
   stageTimerOn: 0
   stageOn: 0
@@ -101,7 +106,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handlingDialog: 0
   autoScroll: 0
-  playerActiveSpeaker: 0
+--- !u!114 &3448859271703106073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4442655861058145966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6072c5cc777d649ba427b1f6fffb25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  centerX: 0
+  centerY: 0
+  topCenterY: 0
+  OOBTop: 0
+  OOBBot: 0
+  OOBRight: 0
+  OOBLeft: 0
+  centerTopOOB: {x: 0, y: 0, z: 0}
+  centerTop: {x: 0, y: 0, z: 0}
+  rightWallTopSide: {x: 0, y: 0, z: 0}
+  enterRightWallBotSide: {x: 0, y: 0, z: 0}
+  topWallLeftSide: {x: 0, y: 0, z: 0}
+  topWallRightSide: {x: 0, y: 0, z: 0}
+  botWallLeftSide: {x: 0, y: 0, z: 0}
+  botWallRightSide: {x: 0, y: 0, z: 0}
+  leftWallTopSide: {x: 0, y: 0, z: 0}
+  enterLeftWallBotSide: {x: 0, y: 0, z: 0}
+  enterRight: {x: 0, y: 0, z: 0}
+  enterCenter: {x: 0, y: 0, z: 0}
+  enterCenterBoss: {x: 0, y: 0, z: 0}
+  enterLeft: {x: 0, y: 0, z: 0}
+  leaveRight: {x: 0, y: 0, z: 0}
+  leaveCenter: {x: 0, y: 0, z: 0}
+  leaveLeft: {x: 0, y: 0, z: 0}
 --- !u!114 &4442655861058145954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,8 +157,8 @@ MonoBehaviour:
   environment: {fileID: 0}
   directionalLight: {fileID: 0}
   parent: {fileID: 0}
-  environmentCamera: {fileID: 0}
   planes: []
+  e_camera: {fileID: 0}
 --- !u!114 &4442655861058145955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,15 +171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 318c5e747a843de42868474430ad96f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  centerX: 0
-  centerY: 0
-  rightOut: 0
-  leftOut: 0
-  middleTop: {x: 0, y: 0, z: 0}
-  topRight: {x: 0, y: 0, z: 0}
-  leftTop: {x: 0, y: 0, z: 0}
-  rightTop: {x: 0, y: 0, z: 0}
-  topLeft: {x: 0, y: 0, z: 0}
 --- !u!114 &4442655861058145964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7b326293b79ded428e407d3e10cf40d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreList:
+    allScores: []
   appDataPath: 
 --- !u!114 &4442655861058145965
 MonoBehaviour:
@@ -179,6 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuItems: []
   pauseMenuItems: []
+  yesNoItems: []
   difficultyMenuItems: []
   optionsMenuItems: []
   gameOverMenuItems: []
@@ -195,7 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7bfd4cccb973144a64f2d136938f35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InStages: 0
+  vectorLib: {fileID: 0}
+  spriteLib: {fileID: 0}
   mainMenuUI: {fileID: 0}
   ui: {fileID: 0}
   dialog: {fileID: 0}
@@ -203,10 +238,8 @@ MonoBehaviour:
   io: {fileID: 0}
   scene: {fileID: 0}
   enemySpawner: {fileID: 0}
-  enemyLib: {fileID: 0}
   pause: {fileID: 0}
   player: {fileID: 0}
-  spriteLib: {fileID: 0}
   menu: {fileID: 0}
   options: {fileID: 0}
   soundObject: {fileID: 4442655862132054638}

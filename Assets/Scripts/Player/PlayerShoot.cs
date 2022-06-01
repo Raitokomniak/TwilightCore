@@ -1,72 +1,64 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerShoot : MonoBehaviour {
-	
 	bool init;
-	public float bulletScale;
 
 	float coolDownTimer;
-	float coolDown;
 
 	public int shootLevel;
+	public int dayShootLevel;
+	public int nightShootLevel;
+
+	GameObject projectile;
+	Sprite normalProjectile;
+	Sprite focusProjectile;
+
+	public float projectileScale;
 
 	public GameObject weapon;
-	public ArrayList weapons;
-	public ArrayList weaponsInUse;
+	public List<GameObject> weapons;
+	public List<GameObject> weaponsInUse;
+
+	List<Quaternion> sideWeaponRots;
 
 
 	void Awake () {
 		coolDownTimer = 0f;
-		coolDown = .1f;
-		bulletScale = 1f;
+		projectileScale = 1f;
 		shootLevel = 0;
+		projectile = Resources.Load("Prefabs/playerProjectile") as GameObject;
+		normalProjectile = Resources.Load<Sprite>("Sprites/BulletSprites/starLight_bullet");
+		focusProjectile = Resources.Load<Sprite>("Sprites/BulletSprites/playerProjectileSprite2");
+
+		sideWeaponRots = new List<Quaternion>() {Quaternion.Euler(0,0,0), Quaternion.Euler(0,0,0)};
+		
 	}
 
 	public void Init(){
-		if (weapons != null && weapons.Count > 0) {
-			foreach (GameObject w in weapons) {
-				Destroy (w);
-			}
-		}
-		weapons = new ArrayList ();
-		weaponsInUse = new ArrayList ();
-
-		transform.position = new Vector3 (Game.control.enemyLib.centerX, -8, 0);
-		weapon = Resources.Load<GameObject> ("Sprites/CharacterSprites/maincharweapon");
-
-		weapons.Add ((GameObject)Instantiate(weapon, transform.position + new Vector3(0, 1f, 0), transform.rotation));
-		weapons.Add ((GameObject)Instantiate(weapon, transform.position + new Vector3 (-1f, 0f, 0), transform.rotation)); // 1 left
-		weapons.Add ((GameObject)Instantiate(weapon, transform.position + new Vector3 (1f, 0f, 0), transform.rotation)); //1 right
-		weapons.Add ((GameObject)Instantiate(weapon, transform.position + new Vector3(0, -1f, 0), transform.rotation)); //Homing
-
+		weaponsInUse = new List<GameObject> ();
+		transform.position = new Vector3 (Game.control.vectorLib.centerX, -8, 0);
+		
+		//hidesprites
 		foreach (GameObject w in weapons) {
-			w.transform.SetParent (this.gameObject.transform);
+			w.GetComponent<SpriteRenderer>().enabled = false;
 		}
-
-		for (int i = 0; i < weapons.Count; i++) {
-			GameObject w = (GameObject)weapons [i];
-			w.transform.localScale = Vector3.one;
-			if (i == 3) {
-				w.transform.localScale = new Vector3 (1.5f, 1.5f, 1);
-			}
-		}
+		weapons[0].GetComponent<SpriteRenderer>().enabled = true;
 		weaponsInUse.Add ((GameObject)weapons [0]);
-		UpdateShootLevel ();
+		UpdateShootLevel (0,0);
+
 
 		init = true;
 	}
 
 	void Update () {
-		if(init){
-			if(Input.GetKey	(KeyCode.Z) && CanShoot())
-				Shoot();
-
-			if(coolDownTimer > 0)  coolDownTimer -= Time.deltaTime;
-		}
+		if(Input.GetKey	(KeyCode.Z) && CanShoot()) Shoot();
+		if(coolDownTimer > 0)  coolDownTimer -= Time.deltaTime;
 	}
 
 	public bool CanShoot(){
+		if(!init) return false;
 		if(Game.control.menu.menuOn) return false;
 		if(coolDownTimer > 0) return false;
 		if(Game.control.stageHandler.gameOver) return false;
@@ -84,37 +76,61 @@ public class PlayerShoot : MonoBehaviour {
 	void Shoot()
 	{
 		Vector3 newPosition;
-		Quaternion newRotation;
+		Quaternion newRotation = Quaternion.Euler(0,0,0);
 		Game.control.sound.PlaySound("Player", "Shoot", true);
 
 		for (int i = 0; i < weaponsInUse.Count; i++) {
-			GameObject projectile = Resources.Load("Sprites/BulletSprites/playerProjectile") as GameObject;
-
-			GameObject weapon = (GameObject)weapons [i];
-			newPosition = weapon.transform.position + new Vector3(0, 0.5f, 0);
-			newRotation = weapon.transform.rotation;
-			projectile.transform.localScale = new Vector3 (3, 3, 3);
-			if (GetComponent<PlayerMovement> ().focusMode) {
-				projectile.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/BulletSprites/playerProjectileSprite2");
-			}
-			else 
-				projectile.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/BulletSprites/playerProjectileSprite");
+			//get pos rot
+			weapon = (GameObject)weapons [i];
+			newPosition = weapon.transform.position + new Vector3(0, 0.8f, 0);
 			
-			if (i == 3 && !GetComponent<PlayerMovement>().focusMode) {
-				projectile.GetComponent<ProjectileMovement> ().homing = true;
-				projectile.GetComponent<ProjectileMovement> ().targetPos = FindNearestEnemy ();
-				projectile.transform.rotation = Quaternion.FromToRotation (transform.position, projectile.GetComponent<ProjectileMovement> ().targetPos);
-
-			} else {
-				projectile.transform.localScale = new Vector3 (1.5f, 1.5f, 1.5f);
-				projectile.GetComponent<ProjectileMovement> ().homing = false;
+			if(i == 0 || i == 3) newRotation = weapon.transform.rotation;
+			else if(!GetComponent<PlayerMovement> ().focusMode){
+				int randomRot = Random.Range(10,40);
+				if(i==1){
+					newRotation = Quaternion.Euler(0,0, weapon.transform.rotation.z + randomRot);
+				}
+				else if(i==2){
+					newRotation = Quaternion.Euler(0,0, weapon.transform.rotation.z - randomRot);
+				}
 			}
-			GameObject.Instantiate(projectile, newPosition, newRotation);
+			//set srpite
+			SetProjectileSprite();
+			SetProjectileScale(i);
+			GameObject playerProj = GameObject.Instantiate(projectile, newPosition, newRotation);
+			if(!GetComponent<PlayerMovement> ().focusMode){
+				playerProj.GetComponentInChildren<ProjectileRotator>().rotate = true;
+			}
+			
+			
 		}
-		coolDownTimer = coolDown;
-
+		coolDownTimer = Game.control.stageHandler.stats.shootSpeed;
 	}
 
+	void SetProjectileSprite(){
+		if (GetComponent<PlayerMovement> ().focusMode) 
+			 projectile.GetComponentInChildren<SpriteRenderer>().sprite = focusProjectile;
+		else projectile.GetComponentInChildren<SpriteRenderer>().sprite = normalProjectile;
+	}
+
+	void SetProjectileScale(int i){
+		if(shootLevel == 0) {
+			projectile.transform.localScale = new Vector3 (1.5f, 1.5f, 1.5f);
+		}
+		if(shootLevel == 1){
+			projectile.transform.localScale = new Vector3 (2f, 2f, 2f);
+		}
+		if(shootLevel > 1){
+			projectile.transform.localScale = new Vector3 (2.5f, 2.5f, 2.5f);
+		}
+		if(shootLevel > 3 ){
+			if(!GetComponent<PlayerMovement> ().focusMode) projectile.transform.localScale = new Vector3 (4f, 4f, 4f);
+		}
+	}
+
+
+
+	//THIS IS CLEARLY NOT WORKING
 	Vector3 FindNearestEnemy(){
 		Vector3 targetPos = new Vector3();
 		float magnitude = Mathf.Infinity;
@@ -133,57 +149,77 @@ public class PlayerShoot : MonoBehaviour {
 			}
 		}
 
-		if (magnitude > 400)
-			targetPos = Vector3.up;
-		//Debug.Log (targetPos + " and " + magnitude);
+		if (magnitude > 400) targetPos = Vector3.up;
+
 		return targetPos;
 	}
 
-	public void FocusWeapons(int dir){
-		if(weaponsInUse != null) {
-			if (weaponsInUse.Count > 1) {
-				GameObject weapon1 = (GameObject)weaponsInUse [1];
-				GameObject weapon2 = (GameObject)weaponsInUse [2];
-				if (dir > 0) {
-					weapon1.transform.position = transform.position + new Vector3 (-0.4f, 0.8f, 0);
-					weapon2.transform.position = transform.position + new Vector3 (0.4f, 0.8f, 0);
-				} else {
-					weapon1.transform.position = transform.position + new Vector3 (1f, 0f, 0);
-					weapon2.transform.position = transform.position + new Vector3 (-1f, 0f, 0);
-				}
+	public void FocusWeapons(bool focus){
+		if (weaponsInUse.Count > 1) {
+			GameObject weapon1 = weaponsInUse [2];
+			GameObject weapon2 = weaponsInUse [1];
+			if (focus) {
+				weapon1.transform.position = transform.position + new Vector3 (-0.4f, 0.8f, 0);
+				weapon2.transform.position = transform.position + new Vector3 (0.4f, 0.8f, 0);
+				weapon1.transform.rotation = Quaternion.Euler(0,0,0);
+				weapon2.transform.rotation = Quaternion.Euler(0,0,0);
+			} else {
+				weapon1.transform.position = transform.position + new Vector3 (1f, 0f, 0);
+				weapon2.transform.position = transform.position + new Vector3 (-1f, 0f, 0);
+				weapon1.transform.rotation = sideWeaponRots[0];
+				weapon2.transform.rotation = sideWeaponRots[1];
 			}
 		}
 	}
 
-	public void UpdateShootLevel(){
-		coolDown = Game.control.stageHandler.stats.shootSpeed;
-		bulletScale = Game.control.stageHandler.stats.bulletScale;
-		//shootLevel = Game.control.player.shootLevel;
+/*
+	public void UpdateShootLevel(string core, int coreLevel){
+		if(core == "Day") dayShootLevel = coreLevel;
+		if(core == "Night") nightShootLevel = coreLevel;
+	}*/
 
-		foreach (GameObject weapon in weaponsInUse) {
-			weapon.SetActive (false);
+	public void UpdateShootLevel(int dayCoreLevel, int nightCoreLevel){
+		foreach (GameObject weapon in weaponsInUse) weapon.GetComponent<SpriteRenderer>().enabled = false;
+		weaponsInUse.Clear ();
+
+		//get average of core levels. if greater than before, apply
+		float tempShootLevel = Mathf.CeilToInt(dayCoreLevel + nightCoreLevel / 2);
+		if(tempShootLevel != shootLevel) {
+			if(tempShootLevel < shootLevel) Game.control.ui.PlayToast ("Power Down");
+			if(tempShootLevel > shootLevel) Game.control.ui.PlayToast ("Power Up");
+			shootLevel = (int)tempShootLevel;
+		} 
+		
+		//weapon count
+		if(shootLevel >= 0){
+			weaponsInUse.Add (weapons [0]);
+		}
+		if(shootLevel >= 1){
+			weaponsInUse.Add (weapons [1]);
+			weaponsInUse.Add (weapons [2]);
+		}
+		if(shootLevel >= 3){
+			weaponsInUse.Add (weapons [3]);
 		}
 
-		if (shootLevel >= 0) {
-			if (weaponsInUse.Count > 1) {
-				weaponsInUse.Clear ();
-				weaponsInUse.Add ((GameObject)weapons [0]);
+		//set scales
+		if(shootLevel < 1){
+			sideWeaponRots = new List<Quaternion>() {Quaternion.Euler(0,0,0), Quaternion.Euler(0,0,0)};
+		}
+		if(shootLevel >= 1){
+			sideWeaponRots = new List<Quaternion>() {Quaternion.Euler(0,0,-25), Quaternion.Euler(0,0,25)};
+			weaponsInUse[1].transform.rotation = sideWeaponRots[0];
+			weaponsInUse[2].transform.rotation = sideWeaponRots[1];
+			foreach (GameObject weapon in weaponsInUse){
+				weapon.transform.localScale = new Vector3 (1.5f, 1.5f, 1.5f);
 			}
-			if (shootLevel >= 1) {
-				weaponsInUse.Add ((GameObject)weapons [1]);
-				weaponsInUse.Add ((GameObject)weapons [2]);
-			}
-			if (shootLevel >= 2) {
-				weaponsInUse.Add ((GameObject)weapons [3]);
-			}
+		}
+		if(shootLevel > 3){
+			weaponsInUse[3].transform.localScale = new Vector3 (2f, 2f, 2f);
 		}
 
-		foreach (GameObject weapon in weapons) {
-			weapon.SetActive (false);
-		}
-		foreach (GameObject weapon in weaponsInUse) {
-			weapon.SetActive (true);
-		}
+		//ENABLE sprites
+		foreach (GameObject weapon in weaponsInUse) weapon.GetComponent<SpriteRenderer>().enabled = true;
 	}
 
 }

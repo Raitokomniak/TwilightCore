@@ -6,6 +6,9 @@ public class Game : MonoBehaviour {
 
 	public static Game control;
 
+	[SerializeField] public VectorLib vectorLib;
+	[SerializeField] public SpriteLibrary spriteLib;
+
 	[SerializeField] public MainMenuUI mainMenuUI;
 	[SerializeField] public UIController ui;
 	[SerializeField] public DialogController dialog;
@@ -13,10 +16,10 @@ public class Game : MonoBehaviour {
 	[SerializeField] public SaveLoadHandler io;
 	[SerializeField] public SceneHandler scene;
 	[SerializeField] public EnemySpawner enemySpawner;
-	[SerializeField] public EnemyLib enemyLib;
+	
 	[SerializeField] public PauseController pause;
 	[SerializeField] public PlayerHandler player;
-	[SerializeField] public SpriteLibrary spriteLib;
+	
 	[SerializeField] public MenuController menu;
 
 	[SerializeField] public Options options;
@@ -50,7 +53,7 @@ public class Game : MonoBehaviour {
 		scene = GetComponent<SceneHandler> ();
 		enemySpawner = GetComponent<EnemySpawner> ();
 		spriteLib = GetComponent<SpriteLibrary> ();
-		enemyLib = GetComponent<EnemyLib> ();
+		vectorLib = GetComponent<VectorLib> ();
 		pause = GetComponent<PauseController> ();
 		options = GetComponent<Options>();
 
@@ -59,6 +62,9 @@ public class Game : MonoBehaviour {
 
 		menu.InitMenu ();
 		sound.InitSound ();
+
+		//WOULDNT NEED THIS IF DLL
+		Game.control.vectorLib.InitVectorLib();
 	}
 
 	public void MainMenu (){

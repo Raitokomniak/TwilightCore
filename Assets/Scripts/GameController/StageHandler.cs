@@ -9,6 +9,9 @@ public class StageHandler : MonoBehaviour {
 
 	Stage stageScript;
 
+	SpriteLibrary spriteLib;
+	public ArrayList stageWaves;
+
 	public PlayerStats stats;
 
 	public int difficultyMultiplier; //1 easy //3 normal //5 hard //8+ nightmarish
@@ -96,6 +99,38 @@ public class StageHandler : MonoBehaviour {
 		} 
 	}
 
+	public void InitEnemyLib(){
+		spriteLib = Game.control.spriteLib;
+		stageWaves = new ArrayList();
+	}
+
+
+	public void NewWave(Wave w){
+		if (w.isBoss || w.isMidBoss) {
+			w.sprite = spriteLib.SetCharacterSprite ("Boss" + w.bossIndex);
+		}
+		stageWaves.Add(w);
+	}
+
+	public void NewWave(Wave w, List<Vector3> spawnPositions){
+		if (w.isBoss || w.isMidBoss) {
+			w.sprite = spriteLib.SetCharacterSprite ("Boss" + w.bossIndex);
+		}
+		w.spawnPositions = spawnPositions;
+		w.FillPositionsArraysByEnemyCount();
+		stageWaves.Add(w);
+	}
+
+	public void NewWave(Wave w, List<Vector3> spawnPositions, List<Vector3> enterDirections, List<Vector3> leaveDirections){
+		if (w.isBoss || w.isMidBoss) {
+			w.sprite = spriteLib.SetCharacterSprite ("Boss" + w.bossIndex);
+		}
+		w.spawnPositions = spawnPositions;
+		w.enterDirections = enterDirections;
+		w.leaveDirections = leaveDirections;
+		w.FillPositionsArraysByEnemyCount();
+		stageWaves.Add(w);
+	}
 
 	public void ToggleTimer(bool value){
 		stageTimerOn = value;
@@ -222,7 +257,8 @@ public class StageHandler : MonoBehaviour {
 		Game.control.enemySpawner.DestroyAllProjectiles();
 		yield return new WaitForSeconds(1);
 
-		Game.control.enemyLib.InitEnemyLib ();
+		InitEnemyLib ();
+		
 		Game.control.scene.SetUpEnvironment ();
 		Game.control.io.LoadHiscoreByDifficulty(difficultyAsString);
 

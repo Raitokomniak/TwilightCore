@@ -7,8 +7,8 @@ public class EMP_EnterFromTop : EnemyMovementPattern
    // public EMP_EnterFromTop(){}
 
     public EMP_EnterFromTop(){
-        spawnPosition = Game.control.enemyLib.centerTopOOB;
-        enterDir = Game.control.enemyLib.centerTop;
+        spawnPosition = Game.control.vectorLib.centerTopOOB;
+        enterDir = Game.control.vectorLib.centerTop;
         speed = 3f;
     }
 

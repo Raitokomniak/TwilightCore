@@ -73,14 +73,14 @@ public class PlayerMovement : MonoBehaviour
 			movementSpeed = Game.control.stageHandler.stats.movementSpeed * Time.deltaTime / 2;
 			magneticRange.Scale (1);
 			magneticRange.GetComponent<AnimationController> ().rotating = true;
-			GetComponent<PlayerShoot> ().FocusWeapons (1);
+			GetComponent<PlayerShoot> ().FocusWeapons (focus);
 			if(Game.control.ui != null) Game.control.ui.LEFT_SIDE_PANEL.HighLightCoreInUse ("Night");
 		} else if(Game.control.stageHandler.stats != null)  {
 			hitBox.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 0);
 			movementSpeed = Game.control.stageHandler.stats.movementSpeed * Time.deltaTime;
 			magneticRange.Scale (-1);
 			magneticRange.GetComponent<AnimationController> ().rotating = false;
-			GetComponent<PlayerShoot> ().FocusWeapons (-1);
+			GetComponent<PlayerShoot> ().FocusWeapons (focus);
 			if(Game.control.ui != null) Game.control.ui.LEFT_SIDE_PANEL.HighLightCoreInUse ("Day");
 		}
 	}

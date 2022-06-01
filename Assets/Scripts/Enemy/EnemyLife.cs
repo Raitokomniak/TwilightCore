@@ -113,10 +113,12 @@ public class EnemyLife : MonoBehaviour {
 
 	void DropLoot(string type){
 		if(type == "Core"){
-			if(Random.Range(0, 2) == 0)
-				Instantiate(Resources.Load("Prefabs/nightCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
-			else 
-				Instantiate(Resources.Load("Prefabs/dayCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
+			for(int i = 0; i < 2; i++){  //////////////////////// MORE POINTS DELEETEEE
+				if(Random.Range(0, 2) == 0)
+					Instantiate(Resources.Load("Prefabs/nightCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
+				else 
+					Instantiate(Resources.Load("Prefabs/dayCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
+			}
 		}
 		if(type == "Exp"){
 			for(int i = 0; i < 9; i++){
