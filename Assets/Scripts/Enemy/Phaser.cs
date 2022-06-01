@@ -101,6 +101,8 @@ public class Phaser : MonoBehaviour {
 	}
 
 	public void NextPhase() {
+		GetComponent<EnemyLife>().DropLoot("Core");
+		GetComponent<EnemyLife>().DropLoot("Core");
 		
 		nextPhaseRoutine = PhasingTime();
 		StartCoroutine(nextPhaseRoutine);

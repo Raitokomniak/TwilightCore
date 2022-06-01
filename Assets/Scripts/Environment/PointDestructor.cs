@@ -20,7 +20,7 @@ public class PointDestructor : MonoBehaviour {
 
 	void OnTriggerStay2D(Collider2D c)
 	{
-		if (c.tag == "MagneticRange" && !Game.control.player.special.specialAttack) {
+		if (c.tag == "MagneticRange") {
 			onMagneticRange = true;
 		}
 

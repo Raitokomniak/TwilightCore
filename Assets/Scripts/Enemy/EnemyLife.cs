@@ -111,9 +111,9 @@ public class EnemyLife : MonoBehaviour {
 		GetComponent<EnemyShoot>().enabled = false;
 	}
 
-	void DropLoot(string type){
+	public void DropLoot(string type){
 		if(type == "Core"){
-			for(int i = 0; i < 2; i++){  //////////////////////// MORE POINTS DELEETEEE
+			for(int i = 0; i < 1; i++){ ////////// MANAGE AMOUNT OF LOOT
 				if(Random.Range(0, 2) == 0)
 					Instantiate(Resources.Load("Prefabs/nightCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
 				else 
