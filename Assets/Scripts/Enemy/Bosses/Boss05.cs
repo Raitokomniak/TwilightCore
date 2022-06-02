@@ -6,6 +6,7 @@ public class Boss05 : Phaser
 {
 	void Awake(){
 		bossIndex = 0.5f;
+		numberOfPhases = 3;
 		ignoreDialog = true;
 	}
 
@@ -48,14 +49,14 @@ public class Boss05 : Phaser
 				patterns[1].bulletMovement = new BMP_Explode(patterns[0], 6f, false);
 				patterns[1].rotationDirection =  -1;
 
-				movementPatterns.Add(enemy.wave.movementPattern);
-				enemyMove.SetUpPatternAndMove (movementPatterns[0]);
+				movementPatterns.Add(shooter.wave.movementPattern);
+				movement.SetUpPatternAndMove (movementPatterns[0]);
 
-				while(Game.control.stageHandler.stageTimer < enemy.wave.spawnTime + 12f)
+				while(Game.control.stageHandler.stageTimer < shooter.wave.spawnTime + 12f)
 				{
 					yield return new WaitForSeconds (2f);
-					enemy.BossShoot (patterns[0]);
-					enemy.BossShoot (patterns[1]);
+					shooter.BossShoot (patterns[0]);
+					shooter.BossShoot (patterns[1]);
 					yield return new WaitForSeconds (2.2f);
 					patterns[0].StopPattern();
 					patterns[1].StopPattern();
@@ -68,6 +69,8 @@ public class Boss05 : Phaser
 				Game.control.ui.WORLD.UpdateTopPlayer (1f);
 				Game.control.ui.BOSS.ShowActivatedPhase ("Twilight Core: Depulsio");
 				GetComponent<EnemyLife>().SetInvulnerable (true);
+				StartPhaseTimer(11);
+				//Game.control.ui.BOSS.StartBossTimer (enemy.wave.movementPattern.stayTime);
 
 				patterns.Add(new P_Spiral(Mathf.CeilToInt(4 * (difficultyMultiplier / 2f))));
 				patterns[0].SetSprite ("Circle", "Glow", "BlackPurple");
@@ -84,17 +87,25 @@ public class Boss05 : Phaser
 				patterns[1].bulletCount = 5 * difficultyMultiplier;
 				patterns[1].rotationDirection = -1;
 
-				while(Game.control.stageHandler.stageTimer < enemy.wave.spawnTime + enemy.wave.movementPattern.stayTime)
+				/*while(Game.control.stageHandler.stageTimer < enemy.wave.spawnTime + enemy.wave.movementPattern.stayTime)
 				{
 					yield return new WaitForSeconds (1f);
 					enemy.BossShoot (patterns[0]);
 					yield return new WaitForSeconds (1f);
 					enemy.BossShoot (patterns[1]);
+				}*/
+
+				while(!endOfPhase)
+				{
+					yield return new WaitForSeconds (1f);
+					shooter.BossShoot (patterns[0]);
+					yield return new WaitForSeconds (1f);
+					shooter.BossShoot (patterns[1]);
 				}
 
 				patterns[0].StopPattern();
 				patterns[1].StopPattern();
-				enemyMove.movementPattern.ForceLeave();
+				movement.movementPattern.ForceLeave();
 				//enemyMove.movementPattern.UpdateDirection(lib.GetVector("XY").x, lib.GetVector("XY").y);
 				yield return new WaitForSeconds(2f);
 				GetComponent<EnemyLife>().Die ();

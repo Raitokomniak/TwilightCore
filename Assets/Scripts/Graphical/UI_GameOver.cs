@@ -53,6 +53,7 @@ public class UI_GameOver : MonoBehaviour
     public void SaveScoreScreen(bool value){
 		saveScoreScreen.SetActive(value);
 		saveScorePrompt.SetActive(false);
+		scoreSaveNameInput.ActivateInputField();
 		scoreInfo.text = Game.control.stageHandler.stats.score.ToString() + " " + Game.control.stageHandler.difficultyAsString;
 	}
     

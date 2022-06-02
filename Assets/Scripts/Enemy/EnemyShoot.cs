@@ -13,10 +13,13 @@ public class EnemyShoot : MonoBehaviour {
 	IEnumerator shootRoutine;
 
 	void Awake () {
-		enemyBullet = Resources.Load("Prefabs/enemyBullet") as GameObject;
-		enemyLife = GetComponent<EnemyLife>();
-
 		wave = Game.control.enemySpawner.curWave;
+		enemyBullet = Resources.Load("Prefabs/enemyBullet") as GameObject;
+		
+		if(wave.isBoss || wave.isMidBoss) enemyLife = GetComponent<BossLife>();
+		else if(tag == "Enemy") enemyLife = GetComponent<EnemyLife>();
+
+		
 		bulletsShot = new ArrayList ();
 	}
 
@@ -33,6 +36,7 @@ public class EnemyShoot : MonoBehaviour {
 	}
 
 	IEnumerator ShootRoutine(){
+		if(tag == "Enemy") enemyLife = GetComponent<EnemyLife>();
 		while (!enemyLife.GetInvulnerableState () && canShoot) {
 			shootRoutine = pattern.Execute (enemyBullet, this);
 			StartCoroutine (shootRoutine);

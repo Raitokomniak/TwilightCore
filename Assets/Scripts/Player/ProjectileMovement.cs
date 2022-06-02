@@ -28,10 +28,6 @@ public class ProjectileMovement : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D c){
-		if (c.GetComponent<EnemyLife>() != null) {
-			c.gameObject.GetComponent<EnemyLife> ().TakeHit (Game.control.stageHandler.stats.damage);
-			Destroy (this.gameObject);
-		}
 		if(c.tag == "EnvironmentalHazard"){
 			Destroy(this.gameObject);
 		}

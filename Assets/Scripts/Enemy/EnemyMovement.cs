@@ -42,22 +42,13 @@ public class EnemyMovement : MonoBehaviour {
 				else transform.position = Vector3.LerpUnclamped (transform.position, movementPattern.targetPos, (movementPattern.speed * Time.deltaTime));
 			}
 			
-
-			
-
 			if (tag == "Boss" || tag == "MidBoss") {
-				Game.control.ui.BOSS.UpdateBossXPos (transform.position.x, !teleporting);
+				Game.control.ui.BOSS.ToggleBossXPos(!teleporting);
+				Game.control.ui.BOSS.UpdateBossXPos (transform.position.x);
 			}
 		}
 
 		CheckOutOfBounds();
-
-		
-	/* 
-		this doesnt work with hideSpriteOnSpawn. if boss1 sprite doesnt reappear after teleport, force it somewhere else
-
-		if(!teleporting && !GetComponent<EnemyLife>().GetInvulnerableState())
-			EnableSprite(true);*/
 	}
 
 	void CheckOutOfBounds(){

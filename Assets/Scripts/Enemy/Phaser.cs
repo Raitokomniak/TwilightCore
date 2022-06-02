@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Phaser : MonoBehaviour {
-	public EnemyShoot enemy;
-    public EnemyMovement enemyMove;
+	public EnemyShoot shooter;
+	public BossLife life;
+    public EnemyMovement movement;
 	public VectorLib vectorLib;
 
 	public List<EnemyMovementPattern> movementPatterns;
@@ -27,49 +28,49 @@ public class Phaser : MonoBehaviour {
 
 
 	public bool timerOn;
-	public bool timerDone;
 	public float phaseTimer;
-	public float phaseTimeCap;
+	public float phaseTime;
+	public int numberOfPhases;
 
 
 	public void Init(){
-		enemy = GetComponent<EnemyShoot>();
-        enemyMove = GetComponent<EnemyMovement>();
-
-		//lib = Game.control.enemyLib;
+		shooter = GetComponent<EnemyShoot>();
+        movement = GetComponent<EnemyMovement>();
 		vectorLib = Game.control.vectorLib;
 		movementPatterns = new List<EnemyMovementPattern> ();
 		patterns = new List<Pattern> ();
+		life = GetComponent<BossLife>();
 		bossPhase = -1;
 	}
 
 	public void ResetLists(){
 		patterns = new List<Pattern>();
 		movementPatterns = new List<EnemyMovementPattern>();
-	//	lib = Game.control.enemyLib;
 	}
 
 	void LateUpdate(){
-		if(timerOn) timerDone = PhaseTimer();
+		if(timerOn) PhaseTimer();
 	}
 
-	public bool PhaseTimer(){
-		if(endOfPhase) {
-			timerDone = true;
-			StopTimer();
-			return true;
+	public void PhaseTimer(){
+		if(phaseTimer > 0){
+			phaseTimer-=Time.deltaTime;
+			Game.control.ui.BOSS.UpdateBossTimer(phaseTimer);
 		}
-		if(phaseTimer < phaseTimeCap){
-			phaseTimer+=Time.deltaTime;
-			return false;
-		}
-		else {
-			StopTimer();
-			return true;
-		}
+		else StopPhaseTimer();
 	}
 
-	void StopTimer(){
+	public void StartPhaseTimer(float time){
+		endOfPhase = false;
+		phaseTime = time;
+		phaseTimer = phaseTime;
+		Game.control.ui.BOSS.StartBossTimer(time);
+		timerOn = true;
+	}
+
+	public void StopPhaseTimer(){
+		Game.control.ui.BOSS.HideBossTimer();
+		endOfPhase = true;
 		timerOn = false;
 	}
 	
@@ -101,24 +102,32 @@ public class Phaser : MonoBehaviour {
 	}
 
 	public void NextPhase() {
-		GetComponent<EnemyLife>().DropLoot("Core");
-		GetComponent<EnemyLife>().DropLoot("Core");
-		
-		nextPhaseRoutine = PhasingTime();
-		StartCoroutine(nextPhaseRoutine);
+		StopPhaseTimer();
+		if(superPhase) life.NextHealthBar();
+		if(bossPhase == numberOfPhases - 1) life.Die ();
+		else {
+			life.DropLoot("Core");
+			life.DropLoot("Core");
+			
+			nextPhaseRoutine = PhasingTime();
+			StartCoroutine(nextPhaseRoutine);
+		}
 	}
 
 	IEnumerator PhasingTime() {
 		if(!start) InterruptPreviousPhase();
 		else start = false;
-		GetComponent<EnemyLife>().SetInvulnerable(true);
+		life.SetInvulnerable(true);
 		if(!ignoreDialog) yield return new WaitUntil (() => Game.control.dialog.handlingDialog == false);
 		yield return new WaitUntil (() => routineOver == true);
 		yield return new WaitForSeconds(.5f);
+		
 		bossPhase++;
 		routineOver = false;
 		endOfPhase = false;
-		GetComponent<EnemyLife>().SetInvulnerable(false);
+		
+		life.SetInvulnerable(false);
+		if(bossPhase > 0 && bossPhase % 2 != 0) superPhase = true;
 		ExecutePhase (bossPhase, this);
 		Game.control.ui.WORLD.UpdateTopPlayer ("Boss" + bossIndex + "_" + (bossPhase));
 	}

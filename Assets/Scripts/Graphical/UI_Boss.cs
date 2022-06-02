@@ -19,10 +19,6 @@ public class UI_Boss : MonoBehaviour
 	public TextMeshProUGUI bossSpellText;
 	public TextMeshProUGUI bossTimer;
 
-	//THESE MIGHT NOT BELONG HERE, MOVE THEM SOMEWHERE ELSE
-	float bossStayTimer;
-	float bossStayTime;
-	bool bossStayTimerOn;
 
     void Awake(){
         ToggleBossHealthSlider(false, 0, "");
@@ -35,37 +31,20 @@ public class UI_Boss : MonoBehaviour
 		bossNamePanel.SetActive (false);
 	}
 
-    void Update(){
-		if(bossStayTimerOn) {
-			if(bossStayTimer > 0){
-				bossStayTimer-=Time.deltaTime;
-				UpdateBossTimer(bossStayTimer);
-			}
-			else {
-				HideBossTimer();
-			}
-		}
-    }
-
-    public void UpdateBossXPos(float posX, bool enabled){
-		if (enabled)
-			bossX.SetActive (true);
-		else
-			bossX.SetActive (false);
-		
+    public void UpdateBossXPos(float posX){
 		bossX.transform.position = new Vector3 (posX, bossX.transform.position.y, 0);
 	}
 
+	public void ToggleBossXPos(bool toggle){
+		bossX.SetActive(toggle);
+	}
+
 	public void HideBossTimer(){
-		bossStayTimerOn = false;
 		bossTimer.gameObject.SetActive(false);
 	}
 	public void StartBossTimer(float time){
 		bossTimer.gameObject.SetActive(true);
-		bossStayTime = time;
-		bossStayTimer = time;
 		bossTimer.text = time.ToString("F1");
-		bossStayTimerOn = true;
 	}
 
 	public void UpdateBossTimer(float value){

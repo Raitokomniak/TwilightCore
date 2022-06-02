@@ -18,6 +18,13 @@ public class EnemySpawner : MonoBehaviour {
 		DestroyAllProjectiles ();
 	}
 
+	public bool MidBossDead(){
+		if(midBossWave != null)
+			if(midBossWave.dead) return true;
+			else return false;
+		else return true;
+	}
+
 	IEnumerator SpawnerRoutine(){
 		Game.control.stageHandler.ToggleTimer(true);
 		foreach (Wave wave in waves) {
@@ -73,7 +80,10 @@ public class EnemySpawner : MonoBehaviour {
 
 	public IEnumerator Spawn(Wave wave){
 		for(int i = 0; i < wave.enemyCounter; i++){
-			if(spawnerOn) wave.Spawn (currentWave, i);
+			if(spawnerOn) {
+				if(wave.isBoss || wave.isMidBoss) wave.SpawnBoss ();
+				else wave.Spawn (i);
+			}
 			else break;
 			yield return new WaitForSeconds (1f);
 		}

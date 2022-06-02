@@ -173,8 +173,9 @@ public class StageHandler : MonoBehaviour {
 		if(stageScript != null) stageScript.StopStage();
 
 		Game.control.menu.Menu("SaveScorePrompt");
-		Game.control.ui.GAMEOVER.GameOverScreen (true);
-
+		if(death) Game.control.ui.GAMEOVER.GameOverScreen (true);
+		else Game.control.ui.GAMEOVER.GameCompleteScreen (true);
+		
 		stageOn = false;
 		stageTimerOn = false;
 		Game.control.enemySpawner.AbortSpawner();

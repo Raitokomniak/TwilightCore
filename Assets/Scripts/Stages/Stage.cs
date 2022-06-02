@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Stage : MonoBehaviour
 {
+    public EnemySpawner spawner = Game.control.enemySpawner;
+    public DialogController dialog = Game.control.dialog;
+    public StageHandler stageHandler = Game.control.stageHandler;
+
     public string stageName;
     public string bgmName;
     public int stageindex;
 
-	public StageHandler stageHandler;
+	
     public SceneHandler scene;
 	public IEnumerator stageHandlerRoutine;
     public Wave boss;
