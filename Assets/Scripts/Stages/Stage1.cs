@@ -22,24 +22,24 @@ public class Stage1 : Stage
 
 
 	IEnumerator StageHandlerRoutine(){
-		scene.SetPlaneSpeed(15f);
+		scene.SetPlaneSpeed(50f);
 		while (dialog.handlingDialog) yield return null;
 		dialog.StartDialog ("Stage1_0");
 
 		while (stageHandler.stageTimer < 8f) yield return null;
 		scene.SetPlaneSpeed (10f);
-		scene.e_camera.Rotate (new Vector3(35, 0, 0));
+		scene.e_camera.Rotate (new Vector3(65, 0, 0));
 
 		while (stageHandler.stageTimer < 14f) yield return null;
-		scene.e_camera.Rotate (new Vector3(35, 0, -5));
+		scene.e_camera.Rotate (new Vector3(65, 0, -5));
 		scene.SetPlaneSpeed (1f);
 		while (stageHandler.stageTimer < 24f) yield return null;
 		Game.control.ui.PlayStageToast();
 
-		scene.e_camera.Move (new Vector3(50, 0, 72));
-		scene.e_camera.Rotate (new Vector3(25, 0, 5));
+		scene.e_camera.Move (new Vector3(50, 45, 72));
+		scene.e_camera.Rotate (new Vector3(65, 0, 5));
 
-		scene.SetPlaneSpeed (10f);
+		scene.SetPlaneSpeed (50f);
 		while(stageHandler.stageTimer < 52f) yield return null;
 		dialog.StartDialog ("Stage1_1");
 		while (stageHandler.stageTimer < 55f) yield return null;
@@ -48,7 +48,7 @@ public class Stage1 : Stage
 		yield return new WaitForSeconds (.5f);
 		dialog.StartDialog ("Stage1_2");
 		while (dialog.handlingDialog) yield return null;
-		scene.SetPlaneSpeed (15f);
+		scene.SetPlaneSpeed (35f);
 
 		while (stageHandler.stageTimer < boss.spawnTime - 1) yield return null;
 

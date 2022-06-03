@@ -17,7 +17,7 @@ public class DialogController : MonoBehaviour {
 	
 
 	void LateUpdate () {
-		if(!Game.control.pause.paused && handlingDialog){
+		if(AllowInput()){
 			if(autoScroll){
 
 				if(autoScrollTimer < autoScrollTime)
@@ -31,6 +31,12 @@ public class DialogController : MonoBehaviour {
 		}
 	}
 
+	bool AllowInput(){
+		if(Game.control.stageHandler.loading) return false;
+		if(Game.control.pause.paused) return false;
+		if(!handlingDialog) return false; 
+		return true;
+	}
 	void AdvanceDialog(){
 		advanceDialogTrigger = true;
 		autoScrollTimer = 0;
@@ -50,6 +56,7 @@ public class DialogController : MonoBehaviour {
 
 	public void StartDialog(string _phase)
 	{	
+
 		Game.control.ui.DIALOG.ToggleDialog(true);
 		
 		if(!_phase.Contains("Boss")) Game.control.ui.DIALOG.InitPlayerSpeaker();
@@ -61,16 +68,21 @@ public class DialogController : MonoBehaviour {
 		lineList.InsertRange(0, dialogueText.text.Split("\n" [0]));
 		lineIndex = -1;
 
-		handlingDialog = true;
 		dialogRoutine = DialogRoutine();
 		StartCoroutine(dialogRoutine);
 	}
 		
 
 	IEnumerator DialogRoutine(){
+		bool waitStart = true;
 		while(!endOfDialogueChain){
 			GetDialog ();
 			handlingDialog = true;
+			if(waitStart) { 
+				yield return new WaitForSeconds(.5f); 
+				waitStart = false;
+			}
+
 			yield return new WaitUntil(() => advanceDialogTrigger == true);
 			advanceDialogTrigger = false;
 		}

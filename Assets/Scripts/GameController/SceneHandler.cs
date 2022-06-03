@@ -12,7 +12,7 @@ public class SceneHandler : MonoBehaviour
 
 	public void SetUpEnvironment ()
 	{
-		planes = new GameObject[3];
+		planes = new GameObject[4];
 		parent = GameObject.Find ("EnvironmentParent");
 		directionalLight = (GameObject)Instantiate (Resources.Load ("Prefabs/Environment/Stage" + Game.control.stageHandler.currentStage + "_DirectionalLight"));
 		directionalLight.transform.SetParent(parent.transform);
@@ -20,7 +20,7 @@ public class SceneHandler : MonoBehaviour
 		if (!GameObject.Find ("Environment")) {
 			environment = (GameObject)Instantiate (Resources.Load ("Prefabs/Environment/Stage" + Game.control.stageHandler.currentStage + "_Environment"));
 			environment.transform.SetParent (parent.transform);
-			environment.GetComponent<EnvironmentController> ().SetStartPosition (new Vector3 (40.5f, -13, 88.1f));
+			environment.GetComponent<EnvironmentController> ().SetStartPosition (new Vector3 (85.5f, -13, 88.1f));
 			environment.name = "Environment";
 		}
 
@@ -38,11 +38,19 @@ public class SceneHandler : MonoBehaviour
 			environmentClone2.GetComponent<EnvironmentController> ().SetStartPosition (environment.transform.position + new Vector3 (0, 0, 95.8f));
 			environmentClone2 = GameObject.Find ("Environment");
 		}
+		if (!GameObject.Find ("Environment4")) {
+			GameObject environmentClone3 = (GameObject)Instantiate (environment, environment.transform.position + new Vector3 (0, 0, 143.7f), environment.transform.rotation);
+			environmentClone3.transform.SetParent (environment.transform.parent);
+			environmentClone3.name = "Environment4";
+			environmentClone3.GetComponent<EnvironmentController> ().SetStartPosition (environment.transform.position + new Vector3 (0, 0, 143.7f));
+			environmentClone3 = GameObject.Find ("Environment");
+		}
 		environment = GameObject.Find ("Environment");
 
 		planes [0] = GameObject.Find ("Environment");
 		planes [1] = GameObject.Find ("Environment2");
 		planes [2] = GameObject.Find ("Environment3");
+		planes [3] = GameObject.Find ("Environment4");
 
 		e_camera = GameObject.Find ("EnvironmentCamera").GetComponent<CameraController>();
 	}

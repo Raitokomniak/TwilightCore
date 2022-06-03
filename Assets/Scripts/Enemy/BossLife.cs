@@ -72,6 +72,7 @@ public class BossLife : EnemyLife
 		DropLoot("Exp");
 		Game.control.ui.BOSS.HideBossTimer();
 		Game.control.ui.BOSS.ToggleBossHealthSlider (false, 0, "");
+		//DOESN'T BELONG HERE
 		Game.control.ui.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
 		GetComponent<EnemyShoot> ().wave.dead = true;
 		GetComponent<SpriteRenderer>().enabled = false;

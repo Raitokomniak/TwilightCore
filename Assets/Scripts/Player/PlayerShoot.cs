@@ -56,8 +56,9 @@ public class PlayerShoot : MonoBehaviour {
 		if(Input.GetKey	(KeyCode.Z) && CanShoot()) Shoot();
 		if(coolDownTimer > 0)  coolDownTimer -= Time.deltaTime;
 	}
-
+	
 	public bool CanShoot(){
+		if(Game.control.stageHandler.loading) return false;
 		if(!init) return false;
 		if(Game.control.menu.menuOn) return false;
 		if(coolDownTimer > 0) return false;

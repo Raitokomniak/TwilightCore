@@ -21,7 +21,8 @@ public class UI_GameOver : MonoBehaviour
 
 
 	void Update(){
-		if(scoreSaveNameInput.gameObject.activeSelf){
+		
+		if(AllowInput() && scoreSaveNameInput.gameObject.activeSelf){
 			if(Input.GetKeyDown(KeyCode.Return)){
 				//DONT DO LIKE THIS, THIS IS JUST A TEMP SOLUTION
 				if(gameOverImage.gameObject.activeSelf) Game.control.menu.Menu("GameOverMenu");
@@ -30,7 +31,10 @@ public class UI_GameOver : MonoBehaviour
 			}
 		}
 	}
-
+	bool AllowInput(){
+		if(Game.control.stageHandler.loading) return false;
+		return true;
+	}
 	public void GameCompleteScreen(bool value){
 		this.gameObject.SetActive(value);
 		gameOverImage.gameObject.SetActive(false);

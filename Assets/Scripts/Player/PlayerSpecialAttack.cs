@@ -55,6 +55,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 	}
 
 	bool CanUseSpecial(){
+		if(Game.control.stageHandler.loading) return false;
 		if(Game.control.menu.menuOn) return false;
 		if(specialAttack) return false;
 		if(Game.control.dialog.handlingDialog) return false;

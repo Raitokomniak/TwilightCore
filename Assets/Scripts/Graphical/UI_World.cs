@@ -12,6 +12,8 @@ public class UI_World : MonoBehaviour
 	public GameObject playAreaBottomWall;
     public GameObject[] topLayers;
 
+	public Transform pickUpThreshold;
+
 
 	void Awake(){
 		this.gameObject.SetActive(true);
@@ -68,7 +70,7 @@ public class UI_World : MonoBehaviour
 		sprite = Resources.Load<Sprite> ("Images/Backgrounds/TopLayers/" + type);
 		foreach (GameObject layer in topLayers) {
 			layer.GetComponent<Image> ().sprite = sprite;
-			layer.GetComponent<TopLayerParallaxController> ().scrollSpeed = 5f;
+			//layer.GetComponent<TopLayerParallaxController> ().scrollSpeed = 5f;
 		}
 
 		layer1.GetComponent<Image> ().color = new Color (1, 1, 1, 0);

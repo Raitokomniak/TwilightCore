@@ -11,10 +11,12 @@ public class PlayerMovement : MonoBehaviour
 
 	Vector3 forceMoveTarget;
 
+	public bool atPickUpThreshold;
+
 	void Update ()
 	{
 		if(CanMove()) {
-			FocusMode (Input.GetKey (KeyCode.LeftShift));
+			if(AllowInput()) FocusMode (Input.GetKey (KeyCode.LeftShift));
 
 			float hor = Input.GetAxisRaw ("Horizontal");
 			float ver = Input.GetAxisRaw ("Vertical");
@@ -34,11 +36,26 @@ public class PlayerMovement : MonoBehaviour
 			if (hor > 0) //RIGHT 
 				if (transform.position.x <= Game.control.ui.WORLD.GetBoundaries()[3] - .5f) 
 					Move (hor, 0);
+
+			CheckPickUpThreshold();
 		}
 		
 		if(CanForceMove()){
 			transform.position = Vector3.Lerp(transform.position, forceMoveTarget, movementSpeed / 10);
 			//transform.position = Vector3.MoveTowards(transform.position, forceMoveTarget, (movementSpeed * Time.deltaTime) * 4);
+		}
+	}
+	
+	bool AllowInput(){
+		if(Game.control.stageHandler.loading) return false;
+		return true;
+	}
+
+	public void CheckPickUpThreshold(){
+		if(Game.control.ui.WORLD.pickUpThreshold){
+			if(transform.position.y >= Game.control.ui.WORLD.pickUpThreshold.position.y)
+				atPickUpThreshold = true;
+			else atPickUpThreshold = false;
 		}
 	}
 

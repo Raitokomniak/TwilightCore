@@ -23,7 +23,7 @@ public class Stage2 : Stage
 
 	IEnumerator StageHandlerRoutine(){
 		
-		scene.e_camera.SetPosition (new Vector3(50,20,72));
+		scene.e_camera.SetPosition (new Vector3(50,30,72));
 		scene.e_camera.SetRotation (new Vector3(50, 0, 5));
 
 		while (stageHandler.stageTimer < 0.1f) yield return null;
@@ -32,7 +32,7 @@ public class Stage2 : Stage
 
 		while (stageHandler.stageTimer < 26.5f) yield return null;
 		Game.control.ui.PlayStageToast();
-		scene.e_camera.Move (new Vector3(50, 0, 72));
+		scene.e_camera.Move (new Vector3(50, 20, 72));
 		scene.e_camera.Rotate (new Vector3(25, 0, 5));
 		scene.SetPlaneSpeed (10f);
 

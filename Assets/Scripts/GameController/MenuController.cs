@@ -22,7 +22,7 @@ public class MenuController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (menuOn) {
+		if (AllowInput()) {
 			if(context == "MainMenu" || context == "DifficultyMenu"){
 				if (Input.GetKeyDown (KeyCode.UpArrow)) { 	Game.control.mainMenuUI.UpdateMenuSelection (context, MoveUp ()); };
 				if (Input.GetKeyDown (KeyCode.DownArrow)) { Game.control.mainMenuUI.UpdateMenuSelection (context, MoveDown ()); };
@@ -82,7 +82,12 @@ public class MenuController : MonoBehaviour
 			}
 		}
 	}
-
+	
+	bool AllowInput(){
+		if(!menuOn) return false;
+		if(Game.control.stageHandler.loading) return false;
+		return true;
+	}
 	void ClosePauseMenu(){
 		Game.control.pause.HandlePause();
 		menuOn = false;

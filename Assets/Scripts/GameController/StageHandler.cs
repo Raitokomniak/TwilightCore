@@ -30,6 +30,8 @@ public class StageHandler : MonoBehaviour {
 
 	public bool stageOn;
 
+	public bool loading;
+
 	IEnumerator startStageRoutine;
 
 
@@ -41,15 +43,22 @@ public class StageHandler : MonoBehaviour {
 			}
 		}
 		else {
-			if (CanAdvanceStage() && Input.GetKeyDown (KeyCode.Z)) {
-				Game.control.ui.HideStageCompletedScreen();
-				if(currentStage == stageCount) {
-					IEnumerator gameCompleteRoutine =  GameOverRoutine(false);
-					StartCoroutine(gameCompleteRoutine);
+			if(AllowInput()){
+				if (CanAdvanceStage() && Input.GetKeyDown (KeyCode.Z)) {
+					Game.control.ui.HideStageCompletedScreen();
+					if(currentStage == stageCount) {
+						IEnumerator gameCompleteRoutine =  GameOverRoutine(false);
+						StartCoroutine(gameCompleteRoutine);
+					}
+					else NextStage ();
 				}
-				else NextStage ();
 			}
 		}
+	}
+
+	bool AllowInput(){
+		if(loading) return false;
+		return true;
 	}
 
 	bool CanAdvanceStage(){
@@ -246,9 +255,11 @@ public class StageHandler : MonoBehaviour {
 
 
 	IEnumerator StartStageRoutine(){
+		loading = true;
 		yield return new WaitUntil(() => Game.control.enemySpawner.AbortSpawner() == true);
 		AsyncOperation loadScene = SceneManager.LoadSceneAsync("Level1");
 		yield return new WaitUntil(() => loadScene.isDone == true);
+		
 		
 		Game.control.ui = GameObject.Find("StageCanvas").GetComponent<UIController>();
 		Game.control.ui.ToggleLoadingScreen(true);
@@ -279,6 +290,7 @@ public class StageHandler : MonoBehaviour {
 		stageOn = true;
 
 		Game.control.ui.ToggleLoadingScreen(false);
+		loading = false;
 	}
 
 }

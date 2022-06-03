@@ -3,7 +3,7 @@ using System.Collections;
 public class TopLayerParallaxController : MonoBehaviour {
 
 	public float scrollSpeed;
-	public float tileSize;
+	float tileSize = 34.2f;
 	Vector2 startPosition;
 	public bool moving;
 	
