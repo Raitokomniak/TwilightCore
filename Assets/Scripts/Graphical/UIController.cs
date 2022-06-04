@@ -47,6 +47,7 @@ public class UIController : MonoBehaviour {
 		STAGEEND.gameObject.SetActive(false);
 		GAMEOVER.saveScoreScreen.SetActive(false);
 		GAMEOVER.gameObject.SetActive(false);
+		EFFECT_OVERLAY.gameObject.SetActive(false);
 		TogglePauseScreen(false);
 		DIALOG.dialogPanel.SetActive(false);
 		
@@ -81,6 +82,7 @@ public class UIController : MonoBehaviour {
 	}
 	
 	public void EffectOverlay(string color, bool fadeIn, float fadeTime){
+		EFFECT_OVERLAY.gameObject.SetActive(true);
 		if(color == "White") EFFECT_OVERLAY.color = new Color(1,1,1,0);
 		if(color == "Black") EFFECT_OVERLAY.color = new Color(0,0,0,0);
 		IEnumerator animateRoutine = AnimateOverlay(fadeIn, fadeTime);

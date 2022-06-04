@@ -90,14 +90,14 @@ public class Stage1 : Stage
 		mp.SetEnterLeaveDirection(lib.enterCenter, lib.leaveLeft);
 		p = new P_SingleHoming();
 		p.bulletMovement = new BMP_Explode(p, 0.5f, true);
-		p.SetSprite ("Circle", "Big", "Red");
+		p.SetSprite ("Circle", "Big", "Red", "Big");
 		stage.NewWave (new Wave (3f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"));
 
 		mp = new EMP_EnterLeave(lib.topWallLeftSide, .5f);
 		mp.SetEnterLeaveDirection(lib.enterCenter, lib.leaveLeft);
 		p = new P_SingleHoming();
 		p.bulletMovement = new BMP_Explode(p, 0.5f, true);
-		p.SetSprite ("Circle", "Big", "Red");
+		p.SetSprite ("Circle", "Big", "Red", "Big");
 		stage.NewWave (new Wave (5f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"));
 				
 		
@@ -105,7 +105,7 @@ public class Stage1 : Stage
 		mp.SetEnterLeaveDirection(lib.enterCenter, lib.leaveRight);
 		p = new P_SingleHoming();
 		p.bulletMovement = new BMP_Explode(p, 0.5f, true);
-		p.SetSprite ("Circle", "Big", "Red");
+		p.SetSprite ("Circle", "Big", "Red", "Big");
 		stage.NewWave (new Wave (7f, mp, p, 2, false, 0, 3f / difficultyMultiplier, "default"));
 																				// .6f
 			
@@ -116,14 +116,14 @@ public class Stage1 : Stage
 			mp.SetEnterLeaveDirection(lib.enterCenter, lib.leaveRight);
 			p = new P_SingleHoming();
 			p.bulletMovement = new BMP_Explode(p, 0.5f, true);
-			p.SetSprite ("Circle", "Big", "Red");	
+			p.SetSprite ("Circle", "Big", "Red", "Big");	
 			stage.NewWave (new Wave (8f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"));
 				
 			mp = new EMP_EnterLeave(lib.topWallLeftSide, 2f);
 			mp.SetEnterLeaveDirection(lib.enterCenter, lib.leaveLeft);
 			p = new P_SingleHoming();
 			p.bulletMovement = new BMP_Explode(p, 0.5f, true);
-			p.SetSprite ("Circle", "Big", "Red");	
+			p.SetSprite ("Circle", "Big", "Red", "Big");	
 			stage.NewWave (new Wave (14f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"));
 		}
 
@@ -133,7 +133,7 @@ public class Stage1 : Stage
 		p = new P_Circle();
 		p.bulletCount = Mathf.CeilToInt(2.8f * (difficultyMultiplier / 2));
 		p.bulletMovement = new BMP_Explode(p, 7f, false);
-		p.SetSprite ("Circle", "Glow", "Green");	
+		p.SetSprite ("Circle", "Glow", "Green", "Medium");	
 		stage.NewWave (new Wave (16f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"));
 
 
@@ -141,7 +141,7 @@ public class Stage1 : Stage
 		mp.SetEnterLeaveDirection(lib.enterRight, lib.leaveLeft);
 		p = new P_Circle();
 		p.bulletMovement = new BMP_Explode(p, 7f, false);
-		p.SetSprite ("Circle", "Glow", "Green");	 
+		p.SetSprite ("Circle", "Glow", "Green", "Medium");	 
 		stage.NewWave (new Wave (17f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"));
 
 			
@@ -151,14 +151,14 @@ public class Stage1 : Stage
 		mp.SetEnterLeaveDirection(lib.enterLeft, lib.leaveRight);
 		p = new P_Circle();
 		p.bulletMovement = new BMP_Explode(p, 7f, false);
-		p.SetSprite ("Circle", "Glow", "Green");	 
+		p.SetSprite ("Circle", "Glow", "Green", "Medium");	 
 		stage.NewWave (new Wave (28f, mp, p, 5, false, 0,  3f / difficultyMultiplier,  "default"));
 		
 		mp = new EMP_EnterLeave(lib.rightWallTopSide, 0);
 		mp.SetEnterLeaveDirection(lib.enterRight, lib.leaveLeft);
 		p = new P_Circle();
 		p.bulletMovement = new BMP_Explode(p, 7f, false);
-		p.SetSprite ("Circle", "Glow", "Green");	 
+		p.SetSprite ("Circle", "Glow", "Green", "Medium");	 
 		stage.NewWave (new Wave (31f, mp, p, 5, false, 0,  3f / difficultyMultiplier, "default"));
 												 //31f
 		mp = new EMP_EnterLeave(lib.rightWallTopSide, 0);
@@ -166,7 +166,7 @@ public class Stage1 : Stage
 		p = new P_Circle();
 		p.bulletCount =  10;
 		p.bulletMovement = new BMP_Explode(p, 7f, false);
-		p.SetSprite ("Circle", "Glow", "Green");	 
+		p.SetSprite ("Circle", "Glow", "Green", "Medium");	 
 		stage.NewWave (new Wave (33f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"));
 
 
@@ -175,7 +175,7 @@ public class Stage1 : Stage
 		p = new P_Circle();
 		p.bulletCount =  10;
 		p.bulletMovement = new BMP_Explode(p, 7f, false);
-		p.SetSprite ("Circle", "Glow", "Green");	 
+		p.SetSprite ("Circle", "Glow", "Green", "Medium");	 
 		stage.NewWave (new Wave (36f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"));
 
 
@@ -185,7 +185,7 @@ public class Stage1 : Stage
 		p = new P_Circle();
 		p.bulletCount = Mathf.CeilToInt(4 * difficultyMultiplier);
 		p.bulletMovement = new BMP_Explode(p, 11f, false);
-		p.SetSprite ("Circle", "Glow", "Green");
+		p.SetSprite ("Circle", "Glow", "Green", "Medium");
 		stage.NewWave (new Wave (41f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"));
 
 
@@ -195,7 +195,7 @@ public class Stage1 : Stage
 		p = new P_Circle();
 		p.bulletCount = Mathf.CeilToInt(4 * difficultyMultiplier);
 		p.bulletMovement = new BMP_Explode(p, 11f, false);
-		p.SetSprite ("Circle", "Glow", "Yellow");
+		p.SetSprite ("Circle", "Glow", "Yellow", "Medium");
 		stage.NewWave (new Wave (41.5f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"));
 
 		//MID-BOSS
@@ -213,14 +213,14 @@ public class Stage1 : Stage
 		mp.SetEnterLeaveDirection(lib.enterRight, lib.leaveLeft);
 		p = new P_Circle();
 		p.bulletMovement = new BMP_Explode(p, 7f, false);
-		p.SetSprite ("Circle", "Glow", "Green");	 
+		p.SetSprite ("Circle", "Glow", "Green", "Medium");	 
 		stage.NewWave (new Wave (83f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"));
 
 		mp = new EMP_EnterLeave(lib.rightWallTopSide, 0);
 		mp.SetEnterLeaveDirection(lib.enterRight, lib.leaveLeft);
 		p = new P_Circle();
 		p.bulletMovement = new BMP_Explode(p, 7f, false);
-		p.SetSprite ("Circle", "Glow", "Green");	 
+		p.SetSprite ("Circle", "Glow", "Green", "Medium");	 
 		stage.NewWave (new Wave (87f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "default"));
 
 		mp = new EMP_EnterLeave(lib.leftWallTopSide, 0);
@@ -228,7 +228,7 @@ public class Stage1 : Stage
 		p = new P_Circle();
 		p.bulletCount =  Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
 		p.bulletMovement = new BMP_Explode(p, 7f, false);
-		p.SetSprite ("Circle", "Glow", "Green");	 
+		p.SetSprite ("Circle", "Glow", "Green", "Medium");	 
 		stage.NewWave (new Wave (90f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "default"));
 
 		mp = new EMP_EnterLeave(lib.topWallRightSide, 4);
@@ -237,7 +237,7 @@ public class Stage1 : Stage
 		p = new P_Circle();
 		p.bulletCount =  Mathf.CeilToInt(4 * difficultyMultiplier);
 		p.bulletMovement = new BMP_Explode(p, 11f, false);
-		p.SetSprite ("Circle", "Glow", "Green");	 
+		p.SetSprite ("Circle", "Glow", "Green", "Medium");	 
 		stage.NewWave (new Wave (90f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"));
 
 		mp = new EMP_EnterLeave(lib.topWallLeftSide, 4);
@@ -246,7 +246,7 @@ public class Stage1 : Stage
 		p = new P_Circle();
 		p.bulletCount =  Mathf.CeilToInt(4 * difficultyMultiplier);
 		p.bulletMovement = new BMP_Explode(p, 11f, false);
-		p.SetSprite ("Circle", "Glow", "Yellow");	 
+		p.SetSprite ("Circle", "Glow", "Yellow", "Medium");	 
 		stage.NewWave (new Wave (90.5f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"));
 
 /*

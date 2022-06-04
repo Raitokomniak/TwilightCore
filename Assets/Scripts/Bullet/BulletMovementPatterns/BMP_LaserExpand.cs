@@ -35,10 +35,8 @@ public class BMP_LaserExpand : BulletMovementPattern
 		scale = new Vector3 (0, 0, 0);
 		
         for (float i = 0; i < 50; i++) {
-			scale = new Vector3 (i * 0.02f, i, 1);
+			bullet.transform.localScale = new Vector3 (i * 0.02f, i, 1);
 			bullet.GetComponent<BoxCollider2D> ().size = new Vector2 (i * 0.002f, i);
-			//bullet.transform.position -= new Vector3(0, 0.25f, 0);
-			//_RotateOnAxis (bullet, 1, 100f);
 			yield return new WaitForSeconds (.02f);
 		}
 				
@@ -51,7 +49,7 @@ public class BMP_LaserExpand : BulletMovementPattern
 
 		coll.enabled = true;
 		for (float i = 50; i > 0; i--) {
-			scale = new Vector3 (i * 0.1f, scale.y, 1);
+			bullet.transform.localScale = new Vector3 (i * 0.1f, bullet.transform.localScale.y, 1);
 			yield return new WaitForSeconds (.01f);
 		}
 		GameObject.Destroy (bullet);

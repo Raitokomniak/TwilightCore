@@ -19,6 +19,7 @@ public class BulletMovementPattern
 	public float accelSpeed = 6f;
 	public Quaternion rotation;
 	public Vector3 scale;
+	public bool forceScale = false;
 
 	//private Pattern p;
 	public Pattern pattern;

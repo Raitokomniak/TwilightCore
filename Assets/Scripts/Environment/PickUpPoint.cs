@@ -3,18 +3,19 @@ using System.Collections;
 
 public class PickUpPoint : MonoBehaviour {
 	bool onMagneticRange = false;
-
 	float accelSpeed;
 	
 	void Update () {
-		if(transform.position.y <= Game.control.ui.WORLD.playAreaBottomWall.transform.position.y){
+		if(transform.position.y <= Game.control.vectorLib.OOBBot){
 			Destroy(this.gameObject);
 		}
-		if (onMagneticRange || Game.control.player.movement.atPickUpThreshold) {
+		if(onMagneticRange || Game.control.player.movement.atPickUpThreshold){
 			accelSpeed += Time.deltaTime;
-			Vector3 newPosition = Game.control.player.movement.hitBox.transform.position + new Vector3(0, 1, 0);
-			GetComponent<Rigidbody2D> ().isKinematic = true;
-			transform.position = Vector3.LerpUnclamped (transform.position, newPosition, Time.deltaTime * 9f + accelSpeed);
+			transform.position = Vector3.LerpUnclamped (transform.position, Game.control.player.transform.position, (Time.deltaTime * (20 * accelSpeed)));
+		}
+		else {
+			accelSpeed += Time.deltaTime;
+			transform.position += Vector3.down * (Time.deltaTime * (10 * accelSpeed));
 		}
 	}
 
@@ -23,7 +24,6 @@ public class PickUpPoint : MonoBehaviour {
 		if (c.tag == "MagneticRange") {
 			onMagneticRange = true;
 		}
-
 	}
 
 }

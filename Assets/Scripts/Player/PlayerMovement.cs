@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	public void CheckPickUpThreshold(){
-		if(Game.control.ui.WORLD.pickUpThreshold){
+		if(Game.control.ui){
 			if(transform.position.y >= Game.control.ui.WORLD.pickUpThreshold.position.y)
 				atPickUpThreshold = true;
 			else atPickUpThreshold = false;

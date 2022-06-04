@@ -31,7 +31,8 @@ public class EnemyBulletMovement : MonoBehaviour {
 		float y = transform.position.y;
 		float x = transform.position.x;
 
-		transform.localScale = movement.scale;
+		if(movement.forceScale) transform.localScale = movement.scale;
+		//transform.localScale = movement.scale;
 
 		if(movement.isMoving){
 

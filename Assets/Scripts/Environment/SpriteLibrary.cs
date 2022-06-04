@@ -20,6 +20,12 @@ public class SpriteLibrary : MonoBehaviour {
 		return sprite;
 	}
 
+	public Sprite SetBulletGlow(string shape, string effect, string color){
+		string path = "Sprites/BulletSprites/Glow/" + shape + "_" + effect + "_" + color;
+		Sprite glowSprite = Resources.Load<Sprite> (path);
+		return glowSprite;
+	}
+
 	public Sprite SetCharacterSprite(string name){
 		string path = "Sprites/CharacterSprites/" + name;
 		Sprite sprite = Resources.Load<Sprite> (path);

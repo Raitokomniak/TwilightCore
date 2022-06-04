@@ -32,20 +32,20 @@ public class Boss2 : Phaser
 				Game.control.enemySpawner.DestroyAllEnvironmentalHazards();
 				
 				patterns.Add(new P_Spiral(2 * difficultyMultiplier));
-				patterns[0].SetSprite ("Spider_Glow");
+				patterns[0].SetSprite ("Spider_Glow", "Small");
 				patterns[0].rotationDirection =  1;
 				patterns[0].bulletMovement = new BMP_SlowWaving(patterns[0], 4f, true);
 
 				patterns.Add(new P_SpiderWeb());
 				patterns[1].bulletCount = 2 * difficultyMultiplier;
-				patterns[1].SetSprite ("Circle", "Glow", "Red");
+				patterns[1].SetSprite ("Circle", "Glow", "Red", "Medium");
 
 				patterns.Add(new P_RepeatedHoming());
 				patterns[2].coolDown = 4f / difficultyMultiplier;
 				patterns[2].infinite = false;
 				patterns[2].bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
 				patterns[2].bulletMovement = new BMP_WaitToHome(patterns[2], 20f);
-				patterns[2].SetSprite ("Arrow", "Glow", "Red");	
+				patterns[2].SetSprite ("Arrow", "Glow", "Red", "Small");	
 
 				shooter.BossShoot (patterns[2]);
 				shooter.BossShoot (patterns[2]);
@@ -79,14 +79,14 @@ public class Boss2 : Phaser
 				else patterns[0].bulletCount = 2 * difficultyMultiplier;
 				patterns[0].delayBeforeAttack = 2f;
 				patterns[0].bulletMovement = new BMP_Explode(patterns[0], 6f, false);
-				patterns[0].SetSprite("Circle", "Big", "Red");
+				patterns[0].SetSprite("Circle", "Big", "Red", "Medium");
 
 				patterns.Add(new P_Maelstrom());
 				patterns[1].bulletCount = 2 * difficultyMultiplier;
 				patterns[1].bulletMovement = new BMP_Explode(patterns[1], 6f, false);
 				patterns[1].rotationDirection =  1;
 				patterns[1].infinite = true;
-				patterns[1].SetSprite ("Diamond", "Glow", "Red");
+				patterns[1].SetSprite ("Diamond", "Glow", "Red", "Small");
 
 				movement.SetUpPatternAndMove (movementPatterns[0]);
 				yield return new WaitForSeconds(2);
@@ -115,7 +115,7 @@ public class Boss2 : Phaser
 				//patterns[1].SetSprite ("Spider_Glow");
 				patterns[1].coolDown = .5f;
 				patterns[1].rotationDirection =  2;
-				patterns[1].SetSprite ("Diamond", "Glow", "Red");
+				patterns[1].SetSprite ("Diamond", "Glow", "Red", "Small");
 				patterns[1].bulletCount = 2 * difficultyMultiplier;
 				patterns[1].bulletMovement = new BMP_Explode(patterns[1], 6f, false);
 
@@ -124,7 +124,7 @@ public class Boss2 : Phaser
 				patterns[2].infinite = false;
 				patterns[2].bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
 				patterns[2].bulletMovement = new BMP_WaitToHome(patterns[2], 20f);
-				patterns[2].SetSprite ("Arrow", "Glow", "Red");	
+				patterns[2].SetSprite ("Arrow", "Glow", "Red", "Small");	
 
 				while (!endOfPhase) {
 					
@@ -163,13 +163,13 @@ public class Boss2 : Phaser
 
 				patterns.Add(new P_Spiral(6 * difficultyMultiplier));
 				patterns[1].loopCircles =  288 * 3;
-				patterns[1].SetSprite ("Arrow", "Glow", "Red");
+				patterns[1].SetSprite ("Arrow", "Glow", "Red", "Small");
 				patterns[1].rotationDirection =  1;
 				patterns[1].bulletMovement = new BMP_WaitAndExplode(patterns[1], 6f);
 
 				patterns.Add(new P_Spiral(6 * difficultyMultiplier));
 				patterns[2].loopCircles =  288 * 3;
-				patterns[2].SetSprite ("Arrow", "Glow", "White");
+				patterns[2].SetSprite ("Arrow", "Glow", "White", "Small");
 				patterns[2].rotationDirection =  -1;
 				patterns[2].bulletMovement = new BMP_WaitAndExplode(patterns[2], 6f);
 
@@ -178,7 +178,7 @@ public class Boss2 : Phaser
 				patterns[3].bulletMovement = new BMP_SlowWaving(patterns[3], 3f, true);
 				patterns[3].rotationDirection =  1;
 				patterns[3].infinite = true;
-				patterns[3].SetSprite ("Diamond", "Glow", "Red");
+				patterns[3].SetSprite ("Diamond", "Glow", "Red", "Small");
 
 				shooter.BossShoot(patterns[0]);
 				shooter.BossShoot(patterns[3]);

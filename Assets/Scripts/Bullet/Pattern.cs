@@ -7,10 +7,12 @@ public class Pattern
 	public ArrayList bullets;
 	public EnemyShoot enemyShoot;
 	public Sprite sprite;
+	public Sprite glowSprite;
 
 	public Vector3 newPosition;
 	public Quaternion bulletRotation;
 	public BulletMovementPattern bulletMovement;
+	public float bulletSize = 1;
 
 	public IEnumerator routine;
 	public GameObject enemyBullet;
@@ -68,6 +70,8 @@ public class Pattern
 		bullet.transform.SetParent (GameObject.FindWithTag ("BulletsRepo").transform);
 		bullet.GetComponent<EnemyBulletMovement> ().SetUpBulletMovement (bulletMovement);
 		bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
+		bullet.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = glowSprite;
+		bullet.transform.localScale = new Vector3(bulletSize, bulletSize, bulletSize);
 		if(enemyShoot.bulletsShot != null) enemyShoot.bulletsShot.Add (bullet);
 	}
 
@@ -134,14 +138,25 @@ public class Pattern
 		}
 	}
 
-	public void SetSprite (string shape, string effect, string color)
+	public void SetSprite (string shape, string effect, string color, string size)
 	{
 		sprite = Game.control.spriteLib.SetBulletSprite (shape, effect, color);
+		glowSprite = Game.control.spriteLib.SetBulletGlow (shape, effect, color);
+		SetSize(size);
 	}
 
-	public void SetSprite (string shape)
+	void SetSize(string size){
+		if(size == "Tiny")    bulletSize = 1;
+		if(size == "Small")   bulletSize = 2;
+		if(size == "Medium")  bulletSize = 2.5f;
+		if(size == "Big")     bulletSize = 3.5f;
+		if(size == "Huge")    bulletSize = 5;
+	}
+
+	public void SetSprite (string shape, string size)
 	{
 		sprite = Game.control.spriteLib.SetBulletSprite (shape);
+		SetSize(size);
 	}
 
 }

@@ -13,6 +13,7 @@ public class P_SpiderWebLaser : Pattern
     }
 
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
+        bulletMovement.forceScale = true;
         yield return new WaitForSeconds(delayBeforeAttack);
             
             for (int i = -1; i < bulletCount / 2; i++) {
