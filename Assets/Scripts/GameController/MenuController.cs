@@ -38,6 +38,12 @@ public class MenuController : MonoBehaviour
 		else return false;
 	}
 	
+	bool OtherMenuContext(){
+		if(context == "SaveScoreScreen") return false;
+		if(context == "Hiscores") return false;
+		return true;
+	}
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -48,14 +54,14 @@ public class MenuController : MonoBehaviour
 				if(MainMenuContext()) Game.control.mainMenuUI.UpdateMenuSelection (context, MoveUp ()); 
 				else if(context == "OptionsMenu" && Game.control.mainMenuUI == null) Game.control.ui.UpdateMenuSelection (context, MoveUp ());
 				else if(context == "OptionsMenu" && Game.control.mainMenuUI != null) Game.control.mainMenuUI.UpdateMenuSelection (context, MoveUp ());
-				else Game.control.ui.UpdateMenuSelection (context, MoveUp ());
+				else if(OtherMenuContext()) Game.control.ui.UpdateMenuSelection (context, MoveUp ());
 			}
 			if (CheckInput() == "down") {
 				Game.control.sound.PlayMenuSound("Cursor");
 				if(MainMenuContext()) Game.control.mainMenuUI.UpdateMenuSelection (context, MoveDown ()); 
 				else if(context == "OptionsMenu" && Game.control.mainMenuUI == null) Game.control.ui.UpdateMenuSelection (context, MoveDown ());
 				else if(context == "OptionsMenu" && Game.control.mainMenuUI != null) Game.control.mainMenuUI.UpdateMenuSelection (context, MoveDown ());
-				else Game.control.ui.UpdateMenuSelection (context, MoveDown ());
+				else if(OtherMenuContext()) Game.control.ui.UpdateMenuSelection (context, MoveDown ());
 			}
 			if (CheckInput() == "right") 	{
 				if(context == "OptionsMenu"){
