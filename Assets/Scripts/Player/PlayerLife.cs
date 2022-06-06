@@ -11,6 +11,7 @@ public class PlayerLife : MonoBehaviour {
 
 	public void Init(){
 		lives = Game.control.stageHandler.stats.lives;
+		Game.control.ui.RIGHT_SIDE_PANEL.UpdateMaxLives(Game.control.stageHandler.stats.maxLives);
 		Game.control.ui.RIGHT_SIDE_PANEL.UpdateLives(lives);
 		GetComponent<SpriteRenderer> ().enabled = true;
 		invulnerable = false;

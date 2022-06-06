@@ -26,8 +26,10 @@ public class DialogController : MonoBehaviour {
 					AdvanceDialog();
 			}
 
-			if (Input.GetKeyDown (KeyCode.Z)) 
+			if (Input.GetKeyDown (KeyCode.Z)) {
+				Game.control.sound.PlayMenuSound("Cursor");
 				AdvanceDialog();
+			}
 		}
 	}
 

@@ -13,6 +13,8 @@ public class Hitbox : MonoBehaviour {
 
 	void CheckPickUp(GameObject o){
 		if(o.layer == 6) { //6 == pickup point layer
+			Game.control.sound.PlaySound("Player", "PickUp", true);
+
 			if(o.tag == "ExpPoint") 	  player.GainXP(1);
 			if(o.tag == "DayCorePoint")   player.special.GainCoreCharge ("Day", 2);
 			if(o.tag == "NightCorePoint") player.special.GainCoreCharge ("Night", 2);

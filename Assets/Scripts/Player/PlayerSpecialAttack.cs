@@ -37,9 +37,9 @@ public class PlayerSpecialAttack : MonoBehaviour {
 		nightCoreLevel = 0;
 		nightCorePoints = 0;
 
-		coreCap = 100;
-		dayCoreThreshold = 20;
-		nightCoreThreshold = 20;
+		coreCap = 150;
+		dayCoreThreshold = coreCap / 5;
+		nightCoreThreshold = coreCap / 5;
 	}
 
 	void Update () {
@@ -70,6 +70,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 		DepleteCore (core, true);
 
 		if (core == "Day") {
+			Game.control.sound.PlaySpellSound("Player", "DayCore1");
 			Game.control.ui.ShowActivatedPlayerPhase ("Day Core: Dawnbreaker");
 			daySpecial.SetActive (true);
 			dayAnimatedSprite.GetComponent<AnimationController> ().Scale (1, 1.5f, true, false);
@@ -95,10 +96,11 @@ public class PlayerSpecialAttack : MonoBehaviour {
 				Destroy (bomb);
 			}*/
 			yield return new WaitForSeconds (specialAttackTime);
-			Game.control.enemySpawner.DestroyAllProjectiles();
 			daySpecial.SetActive (false);
 		
 		} else if(core == "Night") {
+			//Game.control.ui.EffectOverlay("NightCore", true, 2);
+			Game.control.sound.PlaySpellSound("Player", "NightCore1");
 			Game.control.ui.ShowActivatedPlayerPhase ("Night Core: Trick or Treat");
 
 			nightSpecial.SetActive (true);
@@ -107,6 +109,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			yield return new WaitForSeconds (specialAttackTime);
 
 			nightAnimatedSprite.GetComponent<AnimationController> ().Scale (-1, 2f, true, true);
+			//Game.control.ui.EffectOverlay("NightCore", false, 2);
 			nightSpecial.SetActive (false);
 		}
 
@@ -116,66 +119,56 @@ public class PlayerSpecialAttack : MonoBehaviour {
 	public void DepleteCore(string core, bool special){
 		int points = 0;
 		int limit;
+		int threshold;
 
 		if (core == "Day") {
 			points = dayCorePoints;
+			threshold = dayCoreThreshold;
 		} else {
 			points = nightCorePoints;
+			threshold = nightCoreThreshold;
 		}
 
-		limit = points - 20;
+		limit = points - threshold;
 		if(limit < 0) limit = 0;
 		
-		if (special) {
-			Game.control.ui.LEFT_SIDE_PANEL.DepleteCoreCharge(core, 4f, points, limit);
-			points = limit;
-		}
-
-		if (!movement.focusMode) {
-			dayCorePoints = limit;
-		} else {
-			nightCorePoints = limit;
-		}
-
 		Game.control.ui.LEFT_SIDE_PANEL.DepleteCoreCharge(core, 4f, points, limit);
-		//Game.control.ui.LEFT_SIDE_PANEL.UpdateCoreCharge (core, points);
+		
+		if (core == "Day") dayCorePoints = limit;
+		else nightCorePoints = limit;
+
 		PowerUpdate (core, false);
 	}
 
 	public void GainCoreCharge(string core, int gainedCharge)
 	{
-		int multiplier = 0;
-		if (core == "Day") 		  multiplier = dayCoreLevel + 1;
-		else if (core == "Night") multiplier = nightCoreLevel + 1;
-
-
-		Game.control.player.GainScore (100 * multiplier);
-
+		int multiplier = 1;
 		int corePoints = 0;
+		int threshold = 0;
 
-		if (core == "Day") {
-			if (dayCorePoints < 100) dayCorePoints += gainedCharge;
-			if (dayCorePoints > 100) dayCorePoints = 100;
-			
-			if (dayCorePoints > dayCoreThreshold * multiplier && dayCorePoints <= 100) {
-				PowerUpdate ("Day", true);
-			} 
-
+		if (core == "Day")   {
+			multiplier = dayCoreLevel + 1;
 			corePoints = dayCorePoints;
-
-		} else if (core == "Night") {
-			if (nightCorePoints < 100) nightCorePoints += gainedCharge;
-			if (nightCorePoints > 100) nightCorePoints = 100;
-
-			if (nightCorePoints > nightCoreThreshold * multiplier && nightCorePoints <= 100) {
-				PowerUpdate ("Night", true);
-			}
-
+			threshold = dayCoreThreshold * multiplier;
+		}
+		else if (core == "Night") {
+			multiplier = nightCoreLevel + 1;
 			corePoints = nightCorePoints;
+			threshold = nightCoreThreshold * multiplier;
 		}
 
+		if 		(corePoints < coreCap) corePoints += gainedCharge;
+		else if (corePoints > coreCap) corePoints = coreCap;
+
+		if(corePoints > threshold && corePoints < coreCap) PowerUpdate (core, true);
+		
+		if(core == "Day") 	 dayCorePoints = corePoints;
+		if (core == "Night") nightCorePoints = corePoints;
+
 		GetComponent<MiniToast>().PlayCorePointToast(gainedCharge, core);
-		Game.control.ui.LEFT_SIDE_PANEL.UpdateCoreCharge (core, corePoints);
+		Game.control.ui.LEFT_SIDE_PANEL.UpdateCoreCharge (core, gainedCharge);
+
+		Game.control.player.GainScore (coreCap * multiplier);
 	}
 
 	public void PowerUpdate(string core, bool up){

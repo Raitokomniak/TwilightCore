@@ -70,7 +70,7 @@ public class BossLife : EnemyLife
 		bossScript.StopCoro();
 		Game.control.enemySpawner.DestroyAllProjectiles();
 		DropLoot("Exp");
-		Game.control.ui.BOSS.HideBossTimer();
+		Game.control.ui.BOSS.HideUI();
 		Game.control.ui.BOSS.ToggleBossHealthSlider (false, 0, "");
 		//DOESN'T BELONG HERE
 		Game.control.ui.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);

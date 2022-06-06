@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SoundController : MonoBehaviour {
 	public bool disableSound;
 
-	AudioSource playerSoundFXSource;
-	AudioSource enemySoundFXSource;
-	AudioSource bgMusicSource;
+	List<AudioSource> SFXsources;
+	AudioSource playerSFXSource;
+	AudioSource enemySFXSource;
+	AudioSource menuSFXSource;
+	AudioSource BGMSource;
 
 	//Music
 	AudioClip BGM_mainmenu;
@@ -15,12 +18,24 @@ public class SoundController : MonoBehaviour {
 
 	AudioClip[] BGM_bossMusic;
 
-	//Sound
+	//SFX
 	AudioClip SFX_shoot;
 	AudioClip SFX_enemyDie;
 	AudioClip SFX_takeHit;
 	AudioClip SFX_bonus;
+	AudioClip SFX_pickUp;
 
+
+	//SpellSFX
+	AudioClip SFX_Spell_Default;
+	AudioClip SFX_Spell_NightCore1;
+	AudioClip SFX_Spell_DayCore1;
+
+	//MenuSFX
+	AudioClip SFX_cursor;
+	AudioClip SFX_selection;
+	AudioClip SFX_pause;
+	AudioClip SFX_cancel;
 
 	//Volumes
 	public float SFXVolume;
@@ -34,8 +49,10 @@ public class SoundController : MonoBehaviour {
 		BGM_mainmenu = Resources.Load ("Sound/Music/MainMenu") as AudioClip;
 
 		BGM_stageMusic = new AudioClip[2];
-		BGM_stageMusic[0] = Resources.Load("Sound/Music/asura-who-remain-asura_piano") as AudioClip; //THIS IS JUST FOR FUN /// Resources.Load ("Sound/Music/Stage1") as AudioClip;
-		BGM_stageMusic[1] = Resources.Load("Sound/Music/stage2") as AudioClip;
+		//BGM_stageMusic[0] = Resources.Load("Sound/Music/asura-who-remain-asura_piano") as AudioClip; //THIS IS JUST FOR FUN /// 
+		BGM_stageMusic[0] = Resources.Load ("Sound/Music/Stage1") as AudioClip;
+		//BGM_stageMusic[1] = Resources.Load("Sound/Music/stage2") as AudioClip;
+		BGM_stageMusic[1] = Resources.Load("Sound/Music/stage2_lulmix") as AudioClip;
 
 		BGM_bossMusic = new AudioClip[2];
 		BGM_bossMusic[0] = Resources.Load ("Sound/Music/Boss1") as AudioClip;
@@ -43,57 +60,88 @@ public class SoundController : MonoBehaviour {
 	}
 
 	void LoadSFX(){
-		SFX_shoot = Resources.Load ("Sound/Shoot") as AudioClip;
-		SFX_takeHit = Resources.Load ("Sound/TakeHit") as AudioClip;
-		SFX_enemyDie = Resources.Load ("Sound/Die") as AudioClip;
-		SFX_bonus = Resources.Load("Sound/Cancel2") as AudioClip;
+		SFX_shoot = Resources.Load ("Sound/SFX/Shoot") as AudioClip;
+		SFX_takeHit = Resources.Load ("Sound/SFX/TakeHit") as AudioClip;
+		SFX_enemyDie = Resources.Load ("Sound/SFX/Die") as AudioClip;
+		SFX_bonus = Resources.Load("Sound/SFX/Cancel2") as AudioClip;
+		SFX_pickUp = Resources.Load("Sound/SFX/Coin") as AudioClip;
+		//SFX_extralife = = Resources.Load("Sound/SFX/Heal8") as AudioClip; //APPLY WHEN IT IS TIME
+		
+		SFX_Spell_Default = Resources.Load ("Sound/SFX/Magic2") as AudioClip;
+		SFX_Spell_NightCore1 = Resources.Load ("Sound/SFX/Magic11") as AudioClip;
+		SFX_Spell_DayCore1 = Resources.Load ("Sound/SFX/Magic8") as AudioClip;
+
+		SFX_cursor = Resources.Load("Sound/SFX/Cursor4") as AudioClip;
+		SFX_selection = Resources.Load("Sound/SFX/Decision1") as AudioClip;
+		SFX_pause = Resources.Load("Sound/SFX/Decision5") as AudioClip;
+		SFX_cancel = Resources.Load("Sound/SFX/Cancel1") as AudioClip;
 	}
 
 	public float GetBGMVolume(){
-		return bgMusicSource.volume;
+		return BGMSource.volume;
 	}
 
 	public void SetBGMVolume(float value){
-		bgMusicSource.volume = value;
+		BGMSource.volume = value;
 	}
 
 	public void SetSFXVolume(float value){
 		SFXVolume = value;
-		playerSoundFXSource.volume = value;
-		enemySoundFXSource.volume = value;
+		foreach(AudioSource s in SFXsources) s.volume = value;
+
+		menuSFXSource.volume = value / 2;
 	}
 
 
 	public void InitSound(){
-		playerSoundFXSource = this.gameObject.AddComponent<AudioSource> ();
-		enemySoundFXSource = this.gameObject.AddComponent<AudioSource> ();
-		bgMusicSource = this.gameObject.AddComponent<AudioSource> ();
+		SFXsources = new List<AudioSource>();
+		playerSFXSource = this.gameObject.AddComponent<AudioSource> ();
+		enemySFXSource =  this.gameObject.AddComponent<AudioSource> ();
+		menuSFXSource =   this.gameObject.AddComponent<AudioSource> ();
+		BGMSource = 	  this.gameObject.AddComponent<AudioSource> ();
+
+		SFXsources.Add(playerSFXSource);
+		SFXsources.Add(enemySFXSource);
+		SFXsources.Add(menuSFXSource);
 
 		SetSFXVolume(1f);
 		SetBGMVolume(1f);
 
 		if(disableSound){
-			playerSoundFXSource.volume = 0;
-			enemySoundFXSource.volume = 0;
-			bgMusicSource.volume = 0;
+			foreach(AudioSource s in SFXsources) s.volume = 0;
+			BGMSource.volume = 0;
 		}
 	}
 
 
-	public void PlaySpellSound(string source){
+	public void PlaySpellSound(string source, string spell){
 		AudioSource s = new AudioSource();
+		AudioClip c = null;
 
-		if(source == "Player")
-			s = playerSoundFXSource;
-		else if (source == "Enemy")
-			s = enemySoundFXSource;
+		if(source == "Player")      s = playerSFXSource;
+		else if (source == "Enemy") s = enemySFXSource;
 
-		s.PlayOneShot (Resources.Load ("Sound/Magic2") as AudioClip);
-		s.PlayOneShot (Resources.Load ("Sound/Darkness8") as AudioClip);
+		if(spell == "Default")	  c = SFX_Spell_Default;
+		if(spell == "NightCore1") c = SFX_Spell_NightCore1;
+		if(spell == "DayCore1")   c = SFX_Spell_DayCore1;
+
+		s.PlayOneShot (c);
 	}
 
 	public void PlayExampleSound(){
-		playerSoundFXSource.PlayOneShot (SFX_shoot);
+		playerSFXSource.PlayOneShot (SFX_shoot);
+	}
+
+	public void PlayMenuSound(string sound){
+		AudioClip c = null;
+
+		if(sound == "Cursor") 	 c = SFX_cursor;
+		if(sound == "Selection") c = SFX_selection;
+		if(sound == "Pause") 	 c = SFX_pause;
+		if(sound == "Cancel") 	 c = SFX_cancel;
+
+		menuSFXSource.PlayOneShot (c);
+
 	}
 	
 	public void PlaySound(string source, string sound, bool oneShot)
@@ -101,24 +149,17 @@ public class SoundController : MonoBehaviour {
 		AudioSource s = null;
 		AudioClip c = null;
 
-		if(sound == "Shoot")
-			c = SFX_shoot;
-		if(sound == "Die")
-			c = SFX_enemyDie;
-		if(sound == "TakeHit")
-			c = SFX_takeHit;
-		if(sound == "Bonus")
-			c = SFX_bonus;
+		if(sound == "Shoot") 	c = SFX_shoot;
+		if(sound == "Die") 		c = SFX_enemyDie;
+		if(sound == "TakeHit")  c = SFX_takeHit;
+		if(sound == "Bonus")	c = SFX_bonus;
+		if(sound == "PickUp")	c = SFX_pickUp;
 
+		if(source == "Player") 		s = playerSFXSource;
+		else if (source == "Enemy") s = enemySFXSource;
 
-		if(source == "Player")
-			s = playerSoundFXSource;
-		else if (source == "Enemy")
-			s = enemySoundFXSource;
-
-		if (oneShot) {
-			s.PlayOneShot (c);
-		} else {
+		if (oneShot) s.PlayOneShot (c);
+		else {
 			s.clip = c;
 			s.Play ();
 		}
@@ -130,23 +171,23 @@ public class SoundController : MonoBehaviour {
 	}
 
 	IEnumerator FadeOutRoutine(){
-		float tempVol = bgMusicSource.volume;
+		float tempVol = BGMSource.volume;
 		for(float i = tempVol; i >= 0; i-=Time.deltaTime){
-			bgMusicSource.volume = i;
+			BGMSource.volume = i;
 			yield return new WaitForSeconds(Time.deltaTime);
 		}
-		bgMusicSource.Stop();
-		bgMusicSource.volume = tempVol;
+		BGMSource.Stop();
+		BGMSource.volume = tempVol;
 	}
 
 	public void PauseMusic(){
-		bgMusicSource.Pause ();
+		BGMSource.Pause ();
 	}
 	public void ResumeMusic(){
-		bgMusicSource.Play ();
+		BGMSource.Play ();
 	}
 	public void StopMusic(){
-		bgMusicSource.Stop ();
+		BGMSource.Stop ();
 	}
 
 	public void PlayMusic(string type){
@@ -154,7 +195,7 @@ public class SoundController : MonoBehaviour {
 	}
 
 	public void PlayMusic(string type, int i){
-		bgMusicSource.Stop ();
+		BGMSource.Stop ();
 		AudioClip c = null;
 		i = i - 1;
 
@@ -165,8 +206,8 @@ public class SoundController : MonoBehaviour {
 		else if(type == "Boss")
 			c = BGM_bossMusic[i];
 
-		bgMusicSource.clip = c;
-		bgMusicSource.loop = true;
+		BGMSource.clip = c;
+		BGMSource.loop = true;
 		ResumeMusic();
 	}
 

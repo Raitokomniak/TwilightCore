@@ -78,7 +78,7 @@ public class Boss1 : Phaser
 				break;
             
 			case 1:
-				Game.control.sound.PlaySpellSound ("Enemy");
+				Game.control.sound.PlaySpellSound ("Enemy", "Default");
 				Game.control.ui.BOSS.ShowActivatedPhase ("Hoodwink: Ninetailed Spear");
 				StartPhaseTimer(30);
 

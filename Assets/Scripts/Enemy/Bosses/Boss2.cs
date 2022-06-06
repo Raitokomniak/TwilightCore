@@ -67,7 +67,7 @@ public class Boss2 : Phaser
 				patterns[2].StopPattern();
 				break;
 			case 1:
-                Game.control.sound.PlaySpellSound ("Enemy");
+                Game.control.sound.PlaySpellSound ("Enemy", "Default");
 				Game.control.ui.BOSS.ShowActivatedPhase ("Indra's Net");
 				StartPhaseTimer(30);
 

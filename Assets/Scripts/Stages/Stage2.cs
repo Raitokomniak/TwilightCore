@@ -105,15 +105,7 @@ public class Stage2 : Stage
 
 */
 
-		mp = new EMP_EnterLeave(lib.topWallLeftSide, 10f);
-		mp.SetEnterLeaveDirection(lib.enterLeft, lib.leaveLeft);
-		mp.disableHitBox = true;
-		mp.hideSpriteOnSpawn = true;
-		p = new P_SpiderWebLaser();
-		p.bulletCount = 1 * Mathf.CeilToInt(difficultyMultiplier);
-		stage.NewWave (new Wave (1f, mp, p, 1, false, 100, 5, "default"));
 
-/*
 		//PHASE 1
 
 		mp = new EMP_EnterLeave(lib.centerTopOOB, 2f);

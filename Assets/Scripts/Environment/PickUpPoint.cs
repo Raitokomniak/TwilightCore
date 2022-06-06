@@ -9,7 +9,10 @@ public class PickUpPoint : MonoBehaviour {
 		if(transform.position.y <= Game.control.vectorLib.OOBBot){
 			Destroy(this.gameObject);
 		}
-		if(onMagneticRange || Game.control.player.movement.atPickUpThreshold){
+		if(Game.control.player.movement.atPickUpThreshold){
+			onMagneticRange = true;
+		}
+		if(onMagneticRange){
 			accelSpeed += Time.deltaTime;
 			transform.position = Vector3.LerpUnclamped (transform.position, Game.control.player.transform.position, (Time.deltaTime * (20 * accelSpeed)));
 		}
@@ -21,9 +24,7 @@ public class PickUpPoint : MonoBehaviour {
 
 	void OnTriggerStay2D(Collider2D c)
 	{
-		if (c.tag == "MagneticRange") {
-			onMagneticRange = true;
-		}
+		if (c.tag == "MagneticRange") onMagneticRange = true;
 	}
 
 }

@@ -6,7 +6,6 @@ using TMPro;
 
 public class UI_LeftSidePanel : MonoBehaviour
 {
-   
 	public Slider dayCoreSlider;
 	public Slider nightCoreSlider;
 
@@ -14,6 +13,7 @@ public class UI_LeftSidePanel : MonoBehaviour
 	public Transform nightMultiplierTexts;
 
     IEnumerator depleteCoreChargeRoutine;
+
 
     public void HighLightCoreInUse(string core)
 	{
@@ -40,6 +40,11 @@ public class UI_LeftSidePanel : MonoBehaviour
 		}
 	}
 
+	public void SetSliderMaxValues(){
+		dayCoreSlider.maxValue = Game.control.player.special.coreCap;
+		nightCoreSlider.maxValue = Game.control.player.special.coreCap;
+	}
+
 	public void EmptyCores(){
 		dayCoreSlider.value = 0;
 		nightCoreSlider.value = 0;
@@ -52,38 +57,30 @@ public class UI_LeftSidePanel : MonoBehaviour
 		if(core == "Day") textContainer = dayMultiplierTexts;
 		if(core == "Night") textContainer = nightMultiplierTexts;
 		
-		//if(power)
 		TextMeshProUGUI[] texts = textContainer.GetComponentsInChildren<TextMeshProUGUI>();
 		foreach(TextMeshProUGUI text in texts){
 			 text.color = new Color(1,1,1,.2f);
 		}
-
-		//if(power == 1) textContainer.GetChild(power - 1).GetComponent<TextMeshProUGUI>().color = new Color(1,1,1,1);
 
 		for(int i = 0; i < power; i++){
 			textContainer.GetChild(power - 1).GetComponent<TextMeshProUGUI>().color = new Color(1,1,1,1);
 		}
 	}
 
-	public void UpdateCoreCharge(string core, int updatedCharge){
-		if (core == "Day") {
-			dayCoreSlider.value = updatedCharge;
-		} else if (core == "Night") {
-			nightCoreSlider.value = updatedCharge;
-		}
+	public void UpdateCoreCharge(string core, int gainedCharge){
+		if 		(core == "Day")   dayCoreSlider.value   += gainedCharge;
+		else if (core == "Night") nightCoreSlider.value += gainedCharge;
 	}
 
-    	public void DepleteCoreCharge(string core, float specialAttackTime, int current, int threshold){
+    public void DepleteCoreCharge(string core, float specialAttackTime, int current, int threshold){
 		depleteCoreChargeRoutine = DepleteCoreChargeRoutine(core, specialAttackTime, current, threshold);
 		StartCoroutine(depleteCoreChargeRoutine);
 	}
 
 	public IEnumerator DepleteCoreChargeRoutine(string core, float specialAttackTime, int current, int threshold){
 		Slider slider = null;
-		if (core == "Day")
-			slider = dayCoreSlider;
-		else if (core == "Night")
-			slider = nightCoreSlider;
+		if (core == "Day") 			slider = dayCoreSlider;
+		else if (core == "Night")	slider = nightCoreSlider;
 		
 		for (float i = current; i > threshold; i -= 1f) {
 			slider.value = i;

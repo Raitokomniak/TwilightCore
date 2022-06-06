@@ -22,13 +22,13 @@ public class UI_Boss : MonoBehaviour
 
     void Awake(){
         ToggleBossHealthSlider(false, 0, "");
-		HideBossTimer();
     }
     
 	public void HideUI(){
 		bossHealthSlider.gameObject.SetActive(false);
 		bossTimer.gameObject.SetActive(false);
 		bossNamePanel.SetActive (false);
+		bossSpellToast.SetActive (false);
 	}
 
     public void UpdateBossXPos(float posX){
@@ -94,10 +94,17 @@ public class UI_Boss : MonoBehaviour
 		}
 	}*/
 
-    public void ShowActivatedPhase(string text)
-	{
-		StartCoroutine (_ShowActivatedBossPhase (text));
+    public void ShowActivatedPhase(string text){
+		bossSpellToast.SetActive (true);
+		bossSpellText.text = text;
 	}
+
+	public void HideSpell(){
+		bossSpellToast.SetActive (false);
+	}
+
+
+/*	Removed for being slightly unnecessary for now
 
 	IEnumerator _ShowActivatedBossPhase(string text){
 		bossSpellToast.SetActive (true);
@@ -115,4 +122,5 @@ public class UI_Boss : MonoBehaviour
 		}
 		bossSpellToast.SetActive (false);
 	}
+	*/
 }

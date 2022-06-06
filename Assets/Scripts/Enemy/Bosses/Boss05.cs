@@ -66,6 +66,7 @@ public class Boss05 : Phaser
 				NextPhase();
 				break;
 			case 2:
+			 	Game.control.sound.PlaySpellSound ("Enemy", "Default");
 				Game.control.ui.BOSS.ShowActivatedPhase ("Twilight Core: Depulsio");
 				GetComponent<EnemyLife>().SetInvulnerable (true);
 				StartPhaseTimer(11);

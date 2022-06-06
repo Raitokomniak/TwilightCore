@@ -95,6 +95,7 @@ public class Phaser : MonoBehaviour {
 
 	public void InterruptPreviousPhase(){
 		endOfPhase = true;
+		Game.control.ui.BOSS.HideSpell();
 		StopPats();
 		StopCoro();
 		foreach(Pattern p in patterns){ p.StopPattern(); }

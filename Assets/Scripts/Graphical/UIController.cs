@@ -54,6 +54,8 @@ public class UIController : MonoBehaviour {
 		WORLD.InitParallaxes();
 		WORLD.ResetTopLayer ();
 
+		LEFT_SIDE_PANEL.SetSliderMaxValues();
+
 		RIGHT_SIDE_PANEL.UpdateDifficulty(Game.control.stageHandler.difficultyAsString);
 		EffectOverlay("Black", false, 1);
 	}
@@ -83,8 +85,9 @@ public class UIController : MonoBehaviour {
 	
 	public void EffectOverlay(string color, bool fadeIn, float fadeTime){
 		EFFECT_OVERLAY.gameObject.SetActive(true);
-		if(color == "White") EFFECT_OVERLAY.color = new Color(1,1,1,0);
-		if(color == "Black") EFFECT_OVERLAY.color = new Color(0,0,0,0);
+		if(color == "White") EFFECT_OVERLAY.color = new Color(1,1,1,1);
+		if(color == "Black") EFFECT_OVERLAY.color = new Color(0,0,0,1);
+		//if(color == "NightCore") EFFECT_OVERLAY.color = new Color(0.06f,0.04f,0.01f,0.47f);
 		IEnumerator animateRoutine = AnimateOverlay(fadeIn, fadeTime);
 		StartCoroutine(animateRoutine);
 	}
@@ -98,16 +101,17 @@ public class UIController : MonoBehaviour {
 		float r = EFFECT_OVERLAY.color.r;
 		float g = EFFECT_OVERLAY.color.g;
 		float b = EFFECT_OVERLAY.color.b;
+		float a = EFFECT_OVERLAY.color.a;
 
 		if(fadeIn){
 			EFFECT_OVERLAY.color = new Color(EFFECT_OVERLAY.color.r,EFFECT_OVERLAY.color.g,EFFECT_OVERLAY.color.b,0);
-			for(float i = 0; i < 1; i+= Time.deltaTime){
+			for(float i = 0; i < a; i+= Time.deltaTime){
 				EFFECT_OVERLAY.color = new Color(r,g,b,i);
 				yield return new WaitForSeconds(fadeTime * Time.deltaTime);
 			}
 		}
 		else {
-			EFFECT_OVERLAY.color = new Color(r,g,b,1);
+			EFFECT_OVERLAY.color = new Color(r,g,b,a);
 			for(float i = 1; i > 0; i-= Time.deltaTime){
 				EFFECT_OVERLAY.color = new Color(r,g,b,i);
 				yield return new WaitForSeconds(fadeTime * Time.deltaTime);
@@ -117,7 +121,7 @@ public class UIController : MonoBehaviour {
 	}
 
 	public void ShowStageCompletedScreen(){
-		BOSS.HideBossTimer();
+		BOSS.HideUI();
 		STAGEEND.gameObject.SetActive(true);
 		STAGEEND.UpdateScoreBreakDown();
 	}

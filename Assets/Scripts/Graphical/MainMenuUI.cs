@@ -25,7 +25,6 @@ public class MainMenuUI : MonoBehaviour
 	}
 
 	public void UpdateMenuSelection(string context, int index){
-
 		if(context == "MainMenu") menuTexts = mainMenuPanel.GetComponentsInChildren<TextMeshProUGUI>();
 		else if(context == "DifficultyMenu") menuTexts = difficultyContainer.GetComponentsInChildren<TextMeshProUGUI>();
 		else if(context == "OptionsMenu") menuTexts = optionsContainer.GetComponentsInChildren<TextMeshProUGUI>();
