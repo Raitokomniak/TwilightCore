@@ -36,96 +36,96 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Bullet\Patterns\P_Spiral.cs" />
-     <Compile Include="Assets\Scripts\Graphical\UI_World.cs" />
-     <Compile Include="Assets\Scripts\Graphical\UI_Dialog.cs" />
-     <Compile Include="Assets\Scripts\Graphical\MainMenuUI.cs" />
-     <Compile Include="Assets\Scripts\Bullet\BulletMovementPattern.cs" />
-     <Compile Include="Assets\Scripts\GameController\Options.cs" />
-     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_Stop.cs" />
-     <Compile Include="Assets\Scripts\Bullet\Patterns\P_Cluster.cs" />
-     <Compile Include="Assets\Scripts\Environment\PickUpPoint.cs" />
      <Compile Include="Assets\Scripts\Graphical\BulletAnimationController.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyShoot.cs" />
-     <Compile Include="Assets\Scripts\GameController\MenuController.cs" />
-     <Compile Include="Assets\Scripts\Graphical\UI_Boss.cs" />
-     <Compile Include="Assets\Scripts\Bullet\Patterns\P_SpiderWeb.cs" />
-     <Compile Include="Assets\Scripts\Bullet\Patterns\P_SpiderWebLaser.cs" />
-     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_WaitAndExplode.cs" />
-     <Compile Include="Assets\Scripts\Enemy\Bosses\Boss05.cs" />
-     <Compile Include="Assets\Scripts\Bullet\Patterns\P_RepeatedHoming.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_EnterFromTop.cs" />
-     <Compile Include="Assets\Scripts\Environment\TopLayerParallaxController.cs" />
-     <Compile Include="Assets\Scripts\Player\ProjectileMovement.cs" />
-     <Compile Include="Assets\Scripts\Graphical\UI_LeftSidePanel.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_EnterLeave.cs" />
-     <Compile Include="Assets\Scripts\Enemy\Bosses\Boss1.cs" />
-     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_DownAndExplode.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyLib.cs" />
-     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_SlowWaving.cs" />
-     <Compile Include="Assets\Scripts\GameController\PauseController.cs" />
-     <Compile Include="Assets\Scripts\Graphical\UI_StageToastPanel.cs" />
-     <Compile Include="Assets\Scripts\Graphical\MiniToast.cs" />
-     <Compile Include="Assets\Scripts\Bullet\Patterns\P_Curtain.cs" />
-     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_TurnToSpears.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPattern.cs" />
-     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_LaserRotate.cs" />
-     <Compile Include="Assets\Scripts\Bullet\Patterns\P_PacMan.cs" />
-     <Compile Include="Assets\Scripts\GameController\DialogController.cs" />
-     <Compile Include="Assets\Scripts\Environment\ParallaxController.cs" />
-     <Compile Include="Assets\Scripts\GameController\SaveLoadHandler.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_Snake.cs" />
-     <Compile Include="Assets\Scripts\Player\Hitbox.cs" />
-     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_LaserPendulum.cs" />
-     <Compile Include="Assets\Scripts\GameController\Game.cs" />
-     <Compile Include="Assets\Scripts\Environment\SpriteLibrary.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_Teleport.cs" />
-     <Compile Include="Assets\Scripts\Environment\EnvironmentController.cs" />
-     <Compile Include="Assets\Scripts\Graphical\UI_StageComplete.cs" />
-     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_Explode.cs" />
-     <Compile Include="Assets\Scripts\Bullet\Patterns\P_SingleHoming.cs" />
-     <Compile Include="Assets\Scripts\Bullet\Patterns\P_Circle.cs" />
-     <Compile Include="Assets\Scripts\Bullet\Patterns\P_Maelstrom.cs" />
+     <Compile Include="Assets\Scripts\Environment\PickUpPoint.cs" />
      <Compile Include="Assets\Scripts\GameController\SoundController.cs" />
-     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_LaserExpand.cs" />
-     <Compile Include="Assets\Scripts\Graphical\UI_RightSidePanel.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyLife.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
-     <Compile Include="Assets\Scripts\Bullet\EnemyBulletMovement.cs" />
-     <Compile Include="Assets\Scripts\Stages\Stage1.cs" />
-     <Compile Include="Assets\Scripts\Bullet\Pattern.cs" />
+     <Compile Include="Assets\Scripts\Environment\TopLayerParallaxController.cs" />
+     <Compile Include="Assets\Scripts\Environment\ParallaxController.cs" />
+     <Compile Include="Assets\Scripts\Environment\CameraController.cs" />
+     <Compile Include="Assets\Scripts\Environment\EnvironmentController.cs" />
+     <Compile Include="Assets\Scripts\Graphical\MiniToast.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyMovement.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyShoot.cs" />
      <Compile Include="Assets\Scripts\Environment\Test3Drotation.cs" />
-     <Compile Include="Assets\Scripts\Bullet\Patterns\P_VoidPortal.cs" />
-     <Compile Include="Assets\Scripts\Graphical\UI_GameOver.cs" />
+     <Compile Include="Assets\Scripts\GameController\Options.cs" />
+     <Compile Include="Assets\Scripts\GameController\Game.cs" />
+     <Compile Include="Assets\Scripts\Graphical\VectorLib.cs" />
+     <Compile Include="Assets\Scripts\GameController\DialogController.cs" />
+     <Compile Include="Assets\Scripts\GameController\SceneHandler.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyLib.cs" />
+     <Compile Include="Assets\Scripts\GameController\PauseController.cs" />
+     <Compile Include="Assets\Scripts\GameController\StageHandler.cs" />
+     <Compile Include="Assets\Scripts\Environment\SpriteLibrary.cs" />
+     <Compile Include="Assets\Scripts\GameController\MenuController.cs" />
      <Compile Include="Assets\Scripts\GameController\EnemySpawner.cs" />
-     <Compile Include="Assets\Scripts\Enemy\Wave.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_Swing.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_Rock.cs" />
+     <Compile Include="Assets\Scripts\GameController\SaveLoadHandler.cs" />
+     <Compile Include="Assets\Scripts\Graphical\AnimationController.cs" />
+     <Compile Include="Assets\Scripts\Player\ProjectileMovement.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerShoot.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerLife.cs" />
-     <Compile Include="Assets\Scripts\Graphical\VectorLib.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerHandler.cs" />
-     <Compile Include="Assets\Scripts\GameController\StageHandler.cs" />
-     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_WaitToHome.cs" />
-     <Compile Include="Assets\Scripts\Graphical\AnimationController.cs" />
-     <Compile Include="Assets\Scripts\Enemy\BossLife.cs" />
-     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_Aurora.cs" />
-     <Compile Include="Assets\Scripts\Environment\CameraController.cs" />
-     <Compile Include="Assets\Scripts\Stages\Stage2.cs" />
-     <Compile Include="Assets\Scripts\GameController\SceneHandler.cs" />
-     <Compile Include="Assets\Scripts\Graphical\UIController.cs" />
-     <Compile Include="Assets\Scripts\Enemy\Phaser.cs" />
-     <Compile Include="Assets\Scripts\Player\MagneticRange.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyMovement.cs" />
-     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_StopAndRotate.cs" />
-     <Compile Include="Assets\Scripts\Enemy\Bosses\Boss2.cs" />
-     <Compile Include="Assets\Scripts\Bullet\Patterns\P_GiantWeb.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_ZigZag.cs" />
-     <Compile Include="Assets\Scripts\Bullet\Patterns\P_Laser.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerSpecialAttack.cs" />
-     <Compile Include="Assets\Scripts\Graphical\ScorePanel.cs" />
      <Compile Include="Assets\Scripts\Bullet\ProjectileRotator.cs" />
+     <Compile Include="Assets\Scripts\Player\Hitbox.cs" />
+     <Compile Include="Assets\Scripts\Player\MagneticRange.cs" />
+     <Compile Include="Assets\Scripts\Bullet\EnemyBulletMovement.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerHandler.cs" />
+     <Compile Include="Assets\Scripts\Graphical\UI_World.cs" />
+     <Compile Include="Assets\Scripts\Graphical\UI_LeftSidePanel.cs" />
+     <Compile Include="Assets\Scripts\Graphical\UI_GameOver.cs" />
+     <Compile Include="Assets\Scripts\Graphical\UI_Dialog.cs" />
+     <Compile Include="Assets\Scripts\Graphical\UIController.cs" />
+     <Compile Include="Assets\Scripts\Graphical\UI_RightSidePanel.cs" />
+     <Compile Include="Assets\Scripts\Graphical\UI_StageToastPanel.cs" />
+     <Compile Include="Assets\Scripts\Graphical\UI_Boss.cs" />
+     <Compile Include="Assets\Scripts\Graphical\UI_StageComplete.cs" />
+     <Compile Include="Assets\Scripts\Enemy\Wave.cs" />
+     <Compile Include="Assets\Scripts\Bullet\Patterns\P_Maelstrom.cs" />
+     <Compile Include="Assets\Scripts\Graphical\ScorePanel.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_Swing.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_Teleport.cs" />
+     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_TurnToSpears.cs" />
+     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_LaserRotate.cs" />
+     <Compile Include="Assets\Scripts\Enemy\Bosses\Boss05.cs" />
+     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_StopAndRotate.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_EnterFromTop.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_Snake.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_EnterLeave.cs" />
+     <Compile Include="Assets\Scripts\Enemy\BossLife.cs" />
+     <Compile Include="Assets\Scripts\Bullet\Patterns\P_PacMan.cs" />
+     <Compile Include="Assets\Scripts\Enemy\Bosses\Boss2.cs" />
+     <Compile Include="Assets\Scripts\Bullet\Patterns\P_Spiral.cs" />
+     <Compile Include="Assets\Scripts\Bullet\Patterns\P_GiantWeb.cs" />
+     <Compile Include="Assets\Scripts\Bullet\Patterns\P_SpiderWebLaser.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_Rock.cs" />
+     <Compile Include="Assets\Scripts\Stages\Stage1.cs" />
+     <Compile Include="Assets\Scripts\Bullet\Patterns\P_VoidPortal.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_ZigZag.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPattern.cs" />
+     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_Explode.cs" />
+     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_LaserPendulum.cs" />
+     <Compile Include="Assets\Scripts\Bullet\Pattern.cs" />
+     <Compile Include="Assets\Scripts\Bullet\Patterns\P_SingleHoming.cs" />
+     <Compile Include="Assets\Scripts\Enemy\Bosses\Boss1.cs" />
+     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_Aurora.cs" />
+     <Compile Include="Assets\Scripts\Graphical\MainMenuUI.cs" />
+     <Compile Include="Assets\Scripts\Bullet\Patterns\P_Curtain.cs" />
+     <Compile Include="Assets\Scripts\Bullet\Patterns\P_Cluster.cs" />
+     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_Stop.cs" />
      <Compile Include="Assets\Scripts\Stages\Stage.cs" />
+     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_SlowWaving.cs" />
+     <Compile Include="Assets\Scripts\Enemy\Phaser.cs" />
+     <Compile Include="Assets\Scripts\Bullet\BulletMovementPattern.cs" />
+     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_WaitToHome.cs" />
+     <Compile Include="Assets\Scripts\Stages\Stage2.cs" />
+     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_WaitAndExplode.cs" />
+     <Compile Include="Assets\Scripts\Bullet\Patterns\P_Circle.cs" />
+     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_LaserExpand.cs" />
+     <Compile Include="Assets\Scripts\Bullet\Patterns\P_Laser.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyLife.cs" />
+     <Compile Include="Assets\Scripts\Bullet\Patterns\P_SpiderWeb.cs" />
+     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_DownAndExplode.cs" />
+     <Compile Include="Assets\Scripts\Bullet\Patterns\P_RepeatedHoming.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Resources\DialogText\Stage1_0.txt" />
@@ -386,7 +386,7 @@
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.1.23f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
-        <HintPath>G:\Unity\TwilightCore\Library\PackageCache\com.unity.visualscripting@1.6.1\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+        <HintPath>G:\Unity\TESTI_CLONE\TwilightCore\Library\PackageCache\com.unity.visualscripting@1.6.1\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.1.23f1\Editor\Data\NetStandard\ref\2.0.0\netstandard.dll</HintPath>
@@ -734,55 +734,55 @@
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.1.23f1\Editor\Data\NetStandard\compat\2.0.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Flow.Editor">
-        <HintPath>G:\Unity\TwilightCore\Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
+        <HintPath>G:\Unity\TESTI_CLONE\TwilightCore\Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-        <HintPath>G:\Unity\TwilightCore\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
+        <HintPath>G:\Unity\TESTI_CLONE\TwilightCore\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-        <HintPath>G:\Unity\TwilightCore\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
+        <HintPath>G:\Unity\TESTI_CLONE\TwilightCore\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
-        <HintPath>G:\Unity\TwilightCore\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
+        <HintPath>G:\Unity\TESTI_CLONE\TwilightCore\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-        <HintPath>G:\Unity\TwilightCore\Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
+        <HintPath>G:\Unity\TESTI_CLONE\TwilightCore\Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-        <HintPath>G:\Unity\TwilightCore\Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
+        <HintPath>G:\Unity\TESTI_CLONE\TwilightCore\Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Core.Editor">
-        <HintPath>G:\Unity\TwilightCore\Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
+        <HintPath>G:\Unity\TESTI_CLONE\TwilightCore\Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-        <HintPath>G:\Unity\TwilightCore\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
+        <HintPath>G:\Unity\TESTI_CLONE\TwilightCore\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.State.Editor">
-        <HintPath>G:\Unity\TwilightCore\Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
+        <HintPath>G:\Unity\TESTI_CLONE\TwilightCore\Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
     </Reference>
     <Reference Include="VSSettingsProvider">
-        <HintPath>G:\Unity\TwilightCore\Library\ScriptAssemblies\VSSettingsProvider.dll</HintPath>
+        <HintPath>G:\Unity\TESTI_CLONE\TwilightCore\Library\ScriptAssemblies\VSSettingsProvider.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Flow">
-        <HintPath>G:\Unity\TwilightCore\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
+        <HintPath>G:\Unity\TESTI_CLONE\TwilightCore\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-        <HintPath>G:\Unity\TwilightCore\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+        <HintPath>G:\Unity\TESTI_CLONE\TwilightCore\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PlasticSCM.Editor">
-        <HintPath>G:\Unity\TwilightCore\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+        <HintPath>G:\Unity\TESTI_CLONE\TwilightCore\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-        <HintPath>G:\Unity\TwilightCore\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
+        <HintPath>G:\Unity\TESTI_CLONE\TwilightCore\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-        <HintPath>G:\Unity\TwilightCore\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+        <HintPath>G:\Unity\TESTI_CLONE\TwilightCore\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
-        <HintPath>G:\Unity\TwilightCore\Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
+        <HintPath>G:\Unity\TESTI_CLONE\TwilightCore\Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Core">
-        <HintPath>G:\Unity\TwilightCore\Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
+        <HintPath>G:\Unity\TESTI_CLONE\TwilightCore\Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
