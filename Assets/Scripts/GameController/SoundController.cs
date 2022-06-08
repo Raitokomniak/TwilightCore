@@ -48,11 +48,12 @@ public class SoundController : MonoBehaviour {
 	void LoadMusic(){
 		BGM_mainmenu = Resources.Load ("Sound/Music/MainMenu") as AudioClip;
 
-		BGM_stageMusic = new AudioClip[2];
+		BGM_stageMusic = new AudioClip[3];
 		BGM_stageMusic[0] = Resources.Load("Sound/Music/asura-who-remain-asura_piano") as AudioClip; //THIS IS JUST FOR FUN /// 
 		//BGM_stageMusic[0] = Resources.Load ("Sound/Music/Stage1") as AudioClip;
 		//BGM_stageMusic[1] = Resources.Load("Sound/Music/stage2") as AudioClip;
 		BGM_stageMusic[1] = Resources.Load("Sound/Music/stage2_lulmix") as AudioClip;
+		BGM_stageMusic[2] = Resources.Load("Sound/Music/asura-who-remain-asura_piano") as AudioClip;
 
 		BGM_bossMusic = new AudioClip[2];
 		BGM_bossMusic[0] = Resources.Load ("Sound/Music/Boss1") as AudioClip;

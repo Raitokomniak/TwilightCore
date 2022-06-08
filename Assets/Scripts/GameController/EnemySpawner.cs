@@ -57,7 +57,7 @@ public class EnemySpawner : MonoBehaviour {
 	{
 		Game.control.stageHandler.InitWaves (currentStage);
 		currentWave = 0;
-		waves = Game.control.stageHandler.stageWaves;
+		waves = Game.control.stageHandler.waves;
 		
 		if(waves.Count != 0) {
 			foreach (Wave w in waves) {
@@ -73,7 +73,8 @@ public class EnemySpawner : MonoBehaviour {
 			StartCoroutine(spawnerRoutine);
 		}
 		else {
-			Game.control.stageHandler.EndHandler("StageComplete");
+			//REMOVE COMMENTS FOR FASTER DEBUG
+			//Game.control.stageHandler.EndHandler("StageComplete");
 		}
 	}
 

@@ -12,7 +12,7 @@ public class Stage1 : Stage
 		scene = Game.control.scene;
 		//stageHandler = Game.control.stageHandler;
 		UpdateStageInfoToUI();
-		InitWaves(stageHandler.difficultyMultiplier);
+		InitWaves(stage.difficultyMultiplier);
 	}
 
 	public override void StartStageHandler(){
@@ -26,23 +26,23 @@ public class Stage1 : Stage
 		while (dialog.handlingDialog) yield return null;
 		dialog.StartDialog ("Stage1_0");
 
-		while (stageHandler.stageTimer < 8f) yield return null;
+		while (stage.stageTimer < 8f) yield return null;
 		scene.SetPlaneSpeed (10f);
 		scene.e_camera.Rotate (new Vector3(65, 0, 0));
 
-		while (stageHandler.stageTimer < 14f) yield return null;
+		while (stage.stageTimer < 14f) yield return null;
 		scene.e_camera.Rotate (new Vector3(65, 0, -5));
 		scene.SetPlaneSpeed (1f);
-		while (stageHandler.stageTimer < 24f) yield return null;
+		while (stage.stageTimer < 24f) yield return null;
 		Game.control.ui.PlayStageToast();
 
 		scene.e_camera.Move (new Vector3(50, 45, 72));
 		scene.e_camera.Rotate (new Vector3(65, 0, 5));
 
 		scene.SetPlaneSpeed (50f);
-		while(stageHandler.stageTimer < 52f) yield return null;
+		while(stage.stageTimer < 52f) yield return null;
 		dialog.StartDialog ("Stage1_1");
-		while (stageHandler.stageTimer < 55f) yield return null;
+		while (stage.stageTimer < 55f) yield return null;
 		
 		while (!spawner.MidBossDead()) yield return null;
 		yield return new WaitForSeconds (.5f);
@@ -50,14 +50,14 @@ public class Stage1 : Stage
 		while (dialog.handlingDialog) yield return null;
 		scene.SetPlaneSpeed (35f);
 
-		while (stageHandler.stageTimer < boss.spawnTime - 1) yield return null;
+		while (stage.stageTimer < boss.spawnTime - 1) yield return null;
 
 		
 		dialog.StartDialog ("Boss1");
 		scene.SetPlaneSpeed (3f);
 
 		while(dialog.handlingDialog) {
-			if(stageHandler.stageTimer > 116.7f) break;
+			if(stage.stageTimer > 116.7f) break;
 			else yield return null;
 		}
 		Game.control.sound.PlayMusic ("Boss", 1);
@@ -65,21 +65,21 @@ public class Stage1 : Stage
 		//USING THIS DISABLES SOME DEBUGGING BECAUSE STAGE DOESNT END IF BOSS DIES BEFORE THIS POINT
 		//MAYBE FOR DEVVING RUN A SIMULTANEOUS ENDCHECKROUTINE THAT BYPASSES ALL THE TIMER CHECKS
 		while(!spawner.bossWave.dead) yield return null;
-		stageHandler.ToggleTimer(false);
+		stage.ToggleTimer(false);
 
-		yield return new WaitUntil(() => stageHandler.CheckIfAllPickUpsGone() == true);
+		yield return new WaitUntil(() => stage.CheckIfAllPickUpsGone() == true);
 		yield return new WaitForSeconds(1f);
 
 		dialog.StartDialog ("Boss1_1");
 		while (dialog.handlingDialog) yield return null;
 		
-		stageHandler.EndHandler ("StageComplete");
+		stage.EndHandler ("StageComplete");
 	}
 
 	public override void InitWaves(float difficultyMultiplier) {
         VectorLib lib = Game.control.vectorLib;
 		StageHandler stage = Game.control.stageHandler;
-		stage.stageWaves.Clear ();
+		stage.waves.Clear ();
 		Pattern p;
 		EnemyMovementPattern mp;
 /*

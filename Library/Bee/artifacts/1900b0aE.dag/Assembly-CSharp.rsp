@@ -401,6 +401,7 @@
 "Assets/Scripts/Stages/Stage.cs"
 "Assets/Scripts/Stages/Stage1.cs"
 "Assets/Scripts/Stages/Stage2.cs"
+"Assets/Scripts/Stages/Stage3.cs"
 -langversion:8.0
 
 /deterministic

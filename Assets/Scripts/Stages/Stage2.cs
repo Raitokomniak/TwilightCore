@@ -10,9 +10,9 @@ public class Stage2 : Stage
 		stageindex = 2;
 
 		scene = Game.control.scene;
-		stageHandler = Game.control.stageHandler;
+		stage = Game.control.stageHandler;
 		UpdateStageInfoToUI();
-		InitWaves(stageHandler.difficultyMultiplier);
+		InitWaves(stage.difficultyMultiplier);
 	}
 	
 
@@ -26,42 +26,42 @@ public class Stage2 : Stage
 		scene.e_camera.SetPosition (new Vector3(80,45,72));
 		scene.e_camera.SetRotation (new Vector3(65, 0, 5));
 
-		while (stageHandler.stageTimer < 0.1f) yield return null;
+		while (stage.stageTimer < 0.1f) yield return null;
 		
 		scene.SetPlaneSpeed (3f);
 
-		while (stageHandler.stageTimer < 26.5f) yield return null;
+		while (stage.stageTimer < 26.5f) yield return null;
 		Game.control.ui.PlayStageToast();
 		scene.e_camera.Move (new Vector3(65, 45, 72));
 		scene.e_camera.Rotate (new Vector3(65, 0, 5));
 		scene.SetPlaneSpeed (10f);
 
 
-		while (stageHandler.stageTimer < 46f) yield return null;
+		while (stage.stageTimer < 46f) yield return null;
 		scene.SetPlaneSpeed (5f);
 		scene.e_camera.Rotate (new Vector3(35, 0, 15));
 
-		while (stageHandler.stageTimer < 50f) yield return null;
+		while (stage.stageTimer < 50f) yield return null;
 		scene.e_camera.Rotate (new Vector3(65, 0, -15));
 
-		while (stageHandler.stageTimer < 52f)  yield return null;
+		while (stage.stageTimer < 52f)  yield return null;
 		scene.e_camera.Rotate (new Vector3(65, 0, 15));
 
-		while (stageHandler.stageTimer < 56f) yield return null;
+		while (stage.stageTimer < 56f) yield return null;
 		scene.e_camera.Rotate (new Vector3(65, 0, 5));
 		
 		scene.SetPlaneSpeed (10f);
 
-		while (stageHandler.stageTimer < 83f) yield return null;
+		while (stage.stageTimer < 83f) yield return null;
 		scene.SetPlaneSpeed (1f);
 
 		while (Game.control.dialog.handlingDialog) yield return null;
-		while (stageHandler.stageTimer < Game.control.enemySpawner.bossWave.spawnTime - 1) yield return null;
+		while (stage.stageTimer < Game.control.enemySpawner.bossWave.spawnTime - 1) yield return null;
 		
 		Game.control.dialog.StartDialog ("Boss2");
 
 		while(Game.control.dialog.handlingDialog) {
-			if(stageHandler.stageTimer > 125.9f) break;
+			if(stage.stageTimer > 125.9f) break;
 			else yield return null;
 		}
 		Game.control.sound.PlayMusic ("Boss", 2);
@@ -87,7 +87,7 @@ public class Stage2 : Stage
 	public override void InitWaves(float difficultyMultiplier) {
 		VectorLib lib = Game.control.vectorLib;
 		StageHandler stage = Game.control.stageHandler;
-		stage.stageWaves.Clear ();
+		stage.waves.Clear ();
 		Pattern p;
 		EnemyMovementPattern mp;
 

@@ -10,7 +10,7 @@ public class StageHandler : MonoBehaviour {
 	Stage stageScript;
 
 	SpriteLibrary spriteLib;
-	public ArrayList stageWaves;
+	public ArrayList waves;
 
 	public PlayerStats stats;
 
@@ -94,7 +94,8 @@ public class StageHandler : MonoBehaviour {
 
 		return bonuses;
 	}
-	
+
+	//THERE MUST BE A BETTER WAY
 	public void InitWaves(int stage){
 		if(stage == 1){
 			gameObject.AddComponent<Stage1>();
@@ -105,12 +106,17 @@ public class StageHandler : MonoBehaviour {
 			if(GetComponent<Stage1>()!=null) Destroy(GetComponent<Stage1>());
 			gameObject.AddComponent<Stage2>();
 			stageScript = GetComponent<Stage2>();
+		}
+		else if(stage == 3){
+			if(GetComponent<Stage2>()!=null) Destroy(GetComponent<Stage2>());
+			gameObject.AddComponent<Stage3>();
+			stageScript = GetComponent<Stage3>();
 		} 
 	}
 
 	public void InitEnemyLib(){
 		spriteLib = Game.control.spriteLib;
-		stageWaves = new ArrayList();
+		waves = new ArrayList();
 	}
 
 
@@ -118,7 +124,7 @@ public class StageHandler : MonoBehaviour {
 		if (w.isBoss || w.isMidBoss) {
 			w.sprite = spriteLib.SetCharacterSprite ("Boss" + w.bossIndex);
 		}
-		stageWaves.Add(w);
+		waves.Add(w);
 	}
 
 	public void NewWave(Wave w, List<Vector3> spawnPositions){
@@ -127,7 +133,7 @@ public class StageHandler : MonoBehaviour {
 		}
 		w.spawnPositions = spawnPositions;
 		w.FillPositionsArraysByEnemyCount();
-		stageWaves.Add(w);
+		waves.Add(w);
 	}
 
 	public void NewWave(Wave w, List<Vector3> spawnPositions, List<Vector3> enterDirections, List<Vector3> leaveDirections){
@@ -138,7 +144,7 @@ public class StageHandler : MonoBehaviour {
 		w.enterDirections = enterDirections;
 		w.leaveDirections = leaveDirections;
 		w.FillPositionsArraysByEnemyCount();
-		stageWaves.Add(w);
+		waves.Add(w);
 	}
 
 	public void ToggleTimer(bool value){
@@ -233,7 +239,7 @@ public class StageHandler : MonoBehaviour {
 
 	public void StartGame(){
 		stats = new PlayerStats();
-		StartStage(2);
+		StartStage(3);
 	}
 
 	public void StartStage (int stage){

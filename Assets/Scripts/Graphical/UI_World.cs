@@ -44,6 +44,12 @@ public class UI_World : MonoBehaviour
 		}
 	}
 
+	public void SetTopLayerSpeed(float speed){
+		foreach (GameObject layer in topLayers) {
+			layer.GetComponent<TopLayerParallaxController> ().scrollSpeed = speed;
+		}
+	}
+
 	public void UpdateTopPlayer(string phase){
 		StartCoroutine (_UpdateTopLayer (phase));
 	}

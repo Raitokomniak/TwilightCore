@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Stage : MonoBehaviour
 {
+
     public EnemySpawner spawner = Game.control.enemySpawner;
     public DialogController dialog = Game.control.dialog;
-    public StageHandler stageHandler = Game.control.stageHandler;
+    public StageHandler stage = Game.control.stageHandler;
 
     public string stageName;
     public string bgmName;
@@ -20,7 +21,7 @@ public class Stage : MonoBehaviour
     public Pattern p;
 	public EnemyMovementPattern mp;
 
-    public VectorLib lib = Game.control.vectorLib;
+    public VectorLib lib;
 
     public void UpdateStageInfoToUI(){
         Game.control.ui.RIGHT_SIDE_PANEL.UpdateStage(stageName);
