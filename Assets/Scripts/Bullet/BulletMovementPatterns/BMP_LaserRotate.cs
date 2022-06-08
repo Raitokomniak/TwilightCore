@@ -12,7 +12,7 @@ public class BMP_LaserRotate : BulletMovementPattern
     public override IEnumerator ExecuteRoutine(){
         dontDestroy = true;
 		centerPoint = bullet.transform.position;
-		bullet.GetComponent<EnemyBulletMovement> ().isLaser = true;
+
 		Explode (1);
 		pattern.Animate(6, 1, centerPoint);
 		Stop (bullet);

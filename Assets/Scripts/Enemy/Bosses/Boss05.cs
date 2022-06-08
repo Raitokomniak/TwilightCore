@@ -38,7 +38,7 @@ public class Boss05 : Phaser
 			    GetComponent<EnemyLife>().SetInvulnerable (true);
 
 				patterns.Add(new P_Maelstrom());
-				patterns[0].bulletMovement = new BMP_Explode(patterns[0], 6f, false);
+				patterns[0].bulletMovement = new BMP_Explode(patterns[0], 6f, false, false);
 				patterns[0].bulletCount =  Mathf.CeilToInt(4 * (difficultyMultiplier / 2f));
 				patterns[0].rotationDirection =  1;
 				patterns[0].SetSprite ("Circle", "Glow", "Green", "Medium");
@@ -46,7 +46,7 @@ public class Boss05 : Phaser
 				patterns.Add(new P_Maelstrom());
 				patterns[1].SetSprite ("Circle", "Glow", "Yellow", "Medium");
 				patterns[1].bulletCount =  Mathf.CeilToInt(4 * (difficultyMultiplier / 2f));
-				patterns[1].bulletMovement = new BMP_Explode(patterns[0], 6f, false);
+				patterns[1].bulletMovement = new BMP_Explode(patterns[0], 6f, false, false);
 				patterns[1].rotationDirection =  -1;
 
 				movementPatterns.Add(shooter.wave.movementPattern);
@@ -105,7 +105,7 @@ public class Boss05 : Phaser
 
 				patterns[0].StopPattern();
 				patterns[1].StopPattern();
-				movement.movementPattern.ForceLeave();
+				movement.pattern.UpdateDirection("XU");
 				//enemyMove.movementPattern.UpdateDirection(lib.GetVector("XY").x, lib.GetVector("XY").y);
 				yield return new WaitForSeconds(2f);
 				GetComponent<EnemyLife>().Die ();

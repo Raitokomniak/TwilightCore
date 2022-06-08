@@ -17,6 +17,7 @@ public class Pattern
 	public IEnumerator routine;
 	public GameObject enemyBullet;
 
+	public bool startsHoming;
 	public float delayBeforeAttack = 0; //DEFAULT
 	public float coolDown = 1; //DEFAULT
 	public int bulletCount = 1; //DEFAULT
@@ -64,11 +65,11 @@ public class Pattern
 
 	public void InstantiateBullet (GameObject enemyBullet, BulletMovementPattern _bulletMovement)
 	{
-		if(bulletMovement == null) bulletMovement = new BMP_Explode(this, 5f, false); //DEFAULT
+		if(bulletMovement == null) bulletMovement = new BMP_Explode(this, 5f, false, false); //DEFAULT
 		bulletMovement = bulletMovement.GetNewBulletMovement(bulletMovement);
 		bullet = (Object.Instantiate (enemyBullet, newPosition, bulletRotation) as GameObject);
 		bullet.transform.SetParent (GameObject.FindWithTag ("BulletsRepo").transform);
-		bullet.GetComponent<EnemyBulletMovement> ().SetUpBulletMovement (bulletMovement);
+		bullet.GetComponent<EnemyBulletMovement> ().SetUpBulletMovement (bulletMovement, enemyShoot);
 		bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
 		bullet.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = glowSprite;
 		bullet.transform.localScale = new Vector3(bulletSize, bulletSize, bulletSize);

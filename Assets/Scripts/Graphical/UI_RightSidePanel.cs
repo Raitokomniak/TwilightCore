@@ -18,7 +18,6 @@ public class UI_RightSidePanel : MonoBehaviour
     public Transform livesContainer;
     public Object lifeSpritePrefab;
 
-    int scoreAdditionalZeroes = 9;
 
    	public void UpdateTimer(float value){
 		levelTimer.text = "Level Time: " + value.ToString ("F2");

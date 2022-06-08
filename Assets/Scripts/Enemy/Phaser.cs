@@ -87,7 +87,7 @@ public class Phaser : MonoBehaviour {
 			if(p.routine != null) StopCoroutine(p.routine);
 			if(p.animation){
 				if(!p.animation.GetComponent<BulletAnimationController>().dontDestroy) 
-					Destroy(p.animation);//
+					p.animation.gameObject.SetActive(false);
 				else p.animation.GetComponent<BulletAnimationController>().stop = true;
 			}
 		}

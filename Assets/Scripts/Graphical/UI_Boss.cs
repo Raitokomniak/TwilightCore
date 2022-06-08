@@ -35,6 +35,11 @@ public class UI_Boss : MonoBehaviour
 		bossX.transform.position = new Vector3 (posX, bossX.transform.position.y, 0);
 	}
 
+	public void UpdateBossXPos(float posX, bool teleporting){
+		UpdateBossXPos(posX);
+		ToggleBossXPos(!teleporting);
+	}
+
 	public void ToggleBossXPos(bool toggle){
 		bossX.SetActive(toggle);
 	}

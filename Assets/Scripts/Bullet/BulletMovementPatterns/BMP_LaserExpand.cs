@@ -24,7 +24,6 @@ public class BMP_LaserExpand : BulletMovementPattern
 		coll.enabled = false;
 		dontDestroy = true;
 		centerPoint = bullet.transform.position;
-		bullet.GetComponent<EnemyBulletMovement> ().isLaser = true;
 		Explode (1);
 		pattern.Animate(6, 1, centerPoint);
 		Stop (bullet);

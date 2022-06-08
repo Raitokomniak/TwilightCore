@@ -30,7 +30,7 @@ public class BMP_StopAndRotate : BulletMovementPattern
 		rotation = bullet.transform.rotation;
 		movementSpeed = 10;
 		Explode (targetMagnitude);
-		yield return new WaitUntil (() => bullet.GetComponent<EnemyBulletMovement> ().CheckDistance () > targetMagnitude);
+		yield return new WaitUntil (() => bullet.GetComponent<EnemyBulletMovement> ().GetRemainingDistance () > targetMagnitude);
 		Stop (bullet);
 		yield return new WaitForSeconds (1f);
 		pattern.allBulletsSpawned = true;

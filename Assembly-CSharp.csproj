@@ -51,15 +51,12 @@
      <Compile Include="Assets\Scripts\Graphical\UI_Boss.cs" />
      <Compile Include="Assets\Scripts\Bullet\Patterns\P_SpiderWeb.cs" />
      <Compile Include="Assets\Scripts\Bullet\Patterns\P_SpiderWebLaser.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_TestPattern.cs" />
      <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_WaitAndExplode.cs" />
      <Compile Include="Assets\Scripts\Enemy\Bosses\Boss05.cs" />
      <Compile Include="Assets\Scripts\Bullet\Patterns\P_RepeatedHoming.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_EnterFromTop.cs" />
      <Compile Include="Assets\Scripts\Environment\TopLayerParallaxController.cs" />
      <Compile Include="Assets\Scripts\Player\ProjectileMovement.cs" />
      <Compile Include="Assets\Scripts\Graphical\UI_LeftSidePanel.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_EnterLeave.cs" />
      <Compile Include="Assets\Scripts\Enemy\Bosses\Boss1.cs" />
      <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_DownAndExplode.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemyLib.cs" />
@@ -75,12 +72,10 @@
      <Compile Include="Assets\Scripts\GameController\DialogController.cs" />
      <Compile Include="Assets\Scripts\Environment\ParallaxController.cs" />
      <Compile Include="Assets\Scripts\GameController\SaveLoadHandler.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_Snake.cs" />
      <Compile Include="Assets\Scripts\Player\Hitbox.cs" />
      <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_LaserPendulum.cs" />
      <Compile Include="Assets\Scripts\GameController\Game.cs" />
      <Compile Include="Assets\Scripts\Environment\SpriteLibrary.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_Teleport.cs" />
      <Compile Include="Assets\Scripts\Environment\EnvironmentController.cs" />
      <Compile Include="Assets\Scripts\Graphical\UI_StageComplete.cs" />
      <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_Explode.cs" />
@@ -100,8 +95,6 @@
      <Compile Include="Assets\Scripts\Graphical\UI_GameOver.cs" />
      <Compile Include="Assets\Scripts\GameController\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\Enemy\Wave.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_Swing.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_Rock.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerShoot.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerLife.cs" />
      <Compile Include="Assets\Scripts\Graphical\VectorLib.cs" />
@@ -121,7 +114,6 @@
      <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_StopAndRotate.cs" />
      <Compile Include="Assets\Scripts\Enemy\Bosses\Boss2.cs" />
      <Compile Include="Assets\Scripts\Bullet\Patterns\P_GiantWeb.cs" />
-     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_ZigZag.cs" />
      <Compile Include="Assets\Scripts\Bullet\Patterns\P_Laser.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerSpecialAttack.cs" />
      <Compile Include="Assets\Scripts\Graphical\ScorePanel.cs" />

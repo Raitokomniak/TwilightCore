@@ -13,7 +13,6 @@ public class BMP_LaserPendulum : BulletMovementPattern
         dontDestroy = true;
 		centerPoint = bullet.transform.position;
 
-		bullet.GetComponent<EnemyBulletMovement> ().isLaser = true;
 		Stop (bullet);
 		scale = new Vector3 (0, 0, 0);
 		for (float i = 0; i < 50; i++) {

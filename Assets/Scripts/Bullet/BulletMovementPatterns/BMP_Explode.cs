@@ -7,9 +7,10 @@ public class BMP_Explode : BulletMovementPattern
     public BMP_Explode(){}
 
     //FOR SETTING UP IN WAVE INITS
-    public BMP_Explode(Pattern p, float _movementSpeed, bool _isHoming){
+    public BMP_Explode(Pattern p, float _movementSpeed, bool _isHoming, bool _startHoming){
         pattern = p;
         isHoming = _isHoming;
+        startHoming = _startHoming;
         movementSpeed = _movementSpeed;
 		scale = new Vector3 (2,2,2);
     }

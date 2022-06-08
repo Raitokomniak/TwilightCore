@@ -5,8 +5,6 @@ using System.Collections.Generic;
 public class Wave
 {
 	public float spawnTime;
-	public Vector3 spawnPosition;
-	public bool spawned;
 	public int enemyCount;
 	public int enemyCounter;
 
@@ -15,19 +13,18 @@ public class Wave
 	public bool isBoss;
 	public bool isMidBoss = false;
 	public float shootSpeed;
-	public bool simultaneous;
+	public bool simultaneous; // NOT USED YET BUT DONT DELETE
 	public List<Vector3> spawnPositions;
-	public List<Vector3> enterDirections; //THE POSITION AN ENEMY WILL MOVE AFTER SPAWN
-	public List<Vector3> leaveDirections; //THE POSITION AN ENEMY WILL MOVE WHEN LEAVING
+	public List<Vector3> enterDirections; //BECOMING OBSOLETE !!!!!!!!!!!!!!!!!!!!!!!!
+	public List<Vector3> leaveDirections; //BECOMING OBSOLETE !!!!!!!!!!!!!!!!!!!!!!!!
 	public EnemyMovementPattern movementPattern;
 	public Pattern shootPattern;
-	public ArrayList phases;
 
 	public Sprite sprite;
 
 	public Phaser bossScript;
 	
-	public float bossIndex; //there is no excuse for this to be a float, make an array or something
+	public float bossIndex; //there is no excuse for this to be a float, make an array or something 
 	public string bossName;
 
 	public bool dead;
@@ -67,7 +64,6 @@ public class Wave
 		spawnPositions = new List<Vector3>();
 		enterDirections = new List<Vector3>();
 		leaveDirections = new List<Vector3>();
-		phases = new ArrayList ();
 		enemyCounter = enemyCount;
 		sprite = Game.control.spriteLib.SetCharacterSprite(spriteName);
 	}
@@ -102,53 +98,50 @@ public class Wave
 		FillPositionArray(enterDirections);
 		FillPositionArray(leaveDirections);
 	}
-	
+
 	public void Spawn(int enemyIndex){
-		EnemyMovementPattern pat = movementPattern.GetNewEnemyMovement(movementPattern);
+		//create enemy instance at movement pat spawn pos
+		EnemyMovementPattern pat = new EnemyMovementPattern(movementPattern);
 		if(spawnPositions.Count > 1) pat.spawnPosition = spawnPositions[enemyIndex];
 		GameObject enemy = GameObject.Instantiate (Resources.Load ("Prefabs/Enemy"), pat.spawnPosition, Quaternion.Euler (0, 0, 0)) as GameObject;
 		
-		enemy.AddComponent<EnemyLife>();
+		//add and init components
+		enemy.AddComponent<EnemyLife> ();
 		enemy.GetComponent<EnemyLife> ().SetHealth (health);
-
-		if(enterDirections.Count > 1) pat.enterDir = enterDirections[enemyIndex];
-		if(leaveDirections.Count > 1) pat.leaveDir = leaveDirections[enemyIndex];
-
 		enemy.GetComponent<EnemyMovement> ().SetUpPatternAndMove (pat);
 		enemy.GetComponentInChildren<SpriteRenderer> ().sprite = sprite;
 		enemy.GetComponent<EnemyShoot> ().SetUpAndShoot (shootPattern, shootSpeed);
 
+		//apply modifiers
 		if(pat.hideSpriteOnSpawn) enemy.GetComponent<EnemyMovement>().EnableSprite(false);
-		if(pat.disableHitBox) enemy.GetComponent<BoxCollider2D>().enabled = false;
+		if(pat.disableHitBox) 	  enemy.GetComponent<BoxCollider2D>().enabled = false;
 	}
 
 	public void SpawnBoss(){
-		EnemyMovementPattern pat = movementPattern.GetNewEnemyMovement(movementPattern);
-		if(spawnPositions.Count > 1) pat.spawnPosition = spawnPositions[0];
+		//create boss instance at movement pat spawn pos
+		EnemyMovementPattern pat = new EnemyMovementPattern(movementPattern);
 		GameObject enemy = GameObject.Instantiate (Resources.Load ("Prefabs/Enemy"), pat.spawnPosition, Quaternion.Euler (0, 0, 0)) as GameObject;
-		enemy.AddComponent<BossLife>();
 
-		if(enterDirections.Count > 1) pat.enterDir = enterDirections[0];
-		if(leaveDirections.Count > 1) pat.leaveDir = leaveDirections[0];
+		//add and init components
+		enemy.AddComponent<BossLife>();
 		enemy.GetComponent<EnemyMovement> ().SetUpPatternAndMove (pat);
-		
-		if(isBoss) enemy.tag = "Boss";
+		if(isBoss) 	  enemy.tag = "Boss";
 		if(isMidBoss) enemy.tag = "MidBoss";
 		enemy.GetComponent<EnemyLife>().enabled = false;
-			
 		if	 (bossIndex == 0.5f) bossScript = enemy.AddComponent<Boss05> ();
 		else if(bossIndex == 1f) bossScript = enemy.AddComponent<Boss1> ();
 		else if(bossIndex == 2f) bossScript = enemy.AddComponent<Boss2> ();
 		bossScript.Init();
 		enemy.GetComponent<BossLife> ().SetHealth (health, healthBars, bossScript);
-
-		Game.control.enemySpawner.DestroyAllProjectiles();
 		enemy.GetComponentInChildren<SpriteRenderer> ().sprite = sprite;
 
+		//apply modifiers
+		if(pat.hideSpriteOnSpawn) enemy.GetComponent<EnemyMovement>().EnableSprite(false);
+		if(pat.disableHitBox)     enemy.GetComponent<BoxCollider2D>().enabled = false;
+
+		//start execution
+		Game.control.enemySpawner.DestroyAllProjectiles();
 		bossScript.NextPhase ();
 		Game.control.ui.BOSS.ToggleBossHealthSlider (true, enemy.GetComponent<BossLife> ().maxHealth, bossName);
-
-		if(pat.hideSpriteOnSpawn) enemy.GetComponent<EnemyMovement>().EnableSprite(false);
-		if(pat.disableHitBox) enemy.GetComponent<BoxCollider2D>().enabled = false;
 	}
 }

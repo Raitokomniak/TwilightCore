@@ -34,7 +34,7 @@ public class BMP_DownAndExplode : BulletMovementPattern
         movementSpeed = 6f;
 		Explode (2.5f);
 		
-        yield return new WaitUntil (() => bullet.GetComponent<EnemyBulletMovement> ().CheckDistance () > targetMagnitude);
+        yield return new WaitUntil (() => bullet.GetComponent<EnemyBulletMovement> ().GetRemainingDistance () > targetMagnitude);
         
 		Stop (bullet);
 

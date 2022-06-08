@@ -1,70 +1,57 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
 public class EnemyBulletMovement : MonoBehaviour {
+	VectorLib lib;
 	Vector3 playerPosition;
 	Vector3 movementDirection;
-	Vector3 initialPosition;
-
-	BulletMovementPattern movement;
-
-	public bool isLaser;
-
-	float bWallPos;
-	float lWallPos;
-	float rWallPos;
-	float tWallPos;
+	BulletMovementPattern BMP;
+	EnemyShoot shooter;
 
 	void Awake() {
-		initialPosition = transform.position;
-		//playerPosition = Game.control.player.gameObject.transform.position - initialPosition;
 		playerPosition = Game.control.player.gameObject.transform.position;
-		bWallPos = Game.control.ui.WORLD.GetBoundaries()[0] - 2f;
-		lWallPos = Game.control.ui.WORLD.GetBoundaries()[1] - 2f;
-		tWallPos = Game.control.ui.WORLD.GetBoundaries()[2] + 2f;
-		rWallPos = Game.control.ui.WORLD.GetBoundaries()[3] + 2f;		
+		lib = Game.control.vectorLib;
 	}
 
 
 	void Update () {
-		float y = transform.position.y;
-		float x = transform.position.x;
-
-		if(movement.forceScale) transform.localScale = movement.scale;
-		//transform.localScale = movement.scale;
-
-		if(movement.isMoving){
-
-			if (movement.isHoming)  movementDirection = playerPosition;
-			else					movementDirection = Vector3.down;
-
-			if (movement.rotateOnAxis)
-				transform.RotateAround (movement.RotateOnAxis (), Vector3.back, (Time.deltaTime * movement.movementSpeed));
-
+		
+		if(BMP.isMoving){
+			if (BMP.rotateOnAxis)
+				transform.RotateAround (BMP.RotateOnAxis (), Vector3.back, (Time.deltaTime * BMP.movementSpeed));
 			else {
-				transform.rotation = movement.rotation;
-				transform.Translate (movementDirection * (Time.deltaTime * movement.movementSpeed));
-
-				if(y <= bWallPos || x <= lWallPos || x >= rWallPos || y >= tWallPos){
-					if (!movement.dontDestroy) Destroy (this.gameObject);
-				}
+				transform.rotation = BMP.rotation;
+				transform.Translate (movementDirection * (Time.deltaTime * BMP.movementSpeed));
+				CheckBounds();
 			}
 		}
-			
+
+		if(BMP.forceScale) transform.localScale = BMP.scale;
 	}
 
-	public float CheckDistance(){
-		
-		Vector3 heading = transform.position - movement.centerPoint;
-		float distance = heading.magnitude;
-		//Debug.Log ("magnitude" + distance + " vs target " + targetMagnitude + "rot " + isRotating);
-		return distance;
+	void CheckBounds(){
+		float y = transform.position.y;
+		float x = transform.position.x;
+		float[] boundaries = Game.control.ui.WORLD.GetBoundaries();
+
+		if (y < boundaries[0] || x < boundaries[1] || y > boundaries[2] ||  x > boundaries[3])
+			if (!BMP.dontDestroy) Destroy (this.gameObject);
 	}
 
-	public void SetUpBulletMovement(BulletMovementPattern b)
+	public float GetRemainingDistance(){
+		return (transform.position - BMP.centerPoint).magnitude;
+	}
+
+	public void SetUpBulletMovement(BulletMovementPattern b, EnemyShoot enemy)
 	{
-		movement = b;
+		shooter = enemy;
+		BMP = b;
+		
+		if (BMP.isHoming){ 
+			 movementDirection = playerPosition - shooter.transform.position;
+		}
+		else movementDirection = Vector3.down;
+
 		StartCoroutine(b.Execute(this.gameObject));
 	}
 
@@ -73,24 +60,18 @@ public class EnemyBulletMovement : MonoBehaviour {
 	}
 
 	IEnumerator _SmoothAcceleration(){
-		float iniSpeed = movement.accelSpeed;
-		movement.movementSpeed = 0;
-		while (movement.movementSpeed < iniSpeed) {
-			movement.movementSpeed += 0.6f;
+		float iniSpeed = BMP.accelSpeed;
+		BMP.movementSpeed = 0;
+		while (BMP.movementSpeed < iniSpeed) {
+			BMP.movementSpeed += 0.6f;
 			yield return new WaitForSeconds (0.01f);
 		}
 	}
 
-	public void OnTriggerStay2D(Collider2D c)
-	{
-		if (c.tag == "NullField") {
-			Destroy (this.gameObject);
-		}
+	public void OnTriggerStay2D(Collider2D c){
+		if (c.tag == "NullField") Destroy (this.gameObject);
 	}
-	public void OnTriggerEnter2D(Collider2D c)
-	{
-		if (c.tag == "NullField") {
-			Destroy (this.gameObject);
-		}
+	public void OnTriggerEnter2D(Collider2D c){
+		if (c.tag == "NullField") Destroy (this.gameObject);
 	}
 }

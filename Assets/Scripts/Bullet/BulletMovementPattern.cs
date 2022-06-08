@@ -8,6 +8,7 @@ public class BulletMovementPattern
 	
 	public float targetMagnitude;
 	public bool isHoming;
+	public bool startHoming;
 	public bool isMoving;
 
 	public bool randomDirs; //FOR SLOWWAVING ONLY BUT...
@@ -21,7 +22,6 @@ public class BulletMovementPattern
 	public Vector3 scale;
 	public bool forceScale = false;
 
-	//private Pattern p;
 	public Pattern pattern;
 	public int layer;
 	public int laserIndex;
