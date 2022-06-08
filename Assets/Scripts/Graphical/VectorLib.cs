@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class VectorLib : MonoBehaviour
 {   
-    //MAKE THIS DLL LIB IN THE END
 
-    public float centerX;
-	public float centerY;
-	public float topCenterY;
-	
 	public float OOBTop;
 	public float OOBBot;
 	public float OOBRight;
@@ -40,20 +35,16 @@ public class VectorLib : MonoBehaviour
 
 
     public void InitVectorLib(){
-		centerX = -5.75f;
-		centerY = 0f;
-		topCenterY = 8f;
-
-		OOBTop = 13.5f;
-		OOBBot = -12f;
-		OOBRight = 9f;
-		OOBLeft = -22.5f;
+		OOBTop = 27;
+		OOBBot = 0;
+		OOBRight = 32f;
+		OOBLeft = 0;
 
 		centerTopOOB = GetVector("X1");
 		rightWallTopSide = GetVector("J3");
 		leftWallTopSide = GetVector("A3");
 
-		centerTop = new Vector3(centerX, 6f, 0f);
+		centerTop = GetVector("X3");
 		topWallLeftSide = GetVector("C1");
 		topWallRightSide = GetVector("H1");
 		botWallLeftSide = GetVector("C10");
@@ -62,8 +53,8 @@ public class VectorLib : MonoBehaviour
 		//DEFAULTS FOR ENTER/LEAVE
 		//enterRight = new Vector3(3, 6, 0);
 		enterRight = GetVector("H3");
-		enterCenter = new Vector3(centerX, 6, 0);
-		enterCenterBoss = new Vector3(centerX, 8, 0);
+		enterCenter = GetVector("X3");
+		enterCenterBoss = GetVector("X3");
 
 		enterLeft = GetVector("C3");
 		enterRightWallBotSide = GetVector("H8");
@@ -75,39 +66,41 @@ public class VectorLib : MonoBehaviour
 	}
 
 	public Vector3 GetVector(string coordinate){
-		if		(coordinate == "CenterVer") return new Vector3(0,0,0);
-		else if (coordinate == "CenterHor") return new Vector3(-5.75f,0,0);
+		if		(coordinate == "CenterVer") return new Vector3(12.87f,0,0);
+		else if (coordinate == "CenterHor") return new Vector3(17.3f,0,0);
 		
 		float ver = 0;
 		float hor = 0;
-		
-		if(coordinate[0] == 'X') hor = -5.75f; 	//DEAD CENTER
-		if(coordinate[1] == 'Y') ver = 14f; 	//TOP OUT
-		if(coordinate[0] == 'L') hor = -23f; 	//LEFT OUT
-		if(coordinate[0] == 'R') hor = 10; 		//RIGHT OUT
-		
-		if(coordinate[0] == 'A') hor = -20.8f;
-		if(coordinate[0] == 'B') hor = -16.5f;
-		if(coordinate[0] == 'C') hor = -13.5f;
-		if(coordinate[0] == 'D') hor = -10.4f;
-		if(coordinate[0] == 'E') hor = -7.3f;
-		if(coordinate[0] == 'F') hor = -4.3f;
-		if(coordinate[0] == 'G') hor = -1.3f;
-		if(coordinate[0] == 'H') hor = 1.9f;
-		if(coordinate[0] == 'I') hor = 4.9f;
-		if(coordinate[0] == 'J') hor = 7.9f;
 
-		if(coordinate[1] == '1') ver = 13;
-		if(coordinate[1] == '2') ver = 10;
-		if(coordinate[1] == '3') ver = 7.2f;
-		if(coordinate[1] == '4') ver = 4.3f;
-		if(coordinate[1] == '5') ver = 1.3f;
-		if(coordinate[1] == '6') ver = -1.5f;
-		if(coordinate[1] == '7') ver = -4.4f;
-		if(coordinate[1] == '8') ver = -7.2f;
-		if(coordinate[1] == '9') ver = -10.1f;
+		if(coordinate[0] == 'X') hor = 17.3f; 	//DEAD CENTER
+		if(coordinate[1] == 'Y') ver = 12.87f; 	//DEAD CENTER
+		if(coordinate[1] == 'U') ver = OOBTop; 	//OUT UP
+		if(coordinate[1] == 'D') ver = OOBBot; 	// OUT DOWN
+		if(coordinate[0] == 'L') hor = 0f; 	//LEFT OUT
+		if(coordinate[0] == 'R') hor = 33; 		//RIGHT OUT
+		
+		if(coordinate[0] == 'A') hor = 3.8f;
+		if(coordinate[0] == 'B') hor = 7.5f;
+		if(coordinate[0] == 'C') hor = 10.5f;
+		if(coordinate[0] == 'D') hor = 13.4f;
+		if(coordinate[0] == 'E') hor = 16.3f;
+		if(coordinate[0] == 'F') hor = 19.3f;
+		if(coordinate[0] == 'G') hor = 22.3f;
+		if(coordinate[0] == 'H') hor = 24.9f;
+		if(coordinate[0] == 'I') hor = 27.9f;
+		if(coordinate[0] == 'J') hor = 30.9f;
+
+		if(coordinate[1] == '1') ver = 26;
+		if(coordinate[1] == '2') ver = 23;
+		if(coordinate[1] == '3') ver = 20.2f;
+		if(coordinate[1] == '4') ver = 17.3f;
+		if(coordinate[1] == '5') ver = 14.3f;
+		if(coordinate[1] == '6') ver = 12.5f;
+		if(coordinate[1] == '7') ver = 9.4f;
+		if(coordinate[1] == '8') ver = 6.2f;
+		if(coordinate[1] == '9') ver = 3.1f;
 		if(coordinate.Length > 2) //IF 10
-			if(coordinate[2] == '0') ver = -13;
+			if(coordinate[2] == '0') ver = 0;
 
 		return new Vector3(hor, ver, 0);
 	}

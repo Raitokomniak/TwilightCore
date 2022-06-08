@@ -13,11 +13,12 @@ public class EMP_Rock : EnemyMovementPattern
     }
 
     public override IEnumerator ExecuteRoutine(EnemyMovement m){
+        VectorLib lib = Game.control.vectorLib;
         //check for infinity bool ?
-        UpdateDirection(-2f, 8f);
-        yield return new WaitUntil (() => CheckIfReachedDestination (m) == true);
+        UpdateDirection(lib.GetVector("D3"));
+        yield return new WaitUntil (() => HasReachedDestination (m) == true);
         yield return new WaitForSeconds(1f);
-		UpdateDirection (-11f, 8f);
-		yield return new WaitUntil (() => CheckIfReachedDestination (m) == true);
+		UpdateDirection(lib.GetVector("H3"));
+		yield return new WaitUntil (() => HasReachedDestination (m) == true);
     }
 }

@@ -105,7 +105,7 @@ public class Stage2 : Stage
 
 */
 
-
+/*
 		//PHASE 1
 
 		mp = new EMP_EnterLeave(lib.centerTopOOB, 2f);
@@ -361,14 +361,16 @@ public class Stage2 : Stage
 						new List<Vector3> {lib.enterRight, lib.enterLeft, lib.enterRightWallBotSide, lib.enterLeftWallBotSide},
 						new List<Vector3>{lib.enterRight, lib.enterLeft, lib.enterRightWallBotSide, lib.enterLeftWallBotSide},
 						new List<Vector3>{lib.leaveRight, lib.leaveLeft, lib.leaveCenter, lib.leaveCenter});
-/*
+
+*/
+
 		//debug boss
 		mp = new EMP_EnterFromTop();
 		boss = new Wave(mp, 1f, 30, true, 2, "boss2");
 		boss.SetUpBoss (2, "Joanette, Queen of Spiders", false);
 		stage.NewWave (boss);
 
-*/		float health = 0;
+		float health = 0;
 		if(difficultyMultiplier < 5) health = 100 * difficultyMultiplier;
 		if(difficultyMultiplier >= 5) health = 70 * difficultyMultiplier;
 

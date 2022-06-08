@@ -23,7 +23,7 @@ public class EMP_Snake : EnemyMovementPattern
 
     public override IEnumerator ExecuteRoutine(EnemyMovement m){
         UpdateDirection(enterDir.x, enterDir.y);
-		yield return new WaitUntil (() => CheckIfReachedDestination (m) == true);
+		yield return new WaitUntil (() => HasReachedDestination (m) == true);
         if(movementDirection == 1) UpdateDirection (4f, 6f);
         else UpdateDirection (-14f, 6f);
 
@@ -34,7 +34,7 @@ public class EMP_Snake : EnemyMovementPattern
             else UpdateDirection (4f, 6f);
         }
 
-        yield return new WaitUntil (() => CheckIfReachedDestination (m) == true);
+        yield return new WaitUntil (() => HasReachedDestination (m) == true);
 		UpdateDirection(leaveDir.x, leaveDir.y);
     }
 }

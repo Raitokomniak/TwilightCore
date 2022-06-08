@@ -75,7 +75,7 @@ public class BossLife : EnemyLife
 		//DOESN'T BELONG HERE
 		Game.control.ui.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
 		GetComponent<EnemyShoot> ().wave.dead = true;
-		GetComponent<SpriteRenderer>().enabled = false;
+		GetComponentInChildren<SpriteRenderer>().enabled = false;
 		GetComponent<EnemyMovement>().enabled = false;
 		GetComponent<BoxCollider2D>().enabled = false;
 		GetComponent<EnemyShoot>().enabled = false;

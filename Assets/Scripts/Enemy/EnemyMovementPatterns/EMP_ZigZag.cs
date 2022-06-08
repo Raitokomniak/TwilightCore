@@ -19,28 +19,28 @@ public class EMP_ZigZag : EnemyMovementPattern
 
     public override IEnumerator ExecuteRoutine(EnemyMovement m){
         UpdateDirection(enterDir.x, enterDir.y);
-		yield return new WaitUntil (() => CheckIfReachedDestination (m) == true);
+		yield return new WaitUntil (() => HasReachedDestination (m) == true);
         if(movementDirection == 1){
 			UpdateDirection (-14f, 6f);
-			yield return new WaitUntil (() => CheckIfReachedDestination (m) == true);
+			yield return new WaitUntil (() => HasReachedDestination (m) == true);
 			UpdateDirection (4f, 2f);
 		}
 		else if(movementDirection == -1){
 			UpdateDirection (4f, 6f);
-			yield return new WaitUntil (() => CheckIfReachedDestination (m) == true);
+			yield return new WaitUntil (() => HasReachedDestination (m) == true);
 			UpdateDirection (-14f, 2f);
 		}
 		else if(movementDirection == 2){
 			UpdateDirection (-14f, 6f);
-			yield return new WaitUntil (() => CheckIfReachedDestination (m) == true);
+			yield return new WaitUntil (() => HasReachedDestination (m) == true);
 			UpdateDirection (4f, 2f);
-			yield return new WaitUntil (() => CheckIfReachedDestination (m) == true);
+			yield return new WaitUntil (() => HasReachedDestination (m) == true);
 			UpdateDirection (-14f, 2f);
-			yield return new WaitUntil (() => CheckIfReachedDestination (m) == true);
+			yield return new WaitUntil (() => HasReachedDestination (m) == true);
 			UpdateDirection (4f, 6f);
 		}
 		
-        yield return new WaitUntil (() => CheckIfReachedDestination (m) == true);
+        yield return new WaitUntil (() => HasReachedDestination (m) == true);
 		
         UpdateDirection (leaveDir.x, leaveDir.y);
     }

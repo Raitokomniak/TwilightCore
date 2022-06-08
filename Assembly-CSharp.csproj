@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\Graphical\UI_Boss.cs" />
      <Compile Include="Assets\Scripts\Bullet\Patterns\P_SpiderWeb.cs" />
      <Compile Include="Assets\Scripts\Bullet\Patterns\P_SpiderWebLaser.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyMovementPatterns\EMP_TestPattern.cs" />
      <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_WaitAndExplode.cs" />
      <Compile Include="Assets\Scripts\Enemy\Bosses\Boss05.cs" />
      <Compile Include="Assets\Scripts\Bullet\Patterns\P_RepeatedHoming.cs" />

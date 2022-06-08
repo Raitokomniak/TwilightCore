@@ -361,6 +361,7 @@
 "Assets/Scripts/Enemy/EnemyMovementPatterns/EMP_Snake.cs"
 "Assets/Scripts/Enemy/EnemyMovementPatterns/EMP_Swing.cs"
 "Assets/Scripts/Enemy/EnemyMovementPatterns/EMP_Teleport.cs"
+"Assets/Scripts/Enemy/EnemyMovementPatterns/EMP_TestPattern.cs"
 "Assets/Scripts/Enemy/EnemyMovementPatterns/EMP_ZigZag.cs"
 "Assets/Scripts/Enemy/EnemyShoot.cs"
 "Assets/Scripts/Enemy/Phaser.cs"

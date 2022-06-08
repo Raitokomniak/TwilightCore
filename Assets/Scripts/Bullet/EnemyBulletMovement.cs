@@ -18,8 +18,8 @@ public class EnemyBulletMovement : MonoBehaviour {
 
 	void Awake() {
 		initialPosition = transform.position;
-		playerPosition = Game.control.player.gameObject.transform.position - initialPosition;
-
+		//playerPosition = Game.control.player.gameObject.transform.position - initialPosition;
+		playerPosition = Game.control.player.gameObject.transform.position;
 		bWallPos = Game.control.ui.WORLD.GetBoundaries()[0] - 2f;
 		lWallPos = Game.control.ui.WORLD.GetBoundaries()[1] - 2f;
 		tWallPos = Game.control.ui.WORLD.GetBoundaries()[2] + 2f;

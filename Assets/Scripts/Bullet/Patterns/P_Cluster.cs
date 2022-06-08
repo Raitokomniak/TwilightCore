@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class P_Cluster : Pattern
 {
-	public P_Cluster(int difficultyMultiplier){
+	public P_Cluster(int difficultyMultiplier, int _bulletCount){
 		bossSpecial = true;
-		bulletCount = 30 * difficultyMultiplier;
+		bulletCount = _bulletCount;
 		coolDown = .05f / difficultyMultiplier;
 		originMagnitude = 1;
 		tempMagnitude = originMagnitude;
@@ -30,8 +30,7 @@ public class P_Cluster : Pattern
 				//if(i % 2 == 0) SetSprite ("Arrow", "Glow", "Red");
 				//if(i % 3 == 0) SetSprite ("Arrow", "Glow", "Honey");
 				//if(i % 4 == 0) SetSprite ("Arrow", "Glow", "Purple");
-				//if(i % 5 == 0) SetSprite ("Arrow", "Glow", "Green");
-
+				//if(i % 5 == 0) bullet.SetSprite ("Arrow", "Glow", "Green");
 
 			}
 			allBulletsSpawned = true;

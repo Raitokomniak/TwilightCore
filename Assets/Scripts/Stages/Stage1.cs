@@ -82,9 +82,18 @@ public class Stage1 : Stage
 		stage.stageWaves.Clear ();
 		Pattern p;
 		EnemyMovementPattern mp;
-
-
+/*
+		mp = new EMP_TestPattern(Game.control.vectorLib.GetVector("J5"));
+		p = new P_Maelstrom(3, 10);
+		p.infinite = true;
+		p.bulletMovement = new BMP_Explode(p, .3f, true);
+		p.SetSprite ("Circle", "Glow", "Red", "Small");
+		stage.NewWave (new Wave (1f, mp, p, 1, false, 0, 50, "default"));
+*/
+		
 		//PHASE 1
+
+		/*
 
 		mp = new EMP_EnterLeave(lib.topWallRightSide, .5f);
 		mp.SetEnterLeaveDirection(lib.enterCenter, lib.leaveLeft);
@@ -200,7 +209,7 @@ public class Stage1 : Stage
 
 		//MID-BOSS
 		mp = new EMP_EnterFromTop();
-		mp.SetEnterLeaveDirection(lib.enterCenterBoss, lib.GetVector("XY"));
+		mp.SetEnterLeaveDirection(lib.enterCenterBoss, lib.GetVector("XU"));
 		mp.stayTime = 23f;
 		Wave midBoss = new Wave(mp, 55f, 150, false, 1, "boss0.5"); //55f
 		midBoss.SetUpBoss (0.5f, "Asura", true);
@@ -249,7 +258,7 @@ public class Stage1 : Stage
 		p.SetSprite ("Circle", "Glow", "Yellow", "Medium");	 
 		stage.NewWave (new Wave (90.5f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "default"));
 
-/*
+*//*
 		//debug BOSS 1
 		mp = new EMP_EnterFromTop();
 		mp.SetEnterLeaveDirection(lib.enterCenterBoss, Vector3.zero);
@@ -257,7 +266,7 @@ public class Stage1 : Stage
 		boss.SetUpBoss (1, "Maaya, Forest Guardian", false);
 		stage.NewWave (boss);
 */
-	
+	/*
 		//BOSS 1
 		mp = new EMP_EnterFromTop();
 		mp.SetEnterLeaveDirection(lib.enterCenterBoss, Vector3.zero);
@@ -268,6 +277,6 @@ public class Stage1 : Stage
 		boss = new Wave(mp, 102f, Mathf.CeilToInt(health), true, 2, "boss1");
 		boss.SetUpBoss (1, "Maaya, Forest Guardian", false);
 		stage.NewWave (boss);
-		
+		*/
 	}
 }

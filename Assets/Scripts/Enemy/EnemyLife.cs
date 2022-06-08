@@ -7,6 +7,8 @@ public class EnemyLife : MonoBehaviour {
 	public float currentHealth;
 	public bool invulnerable = false;
 
+	SpriteRenderer spriteRenderer;
+
 	public virtual void SetHealth(int setMaxHealth, int _healthBars, Phaser _bossScript){}
 
 	public void SetHealth(int _maxHealth){
@@ -38,8 +40,9 @@ public class EnemyLife : MonoBehaviour {
 	}
 
 	public virtual void DisableEnemy(){
+		spriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
 		GetComponent<EnemyShoot>().StopPattern();
-		GetComponent<SpriteRenderer>().enabled = false;
+		spriteRenderer.enabled = false;
 		GetComponent<EnemyMovement>().enabled = false;
 		GetComponent<BoxCollider2D>().enabled = false;
 		GetComponent<EnemyShoot>().enabled = false;

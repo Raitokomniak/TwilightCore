@@ -9,12 +9,18 @@ public class P_Maelstrom : Pattern
 		coolDown = 0.2f;
 	}
 
+	public P_Maelstrom(int _bulletCount, float _coolDown){
+		bulletCount = _bulletCount;
+		coolDown = _coolDown;
+	}
+
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
         yield return new WaitForSeconds(delayBeforeAttack);
 		pos = enemy.transform.position;
 
 		if(infinite){
 			while (!stop) {
+				pos = enemy.transform.position;
 				Game.control.sound.PlaySound ("Enemy", "Shoot", true);
 				
 				for (int i = 0; i < bulletCount; i++) {
@@ -28,6 +34,7 @@ public class P_Maelstrom : Pattern
 			}
 		}
 		else {
+			pos = enemy.transform.position;
 			Game.control.sound.PlaySound ("Enemy", "Shoot", true);
 				
 			for (int i = 0; i < bulletCount; i++) {

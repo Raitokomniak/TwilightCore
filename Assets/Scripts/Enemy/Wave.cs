@@ -115,7 +115,7 @@ public class Wave
 		if(leaveDirections.Count > 1) pat.leaveDir = leaveDirections[enemyIndex];
 
 		enemy.GetComponent<EnemyMovement> ().SetUpPatternAndMove (pat);
-		enemy.GetComponent<SpriteRenderer> ().sprite = sprite;
+		enemy.GetComponentInChildren<SpriteRenderer> ().sprite = sprite;
 		enemy.GetComponent<EnemyShoot> ().SetUpAndShoot (shootPattern, shootSpeed);
 
 		if(pat.hideSpriteOnSpawn) enemy.GetComponent<EnemyMovement>().EnableSprite(false);
@@ -143,7 +143,7 @@ public class Wave
 		enemy.GetComponent<BossLife> ().SetHealth (health, healthBars, bossScript);
 
 		Game.control.enemySpawner.DestroyAllProjectiles();
-		enemy.GetComponent<SpriteRenderer> ().sprite = sprite;
+		enemy.GetComponentInChildren<SpriteRenderer> ().sprite = sprite;
 
 		bossScript.NextPhase ();
 		Game.control.ui.BOSS.ToggleBossHealthSlider (true, enemy.GetComponent<BossLife> ().maxHealth, bossName);

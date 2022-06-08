@@ -17,7 +17,7 @@ public class EMP_Teleport : EnemyMovementPattern
         UpdateDirection(targetPos.x, targetPos.y);
         m.teleporting = true;
 	    m.EnableSprite(false);
-		yield return new WaitUntil (() => CheckIfReachedDestination (m) == true);
+		yield return new WaitUntil (() => HasReachedDestination (m) == true);
 		m.EnableSprite(true);
 		m.teleporting = false;
     }

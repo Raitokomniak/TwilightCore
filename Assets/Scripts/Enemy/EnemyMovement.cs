@@ -10,7 +10,7 @@ public class EnemyMovement : MonoBehaviour {
 	public bool rotateOnAxis;
 
 	void Awake () {
-		spriteRenderer = GetComponent<SpriteRenderer> ();
+		spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
 		lib = Game.control.vectorLib;
 		moving = false;
 	}
@@ -21,23 +21,25 @@ public class EnemyMovement : MonoBehaviour {
 
 	void Update () {
 		rotateOnAxis = movementPattern.rotateOnAxis;
-	//	transform.rotation = movementPattern.rotation;
 
 		if (moving) {
 			CheckSpriteDirection ();
 
 			if (rotateOnAxis) {
-				transform.RotateAround (movementPattern.centerPoint, Vector3.back, (Time.deltaTime * movementPattern.speed * movementPattern.movementDirection));
-				transform.rotation = Quaternion.Euler(0,0,0);
+				transform.RotateAround (movementPattern.centerPoint, Vector3.back, (Time.deltaTime * movementPattern.speed * 10 * movementPattern.movementDirection));
+				transform.GetChild(1).Rotate(Vector3.forward * (Time.deltaTime * movementPattern.speed * 10 * movementPattern.movementDirection));
+				//transform.rotation = Quaternion.Euler(0,0,0);
 			} else {
 				if(movementPattern.smoothedMovement){
-
-					//Vector3 targetPos = Vector3.Slerp(transform.position, movementPattern.targetPos, (movementPattern.speed * Time.deltaTime));
 					transform.position = Vector3.MoveTowards(transform.position,  movementPattern.targetPos, (movementPattern.speed * Time.deltaTime) * 3); //MULTIPLIER BECAUSE LERP IS SO MUCH FASTER COMPARED
 				}
 				else if(movementPattern.smoothArc) { //SLERPPI
-					//Vector3 targetPos = Vector3.Slerp(transform.position, movementPattern.targetPos, (movementPattern.speed * Time.deltaTime));
-					transform.position = Vector3.MoveTowards(transform.position,  movementPattern.targetPos, (movementPattern.speed * Time.deltaTime));
+					/*Vector3 targetPos = Vector3.Slerp(transform.position, movementPattern.targetPos, (movementPattern.speed * Time.deltaTime));
+					transform.position = Vector3.MoveTowards(transform.position, targetPos, (movementPattern.speed * Time.deltaTime) * 3);*/
+					//transform.RotateAround (movementPattern.centerPoint, Vector3.back, (Time.deltaTime * movementPattern.speed * 10 * movementPattern.movementDirection));
+					transform.RotateAround (movementPattern.centerPoint, Vector3.back, (Time.deltaTime * movementPattern.speed * 10 * movementPattern.movementDirection));
+					transform.GetChild(0).Rotate(Vector3.forward * (Time.deltaTime * movementPattern.speed * 10 * movementPattern.movementDirection));
+					transform.GetChild(1).Rotate(Vector3.forward * (Time.deltaTime * movementPattern.speed * 10 * movementPattern.movementDirection));
 				}
 				else transform.position = Vector3.LerpUnclamped (transform.position, movementPattern.targetPos, (movementPattern.speed * Time.deltaTime));
 			}
@@ -63,24 +65,24 @@ public class EnemyMovement : MonoBehaviour {
 	}
 
 	//not used yet
-	public void SmoothAcceleration(){
-		StartCoroutine (_SmoothAcceleration ());
+	public void SmoothAcceleration(float accelTime){
+		StartCoroutine (_SmoothAcceleration (accelTime));
 	}
 
-	IEnumerator _SmoothAcceleration(){
+	IEnumerator _SmoothAcceleration(float accelTime){
 		float iniSpeed = movementPattern.speed;
 		movementPattern.speed = 0;
 		while (movementPattern.speed != iniSpeed) {
 			movementPattern.speed += (iniSpeed / 10);
-			yield return new WaitForSeconds (0.05f);
+			yield return new WaitForSeconds (0.01f * accelTime);
 		}
 	}
 
 	void CheckSpriteDirection(){
 		if (!movementPattern.goingRight) {
-			GetComponent<SpriteRenderer> ().flipX = false;
+			GetComponentInChildren<SpriteRenderer> ().flipX = false;
 		} else {
-			GetComponent<SpriteRenderer> ().flipX = true;
+			GetComponentInChildren<SpriteRenderer> ().flipX = true;
 		}
 	}
 }

@@ -53,7 +53,7 @@ public class Boss1 : Phaser
 				movementPatterns[0].speed = 7f;
 
 				while (!endOfPhase) {
-					movement.movementPattern.UpdateDirection(vectorLib.centerX, vectorLib.topCenterY);
+					movement.movementPattern.UpdateDirection(Game.control.vectorLib.enterCenter);
 					yield return new WaitForSeconds(2f);
 					
 					shooter.BossShoot (patterns[1]);
@@ -100,15 +100,15 @@ public class Boss1 : Phaser
 				patterns[2].rotationDirection =  -1;
 				patterns[2].bulletCount = 2 * difficultyMultiplier;
 
-				movement.movementPattern.UpdateDirection(-15, 6);
+				movement.movementPattern.UpdateDirection("B3");
 				yield return new WaitForSeconds(1f);
 				
 				while (!endOfPhase) {
-					yield return new WaitUntil (() => movement.movementPattern.CheckIfReachedDestination (movement) == true);
+					yield return new WaitUntil (() => movement.movementPattern.HasReachedDestination (movement) == true);
 					//enemyMove.SetUpPatternAndMove (movementPatterns[1]);
-					movement.movementPattern.UpdateDirection(1, 6);
+					movement.movementPattern.UpdateDirection("I3");
 					shooter.BossShoot (patterns[0]);
-					yield return new WaitUntil (() => movement.movementPattern.CheckIfReachedDestination (movement) == true);
+					yield return new WaitUntil (() => movement.movementPattern.HasReachedDestination (movement) == true);
                     yield return new WaitForSeconds(1f);
                     shooter.BossShoot (patterns[1]);
 					shooter.BossShoot (patterns[2]);
@@ -117,9 +117,9 @@ public class Boss1 : Phaser
 					patterns[2].StopPattern();
 					yield return new WaitForSeconds(1f);
 					//enemyMove.SetUpPatternAndMove (movementPatterns[0]);
-					movement.movementPattern.UpdateDirection(-15, 6);
+					movement.movementPattern.UpdateDirection("B3");
 					shooter.BossShoot (patterns[0]);
-					yield return new WaitUntil (() => movement.movementPattern.CheckIfReachedDestination (movement) == true);
+					yield return new WaitUntil (() => movement.movementPattern.HasReachedDestination (movement) == true);
 					yield return new WaitForSeconds(1f);
 					shooter.BossShoot (patterns[1]);
 					shooter.BossShoot (patterns[2]);
@@ -145,8 +145,8 @@ public class Boss1 : Phaser
 				patterns[1].SetSprite ("Circle", "Bevel", "Lilac", "Medium");
 				patterns[1].bulletMovement.accelSpeed = 30;
 
-				Vector2 teleP1 = new Vector2(vectorLib.centerX + 4f, shooter.transform.position.y);
-				Vector2 teleP2 = new Vector2(vectorLib.centerX - 4f, shooter.transform.position.y);
+				Vector2 teleP1 = new Vector2(vectorLib.GetVector("X1").x + 4f, shooter.transform.position.y);
+				Vector2 teleP2 = new Vector2(vectorLib.GetVector("X1").x - 4f, shooter.transform.position.y);
 
 				movementPatterns.Add(new EMP_Teleport());
 
@@ -185,8 +185,8 @@ public class Boss1 : Phaser
 				Game.control.ui.BOSS.ShowActivatedPhase ("Hoodwink: Fox Fires");
 				StartPhaseTimer(30);
 				
-				patterns.Add(new P_Cluster(difficultyMultiplier));																		//0.01f
-				patterns[0].SetSprite ("Fireball", "Glow", "Orange", "Medium");
+				patterns.Add(new P_Cluster(difficultyMultiplier, 40 * difficultyMultiplier));																		//0.01f
+				patterns[0].SetSprite ("Fireball", "Glow", "Orange", "Small");
 
 				patterns.Add(new P_Maelstrom());
 				patterns[1].bulletMovement = new BMP_Explode(patterns[1], 6f, false);
@@ -196,7 +196,7 @@ public class Boss1 : Phaser
 				patterns[1].coolDown = 2.5f / difficultyMultiplier;
 
 				movementPatterns.Add(new EMP_Swing(7, 1));
-				movementPatterns[0].centerPoint = new Vector3 (vectorLib.centerX, vectorLib.topCenterY, 0);
+				movementPatterns[0].centerPoint = vectorLib.GetVector("X3");
 				
 				while (!endOfPhase) {
 					movement.movementPattern.UpdateDirection(vectorLib.enterRight.x, vectorLib.enterRight.y);
@@ -205,11 +205,11 @@ public class Boss1 : Phaser
 
 					shooter.BossShoot (patterns[0]);
 
-					yield return new WaitForSeconds(4f);
+					yield return new WaitUntil(() => movement.movementPattern.rotateOnAxis == false);
 					movement.moving = false;
 					movementPatterns[0].speed = 7f;
 
-					movementPatterns[0].UpdateDirection(vectorLib.centerX, vectorLib.centerY);
+					movementPatterns[0].UpdateDirection("XY");
 					movement.moving = true;
 					yield return new WaitForSeconds(1f);
 

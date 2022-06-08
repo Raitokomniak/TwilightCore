@@ -38,7 +38,7 @@ public class PlayerShoot : MonoBehaviour {
 
 	public void Init(){
 		weaponsInUse = new List<GameObject> ();
-		transform.position = new Vector3 (Game.control.vectorLib.centerX, -8, 0);
+		
 		
 		//hidesprites
 		foreach (GameObject w in weapons) {

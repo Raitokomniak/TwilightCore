@@ -74,6 +74,7 @@ public class PlayerHandler : MonoBehaviour {
 	}
 
 	public void Init(){
+		transform.position = Game.control.vectorLib.GetVector("X8");
 		health.Init ();
 		combat.Init ();
 		Game.control.ui.RIGHT_SIDE_PANEL.UpdateScore (Game.control.stageHandler.stats.score);

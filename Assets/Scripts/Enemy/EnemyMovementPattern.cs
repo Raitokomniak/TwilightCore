@@ -23,6 +23,8 @@ public class EnemyMovementPattern
 	public bool smoothedMovement;
 	public bool smoothArc;
 
+	public Vector3 previousPoint;
+
 	public EnemyMovementPattern(){
 
 	}
@@ -51,6 +53,7 @@ public class EnemyMovementPattern
 		if(empType == "Rock") emp = new EMP_Rock();
 		if(empType == "Teleport") emp = new EMP_Teleport();
 		if(empType == "Swing") emp = new EMP_Swing();
+		if(empType == "TestPattern") emp = new EMP_TestPattern();
 		emp.speed = _emp.speed;
 		emp.stayTime = _emp.stayTime;
 		emp.spawnPosition = _emp.spawnPosition;
@@ -64,6 +67,7 @@ public class EnemyMovementPattern
 		emp.disableHitBox = _emp.disableHitBox;
 		emp.smoothedMovement = _emp.smoothedMovement;
 		emp.smoothArc = _emp.smoothArc;
+		emp.previousPoint = _emp.previousPoint;
 		return emp;
 	}
 
@@ -74,7 +78,7 @@ public class EnemyMovementPattern
 
 	float Mirror (float pos)
 	{
-		float mirroredPos = Game.control.vectorLib.centerX + Mathf.Abs (pos - Game.control.vectorLib.centerX);
+		float mirroredPos = Game.control.vectorLib.GetVector("X1").x + Mathf.Abs (pos - Game.control.vectorLib.GetVector("X1").x);
 		return mirroredPos;
 	}
 
@@ -89,13 +93,31 @@ public class EnemyMovementPattern
 		leaveDir = lDir;
 	}
 
-	public bool CheckIfReachedDestination (EnemyMovement _m)
+	public bool HasReachedDestination (EnemyMovement _m)
 	{
 		float x = _m.transform.position.x;
 		float y = _m.transform.position.y;
-		float treshold = 0.5f;
+		float threshold = 0.5f;
 
-		if(Mathf.Abs(x-targetPos.x) <= 0.5f && Mathf.Abs(y-targetPos.y) <= treshold) return true;
+//		Debug.Log("threshX " + Mathf.Abs(x-targetPos.x) + ", threshY " +  Mathf.Abs(y-targetPos.y));
+		
+		if(Mathf.Abs(x-targetPos.x) <= threshold && Mathf.Abs(y-targetPos.y) <= threshold) {
+			previousPoint = _m.transform.position;
+			return true;
+		} 
+		else return false;
+	}
+
+	public bool HasReachedSlerp(EnemyMovement _m)
+	{
+		float x = _m.transform.position.x;
+		float y = _m.transform.position.y;
+		float threshold = 1f;
+
+		if(Mathf.Abs(x-targetPos.x) <= threshold && Mathf.Abs(y-targetPos.y) <= threshold) {
+			previousPoint = _m.transform.position;
+			return true;
+		} 
 		else return false;
 	}
 
@@ -118,5 +140,35 @@ public class EnemyMovementPattern
 		else goingRight = true;
 
 		targetPos = new Vector3 (h, v, 0f);
+	}
+
+	public void UpdateDirection(string grid){
+		Vector3 dir = Game.control.vectorLib.GetVector(grid);
+
+		float h = dir.x;
+		float v = dir.y;
+
+		//if(m.moving) m.SmoothAcceleration();
+		if (h < targetPos.x) goingRight = false;
+		else goingRight = true;
+
+		targetPos = new Vector3 (h, v, 0f);
+	}
+
+	public void UpdateSlerpDirection (Vector3 target, int dir)
+	{	
+		float h = target.x;
+		float v = target.y;
+
+		//if(m.moving) m.SmoothAcceleration();
+		if (h < targetPos.x) goingRight = false;
+		else goingRight = true;
+
+		targetPos = new Vector3 (h, v, 0f);
+
+		centerPoint.x = (previousPoint.x + targetPos.x) / 2;
+        centerPoint.y = (previousPoint.y + targetPos.y) / 2;
+
+		movementDirection = dir;
 	}
 }

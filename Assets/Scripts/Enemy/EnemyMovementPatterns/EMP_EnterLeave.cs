@@ -19,7 +19,7 @@ public class EMP_EnterLeave : EnemyMovementPattern
 
     public override IEnumerator ExecuteRoutine(EnemyMovement m){
         UpdateDirection(enterDir.x, enterDir.y);
-		yield return new WaitUntil (() => CheckIfReachedDestination (m) == true);
+		yield return new WaitUntil (() => HasReachedDestination (m) == true);
 		yield return new WaitForSeconds (stayTime);
 		UpdateDirection (leaveDir.x, leaveDir.y);
     }
