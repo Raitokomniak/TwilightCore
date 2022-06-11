@@ -87,6 +87,7 @@
      <Compile Include="Assets\Scripts\Graphical\UI_RightSidePanel.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemyLife.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\Stages\Stage3.cs" />
      <Compile Include="Assets\Scripts\Bullet\EnemyBulletMovement.cs" />
      <Compile Include="Assets\Scripts\Stages\Stage1.cs" />
      <Compile Include="Assets\Scripts\Bullet\Pattern.cs" />
@@ -119,7 +120,6 @@
      <Compile Include="Assets\Scripts\Graphical\ScorePanel.cs" />
      <Compile Include="Assets\Scripts\Bullet\ProjectileRotator.cs" />
      <Compile Include="Assets\Scripts\Stages\Stage.cs" />
-     <Compile Include="Assets\Scripts\Stages\Stage3.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Resources\DialogText\Stage1_0.txt" />

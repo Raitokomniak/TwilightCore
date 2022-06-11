@@ -108,6 +108,7 @@ public class Boss1 : Phaser
 				patterns[2].rotationDirection =  -1;
 				patterns[2].bulletCount = 2 * difficultyMultiplier;
 
+				movement.pattern.force = false;
 				movement.pattern.UpdateDirection("B3");
 				yield return new WaitForSeconds(1f);
 				
@@ -138,6 +139,7 @@ public class Boss1 : Phaser
 				break;
 			
 			case 2:
+				movement.pattern.force = true;
 				patterns.Add(new P_Spiral(20 * difficultyMultiplier));
 				//patterns[0].bulletMovement = new BulletMovementPattern (true, "WaitAndExplode", 5f, patterns[0], 0, 14);
 				patterns[0].bulletMovement = new BMP_WaitAndExplode(patterns[0], 5f);

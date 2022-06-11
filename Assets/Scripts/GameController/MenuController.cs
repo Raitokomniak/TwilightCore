@@ -78,7 +78,7 @@ public class MenuController : MonoBehaviour
 			if (CheckInput() == "confirm") CheckSelection ();	
 
 			if(CheckInput() == "back"){
-				if(context == "PauseMenu") Game.control.sound.PlayMenuSound("Confirm");
+				if(context == "PauseMenu") Game.control.sound.PlayMenuSound("Selection");
 				else Game.control.sound.PlayMenuSound("Cancel");
 
 				if(context == "PauseMenu") ClosePauseMenu();

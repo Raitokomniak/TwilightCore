@@ -32,7 +32,7 @@ public class SpriteLibrary : MonoBehaviour {
 		return sprite;
 	}
 
-	//not used yet
+
 	public Sprite SetEnemySprite(string name){
 		string path = "Sprites/EnemySprites/" + name;
 		Sprite sprite = Resources.Load<Sprite>(path);

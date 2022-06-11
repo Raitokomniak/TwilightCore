@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Wave
 {
 	public float spawnTime;
+	public float spawnCoolDown = 1;
 	public int enemyCount;
 	public int enemyCounter;
 
@@ -49,6 +50,7 @@ public class Wave
 		leaveDirections = new List<Vector3>();
 		enemyCounter = enemyCount;	
 		sprite = Game.control.spriteLib.SetEnemySprite(spriteName);
+		
 	}
 
 	//FOR BOSSES

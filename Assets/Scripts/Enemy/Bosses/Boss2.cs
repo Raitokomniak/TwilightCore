@@ -122,7 +122,7 @@ public class Boss2 : Phaser
 				while (!endOfPhase) {
 					
 					movement.pattern.UpdateDirection("X3");
-					yield return new WaitUntil(() => movementPatterns[0].HasReachedDestination(movement) == true);
+					yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
 					
 					shooter.BossShoot (patterns[0]);
 					

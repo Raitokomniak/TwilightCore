@@ -86,7 +86,7 @@ public class EnemySpawner : MonoBehaviour {
 				else wave.Spawn (i);
 			}
 			else break;
-			yield return new WaitForSeconds (1f);
+			yield return new WaitForSeconds (wave.spawnCoolDown);
 		}
 	}
 

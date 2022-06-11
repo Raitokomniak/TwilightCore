@@ -81,6 +81,11 @@ public class EnemyMovementPattern
 
 
 	IEnumerator ExecuteRoutine(EnemyMovement m){
+		if(wayPoints == null || wayPoints.Count  == 0) {
+			Debug.Log("waypoints is null");
+			yield break;
+		}
+		
 		foreach(WayPoint w in wayPoints){
                 if(w.rotateAround){
                     rotateOnAxis = true;
@@ -122,15 +127,15 @@ public class EnemyMovementPattern
 	{
 		float x = _m.transform.position.x;
 		float y = _m.transform.position.y;
-		float threshold = 0.5f;
+		float threshold = 1f;
 
 		if(Mathf.Abs(x-targetPosition.x) <= threshold && Mathf.Abs(y-targetPosition.y) <= threshold) {
 			previousPoint = _m.transform.position;
-			_m.rb.drag = 5f;
+			_m.rb.drag = 8f;
 			return true;
 		} 
 		else {
-			_m.rb.drag = 10f;
+			_m.rb.drag = 5f;
 			return false;
 		} 
 	}
@@ -147,7 +152,7 @@ public class EnemyMovementPattern
 			return true;
 		} 
 		else {
-			_m.rb.drag = 10f;
+			_m.rb.drag = 6f;
 			return false;
 		}
 	}

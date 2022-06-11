@@ -54,13 +54,6 @@ public class Stage3 : Stage
 		Pattern p;
 		EnemyMovementPattern mp;
 
-        mp = new EnemyMovementPattern(lib.GetVector("I1"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("L4")});
-		p = new P_SingleHoming();
-		p.bulletMovement = new BMP_Explode(p, 0.5f, true, true);
-		p.SetSprite ("Circle", "Big", "Red", "Big");
-		stage.NewWave (new Wave (3f, mp, p, 1, false, 0, 3f / difficultyMultiplier, "default"));
-		
-
+    
 	}
 }
