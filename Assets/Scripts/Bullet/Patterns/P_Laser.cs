@@ -22,7 +22,7 @@ public class P_Laser : Pattern
 					if (i >= 3)
 						ang += 30;
 
-					newPosition = SpawnInCircle (pos + new Vector3 (0, 1f, 0), 1.5f, ang);
+					spawnPosition = SpawnInCircle (pos + new Vector3 (0, 1f, 0), 1.5f, ang);
 
 				//	bulletMovement = new BulletMovementPattern (false, "ExpandToLaser", 0f, this, 0, tempMagnitude);
 					bulletMovement = new BMP_LaserExpand(this);
@@ -41,7 +41,7 @@ public class P_Laser : Pattern
 			} 
 			else {
 				sprite = Resources.Load<Sprite> ("Sprites/enemyLaser");
-				newPosition = pos - new Vector3 (0f, .2f, 0f);
+				spawnPosition = pos - new Vector3 (0f, .2f, 0f);
 				
 				//bulletMovement = new BulletMovementPattern (false, "PendulumLaser", 0f, this, 0, tempMagnitude);
 				bulletMovement = new BMP_LaserPendulum(this);

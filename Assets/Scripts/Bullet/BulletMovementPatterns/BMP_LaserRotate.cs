@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class BMP_LaserRotate : BulletMovementPattern
 {
+
+	public BMP_LaserRotate(){
+    }
+
      public BMP_LaserRotate(Pattern p){
         pattern = p;
     }

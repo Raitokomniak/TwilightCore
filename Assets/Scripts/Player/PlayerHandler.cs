@@ -110,4 +110,16 @@ public class PlayerHandler : MonoBehaviour {
 
 		Game.control.ui.RIGHT_SIDE_PANEL.UpdateXP(Game.control.stageHandler.stats.xp);
 	}
+
+
+	/////DEBUG
+
+	public void DebugFillCores(){
+		//POWERUP DOESNT TAKE INTO ACCOUNT BIG AMOUNTS OF CORE POINT GAINS
+		for(int i = 0; i < special.coreCap; i++){
+			special.GainCoreCharge("Day", i);
+			special.GainCoreCharge("Night", i);
+		}
+		
+	}
 }

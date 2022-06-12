@@ -23,7 +23,7 @@ public class Boss1 : Phaser
 
     IEnumerator Execute(int phase, Phaser phaser){
 		VectorLib lib = Game.control.vectorLib;
-		difficultyMultiplier = Game.control.stageHandler.difficultyMultiplier;
+		difficulty = Game.control.stageHandler.difficultyMultiplier;
 		ResetLists();
 		GetComponent<EnemyMovement>().EnableSprite(true);
 		//odd number is super phase
@@ -31,23 +31,23 @@ public class Boss1 : Phaser
 
 		switch (phase) {
 			case 0:
-				patterns.Add(new P_Spiral(20 * difficultyMultiplier));
+				patterns.Add(new P_Spiral(20 * difficulty));
 				patterns[0].bulletMovement = new BMP_WaitAndExplode (patterns[0], 5f);
-				patterns[0].loopCircles =  288 * difficultyMultiplier;
+				patterns[0].loopCircles =  288 * difficulty;
 				patterns[0].SetSprite ("Circle", "Glow", "Green", "Medium");
-				patterns[0].bulletMovement.accelSpeed = 30;
+				patterns[0].bulletMovement.accelMax = 30;
 
 				patterns.Add(new P_Maelstrom());
 				patterns[1].bulletMovement = new BMP_Explode (patterns[1], 6f, false, false);
 				patterns[1].rotationDirection =  1;
-				patterns[1].bulletCount =  2 * difficultyMultiplier;
+				patterns[1].bulletCount =  2 * difficulty;
 				patterns[1].SetSprite ("Circle", "Glow", "Green", "Medium");
-				patterns[1].bulletMovement.accelSpeed = 30;
+				patterns[1].bulletMovement.accelMax = 30;
 
 				patterns.Add(new P_Maelstrom());
 				patterns[2].SetSprite ("Circle", "Glow", "Yellow", "Medium");
 				patterns[2].bulletMovement = new BMP_Explode (patterns[2], 6f, false, false);
-				patterns[2].bulletCount =  2 * difficultyMultiplier;
+				patterns[2].bulletCount =  2 * difficulty;
 				patterns[2].rotationDirection = -1;
 
 				movementPatterns.Add(new EnemyMovementPattern());
@@ -91,22 +91,22 @@ public class Boss1 : Phaser
 				StartPhaseTimer(30);
 
 				patterns.Add(new P_Curtain());
-				patterns[0].bulletCount = Mathf.CeilToInt(1.8f * difficultyMultiplier);  
+				patterns[0].bulletCount = Mathf.CeilToInt(1.8f * difficulty);  
 				patterns[0].SetSprite ("Circle", "Bevel", "Lilac", "Medium");
 				patterns[0].bulletMovement = new BMP_TurnToSpears(patterns[0], 6f);
-				patterns[0].bulletMovement.accelSpeed = 30;
+				patterns[0].bulletMovement.accelMax = 30;
 
 				patterns.Add(new P_Maelstrom());
 				patterns[1].bulletMovement = new BMP_Explode(patterns[1], 6f, false, false);
 				patterns[1].rotationDirection =  1;
-				patterns[1].bulletCount = 2 * difficultyMultiplier;
+				patterns[1].bulletCount = 2 * difficulty;
 				patterns[1].SetSprite ("Circle", "Glow", "Green", "Medium");
 
 				patterns.Add(new P_Maelstrom());
 				patterns[2].SetSprite ("Circle", "Glow", "Yellow", "Medium");
 				patterns[2].bulletMovement = new BMP_Explode(patterns[2], 4f, false, false);
 				patterns[2].rotationDirection =  -1;
-				patterns[2].bulletCount = 2 * difficultyMultiplier;
+				patterns[2].bulletCount = 2 * difficulty;
 
 				movement.pattern.force = false;
 				movement.pattern.UpdateDirection("B3");
@@ -140,18 +140,18 @@ public class Boss1 : Phaser
 			
 			case 2:
 				movement.pattern.force = true;
-				patterns.Add(new P_Spiral(20 * difficultyMultiplier));
+				patterns.Add(new P_Spiral(20 * difficulty));
 				//patterns[0].bulletMovement = new BulletMovementPattern (true, "WaitAndExplode", 5f, patterns[0], 0, 14);
 				patterns[0].bulletMovement = new BMP_WaitAndExplode(patterns[0], 5f);
-				patterns[0].loopCircles = 288 * difficultyMultiplier;
+				patterns[0].loopCircles = 288 * difficulty;
 				patterns[0].SetSprite ("Circle", "Glow", "Green", "Medium");
-				patterns[0].bulletMovement.accelSpeed = 30;
+				patterns[0].bulletMovement.accelMax = 30;
 
 				patterns.Add(new P_SingleHoming());
 				patterns[1].bulletMovement = new BMP_TurnToSpears(patterns[1], 5f);
 				patterns[1].bulletCount = 1;
 				patterns[1].SetSprite ("Circle", "Bevel", "Lilac", "Medium");
-				patterns[1].bulletMovement.accelSpeed = 30;
+				patterns[1].bulletMovement.accelMax = 30;
 
 				//Vector2 teleP1 = new Vector2(vectorLib.GetVector("X1").x + 4f, shooter.transform.position.y);
 				//Vector2 teleP2 = new Vector2(vectorLib.GetVector("X1").x - 4f, shooter.transform.position.y);
@@ -196,15 +196,15 @@ public class Boss1 : Phaser
 				Game.control.ui.BOSS.ShowActivatedPhase ("Hoodwink: Fox Fires");
 				StartPhaseTimer(30);
 				
-				patterns.Add(new P_Cluster(difficultyMultiplier, 40 * difficultyMultiplier));
+				patterns.Add(new P_FoxFires(difficulty, 40 * difficulty));
 				patterns[0].SetSprite ("Fireball", "Glow", "Orange", "Small");
 
 				patterns.Add(new P_Maelstrom());
 				patterns[1].bulletMovement = new BMP_Explode(patterns[1], 6f, false, false);
 				patterns[1].rotationDirection = 1;
 				patterns[1].SetSprite ("Circle", "Big", "Red", "Big");
-				patterns[1].bulletCount =  Mathf.CeilToInt(1.2f * difficultyMultiplier);
-				patterns[1].coolDown = 2.5f / difficultyMultiplier;
+				patterns[1].bulletCount =  Mathf.CeilToInt(1.2f * difficulty);
+				patterns[1].coolDown = 2.5f / difficulty;
 
 				//movementPatterns.Add(new EMP_Swing(15, 1));
 				movementPatterns.Add(new EnemyMovementPattern());

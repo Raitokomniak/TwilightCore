@@ -54,7 +54,7 @@ public class Wave
 	}
 
 	//FOR BOSSES
-	public Wave(EnemyMovementPattern _movementPattern, float _spawnTime, int _health, bool _isBoss, int _healthBars, string spriteName)
+	public Wave(EnemyMovementPattern _movementPattern, float _spawnTime, int _health, bool _isBoss, int _healthBars)
 	{
 		movementPattern = _movementPattern;
 		enemyCount = 1;
@@ -67,7 +67,6 @@ public class Wave
 		enterDirections = new List<Vector3>();
 		leaveDirections = new List<Vector3>();
 		enemyCounter = enemyCount;
-		sprite = Game.control.spriteLib.SetCharacterSprite(spriteName);
 	}
 
 	public void SetUpBoss(float index, string name, bool _isMidBoss){
@@ -133,6 +132,7 @@ public class Wave
 		if	 (bossIndex == 0.5f) bossScript = enemy.AddComponent<Boss05> ();
 		else if(bossIndex == 1f) bossScript = enemy.AddComponent<Boss1> ();
 		else if(bossIndex == 2f) bossScript = enemy.AddComponent<Boss2> ();
+		else if(bossIndex == 3f) bossScript = enemy.AddComponent<Boss3> ();
 		bossScript.Init();
 		enemy.GetComponent<BossLife> ().SetHealth (health, healthBars, bossScript);
 		enemy.GetComponentInChildren<SpriteRenderer> ().sprite = sprite;

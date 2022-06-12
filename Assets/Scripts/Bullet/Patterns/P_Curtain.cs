@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class P_Curtain : Pattern
 {
+	//SPAWNS BULLETS IN A STRAIGHT LINE STARTING FROM SHOOTER POSITION
+
 	public P_Curtain(){
 		bulletCount = 8;
 		coolDown = .1f;
@@ -15,10 +17,7 @@ public class P_Curtain : Pattern
         yield return new WaitForSeconds(delayBeforeAttack);
 		pos = enemy.transform.position;
         for (int i = 0; i < bulletCount; i++) {
-				if (lineDirection == 1)
-					newPosition = SpawnInLine (pos.x, 20, lineDirection, i);
-				else
-					newPosition = SpawnInLine (pos.x, 20, lineDirection, i);
+				spawnPosition = SpawnInLine (pos.x, 20, lineDirection, i);
 				//bulletMovement = new BMP_TurnToSpears(patterns[0], 6f);
 
 				InstantiateBullet (enemyBullet, bulletMovement);

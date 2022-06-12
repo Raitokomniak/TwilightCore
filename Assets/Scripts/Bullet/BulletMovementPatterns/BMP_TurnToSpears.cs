@@ -13,12 +13,7 @@ public class BMP_TurnToSpears : BulletMovementPattern
     }
 
 	public override BulletMovementPattern GetNewBulletMovement(BulletMovementPattern _bmp){
-        BMP_TurnToSpears bmp = new BMP_TurnToSpears();
-		bmp.pattern = _bmp.pattern;
-        bmp.movementSpeed = _bmp.movementSpeed;
-		bmp.accelSpeed = _bmp.accelSpeed;
-		bmp.scale = _bmp.scale;
-        return bmp;
+       return CopyValues("TurnToSpears", _bmp);
     }
 
 

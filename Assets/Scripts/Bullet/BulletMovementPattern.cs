@@ -17,14 +17,19 @@ public class BulletMovementPattern
 	public bool dontDestroy;
 
 	public float movementSpeed;
-	public float accelSpeed = 6f;
+	public float accelMax = 6f;
+	public float accelSpeed = 1f;
 	public Quaternion rotation;
 	public Vector3 scale;
 	public bool forceScale = false;
 
+	public bool trail;
+
 	public Pattern pattern;
 	public int layer;
 	public int laserIndex;
+
+	public bool moveWithForce;
 
 	public BulletMovementPattern(){}
 
@@ -32,6 +37,47 @@ public class BulletMovementPattern
 		Debug.Log("not this getnew");
 		return null;
 	}
+
+	public BulletMovementPattern CopyValues(string bmpType, BulletMovementPattern _bmp){
+		BulletMovementPattern bmp = new BulletMovementPattern();
+		if(bmpType == "Aurora") bmp = new BMP_Aurora();
+		if(bmpType == "RainDrop") bmp = new BMP_RainDrop();
+		if(bmpType == "DownAndExplode") bmp = new BMP_DownAndExplode();
+		if(bmpType == "Explode") bmp = new BMP_Explode();
+		if(bmpType == "LaserExpand") bmp = new BMP_LaserExpand();
+		if(bmpType == "LaserPendulum") bmp = new BMP_LaserPendulum();
+		if(bmpType == "LaserRotate") bmp = new BMP_LaserRotate();
+		if(bmpType == "SlowWaving") bmp = new BMP_SlowWaving();
+		if(bmpType == "Stop") bmp = new BMP_Stop();
+		if(bmpType == "StopAndRotate") bmp = new BMP_StopAndRotate();
+		if(bmpType == "TurnToSpears") bmp = new BMP_TurnToSpears();
+		if(bmpType == "WaitAndExplode") bmp = new BMP_WaitAndExplode();
+		if(bmpType == "WaitToHome") bmp = new BMP_WaitToHome();
+
+		bmp.bullet = _bmp.bullet;
+		bmp.centerPoint = _bmp.centerPoint;
+		bmp.targetMagnitude = _bmp.targetMagnitude;
+		bmp.isHoming = _bmp.isHoming;
+		bmp.startHoming = _bmp.startHoming;
+		bmp.isMoving = _bmp.isMoving;
+		bmp.randomDirs = _bmp.randomDirs;
+		bmp.rotateOnAxis = _bmp.rotateOnAxis;
+		bmp.dontDestroy = _bmp.dontDestroy;
+		bmp.movementSpeed = _bmp.movementSpeed;
+		bmp.accelMax = _bmp.accelMax;
+		bmp.accelSpeed = _bmp.accelSpeed;
+		bmp.rotation = _bmp.rotation;
+		bmp.scale = _bmp.scale;
+		bmp.forceScale = _bmp.forceScale;
+		bmp.pattern = _bmp.pattern;
+		bmp.layer = _bmp.layer;
+		bmp.laserIndex = _bmp.laserIndex;
+		bmp.trail = _bmp.trail;
+		bmp.moveWithForce = _bmp.moveWithForce;
+
+		return bmp;
+	}
+
 
 	public IEnumerator Execute(GameObject _bullet){
 		bullet = _bullet;

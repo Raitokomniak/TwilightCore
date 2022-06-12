@@ -15,13 +15,7 @@ public class BMP_StopAndRotate : BulletMovementPattern
     }
 
 	 public override BulletMovementPattern GetNewBulletMovement(BulletMovementPattern _bmp){
-        BMP_StopAndRotate bmp = new BMP_StopAndRotate();
-        bmp.movementSpeed = _bmp.movementSpeed;
-		bmp.scale = _bmp.scale;
-		bmp.layer = _bmp.layer;
-		bmp.pattern = _bmp.pattern;
-		bmp.targetMagnitude = _bmp.targetMagnitude;
-        return bmp;
+       return CopyValues("StopAndRotate", _bmp);
     }
 
 

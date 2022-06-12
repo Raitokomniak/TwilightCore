@@ -14,12 +14,7 @@ public class BMP_Aurora : BulletMovementPattern
     }
 
 	public override BulletMovementPattern GetNewBulletMovement(BulletMovementPattern _bmp){
-        BMP_Aurora bmp = new BMP_Aurora();
-		bmp.pattern = _bmp.pattern;
-		bmp.targetMagnitude = _bmp.targetMagnitude;
-        bmp.movementSpeed = _bmp.movementSpeed;
-		bmp.scale = _bmp.scale;
-        return bmp;
+        return CopyValues("Aurora", _bmp);
     }
 
     public override IEnumerator ExecuteRoutine(){

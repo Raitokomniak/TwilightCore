@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class P_Maelstrom : Pattern
 {
+	//SPAWNS BULLETS EVENLY IN A CIRCLE AROUND THE SHOOTER, BUT EVERY FOLLOWING ROW SLIGHTLY ROTATES TO A DIRECTION
+
 	public P_Maelstrom(){
 		bulletCount = 10;
 		coolDown = 0.2f;
@@ -24,7 +26,7 @@ public class P_Maelstrom : Pattern
 				Game.control.sound.PlaySound ("Enemy", "Shoot", true);
 				
 				for (int i = 0; i < bulletCount; i++) {
-					newPosition = SpawnInCircle (pos, 1.5f, GetAng (i, 360) + startingRotation);
+					spawnPosition = SpawnInCircle (pos, 1.5f, GetAng (i, 360) + startingRotation);
 					bulletRotation = SpawnInCircle (i, startingRotation);
 					startingRotation += 0.5f * rotationDirection;
 					InstantiateBullet (enemyBullet, bulletMovement);
@@ -39,7 +41,7 @@ public class P_Maelstrom : Pattern
 				
 			for (int i = 0; i < bulletCount; i++) {
 				if(stop) break;
-				newPosition = SpawnInCircle (pos, 1.5f, GetAng (i, 360) + startingRotation);
+				spawnPosition = SpawnInCircle (pos, 1.5f, GetAng (i, 360) + startingRotation);
 				bulletRotation = SpawnInCircle (i, startingRotation);
 				startingRotation += 0.5f * rotationDirection;
 				InstantiateBullet (enemyBullet, bulletMovement);

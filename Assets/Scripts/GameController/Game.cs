@@ -88,7 +88,7 @@ public class Game : MonoBehaviour {
 	}
 
 	public void StartGame(){
-		sound.StopMusic();
+		sound.StopMusicAndEffects();
 		stageHandler.enabled = true;
 		stageHandler.StartGame();
 	}

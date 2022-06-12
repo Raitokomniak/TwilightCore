@@ -8,17 +8,13 @@ public class BMP_WaitAndExplode : BulletMovementPattern
 	public BMP_WaitAndExplode(){}
 
     public BMP_WaitAndExplode(Pattern p, float _movementSpeed){
-        accelSpeed = _movementSpeed;
+        accelMax = _movementSpeed;
         pattern = p;
 		scale = new Vector3 (2,2,2);
     }
 
 	public override BulletMovementPattern GetNewBulletMovement(BulletMovementPattern _bmp){
-        BMP_WaitAndExplode bmp = new BMP_WaitAndExplode();
-		bmp.pattern = _bmp.pattern;
-        bmp.accelSpeed = _bmp.accelSpeed;
-		bmp.scale = _bmp.scale;
-        return bmp;
+       return CopyValues("WaitAndExplode", _bmp);
     }
 
     public override IEnumerator ExecuteRoutine(){
@@ -27,7 +23,7 @@ public class BMP_WaitAndExplode : BulletMovementPattern
 		Explode (false, bullet, 14, 1);
 		yield return new WaitUntil (() => pattern.allBulletsSpawned);
 		yield return new WaitForSeconds (.2f);
-		movementSpeed = accelSpeed;
+		movementSpeed = accelMax;
 		bullet.GetComponent<EnemyBulletMovement> ().SmoothAcceleration ();
 		Explode (false, bullet, 14, 1);
 		rotation = bullet.transform.rotation;

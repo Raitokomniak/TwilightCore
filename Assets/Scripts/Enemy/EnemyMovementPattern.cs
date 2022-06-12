@@ -76,7 +76,7 @@ public class EnemyMovementPattern
         wayPoints = new List<WayPoint>();
         spawnPosition = _spawnPosition;
         force = true;
-        speed = 10;
+       // speed = 10;
     }
 
 

@@ -11,11 +11,7 @@ public class BMP_Stop : BulletMovementPattern
     }
 
      public override BulletMovementPattern GetNewBulletMovement(BulletMovementPattern _bmp){
-        BMP_Stop bmp = new BMP_Stop();
-        bmp.movementSpeed = _bmp.movementSpeed;
-		bmp.scale = _bmp.scale;
-        bmp.isHoming = _bmp.isHoming;
-        return bmp;
+       return CopyValues("Stop", _bmp);
      }
 
 

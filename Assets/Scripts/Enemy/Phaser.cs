@@ -15,7 +15,7 @@ public class Phaser : MonoBehaviour {
 
 	public float bossIndex;
 	public bool ignoreDialog;
-	public int difficultyMultiplier;
+	public int difficulty;
 
 
 	int bossPhase;

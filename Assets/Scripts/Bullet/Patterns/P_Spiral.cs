@@ -22,7 +22,7 @@ public class P_Spiral : Pattern
 			Vector3 centerPos = pos;
 			allBulletsSpawned = false;
 			for (int i = 0; i < bulletCount; i++) {
-				newPosition = SpawnInCircle (pos, 1f + (i * 0.1f), GetAng (i, loopCircles));
+				spawnPosition = SpawnInCircle (pos, 1f + (i * 0.1f), GetAng (i, loopCircles));
 				InstantiateBullet (enemyBullet, bulletMovement);
 				yield return new WaitForSeconds (coolDown * Time.deltaTime);
 				if(stop) break;

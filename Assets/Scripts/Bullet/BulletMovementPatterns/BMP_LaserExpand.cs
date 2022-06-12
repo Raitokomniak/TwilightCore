@@ -12,11 +12,7 @@ public class BMP_LaserExpand : BulletMovementPattern
     }
 
 	 public override BulletMovementPattern GetNewBulletMovement(BulletMovementPattern _bmp){
-        BMP_LaserExpand bmp = new BMP_LaserExpand();
-		bmp.pattern = _bmp.pattern;
-        bmp.movementSpeed = _bmp.movementSpeed;
-		bmp.scale = _bmp.scale;
-        return bmp;
+        return CopyValues("LaserExpand", _bmp);
     }
 
     public override IEnumerator ExecuteRoutine(){

@@ -373,7 +373,7 @@ public class Stage2 : Stage
 
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
-		boss = new Wave(mp, 114f, Mathf.CeilToInt(health), true, 2, "boss2");
+		boss = new Wave(mp, 114f, Mathf.CeilToInt(health), true, 2);
 		boss.SetUpBoss (2, "Joanette, Queen of Spiders", false);
 		stage.NewWave (boss);
 

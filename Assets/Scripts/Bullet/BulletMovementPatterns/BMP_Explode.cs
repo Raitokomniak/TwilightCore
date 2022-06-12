@@ -17,11 +17,7 @@ public class BMP_Explode : BulletMovementPattern
 
     //FOR INSTANTIATING FOR EACH BULLET
     public override BulletMovementPattern GetNewBulletMovement(BulletMovementPattern _bmp){
-        BMP_Explode bmp = new BMP_Explode();
-        bmp.movementSpeed = _bmp.movementSpeed;
-		bmp.scale = _bmp.scale;
-        bmp.isHoming = _bmp.isHoming;
-        return bmp;
+       return CopyValues("Explode", _bmp);
     }
 
     public override IEnumerator ExecuteRoutine(){    

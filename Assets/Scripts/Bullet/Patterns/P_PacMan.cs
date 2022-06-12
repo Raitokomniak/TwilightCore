@@ -17,7 +17,7 @@ public class P_PacMan : Pattern
 
         for (int i = 0; i < bulletCount; i++) {
 				//sprite = Resources.Load<Sprite> ("Sprites/Circle_Glow_Red");
-				newPosition = pos + new Vector3 (0f, 0f, 0f);
+				spawnPosition = pos + new Vector3 (0f, 0f, 0f);
 				bulletRotation = Quaternion.Euler (0f, 0f, startingRotation + (float)i * rotationMultiplier);
 				//bulletMovement = new BulletMovementPattern (false, null, 0.5f, this, 0, tempMagnitude);
 				startingRotation += 0.1f;

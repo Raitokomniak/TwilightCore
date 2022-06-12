@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class BMP_LaserPendulum : BulletMovementPattern
 {
+
+	public BMP_LaserPendulum(){
+    }
+
     public BMP_LaserPendulum(Pattern p){
         pattern = p;
     }
 
+	
 
     public override IEnumerator ExecuteRoutine(){
         dontDestroy = true;

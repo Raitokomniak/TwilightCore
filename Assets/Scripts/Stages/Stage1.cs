@@ -269,7 +269,7 @@ public class Stage1 : Stage
 		//mp.leaveDir = lib.GetVector("XU");
 		mp.stayTime = 23f;
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
-		Wave midBoss = new Wave(mp, 55f, 150, false, 1, "boss0.5"); //55f
+		Wave midBoss = new Wave(mp, 55f, 150, false, 1); //55f
 		midBoss.SetUpBoss (0.5f, "Asura", true);
 		stage.NewWave (midBoss);
 
@@ -342,7 +342,7 @@ public class Stage1 : Stage
 		if(difficultyMultiplier < 5) health = 120 * difficultyMultiplier;
 		if(difficultyMultiplier >= 5) health = 70 * difficultyMultiplier;
 
-		boss = new Wave(mp, 102f, Mathf.CeilToInt(health), true, 2, "boss1");
+		boss = new Wave(mp, 102f, Mathf.CeilToInt(health), true, 2);
 		boss.SetUpBoss (1, "Maaya, Forest Guardian", false);
 		stage.NewWave (boss);
 		

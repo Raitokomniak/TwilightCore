@@ -84,6 +84,7 @@ public class UIController : MonoBehaviour {
 	}
 	
 	public void EffectOverlay(string color, bool fadeIn, float fadeTime){
+		Debug.Log("here");
 		EFFECT_OVERLAY.gameObject.SetActive(true);
 		if(color == "White") EFFECT_OVERLAY.color = new Color(1,1,1,1);
 		if(color == "Black") EFFECT_OVERLAY.color = new Color(0,0,0,1);

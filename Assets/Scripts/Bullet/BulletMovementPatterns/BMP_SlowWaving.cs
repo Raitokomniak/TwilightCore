@@ -15,12 +15,7 @@ public class BMP_SlowWaving : BulletMovementPattern
     }
 
  	public override BulletMovementPattern GetNewBulletMovement(BulletMovementPattern _bmp){
-        BMP_SlowWaving bmp = new BMP_SlowWaving();
-		bmp.pattern = _bmp.pattern;
-        bmp.movementSpeed = _bmp.movementSpeed;
-		bmp.scale = _bmp.scale;
-		bmp.randomDirs = _bmp.randomDirs;
-        return bmp;
+        return CopyValues("SlowWaving", _bmp);
     }
 
 

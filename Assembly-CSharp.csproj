@@ -42,8 +42,8 @@
      <Compile Include="Assets\Scripts\Graphical\MainMenuUI.cs" />
      <Compile Include="Assets\Scripts\Bullet\BulletMovementPattern.cs" />
      <Compile Include="Assets\Scripts\GameController\Options.cs" />
+     <Compile Include="Assets\Scripts\Enemy\Bosses\Boss3.cs" />
      <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_Stop.cs" />
-     <Compile Include="Assets\Scripts\Bullet\Patterns\P_Cluster.cs" />
      <Compile Include="Assets\Scripts\Environment\PickUpPoint.cs" />
      <Compile Include="Assets\Scripts\Graphical\BulletAnimationController.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemyShoot.cs" />
@@ -120,10 +120,17 @@
      <Compile Include="Assets\Scripts\Graphical\ScorePanel.cs" />
      <Compile Include="Assets\Scripts\Bullet\ProjectileRotator.cs" />
      <Compile Include="Assets\Scripts\Stages\Stage.cs" />
+     <Compile Include="Assets\Scripts\Bullet\Patterns\P_Rain.cs" />
+     <Compile Include="Assets\Scripts\Bullet\BulletMovementPatterns\BMP_RainDrop.cs" />
+     <Compile Include="Assets\Scripts\Bullet\Patterns\P_FoxFires.cs" />
+     <Compile Include="Assets\Scripts\Bullet\Patterns\P_Shower.cs" />
+     <Compile Include="Assets\Scripts\Bullet\TrailMaker.cs" />
+     <Compile Include="Assets\Scripts\Bullet\BulletBouncer.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Resources\DialogText\Stage1_0.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+     <None Include="Assets\Resources\DialogText\Boss3.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />

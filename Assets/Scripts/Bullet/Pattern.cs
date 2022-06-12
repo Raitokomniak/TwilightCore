@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 public class Pattern
 {
+	public VectorLib lib;
 	public GameObject bullet;
 	public ArrayList bullets;
 	public EnemyShoot enemyShoot;
 	public Sprite sprite;
 	public Sprite glowSprite;
 
-	public Vector3 newPosition;
+	public Vector3 spawnPosition;
 	public Quaternion bulletRotation;
 	public BulletMovementPattern bulletMovement;
 	public float bulletSize = 1;
@@ -67,7 +68,8 @@ public class Pattern
 	{
 		if(bulletMovement == null) bulletMovement = new BMP_Explode(this, 5f, false, false); //DEFAULT
 		bulletMovement = bulletMovement.GetNewBulletMovement(bulletMovement);
-		bullet = (Object.Instantiate (enemyBullet, newPosition, bulletRotation) as GameObject);
+		
+		bullet = (Object.Instantiate (enemyBullet, spawnPosition, bulletRotation) as GameObject);
 		bullet.transform.SetParent (GameObject.FindWithTag ("BulletsRepo").transform);
 		bullet.GetComponent<EnemyBulletMovement> ().SetUpBulletMovement (bulletMovement, enemyShoot);
 		bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
@@ -82,7 +84,7 @@ public class Pattern
 		rot = _enemy.transform.rotation;
 		enemyBullet = _enemyBullet;
 
-		newPosition = _enemy.transform.position;
+		spawnPosition = _enemy.transform.position;
 		bulletRotation = _enemy.transform.rotation;
 		stop = false;
 		 

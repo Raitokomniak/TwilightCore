@@ -15,13 +15,7 @@ public class BMP_DownAndExplode : BulletMovementPattern
     }
 
     public override BulletMovementPattern GetNewBulletMovement(BulletMovementPattern _bmp){
-        BMP_DownAndExplode bmp = new BMP_DownAndExplode();
-        bmp.movementSpeed = _bmp.movementSpeed;
-		bmp.scale = _bmp.scale;
-        bmp.isHoming = _bmp.isHoming;
-        bmp.pattern = _bmp.pattern;
-        bmp.targetMagnitude = _bmp.targetMagnitude;
-        return bmp;
+        return CopyValues("DownAndExplode", _bmp);
     }
 
 

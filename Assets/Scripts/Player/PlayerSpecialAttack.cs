@@ -140,6 +140,8 @@ public class PlayerSpecialAttack : MonoBehaviour {
 		PowerUpdate (core, false);
 	}
 
+
+
 	public void GainCoreCharge(string core, int gainedCharge)
 	{
 		int multiplier = 1;

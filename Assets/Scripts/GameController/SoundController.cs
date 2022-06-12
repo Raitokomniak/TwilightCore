@@ -9,6 +9,8 @@ public class SoundController : MonoBehaviour {
 	AudioSource playerSFXSource;
 	AudioSource enemySFXSource;
 	AudioSource menuSFXSource;
+	AudioSource loopingSFXSource;
+
 	AudioSource BGMSource;
 
 	//Music
@@ -30,6 +32,9 @@ public class SoundController : MonoBehaviour {
 	AudioClip SFX_Spell_Default;
 	AudioClip SFX_Spell_NightCore1;
 	AudioClip SFX_Spell_DayCore1;
+
+	//LoopSFX
+	AudioClip SFX_Loop_River;
 
 	//MenuSFX
 	AudioClip SFX_cursor;
@@ -55,9 +60,10 @@ public class SoundController : MonoBehaviour {
 		BGM_stageMusic[1] = Resources.Load("Sound/Music/stage2_lulmix") as AudioClip;
 		BGM_stageMusic[2] = Resources.Load("Sound/Music/asura-who-remain-asura_piano") as AudioClip;
 
-		BGM_bossMusic = new AudioClip[2];
+		BGM_bossMusic = new AudioClip[3];
 		BGM_bossMusic[0] = Resources.Load ("Sound/Music/Boss1") as AudioClip;
 		BGM_bossMusic[1] = Resources.Load ("Sound/Music/void-dance") as AudioClip;
+		BGM_bossMusic[2] = Resources.Load ("Sound/Music/mothersfears_motherstears_lulmix") as AudioClip;
 	}
 
 	void LoadSFX(){
@@ -76,6 +82,8 @@ public class SoundController : MonoBehaviour {
 		SFX_selection = Resources.Load("Sound/SFX/Decision1") as AudioClip;
 		SFX_pause = Resources.Load("Sound/SFX/Decision5") as AudioClip;
 		SFX_cancel = Resources.Load("Sound/SFX/Cancel1") as AudioClip;
+
+		SFX_Loop_River = Resources.Load("Sound/SFX/River") as AudioClip;
 	}
 
 	public float GetBGMVolume(){
@@ -96,14 +104,17 @@ public class SoundController : MonoBehaviour {
 
 	public void InitSound(){
 		SFXsources = new List<AudioSource>();
-		playerSFXSource = this.gameObject.AddComponent<AudioSource> ();
-		enemySFXSource =  this.gameObject.AddComponent<AudioSource> ();
-		menuSFXSource =   this.gameObject.AddComponent<AudioSource> ();
-		BGMSource = 	  this.gameObject.AddComponent<AudioSource> ();
+		playerSFXSource = 		this.gameObject.AddComponent<AudioSource> ();
+		enemySFXSource =  		this.gameObject.AddComponent<AudioSource> ();
+		menuSFXSource =  		this.gameObject.AddComponent<AudioSource> ();
+		BGMSource = 	  		this.gameObject.AddComponent<AudioSource> ();
+		loopingSFXSource = 	  	this.gameObject.AddComponent<AudioSource> ();
+		loopingSFXSource.loop = true;
 
 		SFXsources.Add(playerSFXSource);
 		SFXsources.Add(enemySFXSource);
 		SFXsources.Add(menuSFXSource);
+		SFXsources.Add(loopingSFXSource);
 
 		SetSFXVolume(1f);
 		SetBGMVolume(1f);
@@ -166,6 +177,15 @@ public class SoundController : MonoBehaviour {
 		}
 	}
 
+	public void PlaySFXLoop(string sound){
+		AudioClip c = null;
+
+		if(sound == "Rain") 	c = SFX_Loop_River;
+
+		loopingSFXSource.clip = c;
+		loopingSFXSource.Play ();
+	}
+
 	public void FadeOutMusic(){
 		IEnumerator fadeOutRoutine = FadeOutRoutine();
 		StartCoroutine(fadeOutRoutine);
@@ -181,14 +201,22 @@ public class SoundController : MonoBehaviour {
 		BGMSource.volume = tempVol;
 	}
 
-	public void PauseMusic(){
+	public void PauseMusicAndEffects(){
 		BGMSource.Pause ();
+		loopingSFXSource.Pause();
 	}
-	public void ResumeMusic(){
+	public void ResumeMusicAndEffects(){
 		BGMSource.Play ();
+		loopingSFXSource.Play();
 	}
-	public void StopMusic(){
+	public void StopMusicAndEffects(){
 		BGMSource.Stop ();
+		loopingSFXSource.Stop();
+	}
+
+
+	public void StopLoopingEffects(){
+		loopingSFXSource.Stop();
 	}
 
 	public void PlayMusic(string type){
@@ -209,7 +237,7 @@ public class SoundController : MonoBehaviour {
 
 		BGMSource.clip = c;
 		BGMSource.loop = true;
-		ResumeMusic();
+		ResumeMusicAndEffects();
 	}
 
 }
