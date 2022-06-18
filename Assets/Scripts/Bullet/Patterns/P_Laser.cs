@@ -44,7 +44,7 @@ public class P_Laser : Pattern
 				spawnPosition = pos - new Vector3 (0f, .2f, 0f);
 				
 				//bulletMovement = new BulletMovementPattern (false, "PendulumLaser", 0f, this, 0, tempMagnitude);
-				BMP = new BMP_LaserPendulum(this);
+				//BMP = new BMP_LaserPendulum(this);
 			
 				//SpawnBullet (enemyBullet, bulletMovement);
 				SpawnBullet (BMP);

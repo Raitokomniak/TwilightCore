@@ -49,8 +49,6 @@ public class BulletMovementPattern
 		if(bmpType == "RainDrop") bmp = new BMP_RainDrop();
 		if(bmpType == "DownAndExplode") bmp = new BMP_DownAndExplode();
 		if(bmpType == "Explode") bmp = new BMP_Explode();
-		if(bmpType == "LaserExpand") bmp = new BMP_LaserExpand();
-		if(bmpType == "LaserPendulum") bmp = new BMP_LaserPendulum();
 		if(bmpType == "SlowWaving") bmp = new BMP_SlowWaving();
 		if(bmpType == "Stop") bmp = new BMP_Stop();
 		if(bmpType == "StopAndRotate") bmp = new BMP_StopAndRotate();
