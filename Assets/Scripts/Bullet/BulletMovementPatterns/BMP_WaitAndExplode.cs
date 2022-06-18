@@ -20,12 +20,14 @@ public class BMP_WaitAndExplode : BulletMovementPattern
     public override IEnumerator ExecuteRoutine(){
         movementSpeed = 0;
 		rotation = bullet.transform.rotation;
-		Explode (false, bullet, 14, 1);
+		Explode (14);
 		yield return new WaitUntil (() => pattern.allBulletsSpawned);
-		yield return new WaitForSeconds (.2f);
+		yield return new WaitForSeconds(waitAndExplodeWaitTime);
+
 		movementSpeed = accelMax;
-		bullet.GetComponent<EnemyBulletMovement> ().SmoothAcceleration ();
-		Explode (false, bullet, 14, 1);
+		accelSpeed = 10f;
+		bullet.GetComponent<BulletMovement> ().SmoothAcceleration ();
+		Explode (14);
 		rotation = bullet.transform.rotation;
 
 		yield return null;

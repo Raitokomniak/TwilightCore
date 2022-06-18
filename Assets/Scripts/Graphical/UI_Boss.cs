@@ -17,8 +17,8 @@ public class UI_Boss : MonoBehaviour
 	public GameObject bossX;
 	public GameObject bossSpellToast;
 	public TextMeshProUGUI bossSpellText;
-	public TextMeshProUGUI bossTimer;
-
+	//public TextMeshProUGUI bossTimer;
+	public Text bossTimer;
 
     void Awake(){
         ToggleBossHealthSlider(false, 0, "");

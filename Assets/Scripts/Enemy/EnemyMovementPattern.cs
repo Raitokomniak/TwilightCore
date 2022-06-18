@@ -32,7 +32,7 @@ public class EnemyMovementPattern
 	//spawn pos, waypoints, speed between points, staytime at points
 	public Vector3 spawnPosition;
 	public List<WayPoint> wayPoints;
-	public float speed;
+	public float speed = 5f; //DEFAULT
 	public float stayTime;
 
 	//some modifiers
@@ -76,13 +76,12 @@ public class EnemyMovementPattern
         wayPoints = new List<WayPoint>();
         spawnPosition = _spawnPosition;
         force = true;
-       // speed = 10;
     }
 
 
 	IEnumerator ExecuteRoutine(EnemyMovement m){
 		if(wayPoints == null || wayPoints.Count  == 0) {
-			Debug.Log("waypoints is null");
+//			Debug.Log("waypoints is null");
 			yield break;
 		}
 		

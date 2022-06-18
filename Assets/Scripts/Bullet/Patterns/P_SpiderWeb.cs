@@ -9,30 +9,30 @@ public class P_SpiderWeb : Pattern
 		bulletCount = 10;
 		coolDown = 3;
 		tempMagnitude = originMagnitude;
-		bulletMovement = new BMP_DownAndExplode(this, 7f, false, 2.6f);
+		Pattern p = this;
+
+		BMP = new BMP_DownAndExplode(p, 7f, false, 2.6f);
 	}
 
    public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
-	   allBulletsSpawned = false;
-        yield return new WaitForSeconds(delayBeforeAttack);
+		spawnedBullets = new ArrayList ();
+		allBulletsSpawned = false;
 		pos = enemy.transform.position;
 
-        bullets = new ArrayList ();
+        yield return new WaitForSeconds(delayBeforeAttack);
+        
 		animation = (Resources.Load ("Images/Animations/SmallWeb") as GameObject);
-		animation.GetComponent<BulletAnimationController>().stayTime = 2f;
+		animation.GetComponent<SpriteAnimationController>().stayTime = 2f;
 		bulletRotation = rot;
 		animating = false;
-			
 		for (int i = 0; i < bulletCount; i++) {
-			bulletRotation = Quaternion.Euler (0f, 0f, i * (360 / bulletCount));
-			InstantiateBullet (enemyBullet, bulletMovement);
-			//bullet.GetComponent<SpriteRenderer> ().sprite = Game.control.spriteLib.SetBulletSprite ("Circle", "Glow", "Red");
-			bullet.GetComponent<SpriteRenderer> ().sprite = Game.control.spriteLib.SetBulletSprite ("Spider_Glow");
-			bullets.Add (enemyBullet);
+			//SpawnBullet (enemyBullet, bulletMovement);
+			SpawnBullet (BMP);
+			bullet.GetComponent<BulletMovement>().spriteR.sprite = Game.control.spriteLib.SetBulletSprite ("Spider_Glow");
 		}
 		yield return new WaitUntil(() => allBulletsSpawned == true);
-		Animate(1, 2f, bulletMovement.centerPoint);
+		Animate(1, 2f, BMP.centerPoint);
 		yield return new WaitForSeconds(0.5f);
-		if(animation) animation.GetComponent<BulletAnimationController>().rotationSpeed = 10f;
+		if(animation) animation.GetComponent<SpriteAnimationController>().rotationSpeed = 10f;
 	}
 }

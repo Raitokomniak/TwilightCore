@@ -14,8 +14,9 @@ public class Game : MonoBehaviour {
 	[SerializeField] public DialogController dialog;
 	[SerializeField] public StageHandler stageHandler;
 	[SerializeField] public SaveLoadHandler io;
-	[SerializeField] public SceneHandler scene;
+	[SerializeField] public EnvironmentHandler scene;
 	[SerializeField] public EnemySpawner enemySpawner;
+	[SerializeField] public BulletPooler bulletPool;
 	
 	[SerializeField] public PauseController pause;
 	[SerializeField] public PlayerHandler player;
@@ -27,6 +28,8 @@ public class Game : MonoBehaviour {
 	[SerializeField] public GameObject soundObject;
 	[SerializeField] public SoundController sound;
 
+
+    public bool loading;
 
 	public void QuitGame(){
 		Application.Quit ();
@@ -50,12 +53,13 @@ public class Game : MonoBehaviour {
 		io = GetComponent<SaveLoadHandler>();
 		dialog = GetComponent<DialogController> ();
 		stageHandler = GetComponent<StageHandler> ();
-		scene = GetComponent<SceneHandler> ();
+		scene = GetComponent<EnvironmentHandler> ();
 		enemySpawner = GetComponent<EnemySpawner> ();
 		spriteLib = GetComponent<SpriteLibrary> ();
 		vectorLib = GetComponent<VectorLib> ();
 		pause = GetComponent<PauseController> ();
 		options = GetComponent<Options>();
+		bulletPool = GetComponent<BulletPooler>();
 
 		sound = soundObject.GetComponent<SoundController> ();
 		menu = GetComponent<MenuController> ();
@@ -68,23 +72,39 @@ public class Game : MonoBehaviour {
 	}
 
 	public void MainMenu (){
-		stageHandler.enabled = false;
+       
 		StartCoroutine(LoadMainMenu());
 	}
 
 	IEnumerator LoadMainMenu(){
+        loading = true;
+        if(GameObject.Find("MainMenuCanvas")) mainMenuUI = GameObject.Find("MainMenuCanvas").GetComponent<MainMenuUI>();
+        
+        if(ui != null) ui.ToggleLoadingScreen(true);
+        else if(mainMenuUI != null) mainMenuUI.ToggleLoadingScreen(true);
+
+        if(stageHandler.stageOn){
+            stageHandler.StopStage();
+            yield return new WaitUntil(() => stageHandler.stageTimer == 0);
+           // stageHandler.enabled = false;
+        }
+        
+        
 		if(GetCurrentScene() != "MainMenu") {
 			AsyncOperation loadScene = SceneManager.LoadSceneAsync ("MainMenu");
 			yield return new WaitUntil(() => loadScene.isDone == true);
 		}
+        
 		mainMenuUI = GameObject.Find("MainMenuCanvas").GetComponent<MainMenuUI>();
+        mainMenuUI.ToggleLoadingScreen(true);
 		mainMenuUI.InitMainMenu ();
 		sound.PlayMusic ("MainMenu");
 		menu.Menu("MainMenu");
 
-		Game.control.io.LoadOptions();
-		
-		yield return new WaitForEndOfFrame();
+		io.LoadOptions();
+        
+		mainMenuUI.ToggleLoadingScreen(false);
+        loading = false;
 	}
 
 	public void StartGame(){

@@ -50,12 +50,12 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			else if (movement.focusMode && nightCorePoints >= 20)
 				StartCoroutine(SpecialAttack ("Night"));
 			else
-				Game.control.ui.PlayToast("Not enough points");
+				Game.control.ui.PlayToast("Not enough points for special attack");
 		}
 	}
 
 	bool CanUseSpecial(){
-		if(Game.control.stageHandler.loading) return false;
+		if(Game.control.loading) return false;
 		if(Game.control.menu.menuOn) return false;
 		if(specialAttack) return false;
 		if(Game.control.dialog.handlingDialog) return false;
@@ -64,19 +64,27 @@ public class PlayerSpecialAttack : MonoBehaviour {
 
 	IEnumerator SpecialAttack(string core)
 	{
+        Game.control.stageHandler.DenyBossBonus();
+        
 		specialAttackTime = 3f;
 		specialAttack = true;
 
 		DepleteCore (core, true);
 
 		if (core == "Day") {
+			Game.control.ui.WORLD.ShowFXLayer("Light");
 			Game.control.sound.PlaySpellSound("Player", "DayCore1");
 			Game.control.ui.ShowActivatedPlayerPhase ("Day Core: Dawnbreaker");
 			daySpecial.SetActive (true);
 			dayAnimatedSprite.GetComponent<AnimationController> ().Scale (1, 1.5f, true, false);
-			dayAnimatedSprite.GetComponent<AnimationController> ().rotating = true;
-			yield return new WaitForSeconds (1.5f);
+			dayAnimatedSprite.GetComponent<AnimationController> ().StartRotating(4f);
+			yield return new WaitForSeconds (specialAttackTime);
 			daySpecial.SetActive (false);
+			Game.control.ui.WORLD.HideFXLayer();
+
+
+			//UNUSED STARBOMB SPECIAL, NOT SURE IF WANNA SCRAP YET
+
 /*			ArrayList bombs = new ArrayList ();
 
 			for (int i = 0; i < 10; i++) {
@@ -95,10 +103,9 @@ public class PlayerSpecialAttack : MonoBehaviour {
 				yield return new WaitForSeconds (.1f);
 				Destroy (bomb);
 			}*/
-			yield return new WaitForSeconds (specialAttackTime);
-			daySpecial.SetActive (false);
-		
+
 		} else if(core == "Night") {
+			Game.control.ui.WORLD.ShowFXLayer("Night");
 			//Game.control.ui.EffectOverlay("NightCore", true, 2);
 			Game.control.sound.PlaySpellSound("Player", "NightCore1");
 			Game.control.ui.ShowActivatedPlayerPhase ("Night Core: Trick or Treat");
@@ -111,6 +118,8 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			nightAnimatedSprite.GetComponent<AnimationController> ().Scale (-1, 2f, true, true);
 			//Game.control.ui.EffectOverlay("NightCore", false, 2);
 			nightSpecial.SetActive (false);
+			Game.control.ui.WORLD.HideFXLayer();
+			
 		}
 
 		specialAttack = false;

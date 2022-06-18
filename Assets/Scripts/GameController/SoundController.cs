@@ -6,41 +6,24 @@ public class SoundController : MonoBehaviour {
 	public bool disableSound;
 
 	List<AudioSource> SFXsources;
-	AudioSource playerSFXSource;
-	AudioSource enemySFXSource;
-	AudioSource menuSFXSource;
-	AudioSource loopingSFXSource;
-
-	AudioSource BGMSource;
+	AudioSource playerSFXSource, enemySFXSource, menuSFXSource, loopingSFXSource, BGMSource;
 
 	//Music
 	AudioClip BGM_mainmenu;
-
 	AudioClip[] BGM_stageMusic;
-
 	AudioClip[] BGM_bossMusic;
 
 	//SFX
-	AudioClip SFX_shoot;
-	AudioClip SFX_enemyDie;
-	AudioClip SFX_takeHit;
-	AudioClip SFX_bonus;
-	AudioClip SFX_pickUp;
-
+	AudioClip SFX_shoot, SFX_enemyDie, SFX_takeHit, SFX_bonus, SFX_pickUp, SFX_extraLife, SFX_bossDie, SFX_bossTimerCountDown;
 
 	//SpellSFX
-	AudioClip SFX_Spell_Default;
-	AudioClip SFX_Spell_NightCore1;
-	AudioClip SFX_Spell_DayCore1;
+	AudioClip SFX_Spell_Default, SFX_Spell_NightCore1, SFX_Spell_DayCore1;
 
 	//LoopSFX
 	AudioClip SFX_Loop_River;
 
 	//MenuSFX
-	AudioClip SFX_cursor;
-	AudioClip SFX_selection;
-	AudioClip SFX_pause;
-	AudioClip SFX_cancel;
+	AudioClip SFX_cursor, SFX_selection, SFX_pause, SFX_cancel;
 
 	//Volumes
 	public float SFXVolume;
@@ -54,7 +37,8 @@ public class SoundController : MonoBehaviour {
 		BGM_mainmenu = Resources.Load ("Sound/Music/MainMenu") as AudioClip;
 
 		BGM_stageMusic = new AudioClip[3];
-		BGM_stageMusic[0] = Resources.Load("Sound/Music/asura-who-remain-asura_piano") as AudioClip; //THIS IS JUST FOR FUN /// 
+		//BGM_stageMusic[0] = Resources.Load("Sound/Music/asura-who-remain-asura_piano") as AudioClip;
+		BGM_stageMusic[0] = Resources.Load("Sound/Music/asura-who-remain-asura_lulmix") as AudioClip;
 		//BGM_stageMusic[0] = Resources.Load ("Sound/Music/Stage1") as AudioClip;
 		//BGM_stageMusic[1] = Resources.Load("Sound/Music/stage2") as AudioClip;
 		BGM_stageMusic[1] = Resources.Load("Sound/Music/stage2_lulmix") as AudioClip;
@@ -72,7 +56,10 @@ public class SoundController : MonoBehaviour {
 		SFX_enemyDie = Resources.Load ("Sound/SFX/Die") as AudioClip;
 		SFX_bonus = Resources.Load("Sound/SFX/Cancel2") as AudioClip;
 		SFX_pickUp = Resources.Load("Sound/SFX/Coin") as AudioClip;
-		//SFX_extralife = = Resources.Load("Sound/SFX/Heal8") as AudioClip; //APPLY WHEN IT IS TIME
+		SFX_extraLife = Resources.Load("Sound/SFX/Heal8") as AudioClip; //APPLY WHEN IT IS TIME
+        SFX_bossDie = Resources.Load("Sound/SFX/Up8") as AudioClip;
+        SFX_bossTimerCountDown = Resources.Load("Sound/SFX/Shot2") as AudioClip;
+
 		
 		SFX_Spell_Default = Resources.Load ("Sound/SFX/Magic2") as AudioClip;
 		SFX_Spell_NightCore1 = Resources.Load ("Sound/SFX/Magic11") as AudioClip;
@@ -104,11 +91,11 @@ public class SoundController : MonoBehaviour {
 
 	public void InitSound(){
 		SFXsources = new List<AudioSource>();
-		playerSFXSource = 		this.gameObject.AddComponent<AudioSource> ();
-		enemySFXSource =  		this.gameObject.AddComponent<AudioSource> ();
-		menuSFXSource =  		this.gameObject.AddComponent<AudioSource> ();
-		BGMSource = 	  		this.gameObject.AddComponent<AudioSource> ();
-		loopingSFXSource = 	  	this.gameObject.AddComponent<AudioSource> ();
+		playerSFXSource = 		gameObject.AddComponent<AudioSource> ();
+		enemySFXSource =  		gameObject.AddComponent<AudioSource> ();
+		menuSFXSource =  		gameObject.AddComponent<AudioSource> ();
+		BGMSource = 	  		gameObject.AddComponent<AudioSource> ();
+		loopingSFXSource = 	  	gameObject.AddComponent<AudioSource> ();
 		loopingSFXSource.loop = true;
 
 		SFXsources.Add(playerSFXSource);
@@ -161,16 +148,21 @@ public class SoundController : MonoBehaviour {
 		AudioSource s = null;
 		AudioClip c = null;
 
-		if(sound == "Shoot") 	c = SFX_shoot;
-		if(sound == "Die") 		c = SFX_enemyDie;
-		if(sound == "TakeHit")  c = SFX_takeHit;
-		if(sound == "Bonus")	c = SFX_bonus;
-		if(sound == "PickUp")	c = SFX_pickUp;
+		if(sound == "Shoot") 		c = SFX_shoot;
+		if(sound == "Die") 			c = SFX_enemyDie;
+        if(sound == "BossDie") 		c = SFX_bossDie;
+		if(sound == "TakeHit")  	c = SFX_takeHit;
+		if(sound == "Bonus")		c = SFX_bonus;
+		if(sound == "PickUp")		c = SFX_pickUp;
+		if(sound == "ExtraLife")	c = SFX_extraLife;
+        if(sound == "CountDown")	c = SFX_bossTimerCountDown;
 
 		if(source == "Player") 		s = playerSFXSource;
 		else if (source == "Enemy") s = enemySFXSource;
 
-		if (oneShot) s.PlayOneShot (c);
+		if (oneShot) {
+			s.PlayOneShot (c);
+		}
 		else {
 			s.clip = c;
 			s.Play ();
@@ -201,19 +193,24 @@ public class SoundController : MonoBehaviour {
 		BGMSource.volume = tempVol;
 	}
 
-	public void PauseMusicAndEffects(){
+	public void PauseMusic(){
 		BGMSource.Pause ();
+		
+	}
+	public void PauseEffects(){
 		loopingSFXSource.Pause();
 	}
-	public void ResumeMusicAndEffects(){
+	public void ResumeMusic(){
 		BGMSource.Play ();
+	}
+
+	public void ResumeEffects(){
 		loopingSFXSource.Play();
 	}
 	public void StopMusicAndEffects(){
 		BGMSource.Stop ();
 		loopingSFXSource.Stop();
 	}
-
 
 	public void StopLoopingEffects(){
 		loopingSFXSource.Stop();
@@ -235,9 +232,13 @@ public class SoundController : MonoBehaviour {
 		else if(type == "Boss")
 			c = BGM_bossMusic[i];
 
+		//JESARIA BUILDIIN
+		if(type == "MainMenu")Game.control.sound.StopLoopingEffects();
+		if(type == "Stage") Game.control.sound.StopLoopingEffects();
+
 		BGMSource.clip = c;
 		BGMSource.loop = true;
-		ResumeMusicAndEffects();
+		ResumeMusic();
 	}
 
 }

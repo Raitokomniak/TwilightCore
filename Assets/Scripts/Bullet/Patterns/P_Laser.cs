@@ -25,13 +25,13 @@ public class P_Laser : Pattern
 					spawnPosition = SpawnInCircle (pos + new Vector3 (0, 1f, 0), 1.5f, ang);
 
 				//	bulletMovement = new BulletMovementPattern (false, "ExpandToLaser", 0f, this, 0, tempMagnitude);
-					bulletMovement = new BMP_LaserExpand(this);
-					bulletMovement.laserIndex = laserIndex;
+					BMP = new BMP_LaserExpand(this);
 					laserIndex++;
 
-					InstantiateBullet (enemyBullet, bulletMovement);
+					//SpawnBullet (enemyBullet, bulletMovement);
+				SpawnBullet (BMP);
 
-					bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
+					bullet.GetComponent<BulletMovement>().spriteR.sprite = sprite;
 					if (laserIndex == 0)
 						laserIndex++;
 					else
@@ -44,10 +44,10 @@ public class P_Laser : Pattern
 				spawnPosition = pos - new Vector3 (0f, .2f, 0f);
 				
 				//bulletMovement = new BulletMovementPattern (false, "PendulumLaser", 0f, this, 0, tempMagnitude);
-				bulletMovement = new BMP_LaserPendulum(this);
-				bulletMovement.laserIndex = laserIndex;
+				BMP = new BMP_LaserPendulum(this);
 			
-				InstantiateBullet (enemyBullet, bulletMovement);
+				//SpawnBullet (enemyBullet, bulletMovement);
+				SpawnBullet (BMP);
 			}
     }
 }

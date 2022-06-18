@@ -14,8 +14,8 @@ public class EnemyShoot : MonoBehaviour {
 
 	void Awake () {
 		wave = Game.control.enemySpawner.curWave;
-		enemyBullet = Resources.Load("Prefabs/enemyBullet") as GameObject;
-		
+	   //enemyBullet = Resources.Load("Prefabs/enemyBullet") as GameObject; //GET FROM ENEMYSPAWNER
+	
 		if(wave.isBoss || wave.isMidBoss) enemyLife = GetComponent<BossLife>();
 		else if(tag == "Enemy") enemyLife = GetComponent<EnemyLife>();
 
@@ -37,9 +37,11 @@ public class EnemyShoot : MonoBehaviour {
 
 	IEnumerator ShootRoutine(){
 		if(tag == "Enemy") enemyLife = GetComponent<EnemyLife>();
+		
 		while (!enemyLife.GetInvulnerableState () && canShoot) {
 			shootRoutine = pattern.Execute (enemyBullet, this);
 			StartCoroutine (shootRoutine);
+			if(wave.oneShot)break;
 			yield return new WaitForSeconds (shootSpeed);
 		}
 	}

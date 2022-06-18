@@ -26,12 +26,17 @@ public class SpriteLibrary : MonoBehaviour {
 		return glowSprite;
 	}
 
+	public Sprite SetBulletGlow(string shape, string color){
+		string path = "Sprites/BulletSprites/Glow/" + shape + "_" + color;
+		Sprite glowSprite = Resources.Load<Sprite> (path);
+		return glowSprite;
+	}
+
 	public Sprite SetCharacterSprite(string name){
 		string path = "Sprites/CharacterSprites/" + name;
 		Sprite sprite = Resources.Load<Sprite> (path);
 		return sprite;
 	}
-
 
 	public Sprite SetEnemySprite(string name){
 		string path = "Sprites/EnemySprites/" + name;

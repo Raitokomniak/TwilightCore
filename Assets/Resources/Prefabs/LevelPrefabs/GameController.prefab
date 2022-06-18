@@ -15,12 +15,12 @@ GameObject:
   - component: {fileID: 4442655861058145952}
   - component: {fileID: 3448859271703106073}
   - component: {fileID: 4442655861058145954}
-  - component: {fileID: 4442655861058145955}
   - component: {fileID: 4442655861058145964}
   - component: {fileID: 5880166184728285871}
   - component: {fileID: 4442655861058145965}
   - component: {fileID: 355109044298794612}
   - component: {fileID: 1955154550}
+  - component: {fileID: 939017045}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fcbf1bce8b7f254cbe7d5764bcd51f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossScript: {fileID: 0}
   difficultyMultiplier: 0
   difficultyAsString: 
   gameOver: 0
@@ -88,7 +89,7 @@ MonoBehaviour:
   stageTimer: 0
   countingStageEndBonuses: 0
   bossOn: 0
-  bossBonus: 0
+  midBossOn: 0
   currentStage: 0
   stageTimerOn: 0
   stageOn: 0
@@ -118,30 +119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d6072c5cc777d649ba427b1f6fffb25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  centerX: 0
-  centerY: 0
-  topCenterY: 0
   OOBTop: 0
   OOBBot: 0
   OOBRight: 0
   OOBLeft: 0
-  centerTopOOB: {x: 0, y: 0, z: 0}
-  centerTop: {x: 0, y: 0, z: 0}
-  rightWallTopSide: {x: 0, y: 0, z: 0}
-  enterRightWallBotSide: {x: 0, y: 0, z: 0}
-  topWallLeftSide: {x: 0, y: 0, z: 0}
-  topWallRightSide: {x: 0, y: 0, z: 0}
-  botWallLeftSide: {x: 0, y: 0, z: 0}
-  botWallRightSide: {x: 0, y: 0, z: 0}
-  leftWallTopSide: {x: 0, y: 0, z: 0}
-  enterLeftWallBotSide: {x: 0, y: 0, z: 0}
-  enterRight: {x: 0, y: 0, z: 0}
-  enterCenter: {x: 0, y: 0, z: 0}
-  enterCenterBoss: {x: 0, y: 0, z: 0}
-  enterLeft: {x: 0, y: 0, z: 0}
-  leaveRight: {x: 0, y: 0, z: 0}
-  leaveCenter: {x: 0, y: 0, z: 0}
-  leaveLeft: {x: 0, y: 0, z: 0}
 --- !u!114 &4442655861058145954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +132,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4442655861058145966}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 464768bd9d48d3443bc6c008877870f5, type: 3}
+  m_Script: {fileID: 11500000, guid: d6dfc4757b8f6c244b6511ae868a8977, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   environment: {fileID: 0}
@@ -159,18 +140,6 @@ MonoBehaviour:
   parent: {fileID: 0}
   planes: []
   e_camera: {fileID: 0}
---- !u!114 &4442655861058145955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4442655861058145966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 318c5e747a843de42868474430ad96f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4442655861058145964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,12 +207,14 @@ MonoBehaviour:
   io: {fileID: 0}
   scene: {fileID: 0}
   enemySpawner: {fileID: 0}
+  bulletPool: {fileID: 0}
   pause: {fileID: 0}
   player: {fileID: 0}
   menu: {fileID: 0}
   options: {fileID: 0}
   soundObject: {fileID: 4442655862132054638}
   sound: {fileID: 0}
+  loading: 0
 --- !u!114 &1955154550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +227,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a2f4884235846458ff1a90a5f96ce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &939017045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4442655861058145966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9e2226ce8748034bb2e34ffe0ddb985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  done: 0
 --- !u!1 &4442655862132054638
 GameObject:
   m_ObjectHideFlags: 0

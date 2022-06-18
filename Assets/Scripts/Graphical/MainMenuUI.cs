@@ -17,6 +17,8 @@ public class MainMenuUI : MonoBehaviour
 
 	public GameObject scorePanel;
 
+    public GameObject LOADING_SCREEN;
+
 	TextMeshProUGUI[] menuTexts = null;
 
    	public void InitMainMenu(){
@@ -52,6 +54,11 @@ public class MainMenuUI : MonoBehaviour
 		mainMenuPanel.gameObject.SetActive(!toggle);
 		scorePanel.SetActive(toggle);
 	}
+
+    public void ToggleLoadingScreen(bool toggle){
+        LOADING_SCREEN.SetActive(toggle);
+        if(toggle) LOADING_SCREEN.GetComponent<UI_LoadingScreen>().ShowLoadingScreen();
+    }
 
 	public void ToggleOptions(bool toggle){
 		mainMenuPanel.gameObject.SetActive(!toggle);

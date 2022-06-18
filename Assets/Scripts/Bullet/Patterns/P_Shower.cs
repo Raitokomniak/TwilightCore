@@ -19,28 +19,27 @@ public class P_Shower : Pattern
 		pos = enemy.transform.position;
 
         while(!stop){
-        	int dir = 1;
-			//for (int i = 0; i < bulletCount; i++) {	
-				spawnPosition = enemy.transform.position + new Vector3 (-2 + (Random.Range (-.8f, .8f)), 0, 0);
-				bulletRotation = bulletRotation * Quaternion.Euler (0, 0, 180f + (Random.Range (-10, 10)));
-				bulletMovement = new BMP_RainDrop(this);
+            for(int i = 0; i < 15; i++){
+                int dir = 1;
+                spawnPosition = enemy.transform.position + new Vector3 (-2 + (Random.Range (-.8f, .8f)), 0, 0);
+                bulletRotation = bulletRotation * Quaternion.Euler (0, 0, 180f + (Random.Range (-10, 10)));
+                BMP = new BMP_RainDrop(this);
                 int randomDir = Random.Range(-10, 10);
-                bulletMovement.rotation = Quaternion.Euler(0,0, bulletMovement.rotation.z + (1f * randomDir));
+                BMP.rotation = Quaternion.Euler(0,0, BMP.rotation.z + (1f * randomDir));
                 SetSprite ("Circle", "Glow", "Blue", "Small");
-                bulletMovement.accelMax = 30f;
-                bulletMovement.accelSpeed = 2;
-                bulletMovement.moveWithForce = true;
-               // bulletMovement.dontDestroy = false;
-				InstantiateBullet (enemyBullet, bulletMovement);
+                BMP.accelMax = 30f;
+                BMP.accelSpeed = 2;
+                BMP.moveWithForce = true;
+                //SpawnBullet (enemyBullet, bulletMovement);
+				SpawnBullet (BMP);
                 
                 bullet.AddComponent<BulletBouncer>();
                 bullet.GetComponent<BulletBouncer>().multiply = true;
                 
-				dir = -dir;
-
-				yield return new WaitForSeconds (.06f);
-                //yield return new WaitForSeconds (1f);
-		   // }
+                dir = -dir;
+                yield return new WaitForSeconds (.06f);
+            }
+            yield return new WaitForSeconds (.2f);
             yield return null;
         }
 

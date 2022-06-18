@@ -55,7 +55,7 @@ public class EnemyBulletMovement : MonoBehaviour {
 			}
 
 			if (BMP.rotateOnAxis)
-				transform.RotateAround (BMP.RotateOnAxis (), Vector3.back, (speed));
+				transform.RotateAround (BMP.centerPoint, Vector3.back, (speed));
 			else {
 				transform.rotation = BMP.rotation;
 

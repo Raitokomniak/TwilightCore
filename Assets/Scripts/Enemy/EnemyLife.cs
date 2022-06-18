@@ -25,14 +25,14 @@ public class EnemyLife : MonoBehaviour {
 		return invulnerable;
 	}
 
-	public virtual void Die() {
+	public virtual void Die(bool silent) {
 		dead = true;
 		Game.control.sound.PlaySound ("Enemy", "Die", true);
-		IEnumerator animateDeathRoutine = AnimateDeath();
+		IEnumerator animateDeathRoutine = AnimateDeath(silent);
 		StartCoroutine(animateDeathRoutine);
 	}
 
-	public virtual IEnumerator AnimateDeath(){
+	public virtual IEnumerator AnimateDeath(bool silent){
 		DropLoot("Core");
 		DisableEnemy();
 		yield return new WaitForSeconds(3f);
@@ -42,6 +42,7 @@ public class EnemyLife : MonoBehaviour {
 	public virtual void DisableEnemy(){
 		spriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
 		GetComponent<EnemyShoot>().StopPattern();
+		transform.GetChild(2).gameObject.SetActive(false);
 		spriteRenderer.enabled = false;
 		GetComponent<EnemyMovement>().enabled = false;
 		GetComponent<BoxCollider2D>().enabled = false;
@@ -63,13 +64,13 @@ public class EnemyLife : MonoBehaviour {
 
 	void OnTriggerStay2D(Collider2D c){
 		if (c.tag == "NullField") {
-			if(!dead) Die ();
+			if(!dead && !invulnerable) Die (false);
 		}
 	}
 
 	void OnTriggerEnter2D(Collider2D c) {
 		if (c.tag == "PlayerProjectile") {
-				if(!dead) Die ();
+				if(!dead && !invulnerable) Die (false);
 				Destroy(c.gameObject);
 		}
 	}

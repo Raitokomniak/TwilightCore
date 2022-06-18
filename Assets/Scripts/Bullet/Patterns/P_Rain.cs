@@ -20,29 +20,21 @@ public class P_Rain : Pattern
         //int previousPosx = 0;
 
         while(!stop){
-            //for(int i = 0; i < bulletCount; i++){
-               /*while(posX == previousPosx) {
-                    posX = Random.Range(0, 9);
-                    yield return null;
-                }*/
-
                 posX = Random.Range(0, 9);
-                
-               // previousPosx = posX;
                 spawnPosition = lib.GetVector(XCOORS[posX] + "1");
-                bulletMovement = new BMP_RainDrop(this);
-                bulletMovement.accelMax = 40f;
-                bulletMovement.accelSpeed = 4;
-                bulletMovement.trail = true;
-                bulletMovement.moveWithForce = true;
-                bulletMovement.dontDestroy = true;
+                BMP = new BMP_RainDrop(this);
+                BMP.accelMax = 40f;
+                BMP.accelSpeed = 4;
+                BMP.trail = true;
+                BMP.moveWithForce = true;
+                BMP.dontDestroy = true;
                 
                 int randomSprite = Random.Range(0, 2);
-                if(randomSprite == 0) SetSprite ("Diamond", "Glow", "Blue", "Tiny");
-                if(randomSprite == 1) SetSprite ("Diamond", "Glow", "Turquoise", "Tiny");
-                InstantiateBullet (enemyBullet, bulletMovement);
-                yield return new WaitForSeconds(.3f);
-            //}
+                if(randomSprite == 0) SetSprite ("Diamond", "Glow", "Blue", "Small");
+                if(randomSprite == 1) SetSprite ("Diamond", "Glow", "Turquoise", "Medium");
+                //SpawnBullet (enemyBullet, bulletMovement);
+				SpawnBullet (BMP);
+                yield return new WaitForSeconds(.2f);
         }
         allBulletsSpawned = true;
     }

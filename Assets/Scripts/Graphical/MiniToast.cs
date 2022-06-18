@@ -26,12 +26,12 @@ public class MiniToast : MonoBehaviour
     }
 
     void Toast(string toastText){
-        GameObject miniToastObject = Instantiate(miniToastPrefab) as GameObject;
+       /* GameObject miniToastObject = Instantiate(miniToastPrefab) as GameObject;
         miniToastObject.transform.SetParent(fxCanvas.transform);
         miniToastObject.transform.position = transform.position + new Vector3(1f,0,0);
         miniToastObject.GetComponent<TextMeshProUGUI>().text = toastText;
         IEnumerator toastRoutine = ShowToastRoutine(miniToastObject);
-        StartCoroutine(toastRoutine);
+        StartCoroutine(toastRoutine);*/
     }
 
     IEnumerator ShowToastRoutine(GameObject toastObject){

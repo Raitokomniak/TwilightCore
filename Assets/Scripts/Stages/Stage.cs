@@ -14,7 +14,7 @@ public class Stage : MonoBehaviour
     public int stageindex;
 
 	
-    public SceneHandler scene;
+    public EnvironmentHandler scene;
 	public IEnumerator stageHandlerRoutine;
     public Wave boss;
 

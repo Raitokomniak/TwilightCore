@@ -15,11 +15,14 @@ public class UIController : MonoBehaviour {
 	public UI_StageToastPanel STAGETOAST;
 	public UI_StageComplete STAGEEND;
 
+	public UI_LoadingScreen LOADING_SCREEN;
+
 	public Image EFFECT_OVERLAY;
 
 
 	public TextMeshProUGUI toast;
-
+    bool toastPlaying;
+    List<string> toastQue;
 
 	//Special
 	public GameObject playerSpecialPanel;
@@ -39,10 +42,10 @@ public class UIController : MonoBehaviour {
 
 	public void InitStage(){
 		EffectOverlay("Black");
-		WORLD.GetWalls();
 		LEFT_SIDE_PANEL.EmptyCores();
 		BOSS.HideUI();
 		
+        toastQue = new List<string>();
 
 		STAGEEND.gameObject.SetActive(false);
 		GAMEOVER.saveScoreScreen.SetActive(false);
@@ -71,6 +74,7 @@ public class UIController : MonoBehaviour {
 	
 	public void ToggleLoadingScreen(bool toggle){
 		loadingScreen.SetActive(toggle);
+        if(toggle) LOADING_SCREEN.ShowLoadingScreen();
 	}
 
 	public void ToggleOptionsScreen(bool toggle){
@@ -84,7 +88,6 @@ public class UIController : MonoBehaviour {
 	}
 	
 	public void EffectOverlay(string color, bool fadeIn, float fadeTime){
-		Debug.Log("here");
 		EFFECT_OVERLAY.gameObject.SetActive(true);
 		if(color == "White") EFFECT_OVERLAY.color = new Color(1,1,1,1);
 		if(color == "Black") EFFECT_OVERLAY.color = new Color(0,0,0,1);
@@ -190,13 +193,30 @@ public class UIController : MonoBehaviour {
 	}
 
 	public void PlayToast(string text){
-		toast.text = text;
+       /*if(toastQue.Count == 0) toastQue.Add(text);
+        else if(toastQue.Count > 0 && toastQue[toastQue.Count - 1] != text) toastQue.Add(text);*/
+        toast.text = text;
+      //  if(!toastPlaying){
+            IEnumerator toastRoutine = PlayToast();
+            StartCoroutine(toastRoutine);
+       // }
 	}
 
+    public void PlayToastFromQue(){
+        IEnumerator toastRoutine = PlayToast();
+		StartCoroutine(toastRoutine);
+    }
+
 	IEnumerator PlayToast(){
-		toast.gameObject.SetActive (true);
-		yield return new WaitForSeconds (2f);
-		toast.gameObject.SetActive (false);
+        toastPlaying = true;
+       // toast.text = toastQue[toastQue.Count - 1];
+        toast.gameObject.SetActive (true);
+        yield return new WaitForSeconds (1f);
+        toast.gameObject.SetActive (false);
+      //  toastQue.RemoveAt(toastQue.Count - 1);
+        toastPlaying = false;
+
+      //  if(toastQue.Count > 0) PlayToastFromQue();
 	}
 
 }

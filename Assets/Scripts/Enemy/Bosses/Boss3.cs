@@ -8,7 +8,8 @@ public class Boss3 : Phaser
 		bossIndex = 3;
 		numberOfPhases = 4;
 		Game.control.stageHandler.bossOn = true;
-		Game.control.stageHandler.bossBonus = true;
+		Game.control.stageHandler.bossScript = this;
+        bossBonus = true;
 	}
 
     public override void StopCoro(){
@@ -45,17 +46,14 @@ public class Boss3 : Phaser
 					shooter.BossShoot (patterns[1]);
 					yield return new WaitForSeconds(4);
 					movement.SmoothAcceleration(3);
-					movement.pattern.UpdateDirection("D3");
-					yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
-					movement.SmoothAcceleration(3);
-					movement.pattern.UpdateDirection("H3");
-					yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
-					movement.SmoothAcceleration(3);
-					movement.pattern.UpdateDirection("D3");
-					yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
-					movement.SmoothAcceleration(3);
-					movement.pattern.UpdateDirection("H3");
-					yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
+					for(int i = 0; i < 2; i++){
+						movement.pattern.UpdateDirection("C3");
+						yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
+						movement.SmoothAcceleration(3);
+						movement.pattern.UpdateDirection("I3");
+						yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
+						movement.SmoothAcceleration(3);
+					}
 					patterns[0].StopPattern();
 					yield return new WaitForSeconds(1);
 					patterns[1].StopPattern();

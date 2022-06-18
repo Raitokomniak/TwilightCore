@@ -107,7 +107,7 @@ public class MenuController : MonoBehaviour
 	
 	bool AllowInput(){
 		if(!menuOn) return false;
-		if(Game.control.stageHandler.loading) return false;
+		if(Game.control.loading) return false;
 		return true;
 	}
 
@@ -237,7 +237,7 @@ public class MenuController : MonoBehaviour
 		}
 		else if(context == "DifficultyMenu"){
 			Game.control.sound.PlayMenuSound("Selection");
-			if(selectedIndex == 0) Game.control.stageHandler.SetDifficulty(1);
+			if(selectedIndex == 0) Game.control.stageHandler.SetDifficulty(2);
 			if(selectedIndex == 1) Game.control.stageHandler.SetDifficulty(3);
 			if(selectedIndex == 2) Game.control.stageHandler.SetDifficulty(5);
 			if(selectedIndex == 3) Game.control.stageHandler.SetDifficulty(10);

@@ -8,6 +8,10 @@ public class Boss05 : Phaser
 		bossIndex = 0.5f;
 		numberOfPhases = 3;
 		ignoreDialog = true;
+        topLayerWaitTime = 2;
+        Game.control.stageHandler.midBossOn = true;
+        Game.control.stageHandler.bossScript = this;
+        bossBonus = true;
 	}
 
     public override void StopCoro(){
@@ -22,23 +26,23 @@ public class Boss05 : Phaser
     }
 
     IEnumerator Execute(int phase, Phaser phaser){
+        
 		difficulty = Game.control.stageHandler.difficultyMultiplier;
 		ResetLists();
+		Pattern p;
 
 		 switch(phase)
 			{
 			case 0:
-				//THIS IS HERE SO THE TOP LAYER ISNT UPDATED RIGHT AWWAY
-				NextPhase();
-				break;
-			case 1:
 				//DOES THIS BELONG HERE???
 				Game.control.ui.WORLD.UpdateTopPlayer (5f); ////////
+				Game.control.ui.BOSS.ShowActivatedPhase ("Stolen Daffodil");
+                topLayerWaitTime = 0;
 
 			    GetComponent<EnemyLife>().SetInvulnerable (true);
 
 				patterns.Add(new P_Maelstrom());
-				patterns[0].bulletMovement = new BMP_Explode(patterns[0], 6f, false, false);
+				patterns[0].BMP = new BMP_Explode(patterns[0], 6f);
 				patterns[0].bulletCount =  Mathf.CeilToInt(4 * (difficulty / 2f));
 				patterns[0].rotationDirection =  1;
 				patterns[0].SetSprite ("Circle", "Glow", "Green", "Medium");
@@ -46,26 +50,25 @@ public class Boss05 : Phaser
 				patterns.Add(new P_Maelstrom());
 				patterns[1].SetSprite ("Circle", "Glow", "Yellow", "Medium");
 				patterns[1].bulletCount =  Mathf.CeilToInt(4 * (difficulty / 2f));
-				patterns[1].bulletMovement = new BMP_Explode(patterns[0], 6f, false, false);
+				patterns[1].BMP = new BMP_Explode(patterns[0], 6f);
 				patterns[1].rotationDirection =  -1;
 
 				movementPatterns.Add(shooter.wave.movementPattern);
 				movement.SetUpPatternAndMove (movementPatterns[0]);
+				yield return new WaitForSeconds (2f);
 
-				while(Game.control.stageHandler.stageTimer < shooter.wave.spawnTime + 12f)
+				shooter.BossShoot (patterns[0]);
+				shooter.BossShoot (patterns[1]);
+
+				while(Game.control.stageHandler.stageTimer < shooter.wave.spawnTime + 14f)
 				{
-					yield return new WaitForSeconds (2f);
-					shooter.BossShoot (patterns[0]);
-					shooter.BossShoot (patterns[1]);
-					yield return new WaitForSeconds (2.2f);
-					patterns[0].StopPattern();
-					patterns[1].StopPattern();
+					yield return null;
 				}
 				patterns[0].StopPattern();
 				patterns[1].StopPattern();
 				NextPhase();
 				break;
-			case 2:
+			case 1:
 			 	Game.control.sound.PlaySpellSound ("Enemy", "Default");
 				Game.control.ui.BOSS.ShowActivatedPhase ("Twilight Core: Depulsio");
 				GetComponent<EnemyLife>().SetInvulnerable (true);
@@ -74,26 +77,27 @@ public class Boss05 : Phaser
 
 				patterns.Add(new P_Spiral(Mathf.CeilToInt(4 * (difficulty / 2f))));
 				patterns[0].SetSprite ("Circle", "Glow", "BlackPurple", "Medium");
-				patterns[0].bulletMovement = new BMP_WaitAndExplode(patterns[0], 3f);
-				patterns[0].bulletMovement.accelMax = 20f;
+				patterns[0].BMP = new BMP_WaitAndExplode(patterns[0], 3f);
+				patterns[0].BMP.accelMax = 20f;
 				patterns[0].loopCircles = 288 * difficulty;
 				patterns[0].bulletCount = 5 * difficulty;
 
 				patterns.Add(new P_Spiral(Mathf.CeilToInt(4 * (difficulty / 2f))));
 				patterns[1].SetSprite ("Circle", "Glow", "BlackLilac", "Medium");
-				patterns[1].bulletMovement = new BMP_WaitAndExplode(patterns[0], 3f);
-				patterns[1].bulletMovement.accelMax = 20f;
+				patterns[1].BMP = new BMP_WaitAndExplode(patterns[0], 3f);
+				patterns[1].BMP.accelMax = 20f;
 				patterns[1].loopCircles = 288 * difficulty;
 				patterns[1].bulletCount = 5 * difficulty;
 				patterns[1].rotationDirection = -1;
 
-				/*while(Game.control.stageHandler.stageTimer < enemy.wave.spawnTime + enemy.wave.movementPattern.stayTime)
-				{
-					yield return new WaitForSeconds (1f);
-					enemy.BossShoot (patterns[0]);
-					yield return new WaitForSeconds (1f);
-					enemy.BossShoot (patterns[1]);
-				}*/
+				p = new P_Maelstrom();
+				p.BMP = new BMP_Explode(p, 6f);
+				p.rotationDirection = 1;
+				p.SetSprite ("Circle", "Big", "Twilight", "Big");
+				p.bulletCount =  Mathf.CeilToInt(1.2f * difficulty);
+				p.coolDown = 2.5f / difficulty;
+				patterns.Add(p);
+				shooter.BossShoot (patterns[2]);
 
 				while(!endOfPhase)
 				{
@@ -102,14 +106,15 @@ public class Boss05 : Phaser
 					yield return new WaitForSeconds (1f);
 					shooter.BossShoot (patterns[1]);
 				}
-
-				patterns[0].StopPattern();
-				patterns[1].StopPattern();
-				movement.pattern.UpdateDirection("XU");
-				//enemyMove.movementPattern.UpdateDirection(lib.GetVector("XY").x, lib.GetVector("XY").y);
-				yield return new WaitForSeconds(2f);
-				GetComponent<EnemyLife>().Die ();
+               
 				break;
+            case 2:
+                movement.SetUpPatternAndMove(movement.pattern);
+				movement.pattern.UpdateDirection("XU");
+                yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
+				GetComponent<EnemyLife>().Die(true);
+                Game.control.stageHandler.midBossOn = false;
+                break;
             }
 
 			yield return null;

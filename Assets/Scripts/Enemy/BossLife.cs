@@ -17,6 +17,12 @@ public class BossLife : EnemyLife
 		//Game.control.ui.UpdateBossHealthBars (healthBars);
 	}
 
+	public void SetHealthToThreshold(){
+		currentHealth = superThreshold;
+		Game.control.enemySpawner.DestroyAllProjectiles ();
+		Game.control.ui.BOSS.UpdateBossHealth(currentHealth);
+	}
+
 	bool CanTakeHit(){
 		if(invulnerable) return false;
 		if(Game.control.stageHandler.gameOver) return false;
@@ -44,45 +50,41 @@ public class BossLife : EnemyLife
 
 		if(currentHealth <= 0){
 			healthBars-= 1;
-			if (healthBars <= 0) Die ();
+			if (healthBars <= 0 && !dead) Die (false);
 			else {
 				bossScript.NextPhase();
 				NextHealthBar();
 			}
 		}
 	}
-    public override void Die() {
-		dead = true;
-		Game.control.sound.PlaySound ("Enemy", "Die", true);
-		IEnumerator animateDeathRoutine = AnimateDeath();
+    public override void Die(bool silent) {
+		IEnumerator animateDeathRoutine = AnimateDeath(silent);
 		StartCoroutine(animateDeathRoutine);
 	}
 
-    public override IEnumerator AnimateDeath(){
-		DropLoot("Core");
-		BossDeath();
-		yield return new WaitForSeconds(3f);
-		Destroy(this.gameObject);
-	}
-
-	void BossDeath(){
+    public override IEnumerator AnimateDeath(bool silent){
+        dead = true;
+        GetComponent<EnemyShoot> ().wave.dead = true;
         bossScript.StopPats();
 		bossScript.StopCoro();
 		Game.control.enemySpawner.DestroyAllProjectiles();
+        yield return new WaitForSeconds(2f);
+
+        if(!silent) Game.control.sound.PlaySound("Enemy", "BossDie", true);
+		DropLoot("Core");
 		DropLoot("Exp");
 		Game.control.ui.BOSS.HideUI();
 		Game.control.ui.BOSS.ToggleBossHealthSlider (false, 0, "");
-		//DOESN'T BELONG HERE
-		Game.control.ui.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
-		GetComponent<EnemyShoot> ().wave.dead = true;
+		Game.control.ui.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage); //DOESN'T BELONG HERE
+
 		GetComponentInChildren<SpriteRenderer>().enabled = false;
 		GetComponent<EnemyMovement>().enabled = false;
 		GetComponent<BoxCollider2D>().enabled = false;
 		GetComponent<EnemyShoot>().enabled = false;
-		//USE THIS FOR DEBUGGING STAGE
-		//if(wave.isBoss) Game.control.stageHandler.EndHandler ("StageComplete");
+		yield return new WaitForSeconds(.3f);
+        
+		Destroy(this.gameObject);
 	}
-
 
 	public void NextHealthBar(){
 		currentHealth = maxHealth;

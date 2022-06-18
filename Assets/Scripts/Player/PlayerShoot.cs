@@ -58,7 +58,7 @@ public class PlayerShoot : MonoBehaviour {
 	}
 	
 	public bool CanShoot(){
-		if(Game.control.stageHandler.loading) return false;
+		if(Game.control.loading) return false;
 		if(!init) return false;
 		if(Game.control.menu.menuOn) return false;
 		if(coolDownTimer > 0) return false;

@@ -34,7 +34,7 @@ public class DialogController : MonoBehaviour {
 	}
 
 	bool AllowInput(){
-		if(Game.control.stageHandler.loading) return false;
+		if(Game.control.loading) return false;
 		if(Game.control.pause.paused) return false;
 		if(!handlingDialog) return false; 
 		return true;

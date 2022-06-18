@@ -17,11 +17,11 @@ public class BMP_RainDrop : BulletMovementPattern
 
     public override IEnumerator ExecuteRoutine(){
         movementSpeed = 5f;
-        bullet.GetComponent<EnemyBulletMovement> ().SmoothAcceleration ();
+        bullet.GetComponent<BulletMovement> ().SmoothAcceleration ();
         
         //SPAWNS OOB SO WAIT UNTIL IS IB AND THEN SET TO BE DESTROYED 
         
-        yield return new WaitUntil(() => bullet.GetComponent<EnemyBulletMovement>().CheckBounds() == true);
+        yield return new WaitUntil(() => bullet.GetComponent<BulletMovement>().CheckBounds() == true);
         dontDestroy = false;
 
         rotation = bullet.transform.rotation;

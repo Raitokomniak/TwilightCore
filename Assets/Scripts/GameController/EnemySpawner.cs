@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour {
 	ArrayList waves;
@@ -14,8 +15,8 @@ public class EnemySpawner : MonoBehaviour {
 
 	void Awake(){
 		spawnerOn = false;
-		DestroyAllEnemies ();
-		DestroyAllProjectiles ();
+		//DestroyAllEnemies ();
+		//DestroyAllProjectiles ();
 	}
 
 	public bool MidBossDead(){
@@ -33,7 +34,6 @@ public class EnemySpawner : MonoBehaviour {
 			if (currentWave < waves.Count) {	
 				curWave = waves [currentWave] as Wave;
 				currentWave++;
-				Game.control.ui.RIGHT_SIDE_PANEL.UpdateWave(currentWave);
 			}
 
 			spawnRoutine = Spawn (wave);
@@ -46,10 +46,6 @@ public class EnemySpawner : MonoBehaviour {
 		spawnerOn = false;
 		if(spawnRoutine != null) 	StopCoroutine(spawnRoutine);
 		if(spawnerRoutine != null) 	StopCoroutine(spawnerRoutine);
-
-		DestroyAllEnemies();
-		DestroyAllProjectiles();
-		
 		return true;
 	}
 		
@@ -91,25 +87,31 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 
+
+
 	/////////////////////////////////
 	/// Destruction functions
 	///
 
+	//MAKE AN ENEMY POOL TOO, IF GETS TOO LAGGY?
 	public void DestroyAllEnemies()
 	{
 		GameObject[] enemiesToDestroy = GameObject.FindGameObjectsWithTag("Enemy");
 
 		foreach(GameObject enemy in enemiesToDestroy){
-			enemy.GetComponent<EnemyLife>().Die();
+			//enemy.GetComponent<EnemyLife>().Die();
+            Destroy(enemy);
 		}
 	}
 	
+	//CHANGE DESTROY TO POOL
 	public void DestroyAllProjectiles()
 	{
 		GameObject[] projectilesToDestroy = GameObject.FindGameObjectsWithTag("EnemyProjectile");
 
 		for(int i = 0; i < projectilesToDestroy.Length; i++){
-			Destroy(projectilesToDestroy[i].gameObject);
+			//Destroy(projectilesToDestroy[i].gameObject);
+			Game.control.bulletPool.StoreBulletToPool(projectilesToDestroy[i]);
 		}
 	}
 

@@ -8,6 +8,8 @@ using System.IO;
 public class StageHandler : MonoBehaviour {
 
 	Stage stageScript;
+    public Phaser bossScript;
+
 
 	SpriteLibrary spriteLib;
 	public ArrayList waves;
@@ -22,15 +24,13 @@ public class StageHandler : MonoBehaviour {
 	public bool countingStageEndBonuses;
 
 	public bool bossOn;
-	public bool bossBonus = false;
+    public bool midBossOn;
 
-	int stageCount = 2;
+	int stageCount = 3;
 	public int currentStage;
 	public bool stageTimerOn;
 
 	public bool stageOn;
-
-	public bool loading;
 
 	IEnumerator startStageRoutine;
 
@@ -57,7 +57,7 @@ public class StageHandler : MonoBehaviour {
 	}
 
 	bool AllowInput(){
-		if(loading) return false;
+		if(Game.control.loading) return false;
 		return true;
 	}
 
@@ -68,6 +68,10 @@ public class StageHandler : MonoBehaviour {
 		else return true;
 	}
 
+    public void DenyBossBonus(){
+        if(bossOn || midBossOn) bossScript.bossBonus = false;
+    }
+
 
 	public List<int> CalculateBonuses(){
 		List<int> bonuses = new List<int>();
@@ -77,19 +81,13 @@ public class StageHandler : MonoBehaviour {
 		int nightBonus = Game.control.player.special.nightCorePoints * 10;
 		stageTimer = 0;
 
-		int bossBonusScore = 0;
-		if(bossBonus) {
-			bossBonusScore = 1000;
-		}
-		
-		int bonusTimesDifficulty = Mathf.CeilToInt((timeBonus + dayBonus + nightBonus + bossBonusScore) * (0.3f * difficultyMultiplier));
+		int bonusTimesDifficulty = Mathf.CeilToInt((timeBonus + dayBonus + nightBonus) * (0.3f * difficultyMultiplier));
 
 		Game.control.player.GainScore(bonusTimesDifficulty);
 
 		bonuses.Add(timeBonus);
 		bonuses.Add(dayBonus);
 		bonuses.Add(nightBonus);
-		bonuses.Add(bossBonusScore);
 		bonuses.Add(difficultyMultiplier);
 
 		return bonuses;
@@ -114,12 +112,6 @@ public class StageHandler : MonoBehaviour {
 		} 
 	}
 
-	public void InitEnemyLib(){
-		spriteLib = Game.control.spriteLib;
-		waves = new ArrayList();
-	}
-
-
 	public void NewWave(Wave w){
 		if (w.isBoss || w.isMidBoss) {
 			w.sprite = spriteLib.SetCharacterSprite ("Boss" + w.bossIndex);
@@ -141,8 +133,8 @@ public class StageHandler : MonoBehaviour {
 			w.sprite = spriteLib.SetCharacterSprite ("Boss" + w.bossIndex);
 		}
 		w.spawnPositions = spawnPositions;
-		w.enterDirections = enterDirections;
-		w.leaveDirections = leaveDirections;
+		//w.enterDirections = enterDirections;
+		//w.leaveDirections = leaveDirections;
 		w.FillPositionsArraysByEnemyCount();
 		waves.Add(w);
 	}
@@ -163,6 +155,7 @@ public class StageHandler : MonoBehaviour {
 	public void EndHandler (string endType)
 	{
 		bossOn = false;
+		stageOn = false;
 		
 
 		Game.control.sound.FadeOutMusic();
@@ -232,6 +225,12 @@ public class StageHandler : MonoBehaviour {
 		StartCoroutine (StageCompleteHandling ());
 	}*/
 	
+    public void StopStage(){
+        if(stageScript != null) stageScript.StopStage();
+		stageTimer = 0;
+		ToggleTimer(false);
+    }
+
 	public void RestartStage(){
 		if(stageScript != null) stageScript.StopStage();
 		StartStage(currentStage);
@@ -239,7 +238,7 @@ public class StageHandler : MonoBehaviour {
 
 	public void StartGame(){
 		stats = new PlayerStats();
-		StartStage(3);
+		StartStage(1);
 	}
 
 	public void StartStage (int stage){
@@ -253,7 +252,7 @@ public class StageHandler : MonoBehaviour {
 
 	public void SetDifficulty(int diff){
 		difficultyMultiplier = diff;
-		if(diff == 1) difficultyAsString = "Very Easy";
+		if(diff == 2) difficultyAsString = "Very Easy";
 		if(diff == 3) difficultyAsString = "Easy";
 		if(diff == 5) difficultyAsString = "Normal";
 		if(diff == 10) difficultyAsString = "Nightmare";
@@ -261,42 +260,47 @@ public class StageHandler : MonoBehaviour {
 
 
 	IEnumerator StartStageRoutine(){
-		loading = true;
-		yield return new WaitUntil(() => Game.control.enemySpawner.AbortSpawner() == true);
+        if(Game.control.ui != null) Game.control.ui.ToggleLoadingScreen(true);
+		Game.control.loading = true;
+		stageTimer = 0;
+		ToggleTimer(false);
+		Game.control.bulletPool.DestroyAll();
+        Game.control.enemySpawner.DestroyAllEnemies();
+        
+
 		AsyncOperation loadScene = SceneManager.LoadSceneAsync("Level1");
 		yield return new WaitUntil(() => loadScene.isDone == true);
 		
-		
 		Game.control.ui = GameObject.Find("StageCanvas").GetComponent<UIController>();
 		Game.control.ui.ToggleLoadingScreen(true);
+		
 		Game.control.player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler> ();
-		Game.control.pause.Unpause (false); //needs ui declaration
-		Game.control.enemySpawner.DestroyAllEnemies();
-		Game.control.enemySpawner.DestroyAllProjectiles();
-		yield return new WaitForSeconds(1);
+		Game.control.bulletPool.InstantiateBulletsToPool(difficultyMultiplier);
 
-		InitEnemyLib ();
+		yield return new WaitUntil(() => Game.control.enemySpawner.AbortSpawner() == true);
+		
+		Game.control.pause.Unpause (false);
+		
+		yield return new WaitForSeconds(1f);
+
+		spriteLib = Game.control.spriteLib;
+		waves = new ArrayList();
 		
 		Game.control.scene.SetUpEnvironment ();
 		Game.control.io.LoadHiscoreByDifficulty(difficultyAsString);
-
 		Game.control.dialog.Init();
 		Game.control.ui.InitStage ();
-		
 		Game.control.menu.InitMenu();
 		Game.control.player.Init();
 		Game.control.player.gameObject.SetActive (true);
-		
-
 		Game.control.sound.PlayMusic ("Stage", currentStage);
 		Game.control.enemySpawner.StartSpawner (currentStage);
 
-		stageTimer = 0;
 		stageScript.StartStageHandler();
 		stageOn = true;
 
 		Game.control.ui.ToggleLoadingScreen(false);
-		loading = false;
+		Game.control.loading = false;
 	}
 
 }

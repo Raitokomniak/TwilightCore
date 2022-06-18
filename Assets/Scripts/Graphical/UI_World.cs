@@ -12,22 +12,23 @@ public class UI_World : MonoBehaviour
 	public GameObject playAreaBottomWall;
     public GameObject[] topLayers;
 
-	public Transform pickUpThreshold;
+	public GameObject pickUpThreshold;
 
+	public GameObject FXLayer;
 
 	void Awake(){
 		this.gameObject.SetActive(true);
+		HideFXLayer();
 	}
-    public void GetWalls(){
-        //playAreaLeftWall = transform.GetChild (2).GetChild (0).gameObject;
-		//playAreaRightWall = transform.GetChild (2).GetChild (1).gameObject;
-		//playAreaTopWall = transform.GetChild (2).GetChild (2).gameObject;
-		//playAreaBottomWall = transform.GetChild (2).GetChild (3).gameObject;
-    }
 
     public float[] GetBoundaries(){
 		wallBoundaries = new float[4]{playAreaBottomWall.transform.position.y, playAreaLeftWall.transform.position.x, playAreaTopWall.transform.position.y, playAreaRightWall.transform.position.x};
 		return wallBoundaries;
+	}
+
+	public void TogglePickUpThreshold(bool toggle){
+		if(toggle && !pickUpThreshold.activeSelf) 		pickUpThreshold.SetActive(true);
+		else if(!toggle && pickUpThreshold.activeSelf)	pickUpThreshold.SetActive(false);
 	}
 
     public void InitParallaxes(){
@@ -59,6 +60,16 @@ public class UI_World : MonoBehaviour
 		foreach (GameObject layer in topLayers) {
 			layer.GetComponent<TopLayerParallaxController> ().scrollSpeed = speed;
 		}
+	}
+
+	public void ShowFXLayer(string color){
+		FXLayer.SetActive(true);
+		if(color == "Night") FXLayer.GetComponent<SpriteRenderer>().color = new Color(0.05f, 0.05f, 0.16f, 0.3f);
+		if(color == "Light") FXLayer.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.6f, 0.3f);
+	}
+
+	public void HideFXLayer(){
+		FXLayer.SetActive(false);
 	}
 
 	public IEnumerator _UpdateTopLayer(string type)

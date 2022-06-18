@@ -28,23 +28,21 @@ public class BMP_LaserPendulum : BulletMovementPattern
 		}
 		
 		int dir = 1;
-		if (laserIndex == 0)
-			dir = 1;
-		else
-			dir = -1;
+
 		yield return new WaitForSeconds (2f);
-		RotateOnAxis (bullet, dir, 10f);
+		RotateOnAxis (dir, 10f);
 		yield return new WaitForSeconds (4f);
-		RotateOnAxis (bullet, -dir, 10f);
+		RotateOnAxis (-dir, 10f);
 		yield return new WaitForSeconds (4f);
-		RotateOnAxis (bullet, dir, 10f);
+		RotateOnAxis (dir, 10f);
 		yield return new WaitForSeconds (4f);
-		RotateOnAxis (bullet, -dir, 10f);
+		RotateOnAxis (-dir, 10f);
 
 		for (float i = 50; i > 0; i--) {
 			scale = new Vector3 (i * 0.1f, scale.y, 1);
 			yield return new WaitForSeconds (.01f);
 		}
-		GameObject.Destroy (bullet);
+		//GameObject.Destroy (bullet);
+		Game.control.bulletPool.StoreBulletToPool(bullet);
     }
 }

@@ -26,12 +26,15 @@ public class Phaser : MonoBehaviour {
 	public bool routineOver = true;
 	public bool endOfPhase;
 
+    public bool bossBonus = true;
 
 	public bool timerOn;
 	public float phaseTimer;
 	public float phaseTime;
+    float phaseCountDownTick;
 	public int numberOfPhases;
 
+    public float topLayerWaitTime = 0;
 
 	public void Init(){
 		shooter = GetComponent<EnemyShoot>();
@@ -49,18 +52,37 @@ public class Phaser : MonoBehaviour {
 	}
 
 	void LateUpdate(){
-		if(timerOn) PhaseTimer();
+		if(timerOn && Game.control.stageHandler.stageOn) PhaseTimer();
 	}
+
+    void CheckTimerSoundTick(){
+        if(phaseTimer <= 6) {
+            for(int i = 0; i < 6; i++){
+                if(phaseCountDownTick != i){
+                    if(Mathf.Approximately(i, Mathf.RoundToInt(phaseTimer))){
+                        phaseCountDownTick = i;
+                        Game.control.sound.PlaySound("Enemy", "CountDown", false);
+                    }
+                }
+            }
+        }
+    }
 
 	public void PhaseTimer(){
 		if(phaseTimer > 0){
 			phaseTimer-=Time.deltaTime;
 			Game.control.ui.BOSS.UpdateBossTimer(phaseTimer);
+            CheckTimerSoundTick();
 		}
-		else StopPhaseTimer();
+		else {
+			if(!superPhase)  life.SetHealthToThreshold();
+			StopPhaseTimer();
+			NextPhase();
+		}
 	}
 
 	public void StartPhaseTimer(float time){
+        phaseCountDownTick = 0;
 		endOfPhase = false;
 		phaseTime = time;
 		phaseTimer = phaseTime;
@@ -86,9 +108,9 @@ public class Phaser : MonoBehaviour {
 			p.StopPattern();
 			if(p.routine != null) StopCoroutine(p.routine);
 			if(p.animation){
-				if(!p.animation.GetComponent<BulletAnimationController>().dontDestroy) 
+				if(!p.animation.GetComponent<SpriteAnimationController>().dontDestroy) 
 					p.animation.gameObject.SetActive(false);
-				else p.animation.GetComponent<BulletAnimationController>().stop = true;
+				else p.animation.GetComponent<SpriteAnimationController>().stop = true;
 			}
 		}
 	}
@@ -105,11 +127,16 @@ public class Phaser : MonoBehaviour {
 	public void NextPhase() {
 		StopPhaseTimer();
 		if(superPhase) life.NextHealthBar();
-		if(bossPhase == numberOfPhases - 1) life.Die ();
+		if(bossPhase == numberOfPhases - 1) life.Die (false);
 		else {
 			life.DropLoot("Core");
 			life.DropLoot("Core");
-			
+            if(bossPhase >=0 && bossBonus) {
+                Game.control.ui.PlayToast("Boss Bonus 3000!");
+                Game.control.player.GainScore(3000);
+                life.DropLoot("Exp");
+            }
+			bossBonus = true;
 			nextPhaseRoutine = PhasingTime();
 			StartCoroutine(nextPhaseRoutine);
 		}
@@ -130,6 +157,7 @@ public class Phaser : MonoBehaviour {
 		life.SetInvulnerable(false);
 		if(bossPhase > 0 && bossPhase % 2 != 0) superPhase = true;
 		ExecutePhase (bossPhase, this);
+        yield return new WaitForSeconds(topLayerWaitTime);
 		Game.control.ui.WORLD.UpdateTopPlayer ("Boss" + bossIndex + "_" + (bossPhase));
 	}
 }

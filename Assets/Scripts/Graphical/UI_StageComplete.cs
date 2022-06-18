@@ -20,8 +20,7 @@ public class UI_StageComplete : MonoBehaviour
         timeBonus = bonuses[0];
         dayBonus = bonuses[1];
         nightBonus = bonuses[2];
-        bossBonus = bonuses[3];
-        difficultyMultiplier = bonuses[4];
+        difficultyMultiplier = bonuses[3];
         finalScore = Game.control.stageHandler.stats.score;
 
         scoreText = "BONUSES" + '\n' + '\n';

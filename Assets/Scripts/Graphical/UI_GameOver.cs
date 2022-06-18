@@ -32,7 +32,7 @@ public class UI_GameOver : MonoBehaviour
 		}
 	}
 	bool AllowInput(){
-		if(Game.control.stageHandler.loading) return false;
+		if(Game.control.loading) return false;
 		return true;
 	}
 	public void GameCompleteScreen(bool value){

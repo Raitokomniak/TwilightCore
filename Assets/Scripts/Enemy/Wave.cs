@@ -16,12 +16,14 @@ public class Wave
 	public float shootSpeed;
 	public bool simultaneous; // NOT USED YET BUT DONT DELETE
 	public List<Vector3> spawnPositions;
-	public List<Vector3> enterDirections; //BECOMING OBSOLETE !!!!!!!!!!!!!!!!!!!!!!!!
-	public List<Vector3> leaveDirections; //BECOMING OBSOLETE !!!!!!!!!!!!!!!!!!!!!!!!
+	//public List<Vector3> enterDirections; //BECOMING OBSOLETE !!!!!!!!!!!!!!!!!!!!!!!!
+	//public List<Vector3> leaveDirections; //BECOMING OBSOLETE !!!!!!!!!!!!!!!!!!!!!!!!
 	public EnemyMovementPattern movementPattern;
 	public Pattern shootPattern;
-
+	public bool oneShot;
 	public Sprite sprite;
+	
+	public bool invulnerable;
 
 	public Phaser bossScript;
 	
@@ -46,8 +48,8 @@ public class Wave
 		health = _health;
 		shootSpeed = _shootSpeed;
 		spawnPositions = new List<Vector3>();
-		enterDirections = new List<Vector3>();
-		leaveDirections = new List<Vector3>();
+		//enterDirections = new List<Vector3>();
+		//leaveDirections = new List<Vector3>();
 		enemyCounter = enemyCount;	
 		sprite = Game.control.spriteLib.SetEnemySprite(spriteName);
 		
@@ -64,8 +66,8 @@ public class Wave
 		isBoss = _isBoss;
 		isMidBoss = !isBoss;
 		spawnPositions = new List<Vector3>();
-		enterDirections = new List<Vector3>();
-		leaveDirections = new List<Vector3>();
+		//enterDirections = new List<Vector3>();
+		//leaveDirections = new List<Vector3>();
 		enemyCounter = enemyCount;
 	}
 
@@ -96,13 +98,14 @@ public class Wave
 	//if more enemies than spawn/enter/leave positions, multiplies the amount of positions so enemyindex is not OOB
 	public void FillPositionsArraysByEnemyCount(){
 		FillPositionArray(spawnPositions);
-		FillPositionArray(enterDirections);
-		FillPositionArray(leaveDirections);
+		//FillPositionArray(enterDirections);
+		//FillPositionArray(leaveDirections);
 	}
 
 	public void Spawn(int enemyIndex){
 		//create enemy instance at movement pat spawn pos
 		EnemyMovementPattern pat = new EnemyMovementPattern(movementPattern);
+
 		if(spawnPositions.Count > 1) pat.spawnPosition = spawnPositions[enemyIndex];
 		GameObject enemy = GameObject.Instantiate (Resources.Load ("Prefabs/Enemy"), pat.spawnPosition, Quaternion.Euler (0, 0, 0)) as GameObject;
 		
@@ -136,6 +139,11 @@ public class Wave
 		bossScript.Init();
 		enemy.GetComponent<BossLife> ().SetHealth (health, healthBars, bossScript);
 		enemy.GetComponentInChildren<SpriteRenderer> ().sprite = sprite;
+
+		GameObject MCspriteAnim = enemy.transform.GetChild(2).gameObject;
+		MCspriteAnim.SetActive(true);
+		MCspriteAnim.GetComponent<AnimationController>().StartRotating(1f);
+		//MCspriteAnim.GetComponent<SpriteAnimationController>().rotationSpeed
 
 		//apply modifiers
 		if(pat.hideSpriteOnSpawn) enemy.GetComponent<EnemyMovement>().EnableSprite(false);

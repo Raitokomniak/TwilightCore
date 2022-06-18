@@ -27,7 +27,7 @@ public class VectorLib : MonoBehaviour
 
 		if(coordinate[0] == 'X') hor = 17.3f; 	//DEAD CENTER
 		if(coordinate[1] == 'Y') ver = 12.87f; 	//DEAD CENTER
-		if(coordinate[1] == 'U') ver = OOBTop + 1; 		//OUT UP
+		if(coordinate[1] == 'U') ver = OOBTop + 6; 		//OUT UP
 		if(coordinate[1] == 'D') ver = OOBBot - 1; 		// OUT DOWN
 		if(coordinate[0] == 'L') hor = OOBLeft - 1; 	//LEFT OUT
 		if(coordinate[0] == 'R') hor = OOBRight + 1; //RIGHT OUT

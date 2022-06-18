@@ -46,12 +46,15 @@ public class PlayerLife : MonoBehaviour {
 		if(GetComponent<PlayerMovement>().focusMode) 
 			 Game.control.player.special.DepleteCore ("Night", false);
 		else Game.control.player.special.DepleteCore ("Day", false);
-		if(Game.control.stageHandler.bossOn) Game.control.stageHandler.bossBonus = false;
+		Game.control.stageHandler.DenyBossBonus();
 	}
 
 	public void GainLife(){
 		lives += 1;
-		Game.control.ui.RIGHT_SIDE_PANEL.UpdateLives(lives);
+		//Game.control.ui.RIGHT_SIDE_PANEL.UpdateLives(lives);
+		Game.control.ui.PlayToast("New Life!");
+		Game.control.ui.RIGHT_SIDE_PANEL.UpdateMaxLives(lives);
+		Game.control.sound.PlaySound("Player", "ExtraLife", false);
 	}
 
 	void Die(){

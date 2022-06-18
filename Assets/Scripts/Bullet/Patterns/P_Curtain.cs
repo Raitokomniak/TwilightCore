@@ -20,8 +20,9 @@ public class P_Curtain : Pattern
 				spawnPosition = SpawnInLine (pos.x, 20, lineDirection, i);
 				//bulletMovement = new BMP_TurnToSpears(patterns[0], 6f);
 
-				InstantiateBullet (enemyBullet, bulletMovement);
-				bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
+				//SpawnBullet (enemyBullet, bulletMovement);
+				SpawnBullet (BMP);
+				bullet.GetComponent<BulletMovement>().spriteR.sprite = sprite;
 
 				yield return new WaitForSeconds (coolDown);
 				Game.control.sound.PlaySound ("Enemy", "Shoot", false);

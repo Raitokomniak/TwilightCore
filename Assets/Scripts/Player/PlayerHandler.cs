@@ -37,25 +37,6 @@ public class PlayerStats {
 
 		upgradePoints = 0;
 	}
-
-/*
-	public PlayerStats(PlayerStats ps){
-		damageMin = ps.damageMin;
-
-		maxLives = ps.maxLives;
-		lives = ps.lives;
-		xpCap = ps.xpCap;
-		xp = ps.xp;
-		level = ps.level;
-		damage = ps.damage;
-		bulletScaleMin = ps.bulletScaleMin;
-		bulletScale = ps.bulletScale;
-
-		movementSpeed = ps.movementSpeed;
-		shootSpeed = ps.shootSpeed;
-
-		upgradePoints = ps.upgradePoints;
-	}*/
 }
 
 public class PlayerHandler : MonoBehaviour {

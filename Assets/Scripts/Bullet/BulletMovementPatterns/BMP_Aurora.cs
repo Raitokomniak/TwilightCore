@@ -18,7 +18,7 @@ public class BMP_Aurora : BulletMovementPattern
     }
 
     public override IEnumerator ExecuteRoutine(){
-        Explode (false, bullet, 14, 1);
+        Explode (14);
 		rotation = bullet.transform.rotation;
 		yield return new WaitForSeconds (.1f);
 		movementSpeed = .5f;

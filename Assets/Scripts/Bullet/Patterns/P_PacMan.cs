@@ -21,8 +21,9 @@ public class P_PacMan : Pattern
 				bulletRotation = Quaternion.Euler (0f, 0f, startingRotation + (float)i * rotationMultiplier);
 				//bulletMovement = new BulletMovementPattern (false, null, 0.5f, this, 0, tempMagnitude);
 				startingRotation += 0.1f;
-				InstantiateBullet (enemyBullet, bulletMovement);
-				bullet.GetComponent<SpriteRenderer> ().sprite = sprite;
+				//SpawnBullet (enemyBullet, bulletMovement);
+				SpawnBullet (BMP);
+				bullet.GetComponent<BulletMovement>().spriteR.sprite = sprite;
 			}
             
         }

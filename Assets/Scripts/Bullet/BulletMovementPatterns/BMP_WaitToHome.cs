@@ -18,11 +18,12 @@ public class BMP_WaitToHome : BulletMovementPattern
 
     public override IEnumerator ExecuteRoutine(){
         movementSpeed = 0;
-		yield return new WaitForSeconds (1f);
-		FindPlayer(bullet);
+        yield return new WaitForSeconds (1f);
+        FindPlayer(bullet);
 		yield return new WaitForSeconds (.3f);
-	    //movementSpeed = 10f;
-        accelMax = 25; //REMOVE THIS LATER
-		bullet.GetComponent<EnemyBulletMovement> ().SmoothAcceleration ();
+        startHoming = true;
+        accelMax = 25;
+        accelSpeed = 10;
+		bullet.GetComponent<BulletMovement> ().SmoothAcceleration ();
     }
 }

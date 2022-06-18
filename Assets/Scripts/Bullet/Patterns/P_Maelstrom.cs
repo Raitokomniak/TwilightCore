@@ -19,34 +19,23 @@ public class P_Maelstrom : Pattern
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
         yield return new WaitForSeconds(delayBeforeAttack);
 		pos = enemy.transform.position;
+		float startRot = startingRotation;
 
-		if(infinite){
-			while (!stop) {
-				pos = enemy.transform.position;
-				Game.control.sound.PlaySound ("Enemy", "Shoot", true);
-				
-				for (int i = 0; i < bulletCount; i++) {
-					spawnPosition = SpawnInCircle (pos, 1.5f, GetAng (i, 360) + startingRotation);
-					bulletRotation = SpawnInCircle (i, startingRotation);
-					startingRotation += 0.5f * rotationDirection;
-					InstantiateBullet (enemyBullet, bulletMovement);
-					if(circleDelay > 0) yield return new WaitForSeconds(circleDelay);
-				}
-				yield return new WaitForSeconds (coolDown);
-			}
-		}
-		else {
+		while (!stop) {
+			
+
 			pos = enemy.transform.position;
 			Game.control.sound.PlaySound ("Enemy", "Shoot", true);
-				
+			
 			for (int i = 0; i < bulletCount; i++) {
-				if(stop) break;
-				spawnPosition = SpawnInCircle (pos, 1.5f, GetAng (i, 360) + startingRotation);
-				bulletRotation = SpawnInCircle (i, startingRotation);
-				startingRotation += 0.5f * rotationDirection;
-				InstantiateBullet (enemyBullet, bulletMovement);
+				spawnPosition = SpawnInCircle (pos, 1.5f, GetAng (i, 360) + startRot);
+				bulletRotation = SpawnInCircle (i, startRot);
+				startRot += maelStromRotationMultiplier * rotationDirection;
+				//SpawnBullet (enemyBullet, bulletMovement);
+				SpawnBullet (BMP);
 				if(circleDelay > 0) yield return new WaitForSeconds(circleDelay);
 			}
+			if(!infinite) yield break;
 			yield return new WaitForSeconds (coolDown);
 		}
     }

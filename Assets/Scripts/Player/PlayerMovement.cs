@@ -47,13 +47,13 @@ public class PlayerMovement : MonoBehaviour
 	}
 	
 	bool AllowInput(){
-		if(Game.control.stageHandler.loading) return false;
+		if(Game.control.loading) return false;
 		return true;
 	}
 
 	public void CheckPickUpThreshold(){
 		if(Game.control.ui){
-			if(transform.position.y >= Game.control.ui.WORLD.pickUpThreshold.position.y)
+			if(transform.position.y >= Game.control.ui.WORLD.pickUpThreshold.transform.position.y)
 				atPickUpThreshold = true;
 			else atPickUpThreshold = false;
 		}
@@ -81,24 +81,28 @@ public class PlayerMovement : MonoBehaviour
 		return true;
 	}
 
-	public void FocusMode (bool focus)
+	public void FocusMode (bool toggle)
 	{
-		focusMode = focus;
+		focusMode = toggle;
 
-		if (focus) {
+		if (focusMode) {
 			hitBox.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
-			movementSpeed = Game.control.stageHandler.stats.movementSpeed * Time.deltaTime / 2;
+			movementSpeed = Game.control.stageHandler.stats.movementSpeed * Time.deltaTime / 3;
 			magneticRange.Scale (1);
-			magneticRange.GetComponent<AnimationController> ().rotating = true;
-			GetComponent<PlayerShoot> ().FocusWeapons (focus);
-			if(Game.control.ui != null) Game.control.ui.LEFT_SIDE_PANEL.HighLightCoreInUse ("Night");
+			magneticRange.GetComponent<AnimationController> ().StartRotating(4f);
+			GetComponent<PlayerShoot> ().FocusWeapons (toggle);
+			//if(Game.control.ui != null) 
+			Game.control.ui.LEFT_SIDE_PANEL.HighLightCoreInUse ("Night");
+			Game.control.ui.WORLD.TogglePickUpThreshold(true);
 		} else if(Game.control.stageHandler.stats != null)  {
 			hitBox.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 0);
 			movementSpeed = Game.control.stageHandler.stats.movementSpeed * Time.deltaTime;
 			magneticRange.Scale (-1);
-			magneticRange.GetComponent<AnimationController> ().rotating = false;
-			GetComponent<PlayerShoot> ().FocusWeapons (focus);
-			if(Game.control.ui != null) Game.control.ui.LEFT_SIDE_PANEL.HighLightCoreInUse ("Day");
+			magneticRange.GetComponent<AnimationController> ().StopRotating();
+			GetComponent<PlayerShoot> ().FocusWeapons (toggle);
+			//if(Game.control.ui != null) 
+			Game.control.ui.LEFT_SIDE_PANEL.HighLightCoreInUse ("Day");
+			Game.control.ui.WORLD.TogglePickUpThreshold(false);
 		}
 	}
 

@@ -13,23 +13,28 @@ public class BulletMovementPattern
 
 	public bool randomDirs; //FOR SLOWWAVING ONLY BUT...
 
+	public bool forceRotation;
+
 	public bool rotateOnAxis = false; //DEFAULT
+	public int rotationDir;
 	public bool dontDestroy;
 
 	public float movementSpeed;
 	public float accelMax = 6f;
 	public float accelSpeed = 1f;
 	public Quaternion rotation;
+	public Quaternion spriteRotation;
+
 	public Vector3 scale;
 	public bool forceScale = false;
+
+	public float waitAndExplodeWaitTime;
 
 	public bool trail;
 
 	public Pattern pattern;
 	public int layer;
-	public int laserIndex;
-
-	public bool moveWithForce;
+	public bool moveWithForce = false;
 
 	public BulletMovementPattern(){}
 
@@ -46,7 +51,6 @@ public class BulletMovementPattern
 		if(bmpType == "Explode") bmp = new BMP_Explode();
 		if(bmpType == "LaserExpand") bmp = new BMP_LaserExpand();
 		if(bmpType == "LaserPendulum") bmp = new BMP_LaserPendulum();
-		if(bmpType == "LaserRotate") bmp = new BMP_LaserRotate();
 		if(bmpType == "SlowWaving") bmp = new BMP_SlowWaving();
 		if(bmpType == "Stop") bmp = new BMP_Stop();
 		if(bmpType == "StopAndRotate") bmp = new BMP_StopAndRotate();
@@ -71,9 +75,11 @@ public class BulletMovementPattern
 		bmp.forceScale = _bmp.forceScale;
 		bmp.pattern = _bmp.pattern;
 		bmp.layer = _bmp.layer;
-		bmp.laserIndex = _bmp.laserIndex;
 		bmp.trail = _bmp.trail;
 		bmp.moveWithForce = _bmp.moveWithForce;
+		bmp.forceRotation = _bmp.forceRotation;
+		bmp.rotationDir = _bmp.rotationDir;
+		bmp.waitAndExplodeWaitTime = _bmp.waitAndExplodeWaitTime;
 
 		return bmp;
 	}
@@ -96,32 +102,33 @@ public class BulletMovementPattern
 		Vector3 vectorToTarget = player - _bullet.transform.position;
 		float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg + 90;
 		Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-		rotation = Quaternion.Slerp(rotation, q, Time.deltaTime * 10f);
+		rotation = q;
 	}
 
 	public void Stop(GameObject bullet){
 		isMoving = false;
+		bullet.GetComponent<BulletMovement>().Stop();
 	}
 
-	public void CorrectRotation(){
-		if (pattern.bullets.Count != 0)
-			pattern.bullets.RemoveAt (pattern.bullets.Count - 1);
-		rotation = Quaternion.Euler (0f, 0f, (pattern.bullets.Count - 1) * (360 / pattern.bulletCount));
-	}
+
 
 	public void Explode(float magnitude){
+        centerPoint = bullet.transform.position;
 		targetMagnitude = magnitude;
 		isMoving = true;
 	}
 
-	public void Explode(bool animate, GameObject bullet, float _targetMagnitude, float targetScale)
-	{
-		centerPoint = bullet.transform.position;
-		if (animate){
-			pattern.Animate(targetScale, 1, centerPoint);
-		}
-		isMoving = true;
-		targetMagnitude = _targetMagnitude;
+	public bool HasReachedDestination(Vector3 targetPosition, BulletMovement _m){
+		float x = _m.transform.position.x;
+		float y = _m.transform.position.y;
+		float threshold = 1f;
+
+		if(Mathf.Abs(x-targetPosition.x) <= threshold && Mathf.Abs(y-targetPosition.y) <= threshold) {
+			return true;
+		} 
+		else {
+			return false;
+		} 
 	}
 
 	public void CancelAxisRotation(float speed)
@@ -130,25 +137,15 @@ public class BulletMovementPattern
 		movementSpeed = speed;
 		targetMagnitude = 20f;
 	}
-	public void _RotateOnAxis(GameObject bullet, int dir, float speed)
+
+	public void RotateOnAxis(int dir, float speed)
 	{
-		movementSpeed = speed;
-		movementSpeed = movementSpeed * dir;
+		movementSpeed = speed * dir;
 		rotateOnAxis = true;
 		isMoving = true;
 	}
 
-	public void RotateOnAxis(GameObject bullet, int dir, float speed)
-	{
-		movementSpeed = speed;
-		movementSpeed = movementSpeed * dir;
-		rotateOnAxis = true;
-		isMoving = true;
+	public void SetSpriteRotation(Vector3 eulers){
+		spriteRotation.eulerAngles = eulers;
 	}
-
-	public Vector3 RotateOnAxis()
-	{
-		return centerPoint;
-	}
-
 }

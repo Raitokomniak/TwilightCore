@@ -16,7 +16,13 @@ public class BMP_LaserExpand : BulletMovementPattern
     }
 
     public override IEnumerator ExecuteRoutine(){
+		moveWithForce = false;
+		forceScale = true;
+		scale = new Vector3 (0, 0, 0);
+		bullet.GetComponent<Rigidbody2D>().isKinematic = true;
         Collider2D coll = bullet.GetComponent<BoxCollider2D>();
+		yield return null;
+		
 		coll.enabled = false;
 		dontDestroy = true;
 		centerPoint = bullet.transform.position;
@@ -24,29 +30,25 @@ public class BMP_LaserExpand : BulletMovementPattern
 		pattern.Animate(6, 1, centerPoint);
 		Stop (bullet);
 		yield return new WaitForSeconds (.5f);
-		bullet.GetComponent<SpriteRenderer> ().sprite = Game.control.spriteLib.SetBulletSprite ("Laser", "Glow", "Purple");
-		bullet.GetComponent<SpriteRenderer> ().sortingOrder = -1;
+		bullet.GetComponent<BulletMovement>().spriteR.sprite = Game.control.spriteLib.SetBulletSprite ("Laser", "Glow", "Purple");
+		bullet.GetComponent<BulletMovement>().spriteR.sortingOrder = -1;
 		Vector2 origColliderSize = bullet.GetComponent<BoxCollider2D>().size;
-		scale = new Vector3 (0, 0, 0);
+		
 		
         for (float i = 0; i < 50; i++) {
-			bullet.transform.localScale = new Vector3 (i * 0.02f, i, 1);
+			scale = new Vector3 (i * 0.02f, i, 1);
 			bullet.GetComponent<BoxCollider2D> ().size = new Vector2 (i * 0.002f, i);
 			yield return new WaitForSeconds (.02f);
 		}
-				
-		int dir = laserIndex;
-
-		if (laserIndex == 0)    dir = 1;
-		else    dir = -1;
 
 		yield return new WaitForSeconds (2f);
 
 		coll.enabled = true;
 		for (float i = 50; i > 0; i--) {
-			bullet.transform.localScale = new Vector3 (i * 0.1f, bullet.transform.localScale.y, 1);
+			scale = new Vector3 (i * 0.1f, bullet.transform.localScale.y, 1);
 			yield return new WaitForSeconds (.01f);
 		}
-		GameObject.Destroy (bullet);
+		//GameObject.Destroy (bullet);
+		Game.control.bulletPool.StoreBulletToPool(bullet);
     }
 }

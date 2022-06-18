@@ -6,8 +6,7 @@ using TMPro;
 
 public class UI_RightSidePanel : MonoBehaviour
 {
-    public TextMeshProUGUI levelTimer;
-    public TextMeshProUGUI wave;
+    public Text levelTimer;
     public TextMeshProUGUI xp;
     public TextMeshProUGUI difficulty;
 	public TextMeshProUGUI stage;
@@ -18,20 +17,25 @@ public class UI_RightSidePanel : MonoBehaviour
     public Transform livesContainer;
     public Object lifeSpritePrefab;
 
-
+    //FOR DEVVING ONLY
+    
    	public void UpdateTimer(float value){
 		levelTimer.text = "Level Time: " + value.ToString ("F2");
 	}
 
     public void UpdateLives(int lives){
-        foreach(GameObject life in lifeSprites) life.SetActive(false);
+        List<GameObject> tempList = lifeSprites;
+        foreach(GameObject life in tempList) life.SetActive(false);
 
         for(int i = 0; i < lives; i++){
-            lifeSprites[i].SetActive(true);
+            tempList[i].SetActive(true);
         }
+
+        lifeSprites = tempList;
     }
 
     public void UpdateMaxLives(int lives){
+        foreach(GameObject life in lifeSprites) Destroy(life);
         lifeSprites = new List<GameObject>();
         for(int i = 0; i < lives; i++){
             GameObject life = Instantiate(lifeSpritePrefab, new Vector3(livesContainer.position.x + (i * 50), livesContainer.position.y, livesContainer.position.z), Quaternion.identity) as GameObject;
@@ -42,10 +46,6 @@ public class UI_RightSidePanel : MonoBehaviour
 
     public void UpdateXP(int value){
         xp.text = "(XP: " + value.ToString () + " / " + Game.control.stageHandler.stats.xpCap + ")";
-    }
-
-    public void UpdateWave(int value){
-        wave.text = "Wave: " + value.ToString();
     }
 
 	public void UpdateDifficulty(string _difficulty){

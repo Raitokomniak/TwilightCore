@@ -26,13 +26,12 @@ public class P_VoidPortal : Pattern
         yield return new WaitForSeconds(delayBeforeAttack);
 		pos = enemy.transform.position;
 
-        bullets = new ArrayList ();
-
+        spawnedBullets = new ArrayList ();
         animation = (Resources.Load ("Images/Animations/A_VoidPortal") as GameObject);
-        animation.GetComponent<BulletAnimationController> ().stayTime = stayTime;
-        animation.GetComponent<BulletAnimationController> ().rotationSpeed = 10f;
-        animation.GetComponent<BulletAnimationController>().dontDestroy = dontDestroyAnimation;
-        animation.GetComponent<BulletAnimationController> ().scaleDown = true;
+        animation.GetComponent<SpriteAnimationController> ().stayTime = stayTime;
+        animation.GetComponent<SpriteAnimationController> ().rotationSpeed = 10f;
+        animation.GetComponent<SpriteAnimationController>().dontDestroy = dontDestroyAnimation;
+        animation.GetComponent<SpriteAnimationController> ().scaleDown = true;
         animating = false;
 		
         //InstantiateBullet (enemyBullet, bulletMovement);

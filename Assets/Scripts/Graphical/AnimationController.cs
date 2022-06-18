@@ -3,7 +3,8 @@ using System.Collections;
 
 public class AnimationController : MonoBehaviour {
 	public GameObject parentObject;
-	public bool rotating;
+	bool rotating;
+	public float rotationSpeed;
 
 	void Awake(){
 		rotating = false;
@@ -11,8 +12,16 @@ public class AnimationController : MonoBehaviour {
 	
 	void Update () {
 		if (rotating) {
-			transform.Rotate (0, 0, Time.deltaTime * 200);
+			transform.Rotate (0, 0, Time.deltaTime * 50 * rotationSpeed);
 		}
+	}
+
+	public void StartRotating(float speed){
+		rotationSpeed = speed;
+		rotating = true;
+	}
+	public void StopRotating(){
+		rotating = false;
 	}
 
 	public void Scale(int dir, float max, bool rotateAfter, bool parent)

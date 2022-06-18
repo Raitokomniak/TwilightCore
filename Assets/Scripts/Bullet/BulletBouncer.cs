@@ -21,14 +21,14 @@ public class BulletBouncer : MonoBehaviour
         GetComponent<BoxCollider2D>().isTrigger = true;
 
         if(multiply && !newInstance){
-            Sprite sprite = GetComponentInParent<EnemyBulletMovement>().BMP.pattern.sprite;
+            Sprite sprite = GetComponentInParent<BulletMovement>().BMP.pattern.sprite;
             GameObject newInstance = Instantiate(gameObject, transform.position, Quaternion.identity);
             Vector3 scale = gameObject.transform.localScale;
             gameObject.transform.localScale = new Vector3(scale.x / 1.5f, scale.y / 1.5f, 0);
             newInstance.GetComponent<BulletBouncer>().newInstance = true;
 
             newInstance.transform.localScale = new Vector3(scale.x / 1.5f, scale.y / 1.5f, 0);
-            newInstance.GetComponent<EnemyBulletMovement>().BMP = gameObject.GetComponent<EnemyBulletMovement>().BMP;
+            newInstance.GetComponent<BulletMovement>().BMP = gameObject.GetComponent<BulletMovement>().BMP;
             Vector2 velo = gameObject.GetComponent<Rigidbody2D>().velocity;
             newInstance.GetComponent<Rigidbody2D>().velocity = new Vector2(velo.x - 1f, velo.y - 1f); // gameObject.GetComponent<Rigidbody2D>().velocity;
             newInstance.GetComponent<Rigidbody2D>().sharedMaterial = null;

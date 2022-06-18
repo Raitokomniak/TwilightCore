@@ -8,6 +8,8 @@ public class EnemyMovement : MonoBehaviour {
 	public bool moving;
 	public bool teleporting;
 
+	public bool normalizedForce;
+
 	float rotateAngle;
 
 	void Awake () {
@@ -36,7 +38,7 @@ public class EnemyMovement : MonoBehaviour {
 			
 			if (tag == "Boss" || tag == "MidBoss") Game.control.ui.BOSS.UpdateBossXPos (transform.position.x, teleporting);
 		}
-		CheckOutOfBounds();
+		if(tag != "Boss" && tag != "MidBoss") CheckBounds();
 	}
 
 	void MoveWithLerp(){
@@ -47,16 +49,26 @@ public class EnemyMovement : MonoBehaviour {
 		Vector2 tpos = new Vector2(pattern.targetPosition.x, pattern.targetPosition.y);
 		Vector2 cpos = new Vector2(transform.position.x, transform.position.y);
 		Vector2 dir = tpos - cpos;
-		rb.AddForce(dir * pattern.speed * 5);
+		
+		if(normalizedForce) 
+				rb.AddForce(dir.normalized * pattern.speed * 20);
+		else	rb.AddForce(dir * pattern.speed * 5);
+
 		rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -20, 20), Mathf.Clamp(rb.velocity.y, -20, 20));
 	}
 
-	void CheckOutOfBounds(){
+	void CheckBounds(){
 		float y = transform.position.y;
 		float x = transform.position.x;
+		float[] walls = Game.control.ui.WORLD.GetBoundaries();
+        
+		if (y < walls[0] || x < walls[1] || y > walls[2] || x > walls[3])
+			GetComponent<EnemyLife>().invulnerable = true;
+		else 
+			GetComponent<EnemyLife>().invulnerable = false;
 
 		if (y > lib.OOBTop || y < lib.OOBBot || x < lib.OOBLeft || x > lib.OOBRight)
-			if(tag != "Boss" && tag != "MidBoss") Destroy (this.gameObject);
+			Destroy (this.gameObject);
 	}
 
 	public void SetUpPatternAndMove(EnemyMovementPattern p){
