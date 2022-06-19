@@ -17,7 +17,7 @@ public class BulletPooler : MonoBehaviour
     // AT START OF STAGE/GAME, INSTANTIATE BULLETS TO POOL 
 	public void InstantiateBulletsToPool (int difficultyMultiplier)
 	{
-        IEnumerator routine = InstantiateRoutine(600);
+        IEnumerator routine = InstantiateRoutine(1000);
 		StartCoroutine(routine);
 	}
 

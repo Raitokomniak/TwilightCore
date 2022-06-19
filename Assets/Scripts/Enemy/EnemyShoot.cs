@@ -9,46 +9,71 @@ public class EnemyShoot : MonoBehaviour {
 	public ArrayList bulletsShot;
 	float shootSpeed;
 	Pattern pattern;
-	public bool canShoot = true;
 	IEnumerator shootRoutine;
+    bool patternOver = false;
+    bool canShoot;
 
 	void Awake () {
+        patternOver = false;
 		wave = Game.control.enemySpawner.curWave;
-	   //enemyBullet = Resources.Load("Prefabs/enemyBullet") as GameObject; //GET FROM ENEMYSPAWNER
-	
 		if(wave.isBoss || wave.isMidBoss) enemyLife = GetComponent<BossLife>();
 		else if(tag == "Enemy") enemyLife = GetComponent<EnemyLife>();
 
-		
 		bulletsShot = new ArrayList ();
 	}
 
+    void Update(){
+        canShoot = CanShoot();
+    }
+
 	public void SetUpAndShoot(Pattern p, float _shootSpeed){
+        patternOver = false;
 		pattern = p;
 		shootSpeed = _shootSpeed;
 		StartCoroutine (ShootRoutine ());
 	}
 
 	public void StopPattern(){
+        if(shootRoutine == null) return;
 		StopCoroutine(shootRoutine);
 		pattern.StopPattern();
-		canShoot = false;
+		patternOver = true;
 	}
+
+    bool CanShoot(){
+        if(OutOfBounds()) return false;
+        if(patternOver) return false;
+        return true;
+    }
 
 	IEnumerator ShootRoutine(){
 		if(tag == "Enemy") enemyLife = GetComponent<EnemyLife>();
-		
-		while (!enemyLife.GetInvulnerableState () && canShoot) {
-			shootRoutine = pattern.Execute (enemyBullet, this);
-			StartCoroutine (shootRoutine);
-			if(wave.oneShot)break;
-			yield return new WaitForSeconds (shootSpeed);
+
+       
+		while (isActiveAndEnabled) {
+            if(canShoot){
+                shootRoutine = pattern.Execute (this);
+                StartCoroutine (shootRoutine);
+
+                if(wave.oneShot) break;
+                yield return new WaitForSeconds (shootSpeed);
+            }
+            yield return null;
 		}
 	}
 
+    bool OutOfBounds(){
+		float y = transform.position.y;
+		float x = transform.position.x;
+		float[] walls = Game.control.ui.WORLD.GetBoundaries();
+        if(walls == null) return true;
+
+		if (y < walls[0] || x < walls[1] + 1 || y > walls[2] - 1 || x > walls[3] - 1)
+            return true;
+		else return false;
+	}
+
 	public void BossShoot(Pattern pat){
-		if(canShoot){
-			StartCoroutine (pat.Execute (enemyBullet, this));
-		}
+		StartCoroutine (pat.Execute (this));
 	}
 }

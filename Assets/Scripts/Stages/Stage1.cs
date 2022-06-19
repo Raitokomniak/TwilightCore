@@ -22,6 +22,7 @@ public class Stage1 : Stage
 
 
 	IEnumerator StageHandlerRoutine(){
+        
 		scene.SetPlaneSpeed(50f);
 		while (dialog.handlingDialog) yield return null;
 		dialog.StartDialog ("Stage1_0");
@@ -43,19 +44,18 @@ public class Stage1 : Stage
 		while(stage.stageTimer < 52f) yield return null;
 		dialog.StartDialog ("Stage1_1");
 		while (stage.stageTimer < 55f) yield return null;
-		
-		Game.control.bulletPool.InstantiateMoreBullets(50);
-
-		while (!spawner.MidBossDead()) yield return null;
+		  
+		while (stage.midBossOn) yield return null;
 		dialog.StartDialog ("Stage1_2");
 		while (dialog.handlingDialog) yield return null;
 		scene.SetPlaneSpeed (35f);
+      
 
 		while (stage.stageTimer < boss.spawnTime - 1) yield return null;
-		Game.control.bulletPool.InstantiateMoreBullets(50);
-		
+
 		dialog.StartDialog ("Boss1");
 		scene.SetPlaneSpeed (3f);
+        yield return new WaitForSeconds(1f);
 
 		while(dialog.handlingDialog) {
 			if(stage.stageTimer > 116.7f) break;
@@ -63,17 +63,16 @@ public class Stage1 : Stage
 		}
 		Game.control.sound.PlayMusic ("Boss", 1);
 
-		//USING THIS DISABLES SOME DEBUGGING BECAUSE STAGE DOESNT END IF BOSS DIES BEFORE THIS POINT
-		//MAYBE FOR DEVVING RUN A SIMULTANEOUS ENDCHECKROUTINE THAT BYPASSES ALL THE TIMER CHECKS
-		while(!spawner.bossWave.dead) yield return null;
-		stage.ToggleTimer(false);
-
-		yield return new WaitUntil(() => stage.CheckIfAllPickUpsGone() == true);
+        while(!stage.bossScript.life.dead) yield return null;
+        stage.ToggleTimer(false);
 		yield return new WaitForSeconds(1f);
+        yield return new WaitUntil(() => stage.CheckIfAllPickUpsGone() == true);
 
 		dialog.StartDialog ("Boss1_1");
 		while (dialog.handlingDialog) yield return null;
-		
+
+		yield return new WaitForSeconds(2f);
+
 		stage.EndHandler ("StageComplete");
 	}
 
@@ -85,12 +84,11 @@ public class Stage1 : Stage
 		EnemyMovementPattern mp;
 
 
-
 		//PHASE 1
 		mp = new EnemyMovementPattern(lib.GetVector("I1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("L4")});
 		p = new P_SingleHoming();
-		p.SetSprite ("Circle", "Big", "Red", "Big");
+		p.SetSprite ("Circle", "Big", "Red", "Huge");
 		stage.NewWave (new Wave (3f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "gand_flute"));
 
 		mp = new EnemyMovementPattern(lib.GetVector("K3"));
@@ -103,7 +101,7 @@ public class Stage1 : Stage
 		mp = new EnemyMovementPattern(lib.GetVector("C1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("R4")});
 		p = new P_SingleHoming();
-		p.SetSprite ("Circle", "Big", "Red", "Big");
+		p.SetSprite ("Circle", "Big", "Red", "Huge");
 		stage.NewWave (new Wave (5f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "gand_horn"));
 
 		mp = new EnemyMovementPattern(lib.GetVector("K3"));
@@ -116,7 +114,7 @@ public class Stage1 : Stage
 		mp = new EnemyMovementPattern(lib.GetVector("I1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("L4")});
 		p = new P_SingleHoming();
-		p.SetSprite ("Circle", "Big", "Red", "Big");
+		p.SetSprite ("Circle", "Big", "Red", "Huge");
 		stage.NewWave (new Wave (7f, mp, p, 2, false, 0, 3f / difficultyMultiplier, "gand_sitar"));
 
 			
@@ -126,13 +124,13 @@ public class Stage1 : Stage
 			mp = new EnemyMovementPattern(lib.GetVector("I1"));
 			mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("R4")});
 			p = new P_SingleHoming();
-			p.SetSprite ("Circle", "Big", "Red", "Big");	
+			p.SetSprite ("Circle", "Big", "Red", "Huge");	
 			stage.NewWave (new Wave (8f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "gand_flute"));
 				
 			mp = new EnemyMovementPattern(lib.GetVector("C1"));
 			mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("L4")});
 			p = new P_SingleHoming();
-			p.SetSprite ("Circle", "Big", "Red", "Big");	
+			p.SetSprite ("Circle", "Big", "Red", "Huge");	
 			stage.NewWave (new Wave (14f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "gand_horn"));
 		}
 
@@ -354,6 +352,7 @@ public class Stage1 : Stage
 		stage.NewWave (new Wave (91f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "gand_sitar"));
 
 /*
+
 	//BOSDEBUG
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
@@ -366,12 +365,13 @@ public class Stage1 : Stage
 	}
 */
 
+
 		//BOSS 1
 		//mp = new EMP_EnterFromTop();
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
 
-		boss = new Wave(mp, 102f, 500, true, 2);
+		boss = new Wave(mp, 102f, 750, true, 2);
 		boss.SetUpBoss (1, "Maaya, Forest Guard", false);
 		stage.NewWave (boss);
 	

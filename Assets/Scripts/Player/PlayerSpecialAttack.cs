@@ -55,6 +55,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 	}
 
 	bool CanUseSpecial(){
+        if(Game.control.pause.playerHitTimerOn) return false;
 		if(Game.control.loading) return false;
 		if(Game.control.menu.menuOn) return false;
 		if(specialAttack) return false;
@@ -66,6 +67,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 	{
         Game.control.stageHandler.DenyBossBonus();
         
+        GetComponent<PlayerLife>().invulnerable = true;
 		specialAttackTime = 3f;
 		specialAttack = true;
 
@@ -121,7 +123,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			Game.control.ui.WORLD.HideFXLayer();
 			
 		}
-
+         GetComponent<PlayerLife>().invulnerable = false;
 		specialAttack = false;
 	}
 

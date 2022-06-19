@@ -19,12 +19,11 @@ public class P_FoxFires : Pattern
 		yield return new WaitForSeconds(delayBeforeAttack);
 		pos = enemy.transform.position;
 
-        			int dir = 1;
+        int dir = 1;
 			for (int i = 0; i < bulletCount; i++) {	
 				spawnPosition = enemyShoot.transform.position + new Vector3 (Random.Range (-.8f, .8f), 1.5f * dir, 0);
 				bulletRotation = bulletRotation * Quaternion.Euler (0, 0, 180f + (Random.Range (-10, 10)));
 				BMP = new BMP_Aurora(this, 10f, tempMagnitude);
-				//SpawnBullet (enemyBullet, bulletMovement);
 				SpawnBullet (BMP);
 				dir = -dir;
 

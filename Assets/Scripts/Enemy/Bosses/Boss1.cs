@@ -317,24 +317,10 @@ public class Boss1 : Phaser
 				patterns.Add(new P_Maelstrom());
 				patterns[1].BMP = new BMP_Explode(patterns[1], 6f);
 				patterns[1].rotationDirection = 1;
-				patterns[1].SetSprite ("Circle", "Big", "Red", "Big");
+				patterns[1].SetSprite ("Circle", "Big", "Red", "Huge");
 				patterns[1].bulletCount =  Mathf.CeilToInt(1.2f * difficulty);
 				patterns[1].coolDown = 2.5f / difficulty;
 
-				p = new P_Maelstrom();
-				p.BMP = new BMP_Explode (p, 2f);
-				p.rotationDirection =  1;
-				p.bulletCount = 3;
-				p.SetSprite ("Circle", "Glow", "Yellow", "Medium");
-				p.BMP.accelMax = 30;
-				patterns.Add(p);
-
-				p = new P_Maelstrom();
-				p.SetSprite ("Circle", "Glow", "Yellow", "Medium");
-				p.BMP = new BMP_Explode (p, 2f);
-				p.bulletCount =  3;
-				p.rotationDirection = -1;
-				patterns.Add(p);
 
 				//movementPatterns.Add(new EMP_Swing(15, 1));
 				movementPatterns.Add(new EnemyMovementPattern());
@@ -357,12 +343,9 @@ public class Boss1 : Phaser
 					movement.moving = true;
 					yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
 					shooter.BossShoot (patterns[1]);
-					shooter.BossShoot (patterns[2]);
-					shooter.BossShoot (patterns[3]);
+                    patterns[1].BMP.movementSpeed = 6f;
 					yield return new WaitForSeconds(4f);
 					patterns[1].StopPattern();
-					patterns[2].StopPattern();
-					patterns[3].StopPattern();
 				}
 				break;
 		}

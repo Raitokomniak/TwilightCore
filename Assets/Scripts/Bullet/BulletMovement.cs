@@ -15,6 +15,8 @@ public class BulletMovement : MonoBehaviour {
 	float accelIniSpeed;
 	bool accelerating;
 
+    bool hitBoxEnabled;
+
 
 	
 	float trailSpawnCD = .07f;
@@ -48,6 +50,7 @@ public class BulletMovement : MonoBehaviour {
 		active = false;
 		accelerating = false;
 		rb.simulated = false;
+        if(GetComponent<HomingWarningLine>()) GetComponent<HomingWarningLine>().DisableLine();
 		Stop();
 	}
 
@@ -78,26 +81,22 @@ public class BulletMovement : MonoBehaviour {
     // UPDATE CHECKS
 
 	void FixedUpdate () {
-		if(active && BMP != null){
+        if(!active || BMP == null) return;
+
+		CheckCollider();
+
+		if(BMP.isMoving){
+            CheckTrail();
             
-			CheckCollider();
-
-			if(BMP.isMoving){
-                
-                CheckTrail();
-
-                if(BMP.rotateOnAxis) 
-                    AxisRotation();
-                else {
-                    //if(!BMP.startHoming) 
-                        
-                    UpdateRotations();
-					CheckMovementType();
-                }
-			}
-			CheckScale();
-            CheckBounds();
+            if(BMP.rotateOnAxis)  AxisRotation();
+            else {
+                UpdateRotations();
+				CheckMovementType();
+            }
 		}
+       
+		CheckScale();
+        CheckBounds();
 	}
 
 	void Update(){
@@ -116,15 +115,23 @@ public class BulletMovement : MonoBehaviour {
 		GameObject dayCoreField = Game.control.player.special.daySpecial;
 
 		if((transform.position - findPlayer).magnitude < 1f) canEnable = true; // IF NEAR PLAYER
-		if(GetComponent<BulletBouncer>() && (transform.position - new Vector3(0, Game.control.ui.WORLD.GetBoundaries()[0],0)).magnitude < 1f) canEnable = true; //IF BOUNCER && NEAR BOT WALL
+		if(Game.control.ui.WORLD.GetBoundaries() != null) if(GetComponent<BulletBouncer>() && (transform.position - new Vector3(0, Game.control.ui.WORLD.GetBoundaries()[0],0)).magnitude < 1f) canEnable = true; //IF BOUNCER && NEAR BOT WALL
 		if(nightCoreField.activeSelf && (transform.position - nightCoreField.transform.position).magnitude < 6f) canEnable = true;
 		if(dayCoreField.activeSelf && (transform.position - dayCoreField.transform.position).magnitude < 13f) canEnable = true;
 		
-		if(!GetComponent<BoxCollider2D>().enabled && canEnable) {
-            GetComponent<BoxCollider2D>().enabled = true;
-            if(!GetComponent<BulletBouncer>()) Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), Game.control.ui.WORLD.playAreaBottomWall.GetComponent<BoxCollider2D>(), true);
+        Collider2D bulletCollider = null; 
+        if     (BMP.hitBoxType == "Box")    bulletCollider = GetComponent<BoxCollider2D>();
+        else if(BMP.hitBoxType == "Circle") bulletCollider = GetComponent<CircleCollider2D>();
+
+		if(!hitBoxEnabled && canEnable) {
+            hitBoxEnabled = true;
+            bulletCollider.enabled = true;
+            if(!GetComponent<BulletBouncer>()) Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), bulletCollider, true);
         }
-		if(GetComponent<BoxCollider2D>().enabled && !canEnable) GetComponent<BoxCollider2D>().enabled = false;
+		if(hitBoxEnabled && !canEnable) {
+            bulletCollider.enabled = false;
+            hitBoxEnabled =  false;
+        }
 	}
 
     void CheckTrail(){

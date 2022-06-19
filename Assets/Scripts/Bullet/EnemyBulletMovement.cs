@@ -76,9 +76,10 @@ public class EnemyBulletMovement : MonoBehaviour {
 	public bool CheckBounds(){
 		float y = transform.position.y;
 		float x = transform.position.x;
-		float[] boundaries = Game.control.ui.WORLD.GetBoundaries();
+		float[] walls = Game.control.ui.WORLD.GetBoundaries();
+        if(walls == null) return true;
 
-		if (y < boundaries[0] - 2f || x < boundaries[1] || y > boundaries[2] ||  x > boundaries[3]){
+		if (y < walls[0] - 2f || x < walls[1] || y > walls[2] ||  x > walls[3]){
 			if (!BMP.dontDestroy) {
 				Destroy (this.gameObject);
 			} 

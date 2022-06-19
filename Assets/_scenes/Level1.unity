@@ -6681,7 +6681,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 27c853106271e674abfeb80e42e8fbe2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 70cb2bc87cfa43749af9f09993b373a5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11106,7 +11106,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 27c853106271e674abfeb80e42e8fbe2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 70cb2bc87cfa43749af9f09993b373a5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15020,6 +15020,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 384526875, guid: e89d3d858ffeb7d489afc7303af27e71, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810200034671563056, guid: e89d3d858ffeb7d489afc7303af27e71,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 162aa750fd9576c45a947cec1a458d23,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e89d3d858ffeb7d489afc7303af27e71, type: 3}
 --- !u!114 &4601440083613715747
@@ -16065,9 +16075,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0012078666, y: 0.00000023821556}
+  m_Offset: {x: 0.0017947898, y: 0.0012463438}
   serializedVersion: 2
-  m_Radius: 0.07834404
+  m_Radius: 0.058984306
 --- !u!114 &7586909668005456473
 MonoBehaviour:
   m_ObjectHideFlags: 0

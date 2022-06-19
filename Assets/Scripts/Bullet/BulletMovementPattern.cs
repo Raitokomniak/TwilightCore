@@ -36,6 +36,8 @@ public class BulletMovementPattern
 	public int layer;
 	public bool moveWithForce = false;
 
+    public string hitBoxType = "Circle"; //DEFAULT  
+
 	public BulletMovementPattern(){}
 
 	public virtual BulletMovementPattern GetNewBulletMovement(BulletMovementPattern bmp){
@@ -78,6 +80,7 @@ public class BulletMovementPattern
 		bmp.forceRotation = _bmp.forceRotation;
 		bmp.rotationDir = _bmp.rotationDir;
 		bmp.waitAndExplodeWaitTime = _bmp.waitAndExplodeWaitTime;
+        bmp.hitBoxType = _bmp.hitBoxType;
 
 		return bmp;
 	}

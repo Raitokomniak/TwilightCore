@@ -6,6 +6,8 @@ public class ProjectileMovement : MonoBehaviour {
 	//public Vector3 targetPos;
    
 	void Update () {
+        if(Game.control.ui.WORLD.GetBoundaries() == null) return;
+        
 		if(transform.position.y < Game.control.ui.WORLD.GetBoundaries()[2] && !Game.control.pause.paused) {
 			/*if (homing) {
 				if (targetPos != Vector3.up) 

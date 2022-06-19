@@ -31,6 +31,7 @@ public class Boss2 : Phaser
 			case 0:
 				//movementPatterns.Add(new EnemyMovementPattern (new Vector3 (2.63f, 7.63f, 0f), false, 0));
 				Game.control.enemySpawner.DestroyAllEnvironmentalHazards();
+                StartPhaseTimer(30);
 				
 				patterns.Add(new P_Spiral(2 * difficulty));
 				patterns[0].SetSprite ("Spider_Glow", "Small");
@@ -77,7 +78,7 @@ public class Boss2 : Phaser
 				else patterns[0].bulletCount = 2 * difficulty;
 				patterns[0].delayBeforeAttack = 2f;
 				patterns[0].BMP = new BMP_Explode(patterns[0], 6f);
-				patterns[0].SetSprite("Circle", "Big", "Red", "Medium");
+				patterns[0].SetSprite("Circle", "Big", "Red", "Big");
 
 				patterns.Add(new P_Maelstrom());
 				patterns[1].bulletCount = 2 * difficulty;

@@ -8,6 +8,8 @@ public class BossLife : EnemyLife
     public float superThreshold;
 	public int healthBars;
 
+    bool deathFlag = false;
+
     public override void SetHealth(int setMaxHealth, int _healthBars, Phaser _bossScript){
         bossScript = _bossScript;
 		healthBars = _healthBars;
@@ -31,6 +33,9 @@ public class BossLife : EnemyLife
 
 	public void BossTakeHit()
 	{	
+        if(dead) return;
+
+        Game.control.sound.PlaySound("Enemy", "BossHit", false);
 		float damage = Game.control.stageHandler.stats.damage;
 		GetComponent<MiniToast>().PlayScoreToast(Mathf.RoundToInt(Game.control.player.GainScore(Mathf.RoundToInt(damage))));
 		
@@ -50,24 +55,32 @@ public class BossLife : EnemyLife
 
 		if(currentHealth <= 0){
 			healthBars-= 1;
-			if (healthBars <= 0 && !dead) Die (false);
+			if (healthBars <= 0 && !GetComponent<EnemyShoot> ().wave.dead)  Die(false);
 			else {
 				bossScript.NextPhase();
 				NextHealthBar();
 			}
 		}
 	}
+
+    public void FakeDeath(){
+        deathFlag = true;
+        dead = true;
+        GetComponent<EnemyShoot>().enabled = false;
+        Game.control.ui.BOSS.HideUI();
+    }
+
     public override void Die(bool silent) {
+        if(deathFlag) return;
 		IEnumerator animateDeathRoutine = AnimateDeath(silent);
 		StartCoroutine(animateDeathRoutine);
 	}
 
     public override IEnumerator AnimateDeath(bool silent){
-        dead = true;
-        GetComponent<EnemyShoot> ().wave.dead = true;
+        deathFlag = true;
         bossScript.StopPats();
 		bossScript.StopCoro();
-		Game.control.enemySpawner.DestroyAllProjectiles();
+        Game.control.enemySpawner.DestroyAllProjectiles();
         yield return new WaitForSeconds(2f);
 
         if(!silent) Game.control.sound.PlaySound("Enemy", "BossDie", true);
@@ -80,7 +93,10 @@ public class BossLife : EnemyLife
 		GetComponentInChildren<SpriteRenderer>().enabled = false;
 		GetComponent<EnemyMovement>().enabled = false;
 		GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<EnemyShoot> ().wave.dead = true;
 		GetComponent<EnemyShoot>().enabled = false;
+        dead = true;
+        
 		yield return new WaitForSeconds(.3f);
         
 		Destroy(this.gameObject);

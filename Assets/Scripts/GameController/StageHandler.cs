@@ -32,15 +32,21 @@ public class StageHandler : MonoBehaviour {
 
 	public bool stageOn;
 
+    public bool onBonusScreen;
+
 	IEnumerator startStageRoutine;
 
 
 	void Update () {
 		if(stageOn){
-			if(stageTimerOn) {
-				stageTimer += Time.deltaTime;
-				Game.control.ui.RIGHT_SIDE_PANEL.UpdateTimer(stageTimer);
-			}
+            if(!stageTimerOn || Game.control.pause.paused) return;
+			
+            if(Game.control.pause.playerHitTimerOn) 
+                stageTimer += Time.unscaledDeltaTime;
+            else
+                stageTimer += Time.deltaTime;
+
+			Game.control.ui.RIGHT_SIDE_PANEL.UpdateTimer(stageTimer);
 		}
 		else {
 			if(AllowInput()){
@@ -119,15 +125,6 @@ public class StageHandler : MonoBehaviour {
 		waves.Add(w);
 	}
 
-	public void NewWave(Wave w, List<Vector3> spawnPositions){
-		if (w.isBoss || w.isMidBoss) {
-			w.sprite = spriteLib.SetCharacterSprite ("Boss" + w.bossIndex);
-		}
-		w.spawnPositions = spawnPositions;
-		w.FillPositionsArraysByEnemyCount();
-		waves.Add(w);
-	}
-
 	public void NewWave(Wave w, List<Vector3> spawnPositions, List<Vector3> enterDirections, List<Vector3> leaveDirections){
 		if (w.isBoss || w.isMidBoss) {
 			w.sprite = spriteLib.SetCharacterSprite ("Boss" + w.bossIndex);
@@ -192,6 +189,7 @@ public class StageHandler : MonoBehaviour {
 
 	IEnumerator StageCompleteHandling ()
 	{	
+        onBonusScreen = true;
 		stats.lives = Game.control.player.health.lives;
 		Game.control.ui.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
 		Game.control.ui.BOSS.HideUI();
@@ -202,8 +200,6 @@ public class StageHandler : MonoBehaviour {
 		stageOn = false;
 		Game.control.ui.ShowStageCompletedScreen ();
 		yield return new WaitUntil(() => countingStageEndBonuses == false);
-
-		
 	}
 
 	void NextStage ()
@@ -233,6 +229,8 @@ public class StageHandler : MonoBehaviour {
 
 	public void RestartStage(){
 		if(stageScript != null) stageScript.StopStage();
+        stats.score = 0;
+        stats.hiScore = 0;
 		StartStage(currentStage);
 	}
 
@@ -286,6 +284,7 @@ public class StageHandler : MonoBehaviour {
 		spriteLib = Game.control.spriteLib;
 		waves = new ArrayList();
 		
+        
 		Game.control.scene.SetUpEnvironment ();
 		Game.control.io.LoadHiscoreByDifficulty(difficultyAsString);
 		Game.control.dialog.Init();
@@ -298,7 +297,8 @@ public class StageHandler : MonoBehaviour {
 
 		stageScript.StartStageHandler();
 		stageOn = true;
-
+        onBonusScreen = false;
+        
 		Game.control.ui.ToggleLoadingScreen(false);
 		Game.control.loading = false;
 	}

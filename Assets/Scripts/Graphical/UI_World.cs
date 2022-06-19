@@ -22,6 +22,8 @@ public class UI_World : MonoBehaviour
 	}
 
     public float[] GetBoundaries(){
+        if(playAreaBottomWall == null || playAreaLeftWall == null || playAreaTopWall == null || playAreaRightWall == null) return null;
+
 		wallBoundaries = new float[4]{playAreaBottomWall.transform.position.y, playAreaLeftWall.transform.position.x, playAreaTopWall.transform.position.y, playAreaRightWall.transform.position.x};
 		return wallBoundaries;
 	}

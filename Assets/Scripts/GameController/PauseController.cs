@@ -3,41 +3,67 @@ using System.Collections;
 
 public class PauseController : MonoBehaviour {
 	public bool paused;
-	float initialTime;
+    public bool playerHitTimerOn = false;
+    float playerHitTimer = 0f;
+    float playerHitTime = 1f;
 
 	void Awake () {
 		paused = false;
-		initialTime = Time.timeScale;
 	}
 
 	public void HandlePause()
 	{
-		if(Game.control.stageHandler.stageOn){
-			if(!paused) Pause();
-			else Unpause (true);
-		}
+        if(!Game.control.stageHandler.stageOn) return;
+
+		if(!paused) Pause();
+		else Unpause (true);
 	}
+
+    void Update(){
+        if(playerHitTimerOn) {
+            playerHitTimer += Time.unscaledDeltaTime;
+            if(playerHitTimer > playerHitTime) {
+                EndPlayerHitPause();
+            }
+        }
+    }
+
+    public void PlayerHitPause(){
+        Game.control.player.movement.ShowHitBox(true);
+        playerHitTimer = 0;
+        playerHitTimerOn = true;
+        SetTimeScale(false);
+    }
+
+    public void EndPlayerHitPause(){
+        if(paused) return;
+        
+        SetTimeScale(true);
+        Game.control.player.movement.ShowHitBox(false);
+        Game.control.enemySpawner.DestroyAllProjectiles ();
+        playerHitTimerOn = false;
+    }
+
 	
 	void Pause(){
 		paused = true;
 		Game.control.sound.PauseMusic();
 		Game.control.ui.TogglePauseScreen(true);
-		ResetTimeScale (false);
+		SetTimeScale (false);
 	}
 
 	public void Unpause(bool resumeMusic){
 		if(resumeMusic) Game.control.sound.ResumeMusic();
 		paused = false;
 		Game.control.ui.TogglePauseScreen(false);
-		ResetTimeScale (true);
+		SetTimeScale (true);
 	}
 
-	public void ResetTimeScale(bool toggled)
+	public void SetTimeScale(bool normal)
 	{
-		if (toggled) {
-			Time.timeScale = initialTime;
+		if (normal) {
+			Time.timeScale = 1;
 		} else {
-			initialTime = Time.timeScale;
 			Time.timeScale = 0;
 		}
 	}

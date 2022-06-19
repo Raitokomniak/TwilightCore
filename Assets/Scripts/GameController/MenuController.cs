@@ -112,6 +112,7 @@ public class MenuController : MonoBehaviour
 	}
 
 	bool AllowPause(){
+        if(Game.control.pause.playerHitTimerOn) return false;
 		if(menuOn) return false;
 		if(Game.control.mainMenuUI != null) return false;
 		if(!Game.control.stageHandler.stageOn) return false;
@@ -188,7 +189,7 @@ public class MenuController : MonoBehaviour
 
 		pauseMenuItems = new List<string>();
 		pauseMenuItems.Add ("Resume");
-		pauseMenuItems.Add ("Restart");
+		pauseMenuItems.Add ("Restart Stage");
 		pauseMenuItems.Add ("Options");
 		pauseMenuItems.Add ("Main Menu");
 		pauseMenuItems.Add ("Quit");
@@ -199,7 +200,7 @@ public class MenuController : MonoBehaviour
 		optionsMenuItems.Add("SFX Volume");
 
 		gameOverMenuItems = new List<string>();
-		gameOverMenuItems.Add("Restart Stage");
+		gameOverMenuItems.Add("Restart Game");
 		gameOverMenuItems.Add("Main Menu");
 		gameOverMenuItems.Add("Quit");
 

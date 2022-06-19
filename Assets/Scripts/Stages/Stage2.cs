@@ -210,29 +210,6 @@ public class Stage2 : Stage
 		p.SetSprite ("Arrow", "Glow", "White", "Small");	
 		stage.NewWave (new Wave (40f, mp, p, 2, false, 0, 3f / difficultyMultiplier, "gand_flute"));
 
-		mp = new EnemyMovementPattern(lib.GetVector("K8"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 1), new WayPoint("L3")});
-		mp.force = true;
-		p = new P_Maelstrom();
-		p.coolDown = 2;
-		p.infinite = false;
-		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
-		p.BMP = new BMP_WaitToHome(p, 9f);
-		p.SetSprite ("Arrow", "Glow", "Red", "Small");	 
-		stage.NewWave (new Wave (41f, mp, p, 3, false, 0, 10f / difficultyMultiplier, "gand_flute"));
-
-		mp = new EnemyMovementPattern(lib.GetVector("A8"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("C3", 1), new WayPoint("R6")});
-		mp.force = true;
-		p = new P_Maelstrom();
-		p.coolDown = 2;
-		p.infinite = false;
-		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
-		p.BMP = new BMP_WaitToHome(p, 9f);
-		p.SetSprite ("Arrow", "Glow", "Red", "Small");	 
-		stage.NewWave (new Wave (42f, mp, p, 3, false, 0, 10f / difficultyMultiplier, "gand_flute"));
-
-		
 		mp = new EnemyMovementPattern(lib.GetVector("A3"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3"), new WayPoint("L3")});
 		mp.force = true;
@@ -241,17 +218,6 @@ public class Stage2 : Stage
 		p.BMP = new BMP_WaitToHome(p, 9f);
 		p.SetSprite ("Arrow", "Glow", "Red", "Small");	 
 		stage.NewWave (new Wave (43f, mp, p, 1, false, 0,  3f / difficultyMultiplier, "gand_flute"));
-
-		mp = new EnemyMovementPattern(lib.GetVector("A8"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("C3", 1), new WayPoint("R6")});
-		mp.force = true;
-		p = new P_Maelstrom();
-		p.coolDown = 2;
-		p.infinite = false;
-		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
-		p.BMP = new BMP_WaitToHome(p, 9f);
-		p.SetSprite ("Arrow", "Glow", "Red", "Small");	 
-		stage.NewWave (new Wave (44f, mp, p, 3, false, 0, 10f / difficultyMultiplier, "gand_flute"));
 
 		mp = new EnemyMovementPattern(lib.GetVector("K3"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3"), new WayPoint("L3")});
@@ -262,16 +228,6 @@ public class Stage2 : Stage
 		p.SetSprite ("Circle", "Glow", "White", "Medium");	
 		stage.NewWave (new Wave (45f, mp, p, 10, false, 0, 3f / difficultyMultiplier, "gand_flute"));
 
-		mp = new EnemyMovementPattern(lib.GetVector("K8"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 1), new WayPoint("L3")});
-		mp.force = true;
-		p = new P_Maelstrom();
-		p.coolDown = 2;
-		p.infinite = false;
-		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
-		p.BMP = new BMP_WaitToHome(p, 9f);
-		p.SetSprite ("Arrow", "Glow", "Red", "Small");	 
-		stage.NewWave (new Wave (46f, mp, p, 3, false, 0, 10f / difficultyMultiplier, "gand_flute"));
 
 		mp = new EnemyMovementPattern(lib.GetVector("B1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("C3", 1), new WayPoint("L3")});
@@ -550,7 +506,7 @@ public class Stage2 : Stage
 
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
-		boss = new Wave(mp, 114f, Mathf.CeilToInt(150 * difficultyMultiplier), true, 2);
+		boss = new Wave(mp, 114f, 800, true, 2);
 		boss.SetUpBoss (2, "Joanette, Queen of Spiders", false);
 		stage.NewWave (boss);
 

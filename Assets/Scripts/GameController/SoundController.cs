@@ -14,7 +14,7 @@ public class SoundController : MonoBehaviour {
 	AudioClip[] BGM_bossMusic;
 
 	//SFX
-	AudioClip SFX_shoot, SFX_enemyDie, SFX_takeHit, SFX_bonus, SFX_pickUp, SFX_extraLife, SFX_bossDie, SFX_bossTimerCountDown;
+	AudioClip SFX_shoot, SFX_enemyDie, SFX_takeHit, SFX_bonus, SFX_pickUp, SFX_extraLife, SFX_bossDie, SFX_bossTimerCountDown, SFX_bossHit;
 
 	//SpellSFX
 	AudioClip SFX_Spell_Default, SFX_Spell_NightCore1, SFX_Spell_DayCore1;
@@ -59,7 +59,7 @@ public class SoundController : MonoBehaviour {
 		SFX_extraLife = Resources.Load("Sound/SFX/Heal8") as AudioClip; //APPLY WHEN IT IS TIME
         SFX_bossDie = Resources.Load("Sound/SFX/Up8") as AudioClip;
         SFX_bossTimerCountDown = Resources.Load("Sound/SFX/Shot2") as AudioClip;
-
+        SFX_bossHit = Resources.Load("Sound/SFX/Explosion1") as AudioClip;
 		
 		SFX_Spell_Default = Resources.Load ("Sound/SFX/Magic2") as AudioClip;
 		SFX_Spell_NightCore1 = Resources.Load ("Sound/SFX/Magic11") as AudioClip;
@@ -151,6 +151,7 @@ public class SoundController : MonoBehaviour {
 		if(sound == "Shoot") 		c = SFX_shoot;
 		if(sound == "Die") 			c = SFX_enemyDie;
         if(sound == "BossDie") 		c = SFX_bossDie;
+        if(sound == "BossHit") 		c = SFX_bossHit;
 		if(sound == "TakeHit")  	c = SFX_takeHit;
 		if(sound == "Bonus")		c = SFX_bonus;
 		if(sound == "PickUp")		c = SFX_pickUp;

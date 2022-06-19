@@ -70,7 +70,9 @@ public class Phaser : MonoBehaviour {
 
 	public void PhaseTimer(){
 		if(phaseTimer > 0){
-			phaseTimer-=Time.deltaTime;
+			if(!Game.control.pause.paused) 
+                 phaseTimer-=Time.unscaledDeltaTime;
+            else phaseTimer-=Time.deltaTime;
 			Game.control.ui.BOSS.UpdateBossTimer(phaseTimer);
             CheckTimerSoundTick();
 		}
@@ -127,7 +129,7 @@ public class Phaser : MonoBehaviour {
 	public void NextPhase() {
 		StopPhaseTimer();
 		if(superPhase) life.NextHealthBar();
-		if(bossPhase == numberOfPhases - 1) life.Die (false);
+		if(bossPhase == numberOfPhases - 1) life.Die(false);
 		else {
 			life.DropLoot("Core");
 			life.DropLoot("Core");

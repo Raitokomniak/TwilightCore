@@ -19,7 +19,7 @@ public class PlayerLife : MonoBehaviour {
 	}
 
 	void Update(){
-		//DevGodMode(); ///////////////////////////////////////////////////////////////
+	//	DevGodMode(); ///////////////////////////////////////////////////////////////
 		if(!invulnerable)
 			GetComponent<SpriteRenderer> ().enabled = true;
 	}
@@ -29,20 +29,28 @@ public class PlayerLife : MonoBehaviour {
 	}
 	public void TakeHit()
 	{
-		if(!invulnerable && !Game.control.stageHandler.gameOver){
-			Game.control.sound.PlaySound ("Player", "TakeHit", true);
-			Game.control.enemySpawner.DestroyAllProjectiles ();
+        if(invulnerable || Game.control.stageHandler.gameOver) return;
 
-			if(lives > 0) {  LoseLife(); }
-			else if(lives <= 0) {  Die();  }
-		}
+		Game.control.pause.PlayerHitPause();
+		Game.control.sound.PlaySound ("Player", "TakeHit", true);
+			
+        if(lives > 0) LoseLife();
+		else if(lives <= 0) {  
+            IEnumerator deathRoutine = Die();
+            StartCoroutine(deathRoutine);  
+        }
+
 	}
 
 	void LoseLife(){
 		lives -= 1;
 		Game.control.ui.RIGHT_SIDE_PANEL.UpdateLives(lives);
+
+
 		invulnerabilityRoutine = AnimateInvulnerabilityRoutine();
 		StartCoroutine(invulnerabilityRoutine);
+
+
 		if(GetComponent<PlayerMovement>().focusMode) 
 			 Game.control.player.special.DepleteCore ("Night", false);
 		else Game.control.player.special.DepleteCore ("Day", false);
@@ -57,7 +65,7 @@ public class PlayerLife : MonoBehaviour {
 		Game.control.sound.PlaySound("Player", "ExtraLife", false);
 	}
 
-	void Die(){
+	IEnumerator Die(){
 		Game.control.sound.PlaySound ("Player", "Die", true);
 		invulnerable = true;
 		GetComponent<PlayerShoot>().DisableWeapons();
@@ -67,6 +75,8 @@ public class PlayerLife : MonoBehaviour {
 		Game.control.stageHandler.EndHandler("GameOver");
 		GetComponent<PlayerMovement>().FocusMode(false);
 		dead = true;
+        yield return new WaitForSecondsRealtime(1);
+        GetComponent<SpriteRenderer>().enabled = false;
 	}
 
 
@@ -78,9 +88,9 @@ public class PlayerLife : MonoBehaviour {
 		{
 			for (int i = 0; i < 3; i++) {
 				GetComponent<SpriteRenderer> ().enabled = false;
-				yield return new WaitForSeconds (0.2f);
+				yield return new WaitForSecondsRealtime (0.2f);
 				GetComponent<SpriteRenderer> ().enabled = true;
-				yield return new WaitForSeconds (0.2f);
+				yield return new WaitForSecondsRealtime (0.2f);
 			}
 			invulnerable = false;
 		}

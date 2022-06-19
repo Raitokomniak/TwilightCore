@@ -26,12 +26,14 @@ public class BMP_Aurora : BulletMovementPattern
 		movementSpeed = 0f;
 		yield return new WaitUntil (() => pattern.allBulletsSpawned);
 		movementSpeed = 8f;
-		for (int i = 0; i < 2; i++) {
-			Quaternion newRotation = Quaternion.Euler (0, 0, 150 * Random.Range (-1, 1));
-			rotation = Quaternion.RotateTowards (bullet.transform.rotation, newRotation, Time.deltaTime);
-			yield return new WaitForSeconds (1f);
-			rotation = Quaternion.Euler (0, 0, 90 * Random.Range (-1, 1));
-		yield return new WaitForSeconds (.5f);
-        }
+        accelSpeed = 1;
+
+        bullet.GetComponent<BulletMovement>().SmoothAcceleration();
+		Quaternion newRotation = Quaternion.Euler (0, 0, 150 * Random.Range (-1, 1));
+		rotation = Quaternion.RotateTowards (bullet.transform.rotation, newRotation, Time.deltaTime);
+		yield return new WaitForSeconds (2f);
+        bullet.GetComponent<BulletMovement>().SmoothAcceleration();
+		rotation = Quaternion.Euler (0, 0, 90 * Random.Range (-1, 1));
+		yield return new WaitForSeconds (1f);
     }
 }

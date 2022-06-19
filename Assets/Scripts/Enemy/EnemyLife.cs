@@ -21,10 +21,6 @@ public class EnemyLife : MonoBehaviour {
 		Game.control.ui.BOSS.ToggleInvulnerable(invulnerable);
 	}
 
-	public bool GetInvulnerableState(){
-		return invulnerable;
-	}
-
 	public virtual void Die(bool silent) {
 		dead = true;
 		Game.control.sound.PlaySound ("Enemy", "Die", true);

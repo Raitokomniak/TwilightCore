@@ -76,6 +76,8 @@ public class PlayerShoot : MonoBehaviour {
 
 	void Shoot()
 	{
+        bool focusMode = GetComponent<PlayerMovement> ().focusMode;
+
 		Vector3 newPosition;
 		Quaternion newRotation = Quaternion.Euler(0,0,0);
 		Game.control.sound.PlaySound("Player", "Shoot", true);
@@ -83,10 +85,12 @@ public class PlayerShoot : MonoBehaviour {
 		for (int i = 0; i < weaponsInUse.Count; i++) {
 			//get pos rot
 			weapon = (GameObject)weapons [i];
-			newPosition = weapon.transform.position + new Vector3(0, 0.8f, 0);
+            if(focusMode) 
+                 newPosition = weapon.transform.position + new Vector3(0, 3f, 0);
+			else newPosition = weapon.transform.position + new Vector3(0, 0.8f, 0);
 			
 			if(i == 0 || i == 3) newRotation = weapon.transform.rotation;
-			else if(!GetComponent<PlayerMovement> ().focusMode){
+			else if(!focusMode){
 				int randomRot = Random.Range(10,40);
 				if(i==1){
 					newRotation = Quaternion.Euler(0,0, weapon.transform.rotation.z + randomRot);
@@ -99,13 +103,14 @@ public class PlayerShoot : MonoBehaviour {
 			SetProjectileSprite();
 			SetProjectileScale(i);
 			GameObject playerProj = GameObject.Instantiate(projectile, newPosition, newRotation);
-			if(!GetComponent<PlayerMovement> ().focusMode){
+			if(!focusMode){
 				playerProj.GetComponentInChildren<ProjectileRotator>().rotate = true;
 			}
 			
 			
 		}
-		coolDownTimer = Game.control.stageHandler.stats.shootSpeed;
+        if(focusMode) coolDownTimer = Game.control.stageHandler.stats.nightShootSpeed;
+		else coolDownTimer = Game.control.stageHandler.stats.dayShootSpeed;
 	}
 
 	void SetProjectileSprite(){

@@ -110,12 +110,11 @@ public class Pattern
 		}
 	}
 
-	public IEnumerator Execute(GameObject _enemyBullet, EnemyShoot _enemy){
+	public IEnumerator Execute(EnemyShoot _enemy){
 		spawnedBullets = new ArrayList();
 		enemyShoot = _enemy;
 		pos = _enemy.transform.position;
 		rot = _enemy.transform.rotation;
-		//enemyBullet = _enemyBullet;
 
 		spawnPosition = _enemy.transform.position;
 		bulletRotation = _enemy.transform.rotation;

@@ -14,7 +14,8 @@ public class PlayerStats {
 	public float damage;
 	public float damageMin;
 	public float bulletScaleMin;
-	public float shootSpeed;
+	public float dayShootSpeed;
+    public float nightShootSpeed;
 	public float bulletScale;
 
 	public long score;
@@ -32,8 +33,9 @@ public class PlayerStats {
 		bulletScaleMin = 1f;
 		bulletScale = bulletScaleMin;
 
-		movementSpeed = 12f;
-		shootSpeed = .1f;
+		movementSpeed = 15f;
+		dayShootSpeed = .1f;
+        nightShootSpeed = .06f;
 
 		upgradePoints = 0;
 	}

@@ -58,6 +58,19 @@ public class Stage3 : Stage
 		Pattern p;
 		EnemyMovementPattern mp;
 
+        //COOL ROTATING CIRCLE ARROW PATTERN
+        mp = new EnemyMovementPattern(lib.GetVector("K8"));
+		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 1), new WayPoint("L3")});
+		mp.force = true;
+		p = new P_Maelstrom();
+		p.coolDown = 2;
+		p.infinite = false;
+		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
+		p.BMP = new BMP_WaitToHome(p, 9f);
+		p.SetSprite ("Arrow", "Glow", "Red", "Small");	 
+		stage.NewWave (new Wave (41f, mp, p, 3, false, 0, 10f / difficultyMultiplier, "gand_flute"));
+
+
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
 		boss = new Wave(mp, 2f, Mathf.CeilToInt(150 * difficultyMultiplier), true, 2);

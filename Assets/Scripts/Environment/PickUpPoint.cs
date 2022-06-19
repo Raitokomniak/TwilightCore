@@ -4,6 +4,7 @@ using System.Collections;
 public class PickUpPoint : MonoBehaviour {
 	bool onMagneticRange = false;
 	float accelSpeed;
+    float movementSpeed = 5f;
 	
 	void Update () {
 		if(transform.position.y <= Game.control.vectorLib.OOBBot){
@@ -18,7 +19,7 @@ public class PickUpPoint : MonoBehaviour {
 		}
 		else {
 			accelSpeed += Time.deltaTime;
-			transform.position += Vector3.down * (Time.deltaTime * (10 * accelSpeed));
+			transform.position += Vector3.down * (Time.deltaTime * (movementSpeed * accelSpeed));
 		}
 	}
 

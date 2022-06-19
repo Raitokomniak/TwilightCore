@@ -93,7 +93,7 @@ public class Boss05 : Phaser
 				p = new P_Maelstrom();
 				p.BMP = new BMP_Explode(p, 6f);
 				p.rotationDirection = 1;
-				p.SetSprite ("Circle", "Big", "Twilight", "Big");
+				p.SetSprite ("Circle", "Big", "Twilight", "Huge");
 				p.bulletCount =  Mathf.CeilToInt(1.2f * difficulty);
 				p.coolDown = 2.5f / difficulty;
 				patterns.Add(p);
@@ -112,7 +112,7 @@ public class Boss05 : Phaser
                 movement.SetUpPatternAndMove(movement.pattern);
 				movement.pattern.UpdateDirection("XU");
                 yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
-				GetComponent<EnemyLife>().Die(true);
+				GetComponent<BossLife>().FakeDeath();
                 Game.control.stageHandler.midBossOn = false;
                 break;
             }
