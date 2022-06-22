@@ -9,21 +9,20 @@ public class P_Maelstrom : Pattern
 	public P_Maelstrom(){
 		bulletCount = 10;
 		coolDown = 0.2f;
+        patternName = "MaelStrom";
 	}
 
 	public P_Maelstrom(int _bulletCount, float _coolDown){
 		bulletCount = _bulletCount;
 		coolDown = _coolDown;
+        patternName = "MaelStrom";
 	}
 
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
         yield return new WaitForSeconds(delayBeforeAttack);
-		pos = enemy.transform.position;
 		float startRot = startingRotation;
 
 		while (!stop) {
-			
-
 			pos = enemy.transform.position;
 			Game.control.sound.PlaySound ("Enemy", "Shoot", true);
 			
@@ -31,7 +30,6 @@ public class P_Maelstrom : Pattern
 				spawnPosition = SpawnInCircle (pos, 1.5f, GetAng (i, 360) + startRot);
 				bulletRotation = SpawnInCircle (i, startRot);
 				startRot += maelStromRotationMultiplier * rotationDirection;
-				//SpawnBullet (enemyBullet, bulletMovement);
 				SpawnBullet (BMP);
 				if(circleDelay > 0) yield return new WaitForSeconds(circleDelay);
 			}

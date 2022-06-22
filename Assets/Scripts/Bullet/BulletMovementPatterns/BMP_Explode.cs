@@ -7,6 +7,7 @@ public class BMP_Explode : BulletMovementPattern
     public BMP_Explode(){}
 
     public BMP_Explode(Pattern p, float _movementSpeed){
+        name = "explode";
         pattern = p;
         movementSpeed = _movementSpeed;
 		//scale = new Vector3 (2,2,2);

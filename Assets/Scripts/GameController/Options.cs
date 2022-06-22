@@ -5,6 +5,8 @@ using UnityEngine;
 
 [System.Serializable]
 public class OptionsValues {
+        [SerializeField] public int screenMode;
+        [SerializeField] public int resolution;
         [SerializeField] public bool autoScroll;
         [SerializeField] public float bgmVolume;
         [SerializeField] public float sfxVolume;
@@ -14,13 +16,53 @@ public class OptionsValues {
 
 public class Options : MonoBehaviour
 {
-    public void UpdateOption(bool increase, int index){
-        if(index == 0)      AutoScrollOption();
-        else if(index == 1) BGMVolume(increase);
-        else if(index == 2) SFXVolume(increase);
+    public string[] optionStrings;
 
-        UpdateValueToUI(index);
+    void Awake(){
+        optionStrings = new string[5];
+    }
+
+    public void UpdateOption(bool increase, int index){
+        if(index == 0) ScreenMode(increase);
+        if(index == 1) Resolution(increase);
+        if(index == 2) AutoScrollOption();
+        if(index == 3) BGMVolume(increase);
+        if(index == 4) SFXVolume(increase);
+
+        GetOptionStrings();
+        UpdateValueToUI(index, optionStrings[index]);
         Game.control.io.SaveOptions();
+    }
+
+    void GetOptionStrings(){
+        optionStrings[0] = Game.control.gfx.screenModes[Game.control.gfx.screenMode];
+        optionStrings[1] = Game.control.gfx.GetResolution().width.ToString() + " x " + Game.control.gfx.GetResolution().height.ToString();
+
+        if(Game.control.dialog.autoScroll)
+             optionStrings[2] = "ON";
+        else optionStrings[2] = "OFF";
+
+        optionStrings[3] = (Game.control.sound.GetBGMVolume() * 10f).ToString("F0");
+        optionStrings[4] = (Game.control.sound.SFXVolume * 10f).ToString("F0");
+    }
+
+    void ScreenMode(bool increase){
+        int tempValue = Game.control.gfx.screenMode;
+
+        if(increase && tempValue < Game.control.gfx.screenModes.Length - 1) tempValue++;
+        else if (!increase && tempValue > 0) tempValue--;
+
+        Game.control.gfx.SetScreenMode(tempValue);
+    }
+
+    void Resolution(bool increase){
+        int tempValue = Game.control.gfx.resolution;
+        if(increase && tempValue < Game.control.gfx.GetResolutions().Length - 1) 
+            tempValue++;
+        else if(!increase && tempValue > 0)
+            tempValue--;
+
+        Game.control.gfx.SetResolution(tempValue);
     }
 
     void AutoScrollOption(){
@@ -30,10 +72,8 @@ public class Options : MonoBehaviour
     void BGMVolume(bool increase){
         float tempValue = Game.control.sound.GetBGMVolume();
 
-        if(increase && tempValue < 1) 
-            tempValue += 0.1f;
-        else if(!increase && tempValue > 0)
-            tempValue -= 0.1f;
+        if(increase && tempValue < 1)       tempValue += 0.1f;
+        else if(!increase && tempValue > 0) tempValue -= 0.1f;
 
         Game.control.sound.SetBGMVolume(tempValue);
     }
@@ -41,55 +81,29 @@ public class Options : MonoBehaviour
     void SFXVolume(bool increase){
         float tempValue = Game.control.sound.SFXVolume;
 
-        if(increase && tempValue < 1)
-            tempValue += 0.1f;
-        else if(!increase && tempValue > 0)
-            tempValue -= 0.1f;
+        if(increase && tempValue < 1)       tempValue += 0.1f;
+        else if(!increase && tempValue > 0) tempValue -= 0.1f;
 
         Game.control.sound.SetSFXVolume(tempValue);
         Game.control.sound.PlayExampleSound();
     }
 
 
-    public void UpdateValueToUI(int index){
-        if(index == 0){
-            if(Game.control.mainMenuUI != null){
-                if(Game.control.dialog.autoScroll) Game.control.mainMenuUI.UpdateOptionSelection(0,"ON");
-                else Game.control.mainMenuUI.UpdateOptionSelection(0,"OFF");
-            }
-            else {
-                if(Game.control.dialog.autoScroll) Game.control.ui.UpdateOptionSelection(0,"ON");
-                else Game.control.ui.UpdateOptionSelection(0,"OFF");
-            }
-            
-        }
-        if(index == 1){
-            float bgmVol = Game.control.sound.GetBGMVolume() * 10f;
-
-            if(Game.control.mainMenuUI != null)
-                Game.control.mainMenuUI.UpdateOptionSelection(1, bgmVol.ToString("F0"));
-            else {
-                Game.control.ui.UpdateOptionSelection(1, bgmVol.ToString("F0"));
-            }
-            
-        }
-        if(index == 2){
-            float sfxVol = Game.control.sound.SFXVolume * 10f;
-
-            if(Game.control.mainMenuUI != null)
-                Game.control.mainMenuUI.UpdateOptionSelection(2, sfxVol.ToString("F0"));
-            else {
-                Game.control.ui.UpdateOptionSelection(2, sfxVol.ToString("F0"));
-            }
-        }
+    public void UpdateValueToUI(int index, string value){
+        if(Game.control.mainMenuUI != null) 
+             Game.control.mainMenuUI.UpdateOptionSelection(index,value);
+        else Game.control.ui.UpdateOptionSelection(index,value);
     }
+
     public void UpdateAllValues(){
-        for(int i = 0; i < 3; i++){
-            UpdateValueToUI(i);
-        }
+        GetOptionStrings();
+        for(int i = 0; i < optionStrings.Length; i++)
+            UpdateValueToUI(i, optionStrings[i]);
     }
 
     public void LoadValuesFromFile(OptionsValues file){
+        Game.control.gfx.screenMode = file.screenMode;
+        Game.control.gfx.resolution = file.resolution;
         Game.control.dialog.autoScroll = file.autoScroll;
         Game.control.sound.SetBGMVolume(file.bgmVolume);
         Game.control.sound.SetSFXVolume(file.sfxVolume);
@@ -98,8 +112,11 @@ public class Options : MonoBehaviour
 
     
     public void DefaultOptions(){
+        Game.control.gfx.screenMode = 0;
+        Game.control.gfx.resolution = Game.control.gfx.GetResolutions().Length - 1;
         Game.control.dialog.autoScroll = true;
         Game.control.sound.SetBGMVolume(1);
         Game.control.sound.SetSFXVolume(1);
+        GetOptionStrings();
     }
 }

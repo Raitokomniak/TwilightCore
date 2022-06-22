@@ -51,6 +51,15 @@ public class BulletPooler : MonoBehaviour
         bulletsInPool.Add(bullet);
 	}
 
+    public bool CheckIfInPool(GameObject bullet){
+        if(bulletsInPool.Contains(bullet)) return true;
+        return false;
+    }
+
+    public void ReversePool(){
+        bulletsInPool.Reverse();
+    }
+
 	public GameObject FetchBulletFromPool(){
 		/*if(bulletsInPool.Count <= 0) {
 			Debug.Log("no more bullets, creating more");

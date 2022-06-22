@@ -22,10 +22,10 @@ public class MenuController : MonoBehaviour
 	string CheckInput(){
 		string input = "";
 
-		if(Input.GetKeyDown (KeyCode.UpArrow)) input = "up";
-		if(Input.GetKeyDown (KeyCode.DownArrow)) input = "down";
-		if(Input.GetKeyDown (KeyCode.RightArrow)) input = "right";
-		if(Input.GetKeyDown (KeyCode.LeftArrow)) input = "left";
+		if(Input.GetKeyDown (KeyCode.UpArrow))      input = "up";
+		if(Input.GetKeyDown (KeyCode.DownArrow))    input = "down";
+		if(Input.GetKeyDown (KeyCode.RightArrow))   input = "right";
+		if(Input.GetKeyDown (KeyCode.LeftArrow))    input = "left";
 
 		if(Input.GetKeyDown (KeyCode.Z) || Input.GetKeyDown (KeyCode.Return)) input = "confirm";
 		if(Input.GetKeyDown (KeyCode.Escape)) input = "back";
@@ -195,6 +195,8 @@ public class MenuController : MonoBehaviour
 		pauseMenuItems.Add ("Quit");
 
 		optionsMenuItems = new List<string>();
+        optionsMenuItems.Add("Screen Mode");
+        optionsMenuItems.Add("Resolution");
 		optionsMenuItems.Add("Dialog AutoScroll");
 		optionsMenuItems.Add("BGM Volume");
 		optionsMenuItems.Add("SFX Volume");

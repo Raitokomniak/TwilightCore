@@ -22,6 +22,7 @@ public class P_VoidPortal : Pattern
 
 
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
+        Debug.Log("voidportal");
         yield return new WaitUntil(() => enemy.GetComponent<EnemyMovement>().pattern.HasReachedDestination(enemy.GetComponent<EnemyMovement>()) == true);
         yield return new WaitForSeconds(delayBeforeAttack);
 		pos = enemy.transform.position;

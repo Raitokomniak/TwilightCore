@@ -17,7 +17,7 @@ public class BMP_RainDrop : BulletMovementPattern
 
     public override IEnumerator ExecuteRoutine(){
         movementSpeed = 5f;
-        bullet.GetComponent<BulletMovement> ().SmoothAcceleration ();
+        SmoothAcceleration ();
         
         //SPAWNS OOB SO WAIT UNTIL IS IB AND THEN SET TO BE DESTROYED 
         
@@ -26,7 +26,7 @@ public class BMP_RainDrop : BulletMovementPattern
 
         rotation = bullet.transform.rotation;
         isMoving = true;
-
+        
         yield return null;
     }
 }

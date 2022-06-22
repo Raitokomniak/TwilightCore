@@ -28,6 +28,7 @@ public class UI_RightSidePanel : MonoBehaviour
         foreach(GameObject life in tempList) life.SetActive(false);
 
         for(int i = 0; i < lives; i++){
+            if(tempList[i] == null) return;
             tempList[i].SetActive(true);
         }
 

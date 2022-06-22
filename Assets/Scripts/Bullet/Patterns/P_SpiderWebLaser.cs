@@ -14,9 +14,9 @@ public class P_SpiderWebLaser : Pattern
 
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
         allBulletsSpawned = false;
-        string[] xcoors = new string[11]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"};
+        string[] xcoors = new string[7]{"B", "C", "D", "E", "F", "G", "H"};
         yield return new WaitForSeconds(delayBeforeAttack);
-//        Debug.Log("bulletcount " + bulletCount);
+        Debug.Log("bulletcount " + bulletCount);
 
         for (int i = -1; i < bulletCount * 2; i++) {
             float ang = 0;
@@ -26,7 +26,7 @@ public class P_SpiderWebLaser : Pattern
             }
             if(i >= bulletCount){
                 ang = 0 + (1 * Random.Range(-50, 50));
-                int xcor = Random.Range(0, 11);
+                int xcor = Random.Range(0, 7);
                 spawnPosition = lib.GetVector(xcoors[xcor] + "10");
             }
             bulletRotation = Quaternion.Euler(0,0,ang);

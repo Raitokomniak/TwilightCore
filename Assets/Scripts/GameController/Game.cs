@@ -9,6 +9,7 @@ public class Game : MonoBehaviour {
 	[SerializeField] public VectorLib vectorLib;
 	[SerializeField] public SpriteLibrary spriteLib;
 
+    [SerializeField] public GraphicsController gfx;
 	[SerializeField] public MainMenuUI mainMenuUI;
 	[SerializeField] public UIController ui;
 	[SerializeField] public DialogController dialog;
@@ -36,8 +37,6 @@ public class Game : MonoBehaviour {
 	}
 
 	void Start(){
-		Application.targetFrameRate = -1;
-		QualitySettings.vSyncCount = 0;
 		MainMenu();
 		io.LoadScore();
 	}
@@ -50,6 +49,7 @@ public class Game : MonoBehaviour {
 			Destroy (gameObject);
 		}
 
+        gfx = GetComponent<GraphicsController>();
 		io = GetComponent<SaveLoadHandler>();
 		dialog = GetComponent<DialogController> ();
 		stageHandler = GetComponent<StageHandler> ();
@@ -72,9 +72,9 @@ public class Game : MonoBehaviour {
 	}
 
 	public void MainMenu (){
-       
 		StartCoroutine(LoadMainMenu());
 	}
+
 
 	IEnumerator LoadMainMenu(){
         loading = true;

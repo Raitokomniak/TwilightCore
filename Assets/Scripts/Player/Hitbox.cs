@@ -25,7 +25,7 @@ public class Hitbox : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D c)
 	{
 		player = Game.control.player;
-		CheckHazard(c.gameObject.tag);
+		if(c.GetComponent<BulletMovement>()) CheckHazard(c.gameObject.tag);
 		CheckPickUp(c.gameObject); 
 	}
 }

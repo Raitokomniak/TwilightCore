@@ -48,7 +48,7 @@ public class BMP_LaserExpand : BulletMovementPattern
 			scale = new Vector3 (i * 0.1f, bullet.transform.localScale.y, 1);
 			yield return new WaitForSeconds (.01f);
 		}
-		//GameObject.Destroy (bullet);
+        scale = new Vector3 (0, 0, 0);
 		Game.control.bulletPool.StoreBulletToPool(bullet);
     }
 }

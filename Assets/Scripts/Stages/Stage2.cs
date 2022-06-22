@@ -346,22 +346,21 @@ public class Stage2 : Stage
 						new List<Vector3>{lib.GetVector("H3"), lib.GetVector("C3")},
 						new List<Vector3>{lib.GetVector("L3"), lib.GetVector("R3")});
 
+
+
 		////////////////////////////////////////////////////////////////
 		//VOID PORTALS
 		// 1 portal 1 asura
 
 		mp = new EnemyMovementPattern(lib.GetVector("X3"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3", 10), new WayPoint("R3")});
+		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3", 10), new WayPoint("L3")});
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
 		p = new P_VoidPortal(3f, 5, 6);
 		p.delayBeforeAttack = 2f;
 		p.infinite = false;
 		p.BMP = new BMP_Explode(p, 0);
-		stage.NewWave (new Wave (80f, mp, p, 1, false, 5, 100, "default"), ///// 80f
-						new List<Vector3> { lib.GetVector("X1"), lib.GetVector("H1"), lib.GetVector("C1")}, 
-						new List<Vector3>{lib.GetVector("X3"), lib.GetVector("H3"), lib.GetVector("C3")},
-						new List<Vector3>{lib.GetVector("R3"), lib.GetVector("L3"), lib.GetVector("XU")});
+		stage.NewWave (new Wave (80f, mp, p, 1, false, 5, 100, "default"));
 
 		
 		mp = new EnemyMovementPattern(lib.GetVector("X3"));
@@ -373,7 +372,7 @@ public class Stage2 : Stage
 		p.infinite = false;
 		p.BMP = new BMP_Explode(p, 3f);
 		p.SetSprite ("Circle", "Glow", "White", "Medium");
-		Wave w = new Wave(85f, mp, p, 5, false, 3, 5 / difficultyMultiplier, "default");
+		Wave w = new Wave(85f, mp, p, 5, false, 1, 5 / difficultyMultiplier, "default");
 		w.invulnerable = true;
 		stage.NewWave(w); ///// 85f
 
@@ -383,7 +382,7 @@ public class Stage2 : Stage
 		
 		
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
-		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("X3", 10f), new WayPoint("XU")});
+		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("X3", 4f), new WayPoint("L3")});
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
 		p = new P_VoidPortal(9f, 5, 6);
@@ -393,7 +392,7 @@ public class Stage2 : Stage
 		stage.NewWave (new Wave (90f, mp, p, 1, false, 5, 100, "default"));
 
 		mp = new EnemyMovementPattern(lib.GetVector("C1"));
-		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("C3", 10f), new WayPoint("XU")});
+		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("C3", 4f), new WayPoint("L3")});
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
 		p = new P_VoidPortal(9f, 5, 6);
@@ -403,7 +402,7 @@ public class Stage2 : Stage
 		stage.NewWave (new Wave (90.5f, mp, p, 1, false, 5, 100, "default"));
 
 		mp = new EnemyMovementPattern(lib.GetVector("I1"));
-		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("I3", 10f), new WayPoint("C3")});
+		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("I3", 4f), new WayPoint("L3")});
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
 		p = new P_VoidPortal(9f, 5, 6);
@@ -453,7 +452,7 @@ public class Stage2 : Stage
 
 		//TRAPPING VOIDS
 		mp = new EnemyMovementPattern(lib.GetVector("I1"));
-		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("I3", 10f), new WayPoint("XU")});
+		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("I3", 4f), new WayPoint("L3")});
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
 		p = new P_VoidPortal(13f, 7, 6);
@@ -463,7 +462,7 @@ public class Stage2 : Stage
 		stage.NewWave (new Wave (105f, mp, p, 1, false, 5, 100, "default")); //105
 
 		mp = new EnemyMovementPattern(lib.GetVector("I10"));
-		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("I8", 10f), new WayPoint("XU")});
+		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("I8", 4f), new WayPoint("L3")});
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
 		p = new P_VoidPortal(13f, 7, 6);
@@ -473,7 +472,7 @@ public class Stage2 : Stage
 		stage.NewWave (new Wave (106f, mp, p, 1, false, 5, 100, "default")); //105
 		
 		mp = new EnemyMovementPattern(lib.GetVector("C1"));
-		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("C3", 10f), new WayPoint("XU")});
+		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("C3", 4f), new WayPoint("L3")});
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
 		p = new P_VoidPortal(13f, 7, 6);
@@ -483,7 +482,7 @@ public class Stage2 : Stage
 		stage.NewWave (new Wave (107f, mp, p, 1, false, 5, 100, "default")); //105
 
 		mp = new EnemyMovementPattern(lib.GetVector("C10"));
-		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("C8", 10f), new WayPoint("XU")});
+		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("C8", 4f), new WayPoint("L3")});
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
 		p = new P_VoidPortal(13f, 7, 6);
@@ -492,15 +491,15 @@ public class Stage2 : Stage
 		p.BMP = new BMP_Explode(p, 0);
 		stage.NewWave (new Wave (108f, mp, p, 1, false, 5, 100, "default")); //105
 
-/*
 
+/*
 		//debug boss
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
-		boss = new Wave(mp, 1f, 20, true, 2);
+		boss = new Wave(mp, 33f, 20, true, 2);
 		boss.SetUpBoss (2, "Joanette, Queen of Spiders", false);
 		stage.NewWave (boss);
-
+    }
 */
 
 

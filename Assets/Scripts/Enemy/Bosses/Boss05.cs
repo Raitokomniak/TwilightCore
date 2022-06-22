@@ -93,8 +93,9 @@ public class Boss05 : Phaser
 				p = new P_Maelstrom();
 				p.BMP = new BMP_Explode(p, 6f);
 				p.rotationDirection = 1;
-				p.SetSprite ("Circle", "Big", "Twilight", "Huge");
-				p.bulletCount =  Mathf.CeilToInt(1.2f * difficulty);
+                p.maelStromRotationMultiplier = 1f;
+				p.SetSprite ("BigCircle", "Big", "Purple", "Huge");
+				p.bulletCount =  Mathf.CeilToInt(2f * difficulty);
 				p.coolDown = 2.5f / difficulty;
 				patterns.Add(p);
 				shooter.BossShoot (patterns[2]);

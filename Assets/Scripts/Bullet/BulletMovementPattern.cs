@@ -3,6 +3,8 @@ using System.Collections;
 
 public class BulletMovementPattern
 {
+    public string name;
+
 	public GameObject bullet;
 	public Vector3 centerPoint;
 	
@@ -36,6 +38,9 @@ public class BulletMovementPattern
 	public int layer;
 	public bool moveWithForce = false;
 
+	public float accelIniSpeed;
+	public bool accelerating;
+
     public string hitBoxType = "Circle"; //DEFAULT  
 
 	public BulletMovementPattern(){}
@@ -51,6 +56,7 @@ public class BulletMovementPattern
 		if(bmpType == "RainDrop") bmp = new BMP_RainDrop();
 		if(bmpType == "DownAndExplode") bmp = new BMP_DownAndExplode();
 		if(bmpType == "Explode") bmp = new BMP_Explode();
+        if(bmpType == "LaserExpand") bmp = new BMP_LaserExpand();
 		if(bmpType == "SlowWaving") bmp = new BMP_SlowWaving();
 		if(bmpType == "Stop") bmp = new BMP_Stop();
 		if(bmpType == "StopAndRotate") bmp = new BMP_StopAndRotate();
@@ -81,6 +87,7 @@ public class BulletMovementPattern
 		bmp.rotationDir = _bmp.rotationDir;
 		bmp.waitAndExplodeWaitTime = _bmp.waitAndExplodeWaitTime;
         bmp.hitBoxType = _bmp.hitBoxType;
+        bmp.name = _bmp.name;
 
 		return bmp;
 	}
@@ -88,6 +95,8 @@ public class BulletMovementPattern
 
 	public IEnumerator Execute(GameObject _bullet){
 		bullet = _bullet;
+        if(name == "aurora" && bullet.GetComponentInChildren<SpriteRenderer>().sprite.name != "Fireball_Glow_Orange") 
+            Debug.Log(bullet.GetComponentInChildren<SpriteRenderer>().sprite.name);
 		isMoving = true;
 		centerPoint = _bullet.transform.position;
 		IEnumerator executeRoutine = ExecuteRoutine();
@@ -130,6 +139,12 @@ public class BulletMovementPattern
 		else {
 			return false;
 		} 
+	}
+
+    public void SmoothAcceleration(){
+		accelerating = true;
+		accelIniSpeed = accelMax;
+		movementSpeed = 0;
 	}
 
 	public void CancelAxisRotation(float speed)

@@ -36,7 +36,7 @@ public class P_GiantWeb : Pattern
 					//SpawnBullet (enemyBullet, bulletMovement);
 				SpawnBullet (BMP);
 					BMP = new BMP_StopAndRotate(this, tempLayer, tempMagnitude);
-					bullet.GetComponent<BulletMovement>().spriteR.sprite = Game.control.spriteLib.SetBulletSprite ("Circle", "Big", "Red");
+					bullet.GetComponent<BulletMovement>().spriteR.sprite = Game.control.spriteLib.SetBulletSprite ("BigCircle", "Big", "Red");
 				}		
 				tempMagnitude -= 3;
 			} 
@@ -59,7 +59,7 @@ public class P_GiantWeb : Pattern
 					//bulletMovement = new BulletMovementPattern (false, "StopAndRotate", 20f, this, tempLayer, tempMagnitude);
 					bulletMovement = new BMP_StopAndRotate(this, tempLayer, tempMagnitude);
 					InstantiateBullet (enemyBullet, bulletMovement);
-					bullet.GetComponent<BulletMovement>().spriteR.sprite = Game.control.spriteLib.SetBulletSprite ("Circle", "Big", "Red");
+					bullet.GetComponent<BulletMovement>().spriteR.sprite = Game.control.spriteLib.SetBulletSprite ("BigCircle", "Big", "Red");
 					bullets.Add (enemyBullet);
 				}
 					

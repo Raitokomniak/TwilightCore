@@ -78,7 +78,7 @@ public class Boss2 : Phaser
 				else patterns[0].bulletCount = 2 * difficulty;
 				patterns[0].delayBeforeAttack = 2f;
 				patterns[0].BMP = new BMP_Explode(patterns[0], 6f);
-				patterns[0].SetSprite("Circle", "Big", "Red", "Big");
+				patterns[0].SetSprite("BigCircle", "Big", "Red", "Big");
 
 				patterns.Add(new P_Maelstrom());
 				patterns[1].bulletCount = 2 * difficulty;
@@ -172,7 +172,7 @@ public class Boss2 : Phaser
 				patterns[3].BMP = new BMP_SlowWaving(patterns[3], 3f, true);
 				patterns[3].rotationDirection =  1;
 				patterns[3].infinite = true;
-				patterns[3].SetSprite ("Diamond", "Glow", "Red", "Small");
+				patterns[3].SetSprite ("Diamond", "Glow", "White", "Small");
 
 
 				movement.pattern.UpdateDirection("X3");

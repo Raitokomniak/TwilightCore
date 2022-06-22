@@ -7,6 +7,7 @@ public class BMP_Aurora : BulletMovementPattern
 	public BMP_Aurora(){}
 
     public BMP_Aurora(Pattern p, float _movementSpeed, float _magnitude){
+        name = "aurora";
 		targetMagnitude = _magnitude;
 		movementSpeed = _movementSpeed;
         pattern = p;
@@ -25,15 +26,24 @@ public class BMP_Aurora : BulletMovementPattern
 		yield return new WaitForSeconds (2f);
 		movementSpeed = 0f;
 		yield return new WaitUntil (() => pattern.allBulletsSpawned);
+        
 		movementSpeed = 8f;
         accelSpeed = 1;
 
-        bullet.GetComponent<BulletMovement>().SmoothAcceleration();
+        SmoothAcceleration();
+        
 		Quaternion newRotation = Quaternion.Euler (0, 0, 150 * Random.Range (-1, 1));
 		rotation = Quaternion.RotateTowards (bullet.transform.rotation, newRotation, Time.deltaTime);
+
 		yield return new WaitForSeconds (2f);
-        bullet.GetComponent<BulletMovement>().SmoothAcceleration();
-		rotation = Quaternion.Euler (0, 0, 90 * Random.Range (-1, 1));
+        
+        if(bullet.GetComponentInChildren<SpriteRenderer>().sprite.name != "Fireball_Glow_Orange") {
+            yield break;
+        }
+
+        SmoothAcceleration();
+        rotation = Quaternion.Euler (0, 0, 90 * Random.Range (-1, 1));
+
 		yield return new WaitForSeconds (1f);
     }
 }

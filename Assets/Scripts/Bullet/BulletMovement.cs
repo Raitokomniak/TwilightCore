@@ -4,21 +4,14 @@ using System.Collections.Generic;
 
 public class BulletMovement : MonoBehaviour {
 	public SpriteRenderer spriteR;
+    public SpriteRenderer glowRend;
 	VectorLib lib;
 	Vector3 movementDirection;
-	public BulletMovementPattern BMP;
+	public BulletMovementPattern BMP = null;
 	EnemyShoot shooter;
 	Rigidbody2D rb;
-
 	public bool active;
-
-	float accelIniSpeed;
-	bool accelerating;
-
     bool hitBoxEnabled;
-
-
-	
 	float trailSpawnCD = .07f;
 	bool canSpawnTrail = true;
 
@@ -27,6 +20,7 @@ public class BulletMovement : MonoBehaviour {
 		lib = Game.control.vectorLib;
 		rb = GetComponent<Rigidbody2D>();
 		spriteR = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        glowRend = transform.GetChild(1).GetComponent<SpriteRenderer>();
 	}
 
 	public void Init(BulletMovementPattern _BMP, EnemyShoot enemyShoot){
@@ -46,9 +40,11 @@ public class BulletMovement : MonoBehaviour {
 	}
 
 	public void Pool(){
+        DisableHitBoxes();
+        transform.localScale = new Vector3 (0, 0, 0);
+        if(BMP != null) BMP.accelerating = false;
 		BMP = null;
 		active = false;
-		accelerating = false;
 		rb.simulated = false;
         if(GetComponent<HomingWarningLine>()) GetComponent<HomingWarningLine>().DisableLine();
 		Stop();
@@ -100,11 +96,13 @@ public class BulletMovement : MonoBehaviour {
 	}
 
 	void Update(){
-		if(accelerating && BMP != null){
-			if(BMP.movementSpeed < accelIniSpeed)
+        if(BMP == null) return;
+
+		if(BMP.accelerating){
+			if(BMP.movementSpeed < BMP.accelIniSpeed)
 				BMP.movementSpeed += 4f * BMP.accelSpeed * Time.deltaTime;
-			else if(BMP.movementSpeed > accelIniSpeed)
-				accelerating = false;
+			else if(BMP.movementSpeed > BMP.accelIniSpeed)
+				BMP.accelerating = false;
 		}
 	}
     
@@ -133,6 +131,11 @@ public class BulletMovement : MonoBehaviour {
             hitBoxEnabled =  false;
         }
 	}
+
+    public void DisableHitBoxes(){
+        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<CircleCollider2D>().enabled = false;
+    }
 
     void CheckTrail(){
         if(BMP != null) if(BMP.trail && canSpawnTrail)  MakeTrail();
@@ -194,13 +197,7 @@ public class BulletMovement : MonoBehaviour {
 		if(rb != null) rb.velocity = Vector2.zero;
 	}
 
-	public void SmoothAcceleration(){
-		if(BMP != null) {
-			accelerating = true;
-			accelIniSpeed = BMP.accelMax;
-			BMP.movementSpeed = 0;
-		}
-	}
+
 
     //////////////////////////////
     // COLLIDER

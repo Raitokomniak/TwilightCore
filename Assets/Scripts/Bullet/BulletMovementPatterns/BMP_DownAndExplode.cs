@@ -5,8 +5,6 @@ using UnityEngine;
 public class BMP_DownAndExplode : BulletMovementPattern
 {
 
-
-
     public BMP_DownAndExplode(){}
 
     public BMP_DownAndExplode(Pattern p, float _movementSpeed, bool _isHoming, float _targetMagnitude){

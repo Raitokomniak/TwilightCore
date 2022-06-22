@@ -309,25 +309,25 @@ public class Boss1 : Phaser
 				break;
 			case 3:
 				Game.control.ui.BOSS.ShowActivatedPhase ("Hoodwink: Fox Fires");
-				StartPhaseTimer(30);
+				//StartPhaseTimer(30);
 				
-				patterns.Add(new P_FoxFires(difficulty, 40 * difficulty));
-				patterns[0].SetSprite ("Fireball", "Glow", "Orange", "Small");
+				p = new P_FoxFires(difficulty, 40 * difficulty);
+				p.SetSprite ("Fireball", "Glow", "Orange", "Small");
+                patterns.Add(p);
 
-				patterns.Add(new P_Maelstrom());
-				patterns[1].BMP = new BMP_Explode(patterns[1], 6f);
-				patterns[1].rotationDirection = 1;
-				patterns[1].SetSprite ("Circle", "Big", "Red", "Huge");
-				patterns[1].bulletCount =  Mathf.CeilToInt(1.2f * difficulty);
-				patterns[1].coolDown = 2.5f / difficulty;
+				p = new P_Maelstrom();
+				p.BMP = new BMP_Explode(p, 6f);
+				p.rotationDirection = 1;
+                p.infinite = true;
+				p.SetSprite ("BigCircle", "Big", "Red", "Huge");
+				p.bulletCount =  Mathf.CeilToInt(1.2f * difficulty);
+				p.coolDown = 2.5f / difficulty;
+                patterns.Add(p);
 
-
-				//movementPatterns.Add(new EMP_Swing(15, 1));
 				movementPatterns.Add(new EnemyMovementPattern());
 				movementPatterns[0].SetWayPoints(new List<WayPoint>(){new WayPoint("C3", 1), new WayPoint("I3", 5, 1), new WayPoint("XY", 5)});
 				movementPatterns[0].centerPoint = vectorLib.GetVector("X3");
 				
-
 				while (!endOfPhase) {
 					movement.SetUpPatternAndMove (movementPatterns[0]);
 					yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
@@ -338,12 +338,15 @@ public class Boss1 : Phaser
 					shooter.BossShoot (patterns[0]);
 					yield return new WaitUntil(() => movement.pattern.rotateOnAxis == false);
 					movement.moving = false;
+                    patterns[0].StopPattern();
 					movementPatterns[0].force = true;
 					movementPatterns[0].speed = 7f;
 					movement.moving = true;
 					yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
+                    yield return new WaitForSeconds(.5f);
+                    Game.control.bulletPool.ReversePool();
+                    patterns[1].BMP = new BMP_Explode(p, 6f);
 					shooter.BossShoot (patterns[1]);
-                    patterns[1].BMP.movementSpeed = 6f;
 					yield return new WaitForSeconds(4f);
 					patterns[1].StopPattern();
 				}

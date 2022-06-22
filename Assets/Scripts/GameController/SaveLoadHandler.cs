@@ -84,8 +84,9 @@ public class SaveLoadHandler : MonoBehaviour {
     public bool SaveOptions(){
         OptionsValues options = new OptionsValues();
         options.autoScroll = Game.control.dialog.autoScroll;
-        options.bgmVolume = Game.control.sound.GetBGMVolume();
-        options.sfxVolume = Game.control.sound.SFXVolume;
+        options.bgmVolume =  Game.control.sound.GetBGMVolume();
+        options.sfxVolume =  Game.control.sound.SFXVolume;
+        options.screenMode = Game.control.gfx.screenMode;
         string dataString = JsonUtility.ToJson(options);
         //THIS DATAPATH HAS TO BE CHANGED TO BUILD DATAPATH
         File.WriteAllText(appDataPath + "/options.json", dataString);

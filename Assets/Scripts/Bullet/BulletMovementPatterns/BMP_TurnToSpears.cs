@@ -21,7 +21,10 @@ public class BMP_TurnToSpears : BulletMovementPattern
         movementSpeed = 0;
 		rotation = Quaternion.Euler(0,0,0);
 		yield return new WaitForSeconds (1f);
-		bullet.GetComponent<BulletMovement>().spriteR.sprite = Game.control.spriteLib.SetBulletSprite ("Spear", "Bevel", "Lilac");
+		bullet.GetComponent<BulletMovement>().spriteR.sprite = Game.control.spriteLib.SetBulletSprite ("Spear", "Bevel", "Purple");
+        bullet.GetComponent<BulletMovement>().glowRend.sprite = Game.control.spriteLib.SetBulletGlow("Spear");
+        bullet.GetComponent<BulletMovement>().glowRend.color = Game.control.spriteLib.GetColor("Purple");
+
 		bullet.GetComponent<BoxCollider2D> ().size = new Vector2 (.15f, 2.9f);
         
 		yield return new WaitForSeconds (1f);
@@ -32,7 +35,7 @@ public class BMP_TurnToSpears : BulletMovementPattern
 		yield return new WaitForSeconds (.5f);
 		accelMax = 40;
         accelSpeed = 20;
-		bullet.GetComponent<BulletMovement> ().SmoothAcceleration ();
+		SmoothAcceleration ();
         yield return new WaitForSeconds (.5f);
         if(bullet.GetComponentInChildren<HomingWarningLine>()) bullet.GetComponentInChildren<HomingWarningLine>().DisableLine();
     }

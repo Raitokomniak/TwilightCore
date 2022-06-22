@@ -46,7 +46,7 @@ public class SpriteAnimationController : MonoBehaviour {
 			yield return new WaitForSeconds(scalingTime * Time.deltaTime);
 		}
 
-		if(!stop) {
+		if(!dontDestroy) {
 			Destroy (this.gameObject);
 		}
 	}

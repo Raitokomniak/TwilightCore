@@ -26,7 +26,7 @@ public class BMP_WaitAndExplode : BulletMovementPattern
 
 		movementSpeed = accelMax;
 		accelSpeed = 10f;
-		bullet.GetComponent<BulletMovement> ().SmoothAcceleration ();
+		SmoothAcceleration ();
 		Explode (14);
 		rotation = bullet.transform.rotation;
 

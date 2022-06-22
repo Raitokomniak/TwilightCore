@@ -83,12 +83,12 @@ public class Stage1 : Stage
 		Pattern p;
 		EnemyMovementPattern mp;
 
-
+/*
 		//PHASE 1
 		mp = new EnemyMovementPattern(lib.GetVector("I1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("L4")});
 		p = new P_SingleHoming();
-		p.SetSprite ("Circle", "Big", "Red", "Huge");
+		p.SetSprite ("BigCircle", "Big", "Red", "Huge");
 		stage.NewWave (new Wave (3f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "gand_flute"));
 
 		mp = new EnemyMovementPattern(lib.GetVector("K3"));
@@ -101,7 +101,7 @@ public class Stage1 : Stage
 		mp = new EnemyMovementPattern(lib.GetVector("C1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("R4")});
 		p = new P_SingleHoming();
-		p.SetSprite ("Circle", "Big", "Red", "Huge");
+		p.SetSprite ("BigCircle", "Big", "Red", "Huge");
 		stage.NewWave (new Wave (5f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "gand_horn"));
 
 		mp = new EnemyMovementPattern(lib.GetVector("K3"));
@@ -114,7 +114,7 @@ public class Stage1 : Stage
 		mp = new EnemyMovementPattern(lib.GetVector("I1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("L4")});
 		p = new P_SingleHoming();
-		p.SetSprite ("Circle", "Big", "Red", "Huge");
+		p.SetSprite ("BigCircle", "Big", "Red", "Huge");
 		stage.NewWave (new Wave (7f, mp, p, 2, false, 0, 3f / difficultyMultiplier, "gand_sitar"));
 
 			
@@ -124,13 +124,13 @@ public class Stage1 : Stage
 			mp = new EnemyMovementPattern(lib.GetVector("I1"));
 			mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("R4")});
 			p = new P_SingleHoming();
-			p.SetSprite ("Circle", "Big", "Red", "Huge");	
+			p.SetSprite ("BigCircle", "Big", "Red", "Huge");	
 			stage.NewWave (new Wave (8f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "gand_flute"));
 				
 			mp = new EnemyMovementPattern(lib.GetVector("C1"));
 			mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("L4")});
 			p = new P_SingleHoming();
-			p.SetSprite ("Circle", "Big", "Red", "Huge");	
+			p.SetSprite ("BigCircle", "Big", "Red", "Huge");	
 			stage.NewWave (new Wave (14f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "gand_horn"));
 		}
 
@@ -353,18 +353,20 @@ public class Stage1 : Stage
 
 /*
 
+*/
 	//BOSDEBUG
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
 		
 
-		boss = new Wave(mp, 1f, 100, true, 2);
+		boss = new Wave(mp, 1f, 50, true, 2);
 		boss.SetUpBoss (1, "Maaya, Forest Guardian", false);
 		stage.NewWave (boss);
 
 	}
-*/
 
+
+/*
 
 		//BOSS 1
 		//mp = new EMP_EnterFromTop();
@@ -376,5 +378,6 @@ public class Stage1 : Stage
 		stage.NewWave (boss);
 	
 	}
+    */
 
 }

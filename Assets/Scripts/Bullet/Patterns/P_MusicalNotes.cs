@@ -54,7 +54,6 @@ public class P_MusicalNotes : Pattern
 				SpawnBullet (BMP);
             int randomSprite = Random.Range(0,21);
             SetSprite(notesprites[randomSprite][0], notesprites[randomSprite][1], notesprites[randomSprite][2], "Tiny");
-            SetGlowSprite(notesprites[randomSprite][0], notesprites[randomSprite][2]);
             BMP.SetSpriteRotation(new Vector3(0,0,0));
 		}
     }

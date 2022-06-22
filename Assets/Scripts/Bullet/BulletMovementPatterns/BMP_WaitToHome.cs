@@ -24,6 +24,6 @@ public class BMP_WaitToHome : BulletMovementPattern
         startHoming = true;
         accelMax = 25;
         accelSpeed = 10;
-		bullet.GetComponent<BulletMovement> ().SmoothAcceleration ();
+		SmoothAcceleration ();
     }
 }
