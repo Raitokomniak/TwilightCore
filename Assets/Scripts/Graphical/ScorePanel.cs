@@ -27,8 +27,8 @@ public class ScorePanel : MonoBehaviour
             scoreSlots.Add(slot);
             slot.transform.SetParent(contentPanel);
             slot.GetComponent<RectTransform>().offsetMin = Vector2.zero;
-            slot.GetComponent<RectTransform>().offsetMax = new Vector2(0, 100);
-            slot.GetComponent<RectTransform>().position = new Vector3(slot.transform.position.x, slot.transform.position.y - (100 + (100 * i)), 0);
+            slot.GetComponent<RectTransform>().offsetMax = new Vector2(0, 50);
+            slot.GetComponent<RectTransform>().position = new Vector3(109, 950 - (100 + (75 * i)), 0);
             TextMeshProUGUI[] textObjects = slot.transform.GetComponentsInChildren<TextMeshProUGUI>();
             int scoreIndex = i - 1;
             textObjects[0].text = i.ToString();

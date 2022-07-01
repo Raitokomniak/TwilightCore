@@ -19,7 +19,6 @@ public class BulletSprite {
 }
 public class Pattern
 {
-
     BulletSprite bSprite;
     public string patternName;
 	public VectorLib lib;
@@ -111,12 +110,14 @@ public class Pattern
 		if(enemyShoot.bulletsShot != null) enemyShoot.bulletsShot.Add (bullet);
 	}*/
 
-	public void SpawnBullet (BulletMovementPattern _BMP)
+	public GameObject SpawnBullet (BulletMovementPattern _BMP)
 	{
 		if(BMP == null) BMP = new BMP_Explode(this, 5f); //DEFAULT
 		BMP = BMP.GetNewBulletMovement(BMP);
 		bullet = Game.control.bulletPool.FetchBulletFromPool();
-        BMP.bullet = bullet;
+        //bullet = GameObject.Instantiate(Resources.Load("Prefabs/enemyBullet"), spawnPosition, Quaternion.identity) as GameObject;
+       // BMP.bullet = bullet;
+        BMP.ReceiveBulletData(bullet);
 
 		if(bullet != null){
 			bullet.transform.position = spawnPosition;
@@ -126,11 +127,15 @@ public class Pattern
 			spawnedBullets.Add(bullet);
 			bullet.transform.GetChild(0).GetComponent<SpriteRenderer> ().sprite = sprite;
 			bullet.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = glowSprite;
-            bullet.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Game.control.spriteLib.GetColor(bSprite.colorS);
+            if(bSprite != null) bullet.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Game.control.spriteLib.GetColor(bSprite.colorS);
+            bullet.GetComponent<BulletMovement>().enabled = true;
 			bullet.GetComponent<BulletMovement>().Init(BMP, enemyShoot);
 		
 			if(enemyShoot.bulletsShot != null) enemyShoot.bulletsShot.Add (bullet);
+            return bullet;
 		}
+
+        return null;
 	}
 
 	public IEnumerator Execute(EnemyShoot _enemy){
@@ -216,6 +221,7 @@ public class Pattern
 
 	public void SetSprite (string shape, string size)
 	{
+        bSprite = new BulletSprite(shape, "", "", size);
 		sprite = Game.control.spriteLib.SetBulletSprite (shape, "", "");
 		SetSize(size);
 	}

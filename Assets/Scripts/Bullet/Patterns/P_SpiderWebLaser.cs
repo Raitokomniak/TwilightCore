@@ -34,6 +34,7 @@ public class P_SpiderWebLaser : Pattern
            // SpawnBullet (enemyBullet, bulletMovement);
             SpawnBullet (BMP);
             bullet.GetComponent<BulletMovement> ().spriteR.sprite = sprite;
+            
             yield return new WaitForSeconds(0.2f);
             if(stop) break;
         }

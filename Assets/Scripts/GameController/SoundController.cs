@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public class SoundController : MonoBehaviour {
 	public bool disableSound;
-
+    
 	List<AudioSource> SFXsources;
-	AudioSource playerSFXSource, enemySFXSource, menuSFXSource, loopingSFXSource, BGMSource;
+	public AudioSource playerSFXSource, enemySFXSource, menuSFXSource, loopingSFXSource, BGMSource;
 
 	//Music
 	AudioClip BGM_mainmenu;
@@ -82,7 +82,11 @@ public class SoundController : MonoBehaviour {
 	}
 
 	public void SetSFXVolume(float value){
-		SFXVolume = value;
+        SFXVolume = value;
+        float tempValue = value;
+        if(tempValue < 0.8f)        value = value / 2;
+        else if(tempValue < 0.5f)   value = value / 3;
+        else if(tempValue < 0.05f)  value = 0;
 		foreach(AudioSource s in SFXsources) s.volume = value;
 
 		menuSFXSource.volume = value / 2;
@@ -91,11 +95,6 @@ public class SoundController : MonoBehaviour {
 
 	public void InitSound(){
 		SFXsources = new List<AudioSource>();
-		playerSFXSource = 		gameObject.AddComponent<AudioSource> ();
-		enemySFXSource =  		gameObject.AddComponent<AudioSource> ();
-		menuSFXSource =  		gameObject.AddComponent<AudioSource> ();
-		BGMSource = 	  		gameObject.AddComponent<AudioSource> ();
-		loopingSFXSource = 	  	gameObject.AddComponent<AudioSource> ();
 		loopingSFXSource.loop = true;
 
 		SFXsources.Add(playerSFXSource);

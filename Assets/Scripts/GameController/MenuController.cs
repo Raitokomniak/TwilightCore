@@ -255,14 +255,14 @@ public class MenuController : MonoBehaviour
 			}
 			if(selectedIndex == 1) Game.control.stageHandler.RestartStage ();
 			if(selectedIndex == 2) Menu("OptionsMenu");
-			if(selectedIndex == 3) Game.control.MainMenu();
+			if(selectedIndex == 3) Game.control.stageHandler.MainMenu();
 			if(selectedIndex == 4) Game.control.QuitGame();
 			Game.control.ui.UpdateMenuSelection (context, 0);
 		}
 		else if(context == "GameOverMenu"){
 			Game.control.sound.PlayMenuSound("Selection");
 			if(selectedIndex == 0) Game.control.stageHandler.StartGame();
-			if(selectedIndex == 1) Game.control.MainMenu();
+			if(selectedIndex == 1) Game.control.stageHandler.MainMenu();
 			if(selectedIndex == 2) Game.control.QuitGame();
 		}
 		else if(context == "SaveScorePrompt"){

@@ -21,9 +21,9 @@ public class BMP_Aurora : BulletMovementPattern
     public override IEnumerator ExecuteRoutine(){
         Explode (14);
 		rotation = bullet.transform.rotation;
-		yield return new WaitForSeconds (.1f);
+		yield return Waitp1;
 		movementSpeed = .5f;
-		yield return new WaitForSeconds (2f);
+		yield return Wait1;
 		movementSpeed = 0f;
 		yield return new WaitUntil (() => pattern.allBulletsSpawned);
         
@@ -35,15 +35,13 @@ public class BMP_Aurora : BulletMovementPattern
 		Quaternion newRotation = Quaternion.Euler (0, 0, 150 * Random.Range (-1, 1));
 		rotation = Quaternion.RotateTowards (bullet.transform.rotation, newRotation, Time.deltaTime);
 
-		yield return new WaitForSeconds (2f);
+		yield return Wait2;
         
-        if(bullet.GetComponentInChildren<SpriteRenderer>().sprite.name != "Fireball_Glow_Orange") {
+        if(bulletSprite.name != "Fireball_Glow_Orange") {
             yield break;
         }
 
         SmoothAcceleration();
         rotation = Quaternion.Euler (0, 0, 90 * Random.Range (-1, 1));
-
-		yield return new WaitForSeconds (1f);
     }
 }

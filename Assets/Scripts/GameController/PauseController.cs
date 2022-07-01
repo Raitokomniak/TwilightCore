@@ -41,6 +41,7 @@ public class PauseController : MonoBehaviour {
         SetTimeScale(true);
         Game.control.player.movement.ShowHitBox(false);
         Game.control.enemySpawner.DestroyAllProjectiles ();
+        Game.control.enemySpawner.DestroyAllPickUpPoints();
         playerHitTimerOn = false;
     }
 

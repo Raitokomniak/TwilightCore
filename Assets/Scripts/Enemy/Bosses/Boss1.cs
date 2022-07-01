@@ -344,7 +344,6 @@ public class Boss1 : Phaser
 					movement.moving = true;
 					yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
                     yield return new WaitForSeconds(.5f);
-                    Game.control.bulletPool.ReversePool();
                     patterns[1].BMP = new BMP_Explode(p, 6f);
 					shooter.BossShoot (patterns[1]);
 					yield return new WaitForSeconds(4f);

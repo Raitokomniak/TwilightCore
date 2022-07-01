@@ -18,6 +18,7 @@ public class UIController : MonoBehaviour {
 	public UI_LoadingScreen LOADING_SCREEN;
 
 	public Image EFFECT_OVERLAY;
+    public bool fadeOver;
 
 
 	public TextMeshProUGUI toast;
@@ -88,6 +89,7 @@ public class UIController : MonoBehaviour {
 	}
 	
 	public void EffectOverlay(string color, bool fadeIn, float fadeTime){
+        fadeOver = false;
 		EFFECT_OVERLAY.gameObject.SetActive(true);
 		if(color == "White") EFFECT_OVERLAY.color = new Color(1,1,1,1);
 		if(color == "Black") EFFECT_OVERLAY.color = new Color(0,0,0,1);
@@ -121,6 +123,7 @@ public class UIController : MonoBehaviour {
 				yield return new WaitForSeconds(fadeTime * Time.deltaTime);
 			}
 		}
+        fadeOver = true;
 		yield return null;
 	}
 

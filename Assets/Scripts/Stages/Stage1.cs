@@ -83,7 +83,7 @@ public class Stage1 : Stage
 		Pattern p;
 		EnemyMovementPattern mp;
 
-/*
+
 		//PHASE 1
 		mp = new EnemyMovementPattern(lib.GetVector("I1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("L4")});
@@ -353,20 +353,20 @@ public class Stage1 : Stage
 
 /*
 
-*/
+
 	//BOSDEBUG
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
 		
 
-		boss = new Wave(mp, 1f, 50, true, 2);
+		boss = new Wave(mp, 1f, 90, true, 2);
 		boss.SetUpBoss (1, "Maaya, Forest Guardian", false);
 		stage.NewWave (boss);
 
 	}
+*/
 
 
-/*
 
 		//BOSS 1
 		//mp = new EMP_EnterFromTop();
@@ -378,6 +378,6 @@ public class Stage1 : Stage
 		stage.NewWave (boss);
 	
 	}
-    */
+    
 
 }

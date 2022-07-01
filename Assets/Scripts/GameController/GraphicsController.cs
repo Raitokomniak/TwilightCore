@@ -6,10 +6,12 @@ public class GraphicsController : MonoBehaviour
 {
     public int screenMode = 0;
     public int resolution = 0;
+    List<Resolution> resolutions;
     public string[] screenModes = {"FullScreen", "Borderless Window", "Windowed"};
 
     void Start(){
         InitScreen();
+        GetResolutions();
     }
 
     void InitScreen(){
@@ -41,11 +43,24 @@ public class GraphicsController : MonoBehaviour
         Screen.SetResolution(w, h, GetScreenMode(), 0);
     }
 
-    public Resolution[] GetResolutions(){
-        return Screen.resolutions;
+    public List<Resolution> GetResolutions(){
+        //REMOVES DUPLICATE RESOS
+        resolutions = new List<Resolution>();
+        resolutions.AddRange(Screen.resolutions);
+        List<Resolution> flagForRemoval = new List<Resolution>();
+        for(int i = 0; i < resolutions.Count; i++){
+            if(i>0) 
+                if(resolutions[i].width == resolutions[i - 1].width && resolutions[i].height == resolutions[i - 1].height)
+                    flagForRemoval.Add(resolutions[i]);
+        }
+        foreach(Resolution reso in flagForRemoval){
+            resolutions.Remove(reso);
+        }
+        return resolutions;
     }
 
     public Resolution GetResolution(){
-        return Screen.resolutions[resolution];
+        if(resolutions == null) return new Resolution();
+        return resolutions[resolution];
     }
 }

@@ -103,7 +103,7 @@ public class Game : MonoBehaviour {
 
 		io.LoadOptions();
         
-		mainMenuUI.ToggleLoadingScreen(false);
+	    mainMenuUI.ToggleLoadingScreen(false);
         loading = false;
 	}
 

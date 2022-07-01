@@ -77,6 +77,8 @@ public class Phaser : MonoBehaviour {
             CheckTimerSoundTick();
 		}
 		else {
+            if(!Game.control.stageHandler.midBossOn) 
+                Game.control.stageHandler.DenyBossBonus();
 			if(!superPhase)  life.SetHealthToThreshold();
 			StopPhaseTimer();
 			NextPhase();
@@ -136,7 +138,7 @@ public class Phaser : MonoBehaviour {
             if(bossPhase >=0 && bossBonus) {
                 Game.control.ui.PlayToast("Boss Bonus 3000!");
                 Game.control.player.GainScore(3000);
-                life.DropLoot("Exp");
+                life.DropLoot("ExpPoint");
             }
 			bossBonus = true;
 			nextPhaseRoutine = PhasingTime();

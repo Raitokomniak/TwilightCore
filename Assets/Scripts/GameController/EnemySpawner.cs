@@ -93,7 +93,6 @@ public class EnemySpawner : MonoBehaviour {
 	/// Destruction functions
 	///
 
-	//MAKE AN ENEMY POOL TOO, IF GETS TOO LAGGY?
 	public void DestroyAllEnemies()
 	{
 		GameObject[] enemiesToDestroy = GameObject.FindGameObjectsWithTag("Enemy");
@@ -104,14 +103,25 @@ public class EnemySpawner : MonoBehaviour {
 		}
 	}
 	
-	//CHANGE DESTROY TO POOL
 	public void DestroyAllProjectiles()
 	{
 		GameObject[] projectilesToDestroy = GameObject.FindGameObjectsWithTag("EnemyProjectile");
 
 		for(int i = 0; i < projectilesToDestroy.Length; i++){
 			//Destroy(projectilesToDestroy[i].gameObject);
-			Game.control.bulletPool.StoreBulletToPool(projectilesToDestroy[i]);
+            Game.control.bulletPool.StoreBulletToPool(projectilesToDestroy[i]);
+		}
+	}
+
+    public void DestroyAllPickUpPoints()
+	{   
+        List<GameObject> pointsToDestroy = new List<GameObject>();
+		pointsToDestroy.AddRange(GameObject.FindGameObjectsWithTag("DayCorePoint"));
+        pointsToDestroy.AddRange(GameObject.FindGameObjectsWithTag("NightCorePoint"));
+        pointsToDestroy.AddRange(GameObject.FindGameObjectsWithTag("ExpPoint"));
+
+		for(int i = 0; i < pointsToDestroy.Count; i++){
+			Destroy(pointsToDestroy[i].gameObject);
 		}
 	}
 

@@ -18,9 +18,9 @@ public class BMP_Stop : BulletMovementPattern
     public override IEnumerator ExecuteRoutine(){
         Explode (14);
 		rotation = bullet.transform.rotation;
-		yield return new WaitForSeconds (.1f);
+		yield return Waitp1;
 		movementSpeed = 1f;
-		yield return new WaitForSeconds (2f);
+		yield return Wait2;
 		movementSpeed = 7f;
     }
 }

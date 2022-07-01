@@ -21,7 +21,7 @@ public class BMP_RainDrop : BulletMovementPattern
         
         //SPAWNS OOB SO WAIT UNTIL IS IB AND THEN SET TO BE DESTROYED 
         
-        yield return new WaitUntil(() => bullet.GetComponent<BulletMovement>().CheckBounds() == true);
+        yield return new WaitUntil(() => bulletMovement.CheckBounds() == true);
         dontDestroy = false;
 
         rotation = bullet.transform.rotation;

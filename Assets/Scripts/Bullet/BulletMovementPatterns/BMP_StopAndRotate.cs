@@ -24,9 +24,9 @@ public class BMP_StopAndRotate : BulletMovementPattern
 		rotation = bullet.transform.rotation;
 		movementSpeed = 10;
 		Explode (targetMagnitude);
-		yield return new WaitUntil (() => bullet.GetComponent<BulletMovement> ().GetRemainingDistance (centerPoint) > targetMagnitude);
+		yield return new WaitUntil (() => bulletMovement.GetRemainingDistance (centerPoint) > targetMagnitude);
 		Stop (bullet);
-		yield return new WaitForSeconds (1f);
+		yield return Wait1;
 		pattern.allBulletsSpawned = true;
 
 		if (layer == 0) RotateOnAxis (-1, 80f);
@@ -34,13 +34,13 @@ public class BMP_StopAndRotate : BulletMovementPattern
 		if (layer == 2) RotateOnAxis (-1, 80f);
 		if (layer == 3) RotateOnAxis (1, 80f);
 
-		yield return new WaitForSeconds (1f);
+		yield return Wait1;
 		
         isMoving = true;
 		movementSpeed = 10f;
 		rotateOnAxis = false;
 
-		yield return new WaitForSeconds (1f);
+		yield return Wait1;
 
 		dontDestroy = false;
     }

@@ -33,7 +33,7 @@ public class SpriteLibrary : MonoBehaviour {
         else if(colorName == "Black")        color = Color.black;
         else if(colorName == "BlackLilac")   color = Color.black;
         else if(colorName == "BlackPurple")  color = Color.black;
-        else Debug.Log("no defined color for " + colorName);
+        else if(colorName != "") Debug.Log("no defined color for " + colorName);
         return color;
     }
 

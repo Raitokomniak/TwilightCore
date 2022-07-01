@@ -46,16 +46,29 @@ public class EnemyLife : MonoBehaviour {
 	}
 
 	public void DropLoot(string type){
+        GameObject pickUpPointPrefab = Resources.Load("Prefabs/pickUpPoint") as GameObject;
+        string pointType = "";
+    
 		if(type == "Core"){
 			for(int i = 0; i < 2; i++){ ////////// MANAGE AMOUNT OF LOOT
-				if(Random.Range(0, 2) == 0)
-					 Instantiate(Resources.Load("Prefabs/nightCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
-				else Instantiate(Resources.Load("Prefabs/dayCorePoint"), transform.position + new Vector3(Random.Range(-5, 5), 2f, 0), Quaternion.Euler(0,0,0));
+                Vector3 spawnPoint = transform.position + new Vector3(Random.Range(-5, 5), 2f, 0);
+                GameObject pickUpPoint = Instantiate(pickUpPointPrefab, spawnPoint, Quaternion.Euler(0,0,0));
+
+                    if(Random.Range(0, 2) == 0) 
+                         pointType = "NightCorePoint";
+                    else pointType = "DayCorePoint";
+
+                    pickUpPoint.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/" + pointType);
+                    pickUpPoint.tag = pointType;
 			}
 		}
-		if(type == "Exp")
-			for(int i = 0; i < 9; i++)
-				Instantiate(Resources.Load("Prefabs/expPoint"), transform.position + new Vector3(Random.Range(-5, 5), Random.Range(-5, 5)), transform.rotation);
+		if(type == "ExpPoint")
+			for(int i = 0; i < 9; i++) {
+                Vector3 spawnPoint = transform.position + new Vector3(Random.Range(-5, 5), 2f, 0);
+                GameObject pickUpPoint = Instantiate(pickUpPointPrefab, spawnPoint, Quaternion.Euler(0,0,0));
+				pickUpPoint.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/" + type);
+                pickUpPoint.tag = type;
+            }
 	}
 
 	void OnTriggerStay2D(Collider2D c){

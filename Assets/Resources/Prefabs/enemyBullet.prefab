@@ -76,6 +76,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteR: {fileID: 0}
+  glowRend: {fileID: 0}
+  rb: {fileID: 0}
   active: 0
 --- !u!50 &8137152946327331889
 Rigidbody2D:
@@ -131,7 +133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &767102300
 Transform:
   m_ObjectHideFlags: 0

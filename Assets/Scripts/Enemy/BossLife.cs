@@ -7,7 +7,6 @@ public class BossLife : EnemyLife
     Phaser bossScript;
     public float superThreshold;
 	public int healthBars;
-
     bool deathFlag = false;
 
     public override void SetHealth(int setMaxHealth, int _healthBars, Phaser _bossScript){
@@ -61,7 +60,17 @@ public class BossLife : EnemyLife
 				NextHealthBar();
 			}
 		}
+        
+       // IEnumerator animateHitRoutine = AnimateHit();
+       // StartCoroutine(animateHitRoutine);
 	}
+
+    IEnumerator AnimateHit(){
+        GetComponent<EnemyMovement>().enemySprite.color = new Color(1, 0.5f, 0.5f, 1);
+        GameObject hitFX = Instantiate(Resources.Load("Prefabs/HitFX"), transform.position, Quaternion.identity) as GameObject;
+        yield return new WaitForSeconds(0.1f);
+        GetComponent<EnemyMovement>().enemySprite.color = new Color(1, 1, 1, 1);
+    }
 
     public void FakeDeath(){
         deathFlag = true;
@@ -85,7 +94,7 @@ public class BossLife : EnemyLife
 
         if(!silent) Game.control.sound.PlaySound("Enemy", "BossDie", true);
 		DropLoot("Core");
-		DropLoot("Exp");
+		DropLoot("ExpPoint");
 		Game.control.ui.BOSS.HideUI();
 		Game.control.ui.BOSS.ToggleBossHealthSlider (false, 0, "");
 		Game.control.ui.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage); //DOESN'T BELONG HERE

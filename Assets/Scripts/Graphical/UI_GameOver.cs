@@ -26,7 +26,7 @@ public class UI_GameOver : MonoBehaviour
 			if(Input.GetKeyDown(KeyCode.Return)){
 				//DONT DO LIKE THIS, THIS IS JUST A TEMP SOLUTION
 				if(gameOverImage.gameObject.activeSelf) Game.control.menu.Menu("GameOverMenu");
-				else if(gameCompleteImage.gameObject.activeSelf) Game.control.MainMenu();
+				else if(gameCompleteImage.gameObject.activeSelf) Game.control.stageHandler.MainMenu();
 				Game.control.io.SaveScore(scoreSaveNameInput.text, Game.control.stageHandler.stats.score, Game.control.stageHandler.difficultyAsString);
 			}
 		}

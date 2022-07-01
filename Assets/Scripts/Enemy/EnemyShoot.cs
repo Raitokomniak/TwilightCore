@@ -9,7 +9,9 @@ public class EnemyShoot : MonoBehaviour {
 	public ArrayList bulletsShot;
 	float shootSpeed;
 	Pattern pattern;
-	IEnumerator shootRoutine;
+	IEnumerator patternRoutine;
+    WaitForSeconds shootWait;
+
     bool patternOver = false;
     bool canShoot;
 
@@ -30,12 +32,13 @@ public class EnemyShoot : MonoBehaviour {
         patternOver = false;
 		pattern = p;
 		shootSpeed = _shootSpeed;
+        shootWait = new WaitForSeconds(shootSpeed);
 		StartCoroutine (ShootRoutine ());
 	}
 
 	public void StopPattern(){
-        if(shootRoutine == null) return;
-		StopCoroutine(shootRoutine);
+        if(patternRoutine == null) return;
+		StopCoroutine(patternRoutine);
 		pattern.StopPattern();
 		patternOver = true;
 	}
@@ -52,11 +55,11 @@ public class EnemyShoot : MonoBehaviour {
        
 		while (isActiveAndEnabled) {
             if(canShoot){
-                shootRoutine = pattern.Execute (this);
-                StartCoroutine (shootRoutine);
+                patternRoutine = pattern.Execute (this);
+                StartCoroutine (patternRoutine);
 
                 if(wave.oneShot) break;
-                yield return new WaitForSeconds (shootSpeed);
+                yield return shootWait;
             }
             yield return null;
 		}

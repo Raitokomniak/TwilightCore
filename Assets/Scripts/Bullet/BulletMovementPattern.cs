@@ -1,8 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BulletMovementPattern
 {
+    public WaitForSeconds Waitp1;
+    public WaitForSeconds Wait1;
+    public WaitForSeconds Wait2;
+
+
     public string name;
 
 	public GameObject bullet;
@@ -43,7 +49,30 @@ public class BulletMovementPattern
 
     public string hitBoxType = "Circle"; //DEFAULT  
 
-	public BulletMovementPattern(){}
+//////////////////////////////////////////////////////////////////////////////
+
+    public BulletMovement bulletMovement;
+    public Sprite bulletSprite;
+
+    public BoxCollider2D bulletBoxCollider;
+    public CircleCollider2D bulletCircleCollider;
+
+    public HomingWarningLine bulletHomingWarningLine;
+
+    public void ReceiveBulletData(GameObject _bullet){
+       bullet = _bullet;
+       bulletSprite = bullet.GetComponentInChildren<SpriteRenderer>().sprite;
+       bulletMovement = bullet.GetComponent<BulletMovement>();
+       bulletBoxCollider = bullet.GetComponent<BoxCollider2D>();
+       bulletCircleCollider = bullet.GetComponent<CircleCollider2D>();
+       bulletHomingWarningLine = bullet.GetComponentInChildren<HomingWarningLine>();
+    }
+
+	public BulletMovementPattern(){
+        Waitp1 = new WaitForSeconds(.1f);
+        Wait1 = new WaitForSeconds(1);
+        Wait2 = new WaitForSeconds(2);
+    }
 
 	public virtual BulletMovementPattern GetNewBulletMovement(BulletMovementPattern bmp){
 		Debug.Log("not this getnew");
@@ -117,7 +146,7 @@ public class BulletMovementPattern
 
 	public void Stop(GameObject bullet){
 		isMoving = false;
-		bullet.GetComponent<BulletMovement>().Stop();
+		bulletMovement.Stop();
 	}
 
 
@@ -127,6 +156,7 @@ public class BulletMovementPattern
 		targetMagnitude = magnitude;
 		isMoving = true;
 	}
+
 
 	public bool HasReachedDestination(Vector3 targetPosition, BulletMovement _m){
 		float x = _m.transform.position.x;

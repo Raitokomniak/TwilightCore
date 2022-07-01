@@ -18,7 +18,7 @@ public class BMP_WaitToHome : BulletMovementPattern
 
     public override IEnumerator ExecuteRoutine(){
         movementSpeed = 0;
-        yield return new WaitForSeconds (1f);
+        yield return Wait1;
         FindPlayer(bullet);
 		yield return new WaitForSeconds (.3f);
         startHoming = true;

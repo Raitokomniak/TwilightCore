@@ -75,9 +75,12 @@ public class StageHandler : MonoBehaviour {
 	}
 
     public void DenyBossBonus(){
-        if(bossOn || midBossOn) bossScript.bossBonus = false;
-    }
+        if(!bossOn && !midBossOn) return;
 
+        if(bossScript.bossBonus)Game.control.ui.PlayToast("Boss bonus failed...");
+        bossScript.bossBonus = false;
+        
+    }
 
 	public List<int> CalculateBonuses(){
 		List<int> bonuses = new List<int>();
@@ -256,13 +259,17 @@ public class StageHandler : MonoBehaviour {
 		if(diff == 10) difficultyAsString = "Nightmare";
 	}
 
+    public void MainMenu(){
+        Game.control.MainMenu();
+        // WAS THINKING OF ADDING A QUICK FADE HERE
+    }
 
 	IEnumerator StartStageRoutine(){
         if(Game.control.ui != null) Game.control.ui.ToggleLoadingScreen(true);
 		Game.control.loading = true;
 		stageTimer = 0;
 		ToggleTimer(false);
-		Game.control.bulletPool.DestroyAll();
+		Game.control.enemySpawner.DestroyAllProjectiles();
         Game.control.enemySpawner.DestroyAllEnemies();
         
 
@@ -273,9 +280,11 @@ public class StageHandler : MonoBehaviour {
 		Game.control.ui.ToggleLoadingScreen(true);
 		
 		Game.control.player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler> ();
-		Game.control.bulletPool.InstantiateBulletsToPool(difficultyMultiplier);
-
+		
 		yield return new WaitUntil(() => Game.control.enemySpawner.AbortSpawner() == true);
+
+        Game.control.bulletPool.InstantiateBulletsToPool(300);
+        yield return new WaitUntil(() => Game.control.bulletPool.done == true);
 		
 		Game.control.pause.Unpause (false);
 		

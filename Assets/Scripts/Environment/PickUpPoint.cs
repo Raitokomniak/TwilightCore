@@ -21,6 +21,7 @@ public class PickUpPoint : MonoBehaviour {
 			accelSpeed += Time.deltaTime;
 			transform.position += Vector3.down * (Time.deltaTime * (movementSpeed * accelSpeed));
 		}
+        if(transform.rotation.z != 0) transform.rotation = Quaternion.Euler(0,0,0);
 	}
 
 	void OnTriggerStay2D(Collider2D c)

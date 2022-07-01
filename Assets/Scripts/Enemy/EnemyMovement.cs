@@ -4,6 +4,8 @@ using System.Collections;
 public class EnemyMovement : MonoBehaviour {
 	public EnemyMovementPattern pattern;
 	public Rigidbody2D rb;
+    public SpriteRenderer enemySprite;
+    
 	VectorLib lib;
 	public bool moving;
 	public bool teleporting;

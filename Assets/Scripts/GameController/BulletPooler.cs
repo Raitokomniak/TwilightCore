@@ -4,71 +4,60 @@ using UnityEngine;
 
 public class BulletPooler : MonoBehaviour
 {
+   // Transform[] bulletsInPool;
+    GameObject bulletPrefab;
     List<GameObject> bulletsInPool;
 	Transform bulletPool;
+    GameObject fetchedBullet;
+    Transform bulletContainer;
 
     public bool done;
 
     void Awake(){
         bulletsInPool = new List<GameObject>();
+
     }
-
-
     // AT START OF STAGE/GAME, INSTANTIATE BULLETS TO POOL 
-	public void InstantiateBulletsToPool (int difficultyMultiplier)
+	public void InstantiateBulletsToPool (int amount)
 	{
-        IEnumerator routine = InstantiateRoutine(1000);
-		StartCoroutine(routine);
+        bulletPrefab = Resources.Load("Prefabs/enemyBullet") as GameObject;
+        bulletPool = GameObject.Find("BulletPool").transform;
+        bulletContainer = GameObject.Find("Bullets").transform;
+        done = false;
+        IEnumerator routine = InstantiateRoutine(amount);
+        StartCoroutine(routine);
 	}
 
-	public void InstantiateMoreBullets(int amount){
-		IEnumerator routine = InstantiateRoutine(amount);
-		StartCoroutine(routine);
-	}
-
-	IEnumerator InstantiateRoutine(int amount){
-		GameObject bulletPrefab = Resources.Load("Prefabs/enemyBullet") as GameObject;
-		bulletPool = GameObject.Find("BulletPool").transform;
+    IEnumerator InstantiateRoutine(int amount){
         GameObject instantiatedBullet = null;
 
 		for(int i = 0; i < amount; i++){
-			instantiatedBullet = (Object.Instantiate (bulletPrefab) as GameObject);
-			instantiatedBullet.transform.SetParent (bulletPool);
+			instantiatedBullet = Object.Instantiate (bulletPrefab) as GameObject;
 			StoreBulletToPool(instantiatedBullet);
 		}
-		yield return null;
-	}
+        done = true;
+        yield return null;
+    }
 
-	public void DestroyAll(){
-		foreach(GameObject bullet in bulletsInPool){
-			Destroy(bullet);
-		}
-	}
 
 	public void StoreBulletToPool(GameObject bullet){
-		bullet.GetComponent<BulletMovement>().Pool();
-		bullet.transform.position = bulletPool.position;
-        bulletsInPool.Add(bullet);
+        StoreBulletToPool(bullet.GetComponent<BulletMovement>());
 	}
 
-    public bool CheckIfInPool(GameObject bullet){
-        if(bulletsInPool.Contains(bullet)) return true;
-        return false;
-    }
-
-    public void ReversePool(){
-        bulletsInPool.Reverse();
-    }
+    public void StoreBulletToPool(BulletMovement bullet){
+		bullet.Pool();
+		bullet.transform.position = bulletPool.position;
+        bullet.transform.SetParent(bulletPool);
+        bulletsInPool.Add(bullet.gameObject);
+        bullet.gameObject.SetActive(false);
+	}
 
 	public GameObject FetchBulletFromPool(){
-		/*if(bulletsInPool.Count <= 0) {
-			Debug.Log("no more bullets, creating more");
-			InstantiateMoreBullets(50);
-			return null;
-		}*/
-
-		GameObject fetchedBullet = bulletsInPool[bulletsInPool.Count - 1];
+        if(bulletsInPool.Count < 10) InstantiateBulletsToPool(50);
+		fetchedBullet = bulletsInPool[bulletsInPool.Count - 1];
 		bulletsInPool.RemoveAt(bulletsInPool.Count - 1);
+        fetchedBullet.transform.SetParent(bulletContainer);
+        fetchedBullet.SetActive(true);
 		return fetchedBullet;
 	}
 }

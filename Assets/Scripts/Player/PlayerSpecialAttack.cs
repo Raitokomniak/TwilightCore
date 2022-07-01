@@ -78,7 +78,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			Game.control.sound.PlaySpellSound("Player", "DayCore1");
 			Game.control.ui.ShowActivatedPlayerPhase ("Day Core: Dawnbreaker");
 			daySpecial.SetActive (true);
-			dayAnimatedSprite.GetComponent<AnimationController> ().Scale (1, 1.5f, true, false);
+			dayAnimatedSprite.GetComponent<AnimationController> ().Scale (true, .3f * (dayCoreLevel + 1), true, false);
 			dayAnimatedSprite.GetComponent<AnimationController> ().StartRotating(4f);
 			yield return new WaitForSeconds (specialAttackTime);
 			daySpecial.SetActive (false);
@@ -113,17 +113,18 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			Game.control.ui.ShowActivatedPlayerPhase ("Night Core: Trick or Treat");
 
 			nightSpecial.SetActive (true);
-			nightAnimatedSprite.GetComponent<AnimationController> ().Scale (1, 2, true, true);
+			nightAnimatedSprite.GetComponent<AnimationController> ().Scale (true, .4f * (nightCoreLevel + 1), true, true);
 
 			yield return new WaitForSeconds (specialAttackTime);
 
-			nightAnimatedSprite.GetComponent<AnimationController> ().Scale (-1, 2f, true, true);
+			nightAnimatedSprite.GetComponent<AnimationController> ().Scale (false, .4f * (nightCoreLevel + 1), true, true);
 			//Game.control.ui.EffectOverlay("NightCore", false, 2);
 			nightSpecial.SetActive (false);
 			Game.control.ui.WORLD.HideFXLayer();
 			
 		}
-         GetComponent<PlayerLife>().invulnerable = false;
+        PowerUpdate (core, false);
+        GetComponent<PlayerLife>().invulnerable = false;
 		specialAttack = false;
 	}
 
@@ -148,7 +149,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 		if (core == "Day") dayCorePoints = limit;
 		else nightCorePoints = limit;
 
-		PowerUpdate (core, false);
+		if(!special) PowerUpdate (core, false);
 	}
 
 

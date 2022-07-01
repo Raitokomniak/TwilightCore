@@ -3,13 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class BulletMovement : MonoBehaviour {
+    HomingWarningLine homingWarningLine;
+
+    BoxCollider2D boxCollider;
+    CircleCollider2D circleCollider;
+    BulletBouncer bulletBouncer;
+
 	public SpriteRenderer spriteR;
     public SpriteRenderer glowRend;
 	VectorLib lib;
 	Vector3 movementDirection;
 	public BulletMovementPattern BMP = null;
 	EnemyShoot shooter;
-	Rigidbody2D rb;
+	public Rigidbody2D rb;
 	public bool active;
     bool hitBoxEnabled;
 	float trailSpawnCD = .07f;
@@ -21,6 +27,10 @@ public class BulletMovement : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D>();
 		spriteR = transform.GetChild(0).GetComponent<SpriteRenderer>();
         glowRend = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        homingWarningLine = GetComponent<HomingWarningLine>();
+        boxCollider = GetComponent<BoxCollider2D>();
+        circleCollider = GetComponent<CircleCollider2D>();
+        bulletBouncer = GetComponent<BulletBouncer>();
 	}
 
 	public void Init(BulletMovementPattern _BMP, EnemyShoot enemyShoot){
@@ -35,19 +45,22 @@ public class BulletMovement : MonoBehaviour {
 	{
 		if (BMP.startHoming) BMP.FindPlayer(gameObject);
 		else movementDirection = Vector3.down;
-
+        
 		StartCoroutine(BMP.Execute(this.gameObject));
 	}
 
 	public void Pool(){
+        
         DisableHitBoxes();
         transform.localScale = new Vector3 (0, 0, 0);
         if(BMP != null) BMP.accelerating = false;
 		BMP = null;
 		active = false;
 		rb.simulated = false;
-        if(GetComponent<HomingWarningLine>()) GetComponent<HomingWarningLine>().DisableLine();
+        if(homingWarningLine) homingWarningLine.gameObject.SetActive(false);
 		Stop();
+        this.enabled = false;
+        //Destroy(this.gameObject);
 	}
 
     //////////////////////////////
@@ -76,34 +89,33 @@ public class BulletMovement : MonoBehaviour {
     //////////////////////////////
     // UPDATE CHECKS
 
-	void FixedUpdate () {
-        if(!active || BMP == null) return;
-
-		CheckCollider();
-
-		if(BMP.isMoving){
-            CheckTrail();
-            
-            if(BMP.rotateOnAxis)  AxisRotation();
-            else {
-                UpdateRotations();
-				CheckMovementType();
-            }
-		}
-       
-		CheckScale();
-        CheckBounds();
-	}
-
 	void Update(){
         if(BMP == null) return;
 
-		if(BMP.accelerating){
-			if(BMP.movementSpeed < BMP.accelIniSpeed)
-				BMP.movementSpeed += 4f * BMP.accelSpeed * Time.deltaTime;
-			else if(BMP.movementSpeed > BMP.accelIniSpeed)
-				BMP.accelerating = false;
-		}
+
+        CheckCollider();
+		CheckScale();
+        CheckBounds();
+
+        //MOVEMENT
+        if(BMP == null) return;
+        if(!BMP.isMoving) return;
+
+		if(BMP.trail && canSpawnTrail) MakeTrail();
+            
+        if(BMP.rotateOnAxis)  AxisRotation();
+        else {
+            UpdateRotations();
+			CheckMovementType();
+        }
+
+        //ACCEL
+        if(!BMP.accelerating) return;
+
+		if(BMP.movementSpeed < BMP.accelIniSpeed)
+			BMP.movementSpeed += 4f * BMP.accelSpeed * Time.deltaTime;
+		else if(BMP.movementSpeed > BMP.accelIniSpeed)
+			BMP.accelerating = false;
 	}
     
 	void CheckCollider(){
@@ -113,18 +125,18 @@ public class BulletMovement : MonoBehaviour {
 		GameObject dayCoreField = Game.control.player.special.daySpecial;
 
 		if((transform.position - findPlayer).magnitude < 1f) canEnable = true; // IF NEAR PLAYER
-		if(Game.control.ui.WORLD.GetBoundaries() != null) if(GetComponent<BulletBouncer>() && (transform.position - new Vector3(0, Game.control.ui.WORLD.GetBoundaries()[0],0)).magnitude < 1f) canEnable = true; //IF BOUNCER && NEAR BOT WALL
+		if(Game.control.ui.WORLD.GetBoundaries() != null) if(bulletBouncer && (transform.position - new Vector3(0, Game.control.ui.WORLD.GetBoundaries()[0],0)).magnitude < 1f) canEnable = true; //IF BOUNCER && NEAR BOT WALL
 		if(nightCoreField.activeSelf && (transform.position - nightCoreField.transform.position).magnitude < 6f) canEnable = true;
 		if(dayCoreField.activeSelf && (transform.position - dayCoreField.transform.position).magnitude < 13f) canEnable = true;
 		
         Collider2D bulletCollider = null; 
-        if     (BMP.hitBoxType == "Box")    bulletCollider = GetComponent<BoxCollider2D>();
-        else if(BMP.hitBoxType == "Circle") bulletCollider = GetComponent<CircleCollider2D>();
+        if     (BMP.hitBoxType == "Box")    bulletCollider = boxCollider;
+        else if(BMP.hitBoxType == "Circle") bulletCollider = circleCollider;
 
 		if(!hitBoxEnabled && canEnable) {
             hitBoxEnabled = true;
             bulletCollider.enabled = true;
-            if(!GetComponent<BulletBouncer>()) Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), bulletCollider, true);
+            if(!bulletBouncer) Physics2D.IgnoreCollision(boxCollider, bulletCollider, true);
         }
 		if(hitBoxEnabled && !canEnable) {
             bulletCollider.enabled = false;
@@ -133,13 +145,10 @@ public class BulletMovement : MonoBehaviour {
 	}
 
     public void DisableHitBoxes(){
-        GetComponent<BoxCollider2D>().enabled = false;
-        GetComponent<CircleCollider2D>().enabled = false;
+        boxCollider.enabled = false;
+       circleCollider.enabled = false;
     }
 
-    void CheckTrail(){
-        if(BMP != null) if(BMP.trail && canSpawnTrail)  MakeTrail();
-    }
 
     void AxisRotation(){
         BMP.centerPoint = transform.position;
@@ -174,7 +183,7 @@ public class BulletMovement : MonoBehaviour {
 
 		if(y < lib.OOBBot || x < lib.OOBLeft || y > lib.OOBTop || x > lib.OOBRight){
 			if (active && !BMP.dontDestroy)
-				Game.control.bulletPool.StoreBulletToPool(gameObject);
+				Game.control.bulletPool.StoreBulletToPool(this);
 			return false;
 		}
 		else return true;
@@ -203,7 +212,7 @@ public class BulletMovement : MonoBehaviour {
     // COLLIDER
 
 	public void OnTriggerStay2D(Collider2D c){
-		if (c.tag == "NullField") Game.control.bulletPool.StoreBulletToPool(this.gameObject);
+		if (c.tag == "NullField") Game.control.bulletPool.StoreBulletToPool(this);
 	}
 
 	public void OnCollisionStay2D(Collision2D c){

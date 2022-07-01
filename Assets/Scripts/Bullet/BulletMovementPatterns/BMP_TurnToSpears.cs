@@ -20,23 +20,23 @@ public class BMP_TurnToSpears : BulletMovementPattern
     public override IEnumerator ExecuteRoutine(){
         movementSpeed = 0;
 		rotation = Quaternion.Euler(0,0,0);
-		yield return new WaitForSeconds (1f);
-		bullet.GetComponent<BulletMovement>().spriteR.sprite = Game.control.spriteLib.SetBulletSprite ("Spear", "Bevel", "Purple");
-        bullet.GetComponent<BulletMovement>().glowRend.sprite = Game.control.spriteLib.SetBulletGlow("Spear");
-        bullet.GetComponent<BulletMovement>().glowRend.color = Game.control.spriteLib.GetColor("Purple");
+		yield return Wait1;
+		bulletMovement.spriteR.sprite = Game.control.spriteLib.SetBulletSprite ("Spear", "Bevel", "Purple");
+        bulletMovement.glowRend.sprite = Game.control.spriteLib.SetBulletGlow("Spear");
+        bulletMovement.glowRend.color = Game.control.spriteLib.GetColor("Purple");
 
-		bullet.GetComponent<BoxCollider2D> ().size = new Vector2 (.15f, 2.9f);
+		bulletBoxCollider.size = new Vector2 (.15f, 2.9f);
         
-		yield return new WaitForSeconds (1f);
+		yield return Wait1;
 		FindPlayer(bullet);
         bullet.transform.GetChild(2).gameObject.SetActive(true);
-        bullet.GetComponentInChildren<HomingWarningLine>().ActivateLine();
+        if(bulletHomingWarningLine) bulletHomingWarningLine.ActivateLine();
         startHoming = true;
 		yield return new WaitForSeconds (.5f);
 		accelMax = 40;
         accelSpeed = 20;
 		SmoothAcceleration ();
         yield return new WaitForSeconds (.5f);
-        if(bullet.GetComponentInChildren<HomingWarningLine>()) bullet.GetComponentInChildren<HomingWarningLine>().DisableLine();
+        if(bulletHomingWarningLine) bulletHomingWarningLine.DisableLine();
     }
 }

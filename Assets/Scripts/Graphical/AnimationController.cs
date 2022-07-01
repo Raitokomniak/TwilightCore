@@ -24,15 +24,15 @@ public class AnimationController : MonoBehaviour {
 		rotating = false;
 	}
 
-	public void Scale(int dir, float max, bool rotateAfter, bool parent)
+	public void Scale(bool up, float max, bool rotateAfter, bool parent)
 	{
 		if(this.gameObject.activeSelf)
-			StartCoroutine (_Scale (dir, max, rotateAfter, parent));
+			StartCoroutine (_Scale (up, max, rotateAfter, parent));
 	}
 
-	IEnumerator _Scale(int dir, float max, bool rotateAfter, bool parent){
+	IEnumerator _Scale(bool up, float max, bool rotateAfter, bool parent){
 
-		if (dir > 0) {
+		if (up) {
 			for (float i = 0.1f; i < max; i += (max/10)) {
 				if (parent)
 					parentObject.transform.localScale = new Vector3 (i, i, 1);
@@ -42,7 +42,7 @@ public class AnimationController : MonoBehaviour {
 				yield return new WaitForSeconds (0.01f);
 			}
 
-		} else if (dir < 0) {
+		} else {
 			for (float i = max; i > 0; i -= (max/10)) {
 				if (parent)
 					parentObject.transform.localScale = new Vector3 (i, i, 1);

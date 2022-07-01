@@ -23,7 +23,7 @@ public class BMP_DownAndExplode : BulletMovementPattern
     public override IEnumerator ExecuteRoutine(){
         moveWithForce = false;
         movementSpeed = 5f;
-		yield return new WaitForSeconds (1f);
+		yield return Wait1;
         pattern.allBulletsSpawned = true;
 		
 		if (pattern.spawnedBullets.Count != 0) 
@@ -35,7 +35,7 @@ public class BMP_DownAndExplode : BulletMovementPattern
         centerPoint = bullet.transform.position;
 		Explode (2.5f);
         
-        yield return new WaitUntil (() => bullet.GetComponent<BulletMovement> ().GetRemainingDistance (centerPoint) > targetMagnitude);
+        yield return new WaitUntil (() => bulletMovement.GetRemainingDistance (centerPoint) > targetMagnitude);
         //moveWithForce = false;
         movementSpeed = 0f;
         
@@ -44,7 +44,7 @@ public class BMP_DownAndExplode : BulletMovementPattern
 		yield return new WaitForSeconds (0.3f);
 		RotateOnAxis (1, 100f);
 
-		yield return new WaitForSeconds (1f);
+		yield return Wait1;
 		CancelAxisRotation (10f);
     }
 
