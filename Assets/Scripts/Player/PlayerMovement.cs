@@ -33,8 +33,8 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	public void CheckPickUpThreshold(){
-		if(Game.control.ui){
-			if(transform.position.y >= Game.control.ui.WORLD.pickUpThreshold.transform.position.y)
+		if(Game.control.stageUI){
+			if(transform.position.y >= Game.control.stageUI.WORLD.pickUpThreshold.transform.position.y)
 				atPickUpThreshold = true;
 			else atPickUpThreshold = false;
 		}
@@ -80,21 +80,21 @@ public class PlayerMovement : MonoBehaviour
 			movementSpeed = Game.control.stageHandler.stats.movementSpeed / 3.8f;
 			magneticRange.Toggle(true);
 			GetComponent<PlayerShoot> ().FocusWeapons (toggle);
-			Game.control.ui.LEFT_SIDE_PANEL.HighLightCoreInUse ("Night");
-			Game.control.ui.WORLD.TogglePickUpThreshold(true);
+			Game.control.stageUI.LEFT_SIDE_PANEL.HighLightCoreInUse ("Night");
+			Game.control.stageUI.WORLD.TogglePickUpThreshold(true);
 		} else {
 			ShowHitBox(false);
 			movementSpeed = Game.control.stageHandler.stats.movementSpeed;
 			magneticRange.Toggle(false);
 			GetComponent<PlayerShoot> ().FocusWeapons (toggle);
-			Game.control.ui.LEFT_SIDE_PANEL.HighLightCoreInUse ("Day");
-			Game.control.ui.WORLD.TogglePickUpThreshold(false);
+			Game.control.stageUI.LEFT_SIDE_PANEL.HighLightCoreInUse ("Day");
+			Game.control.stageUI.WORLD.TogglePickUpThreshold(false);
 		}
 	}
 
 	void Move (float x, float y)
 	{
-        float[] walls = Game.control.ui.WORLD.GetBoundaries();
+        float[] walls = Game.control.stageUI.WORLD.GetBoundaries();
         if(walls == null) return;
         
         if (transform.position.y < walls[0] + .5f && y < 0)  y = 0;

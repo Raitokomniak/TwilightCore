@@ -38,7 +38,7 @@ public class EnemyMovement : MonoBehaviour {
 				else MoveWithLerp();
 			}
 			
-			if (tag == "Boss" || tag == "MidBoss") Game.control.ui.BOSS.UpdateBossXPos (transform.position.x, teleporting);
+			if (tag == "Boss" || tag == "MidBoss") Game.control.stageUI.BOSS.UpdateBossXPos (transform.position.x, teleporting);
 		}
 		if(tag != "Boss" && tag != "MidBoss") CheckBounds();
 	}
@@ -62,7 +62,7 @@ public class EnemyMovement : MonoBehaviour {
 	void CheckBounds(){
 		float y = transform.position.y;
 		float x = transform.position.x;
-		float[] walls = Game.control.ui.WORLD.GetBoundaries();
+		float[] walls = Game.control.stageUI.WORLD.GetBoundaries();
         if(walls == null) return;
         
 		if (y < walls[0] || x < walls[1] || y > walls[2] || x > walls[3]){
@@ -98,10 +98,10 @@ public class EnemyMovement : MonoBehaviour {
 	// sprite 
 
 	public void EnableSprite(bool toggle){
-		GetComponentInChildren<SpriteRenderer> ().enabled = toggle;
+		enemySprite.enabled = toggle;
 	}
 
 	void CheckSpriteDirection(){
-		GetComponentInChildren<SpriteRenderer> ().flipX = !pattern.goingRight;
+		enemySprite.flipX = !pattern.goingRight;
 	}
 }

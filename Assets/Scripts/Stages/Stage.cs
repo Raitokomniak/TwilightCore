@@ -24,8 +24,8 @@ public class Stage : MonoBehaviour
     public VectorLib lib;
 
     public void UpdateStageInfoToUI(){
-        Game.control.ui.RIGHT_SIDE_PANEL.UpdateStage(stageName);
-		Game.control.ui.STAGETOAST.UpdateStageToastText (stageindex, stageName, bgmName);
+        Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateStage(stageName);
+		Game.control.stageUI.STAGETOAST.UpdateStageToastText (stageindex, stageName, bgmName);
     }
     public virtual void StopStage(){
        if(stageHandlerRoutine != null) StopCoroutine(stageHandlerRoutine);

@@ -69,7 +69,7 @@ public class Boss2 : Phaser
 				break;
 			case 1:
                 Game.control.sound.PlaySpellSound ("Enemy", "Default");
-				Game.control.ui.BOSS.ShowActivatedPhase ("Indra's Net");
+				Game.control.stageUI.BOSS.ShowActivatedPhase ("Indra's Net");
 				StartPhaseTimer(30);
 
 				patterns.Add(new P_GiantWeb());
@@ -145,7 +145,7 @@ public class Boss2 : Phaser
 				}
 				break;
 			case 3:
-				Game.control.ui.BOSS.ShowActivatedPhase ("Void Dance");
+				Game.control.stageUI.BOSS.ShowActivatedPhase ("Void Dance");
 				StartPhaseTimer(30);
 
 				P_VoidPortal portal = new P_VoidPortal(20f, 15, 40);

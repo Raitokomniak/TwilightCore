@@ -31,7 +31,7 @@ public class Boss3 : Phaser
         switch (phase) {
 			case 0:
                	Game.control.enemySpawner.DestroyAllEnvironmentalHazards();
-				Game.control.ui.BOSS.ShowActivatedPhase ("Clouded Mind: It Rains, It Pours");
+				Game.control.stageUI.BOSS.ShowActivatedPhase ("Clouded Mind: It Rains, It Pours");
 
 				movement.pattern.speed = 2f;
 

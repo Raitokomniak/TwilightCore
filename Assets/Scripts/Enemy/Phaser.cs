@@ -73,7 +73,7 @@ public class Phaser : MonoBehaviour {
 			if(!Game.control.pause.paused) 
                  phaseTimer-=Time.unscaledDeltaTime;
             else phaseTimer-=Time.deltaTime;
-			Game.control.ui.BOSS.UpdateBossTimer(phaseTimer);
+			Game.control.stageUI.BOSS.UpdateBossTimer(phaseTimer);
             CheckTimerSoundTick();
 		}
 		else {
@@ -90,12 +90,12 @@ public class Phaser : MonoBehaviour {
 		endOfPhase = false;
 		phaseTime = time;
 		phaseTimer = phaseTime;
-		Game.control.ui.BOSS.StartBossTimer(time);
+		Game.control.stageUI.BOSS.StartBossTimer(time);
 		timerOn = true;
 	}
 
 	public void StopPhaseTimer(){
-		Game.control.ui.BOSS.HideBossTimer();
+		Game.control.stageUI.BOSS.HideBossTimer();
 		endOfPhase = true;
 		timerOn = false;
 	}
@@ -121,7 +121,7 @@ public class Phaser : MonoBehaviour {
 
 	public void InterruptPreviousPhase(){
 		endOfPhase = true;
-		Game.control.ui.BOSS.HideSpell();
+		Game.control.stageUI.BOSS.HideSpell();
 		StopPats();
 		StopCoro();
 		foreach(Pattern p in patterns){ p.StopPattern(); }
@@ -136,7 +136,7 @@ public class Phaser : MonoBehaviour {
 			life.DropLoot("Core");
 			life.DropLoot("Core");
             if(bossPhase >=0 && bossBonus) {
-                Game.control.ui.PlayToast("Boss Bonus 3000!");
+                Game.control.stageUI.PlayToast("Boss Bonus 3000!");
                 Game.control.player.GainScore(3000);
                 life.DropLoot("ExpPoint");
             }
@@ -162,6 +162,6 @@ public class Phaser : MonoBehaviour {
 		if(bossPhase > 0 && bossPhase % 2 != 0) superPhase = true;
 		ExecutePhase (bossPhase, this);
         yield return new WaitForSeconds(topLayerWaitTime);
-		Game.control.ui.WORLD.UpdateTopPlayer ("Boss" + bossIndex + "_" + (bossPhase));
+		Game.control.stageUI.WORLD.UpdateTopPlayer ("Boss" + bossIndex + "_" + (bossPhase));
 	}
 }

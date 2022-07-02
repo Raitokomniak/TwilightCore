@@ -36,6 +36,9 @@ public class SaveLoadHandler : MonoBehaviour {
     public ScoreList scoreList;
 	public string appDataPath;
 
+    void Start(){
+        LoadScore();
+    }
     void Awake(){
         //appDataPath = Application.dataPath;           //FOR DEVVING
 		appDataPath = Application.persistentDataPath;   //FOR BUILD
@@ -65,9 +68,9 @@ public class SaveLoadHandler : MonoBehaviour {
         if(compared.Count != 0){
             compared.Sort(CompareScores);
             Game.control.stageHandler.stats.hiScore = compared[0].score;
-            Game.control.ui.RIGHT_SIDE_PANEL.UpdateHiScore(compared[0].score);
+            Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateHiScore(compared[0].score);
         }
-        else Game.control.ui.RIGHT_SIDE_PANEL.UpdateHiScore(Game.control.stageHandler.stats.hiScore);
+        else Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateHiScore(Game.control.stageHandler.stats.hiScore);
     }
 
     public bool LoadScore(){

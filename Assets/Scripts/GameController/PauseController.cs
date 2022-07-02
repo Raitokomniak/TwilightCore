@@ -49,14 +49,14 @@ public class PauseController : MonoBehaviour {
 	void Pause(){
 		paused = true;
 		Game.control.sound.PauseMusic();
-		Game.control.ui.TogglePauseScreen(true);
+		Game.control.stageUI.TogglePauseScreen(true);
 		SetTimeScale (false);
 	}
 
 	public void Unpause(bool resumeMusic){
 		if(resumeMusic) Game.control.sound.ResumeMusic();
 		paused = false;
-		Game.control.ui.TogglePauseScreen(false);
+		Game.control.stageUI.TogglePauseScreen(false);
 		SetTimeScale (true);
 	}
 

@@ -8,20 +8,23 @@ public class BossLife : EnemyLife
     public float superThreshold;
 	public int healthBars;
     bool deathFlag = false;
+    MiniToast miniToaster;
+   
 
-    public override void SetHealth(int setMaxHealth, int _healthBars, Phaser _bossScript){
+    public override void Init(int setMaxHealth, int _healthBars, Phaser _bossScript){
         bossScript = _bossScript;
 		healthBars = _healthBars;
 		maxHealth = setMaxHealth;
 		currentHealth = maxHealth;
 		superThreshold = maxHealth * .20f;
+        miniToaster = GetComponentInChildren<MiniToast>();
 		//Game.control.ui.UpdateBossHealthBars (healthBars);
 	}
 
 	public void SetHealthToThreshold(){
 		currentHealth = superThreshold;
 		Game.control.enemySpawner.DestroyAllProjectiles ();
-		Game.control.ui.BOSS.UpdateBossHealth(currentHealth);
+		Game.control.stageUI.BOSS.UpdateBossHealth(currentHealth);
 	}
 
 	bool CanTakeHit(){
@@ -36,14 +39,14 @@ public class BossLife : EnemyLife
 
         Game.control.sound.PlaySound("Enemy", "BossHit", false);
 		float damage = Game.control.stageHandler.stats.damage;
-		GetComponent<MiniToast>().PlayScoreToast(Mathf.RoundToInt(Game.control.player.GainScore(Mathf.RoundToInt(damage))));
+		miniToaster.PlayToast("Score");
 		
 		if(CanTakeHit()){
 			if (GetComponent<Phaser>().superPhase) 
 				 currentHealth -= damage / 4;
 			else currentHealth -= damage;
 
-			Game.control.ui.BOSS.UpdateBossHealth(currentHealth);
+			Game.control.stageUI.BOSS.UpdateBossHealth(currentHealth);
 		}
 
 		if (currentHealth <= superThreshold && !bossScript.superPhase && !invulnerable) {
@@ -61,8 +64,8 @@ public class BossLife : EnemyLife
 			}
 		}
         
-       // IEnumerator animateHitRoutine = AnimateHit();
-       // StartCoroutine(animateHitRoutine);
+        IEnumerator animateHitRoutine = AnimateHit();
+        StartCoroutine(animateHitRoutine);
 	}
 
     IEnumerator AnimateHit(){
@@ -76,7 +79,7 @@ public class BossLife : EnemyLife
         deathFlag = true;
         dead = true;
         GetComponent<EnemyShoot>().enabled = false;
-        Game.control.ui.BOSS.HideUI();
+        Game.control.stageUI.BOSS.HideUI();
     }
 
     public override void Die(bool silent) {
@@ -95,9 +98,9 @@ public class BossLife : EnemyLife
         if(!silent) Game.control.sound.PlaySound("Enemy", "BossDie", true);
 		DropLoot("Core");
 		DropLoot("ExpPoint");
-		Game.control.ui.BOSS.HideUI();
-		Game.control.ui.BOSS.ToggleBossHealthSlider (false, 0, "");
-		Game.control.ui.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage); //DOESN'T BELONG HERE
+		Game.control.stageUI.BOSS.HideUI();
+		Game.control.stageUI.BOSS.ToggleBossHealthSlider (false, 0, "");
+		Game.control.stageUI.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage); //DOESN'T BELONG HERE
 
 		GetComponentInChildren<SpriteRenderer>().enabled = false;
 		GetComponent<EnemyMovement>().enabled = false;
@@ -113,7 +116,7 @@ public class BossLife : EnemyLife
 
 	public void NextHealthBar(){
 		currentHealth = maxHealth;
-		Game.control.ui.BOSS.UpdateBossHealth (currentHealth);
+		Game.control.stageUI.BOSS.UpdateBossHealth (currentHealth);
 		//Game.control.ui.UpdateBossHealthBars (healthBars);
 		invulnerable = true;
 		bossScript.superPhase = false;			

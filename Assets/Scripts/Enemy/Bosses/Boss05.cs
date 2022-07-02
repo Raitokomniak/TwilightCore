@@ -35,8 +35,8 @@ public class Boss05 : Phaser
 			{
 			case 0:
 				//DOES THIS BELONG HERE???
-				Game.control.ui.WORLD.UpdateTopPlayer (5f); ////////
-				Game.control.ui.BOSS.ShowActivatedPhase ("Stolen Daffodil");
+				Game.control.stageUI.WORLD.UpdateTopPlayer (5f); ////////
+				Game.control.stageUI.BOSS.ShowActivatedPhase ("Stolen Daffodil");
                 topLayerWaitTime = 0;
 
 			    GetComponent<EnemyLife>().SetInvulnerable (true);
@@ -70,7 +70,7 @@ public class Boss05 : Phaser
 				break;
 			case 1:
 			 	Game.control.sound.PlaySpellSound ("Enemy", "Default");
-				Game.control.ui.BOSS.ShowActivatedPhase ("Twilight Core: Depulsio");
+				Game.control.stageUI.BOSS.ShowActivatedPhase ("Twilight Core: Depulsio");
 				GetComponent<EnemyLife>().SetInvulnerable (true);
 				StartPhaseTimer(11);
 				//Game.control.ui.BOSS.StartBossTimer (enemy.wave.movementPattern.stayTime);

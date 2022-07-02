@@ -29,7 +29,7 @@ public class Stage3 : Stage
 
         yield return null;
 
-        Game.control.ui.WORLD.SetTopLayerSpeed(5);
+        Game.control.stageUI.WORLD.SetTopLayerSpeed(5);
 
 		Game.control.dialog.StartDialog ("Boss3");
 		Game.control.sound.PlayMusic ("Boss", 3);

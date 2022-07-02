@@ -46,12 +46,12 @@ public class StageHandler : MonoBehaviour {
             else
                 stageTimer += Time.deltaTime;
 
-			Game.control.ui.RIGHT_SIDE_PANEL.UpdateTimer(stageTimer);
+			Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateTimer(stageTimer);
 		}
 		else {
 			if(AllowInput()){
 				if (CanAdvanceStage() && Input.GetKeyDown (KeyCode.Z)) {
-					Game.control.ui.HideStageCompletedScreen();
+					Game.control.stageUI.STAGEEND.Hide();
 					if(currentStage == stageCount) {
 						IEnumerator gameCompleteRoutine =  GameOverRoutine(false);
 						StartCoroutine(gameCompleteRoutine);
@@ -77,7 +77,7 @@ public class StageHandler : MonoBehaviour {
     public void DenyBossBonus(){
         if(!bossOn && !midBossOn) return;
 
-        if(bossScript.bossBonus)Game.control.ui.PlayToast("Boss bonus failed...");
+        if(bossScript.bossBonus)Game.control.stageUI.PlayToast("Boss bonus failed...");
         bossScript.bossBonus = false;
         
     }
@@ -175,14 +175,14 @@ public class StageHandler : MonoBehaviour {
 	IEnumerator GameOverRoutine(bool death){
 		
 		gameOver = true;
-		Game.control.ui.BOSS.HideUI();
+		Game.control.stageUI.BOSS.HideUI();
 		yield return new WaitForSeconds (2);
 
 		if(stageScript != null) stageScript.StopStage();
 
 		Game.control.menu.Menu("SaveScorePrompt");
-		if(death) Game.control.ui.GAMEOVER.GameOverScreen (true);
-		else Game.control.ui.GAMEOVER.GameCompleteScreen (true);
+		if(death) Game.control.stageUI.GAMEOVER.GameOverScreen (true);
+		else Game.control.stageUI.GAMEOVER.GameCompleteScreen (true);
 		
 		stageOn = false;
 		stageTimerOn = false;
@@ -194,21 +194,21 @@ public class StageHandler : MonoBehaviour {
 	{	
         onBonusScreen = true;
 		stats.lives = Game.control.player.health.lives;
-		Game.control.ui.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
-		Game.control.ui.BOSS.HideUI();
-		Game.control.ui.BOSS.ToggleBossHealthSlider (false, 0, "");
+		Game.control.stageUI.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
+		Game.control.stageUI.BOSS.HideUI();
+		Game.control.stageUI.BOSS.ToggleBossHealthSlider (false, 0, "");
 		yield return new WaitUntil(() => CheckIfAllPickUpsGone() == true);
 		yield return new WaitForSeconds (1);
 		stageCompleted = true;
 		stageOn = false;
-		Game.control.ui.ShowStageCompletedScreen ();
+		Game.control.stageUI.STAGEEND.Show ();
 		yield return new WaitUntil(() => countingStageEndBonuses == false);
 	}
 
 	void NextStage ()
 	{
 		//Game.control.MainMenu ();
-		Game.control.ui.HideStageCompletedScreen ();
+		Game.control.stageUI.STAGEEND.Hide ();
 		currentStage++;
 		StartStage(currentStage);
 	}
@@ -265,7 +265,7 @@ public class StageHandler : MonoBehaviour {
     }
 
 	IEnumerator StartStageRoutine(){
-        if(Game.control.ui != null) Game.control.ui.ToggleLoadingScreen(true);
+        if(Game.control.stageUI != null) Game.control.stageUI.ToggleLoadingScreen(true);
 		Game.control.loading = true;
 		stageTimer = 0;
 		ToggleTimer(false);
@@ -276,8 +276,9 @@ public class StageHandler : MonoBehaviour {
 		AsyncOperation loadScene = SceneManager.LoadSceneAsync("Level1");
 		yield return new WaitUntil(() => loadScene.isDone == true);
 		
-		Game.control.ui = GameObject.Find("StageCanvas").GetComponent<UIController>();
-		Game.control.ui.ToggleLoadingScreen(true);
+		//Game.control.stageUI = GameObject.Find("StageCanvas").GetComponent<UI_STAGE>();
+        Game.control.SetUI("Stage");
+		Game.control.stageUI.ToggleLoadingScreen(true);
 		
 		Game.control.player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler> ();
 		
@@ -297,7 +298,7 @@ public class StageHandler : MonoBehaviour {
 		Game.control.scene.SetUpEnvironment ();
 		Game.control.io.LoadHiscoreByDifficulty(difficultyAsString);
 		Game.control.dialog.Init();
-		Game.control.ui.InitStage ();
+		Game.control.stageUI.InitStage ();
 		Game.control.menu.InitMenu();
 		Game.control.player.Init();
 		Game.control.player.gameObject.SetActive (true);
@@ -308,7 +309,7 @@ public class StageHandler : MonoBehaviour {
 		stageOn = true;
         onBonusScreen = false;
         
-		Game.control.ui.ToggleLoadingScreen(false);
+		Game.control.stageUI.ToggleLoadingScreen(false);
 		Game.control.loading = false;
 	}
 

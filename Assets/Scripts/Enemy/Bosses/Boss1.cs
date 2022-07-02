@@ -34,7 +34,7 @@ public class Boss1 : Phaser
 
 		switch (phase) {
 			case 0:
-				Game.control.ui.BOSS.ShowActivatedPhase ("Daffodil Hypnosis");
+				Game.control.stageUI.BOSS.ShowActivatedPhase ("Daffodil Hypnosis");
                 StartPhaseTimer(30);
 
 				//daffodil center
@@ -135,8 +135,8 @@ public class Boss1 : Phaser
             
 			case 1:
 				Game.control.sound.PlaySpellSound ("Enemy", "Default");
-				Game.control.ui.BOSS.ShowActivatedPhase ("Hoodwink: Ninetailed Spear");
-				Game.control.ui.WORLD.SetTopLayerSpeed(2f);
+				Game.control.stageUI.BOSS.ShowActivatedPhase ("Hoodwink: Ninetailed Spear");
+				Game.control.stageUI.WORLD.SetTopLayerSpeed(2f);
 
 				StartPhaseTimer(30);
 
@@ -193,7 +193,7 @@ public class Boss1 : Phaser
 
 				StartPhaseTimer(30);
 
-				Game.control.ui.BOSS.ShowActivatedPhase ("Double Daffodil Hypnosis");
+				Game.control.stageUI.BOSS.ShowActivatedPhase ("Double Daffodil Hypnosis");
 				patterns.Add(new P_Spiral(20 * difficulty));
 				patterns[0].BMP = new BMP_WaitAndExplode (patterns[0], 25f);
 				patterns[0].loopCircles =  288 * difficulty;
@@ -308,7 +308,7 @@ public class Boss1 : Phaser
 				
 				break;
 			case 3:
-				Game.control.ui.BOSS.ShowActivatedPhase ("Hoodwink: Fox Fires");
+				Game.control.stageUI.BOSS.ShowActivatedPhase ("Hoodwink: Fox Fires");
 				//StartPhaseTimer(30);
 				
 				p = new P_FoxFires(difficulty, 40 * difficulty);

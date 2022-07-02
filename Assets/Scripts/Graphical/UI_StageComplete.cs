@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 public class UI_StageComplete : MonoBehaviour
-{
+{   
+    public GameObject container;
     IEnumerator bonusRoutine;
     public TextMeshProUGUI scorebreakDown;
     public string scoreText;
@@ -14,6 +15,18 @@ public class UI_StageComplete : MonoBehaviour
     int bossBonus;
     int difficultyMultiplier;
     long finalScore;
+
+    
+	public void Hide(){
+		container.SetActive(false);
+	}
+
+    public void Show(){
+		Game.control.stageUI.BOSS.HideUI();
+		container.SetActive(true);
+		UpdateScoreBreakDown();
+	}
+
 
     public void UpdateScoreBreakDown(){
         List<int> bonuses = Game.control.stageHandler.CalculateBonuses();

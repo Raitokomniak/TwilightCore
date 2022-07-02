@@ -33,12 +33,12 @@ public class SpriteAnimationController : MonoBehaviour {
         }
         if(randomXDirOnAwake) randomXDir = Random.Range(-5f, 5f);
 	}
-	void Update(){/*
+	void Update(){
 		if(rotating) transform.Rotate (new Vector3(0,0, -(Time.deltaTime * (10 * rotationSpeed))));
         if(moving) {
             
             transform.position += new Vector3(Time.deltaTime * randomXDir, Time.deltaTime * movementSpeed, 0);
-        }*/
+        }
 	}
 
 	public void SetScale(float scale, float scaleTimeMultiplier)

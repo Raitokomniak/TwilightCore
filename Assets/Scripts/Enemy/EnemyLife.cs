@@ -7,9 +7,10 @@ public class EnemyLife : MonoBehaviour {
 	public float currentHealth;
 	public bool invulnerable = false;
 
+
 	SpriteRenderer spriteRenderer;
 
-	public virtual void SetHealth(int setMaxHealth, int _healthBars, Phaser _bossScript){}
+	public virtual void Init(int setMaxHealth, int _healthBars, Phaser _bossScript){}
 
 	public void SetHealth(int _maxHealth){
 		maxHealth = _maxHealth;
@@ -18,7 +19,7 @@ public class EnemyLife : MonoBehaviour {
 
 	public void SetInvulnerable(bool value){
 		invulnerable = value;
-		Game.control.ui.BOSS.ToggleInvulnerable(invulnerable);
+		Game.control.stageUI.BOSS.ToggleInvulnerable(invulnerable);
 	}
 
 	public virtual void Die(bool silent) {

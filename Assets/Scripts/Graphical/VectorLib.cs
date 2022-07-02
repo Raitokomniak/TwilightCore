@@ -10,8 +10,11 @@ public class VectorLib : MonoBehaviour
 	public float OOBRight;
 	public float OOBLeft;
 
+    void Start(){
+        Init();
+    }
 
-    public void InitVectorLib(){
+    public void Init(){
 		OOBTop = 27;
 		OOBBot = 0;
 		OOBRight = 33f;

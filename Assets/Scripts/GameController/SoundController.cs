@@ -29,6 +29,7 @@ public class SoundController : MonoBehaviour {
 	public float SFXVolume;
 
 	void Awake(){
+        InitSound();
 		LoadMusic();
 		LoadSFX();
 	}
@@ -83,13 +84,7 @@ public class SoundController : MonoBehaviour {
 
 	public void SetSFXVolume(float value){
         SFXVolume = value;
-        float tempValue = value;
-        if(tempValue < 0.8f)        value = value / 2;
-        else if(tempValue < 0.5f)   value = value / 3;
-        else if(tempValue < 0.05f)  value = 0;
 		foreach(AudioSource s in SFXsources) s.volume = value;
-
-		menuSFXSource.volume = value / 2;
 	}
 
 

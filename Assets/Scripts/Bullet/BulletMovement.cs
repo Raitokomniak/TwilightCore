@@ -125,7 +125,7 @@ public class BulletMovement : MonoBehaviour {
 		GameObject dayCoreField = Game.control.player.special.daySpecial;
 
 		if((transform.position - findPlayer).magnitude < 1f) canEnable = true; // IF NEAR PLAYER
-		if(Game.control.ui.WORLD.GetBoundaries() != null) if(bulletBouncer && (transform.position - new Vector3(0, Game.control.ui.WORLD.GetBoundaries()[0],0)).magnitude < 1f) canEnable = true; //IF BOUNCER && NEAR BOT WALL
+		if(Game.control.stageUI.WORLD.GetBoundaries() != null) if(bulletBouncer && (transform.position - new Vector3(0, Game.control.stageUI.WORLD.GetBoundaries()[0],0)).magnitude < 1f) canEnable = true; //IF BOUNCER && NEAR BOT WALL
 		if(nightCoreField.activeSelf && (transform.position - nightCoreField.transform.position).magnitude < 6f) canEnable = true;
 		if(dayCoreField.activeSelf && (transform.position - dayCoreField.transform.position).magnitude < 13f) canEnable = true;
 		

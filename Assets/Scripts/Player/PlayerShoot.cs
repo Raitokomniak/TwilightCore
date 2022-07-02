@@ -191,8 +191,8 @@ public class PlayerShoot : MonoBehaviour {
 		//get average of core levels. if greater than before, apply
 		float tempShootLevel = Mathf.CeilToInt(dayCoreLevel + nightCoreLevel / 2);
 		if(tempShootLevel != shootLevel) {
-			if(tempShootLevel < shootLevel) Game.control.ui.PlayToast ("Power Down");
-			if(tempShootLevel > shootLevel) Game.control.ui.PlayToast ("Power Up");
+			if(tempShootLevel < shootLevel) Game.control.stageUI.PlayToast ("Power Down");
+			if(tempShootLevel > shootLevel) Game.control.stageUI.PlayToast ("Power Up");
 			shootLevel = (int)tempShootLevel;
 		} 
 		

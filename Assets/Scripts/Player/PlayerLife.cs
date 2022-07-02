@@ -11,8 +11,7 @@ public class PlayerLife : MonoBehaviour {
 
 	public void Init(){
 		lives = Game.control.stageHandler.stats.lives;
-		Game.control.ui.RIGHT_SIDE_PANEL.UpdateMaxLives(Game.control.stageHandler.stats.maxLives);
-		Game.control.ui.RIGHT_SIDE_PANEL.UpdateLives(lives);
+		Game.control.stageUI.RIGHT_SIDE_PANEL.InitLives(Game.control.stageHandler.stats.maxLives);
 		GetComponent<SpriteRenderer> ().enabled = true;
 		invulnerable = false;
 		dead = false;
@@ -44,7 +43,7 @@ public class PlayerLife : MonoBehaviour {
 
 	void LoseLife(){
 		lives -= 1;
-		Game.control.ui.RIGHT_SIDE_PANEL.UpdateLives(lives);
+		Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateLives(lives);
 
 
 		invulnerabilityRoutine = AnimateInvulnerabilityRoutine();
@@ -59,10 +58,10 @@ public class PlayerLife : MonoBehaviour {
 
 	public void GainLife(){
 		lives += 1;
-		//Game.control.ui.RIGHT_SIDE_PANEL.UpdateLives(lives);
-		Game.control.ui.PlayToast("New Life!");
-		Game.control.ui.RIGHT_SIDE_PANEL.UpdateMaxLives(lives);
+        if(lives > Game.control.stageHandler.stats.maxLives) Game.control.stageHandler.stats.maxLives = lives;
 		Game.control.sound.PlaySound("Player", "ExtraLife", false);
+		Game.control.stageUI.PlayToast("New Life!");
+		Game.control.stageUI.RIGHT_SIDE_PANEL.AddLife(lives);
 	}
 
 	IEnumerator Die(){

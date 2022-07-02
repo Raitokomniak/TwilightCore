@@ -32,7 +32,7 @@ public class Stage2 : Stage
 		scene.SetPlaneSpeed (3f);
 
 		while (stage.stageTimer < 26.5f) yield return null;
-		Game.control.ui.PlayStageToast();
+		Game.control.stageUI.PlayStageToast();
 		scene.e_camera.Move (new Vector3(65, 45, 72));
 		scene.e_camera.Rotate (new Vector3(65, 0, 5));
 		scene.SetPlaneSpeed (10f);
@@ -78,7 +78,7 @@ public class Stage2 : Stage
 		
 		//FORCE MOVE PLAYER TO THE PORTAL HERE
 		Game.control.player.movement.ForceMove(lib.GetVector("X3"));
-		Game.control.ui.EffectOverlay("White", true, 2.5f);
+		Game.control.stageUI.EffectOverlay("White", true, 2.5f);
 		yield return new WaitForSeconds(4f);
 		Game.control.stageHandler.EndHandler ("StageComplete");
 	}

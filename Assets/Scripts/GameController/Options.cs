@@ -90,9 +90,7 @@ public class Options : MonoBehaviour
 
 
     public void UpdateValueToUI(int index, string value){
-        if(Game.control.mainMenuUI != null) 
-             Game.control.mainMenuUI.UpdateOptionSelection(index,value);
-        else Game.control.ui.UpdateOptionSelection(index,value);
+        Game.control.ui.UpdateOptionSelection(index,value);
     }
 
     public void UpdateAllValues(){

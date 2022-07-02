@@ -46,7 +46,7 @@ public class DialogController : MonoBehaviour {
 
 	public void ToggleAutoScroll(bool toggle){
 		autoScroll = toggle;
-		if(Game.control.mainMenuUI == null) Game.control.ui.DIALOG.UpdateAutoScrollInfo(autoScroll);
+		if(Game.control.mainMenuUI == null) Game.control.stageUI.DIALOG.UpdateAutoScrollInfo(autoScroll);
 	}
 
 	public void Init(){
@@ -59,11 +59,11 @@ public class DialogController : MonoBehaviour {
 	public void StartDialog(string _phase)
 	{	
 
-		Game.control.ui.DIALOG.ToggleDialog(true);
+		Game.control.stageUI.DIALOG.ToggleDialog(true);
 		
-		if(!_phase.Contains("Boss")) Game.control.ui.DIALOG.InitPlayerSpeaker();
-		if (_phase.Contains("Boss1")) { Game.control.ui.DIALOG.InitBossSpeaker("Boss1"); }
-		if (_phase.Contains("Boss2")) { Game.control.ui.DIALOG.InitBossSpeaker("Boss2"); }
+		if(!_phase.Contains("Boss")) Game.control.stageUI.DIALOG.InitPlayerSpeaker();
+		if (_phase.Contains("Boss1")) { Game.control.stageUI.DIALOG.InitBossSpeaker("Boss1"); }
+		if (_phase.Contains("Boss2")) { Game.control.stageUI.DIALOG.InitBossSpeaker("Boss2"); }
 
 		TextAsset dialogueText = Resources.Load<TextAsset> ("DialogText/" + _phase);
 		lineList = new ArrayList ();
@@ -97,7 +97,7 @@ public class DialogController : MonoBehaviour {
 		ArrayList parsedLines = new ArrayList ();
 		parsedLines.AddRange (lineList [lineIndex].ToString ().Split ("\t" [0]));
 
-		Game.control.ui.DIALOG.UpdateDialog (parsedLines [0].ToString (), parsedLines [1].ToString ());
+		Game.control.stageUI.DIALOG.UpdateDialog (parsedLines [0].ToString (), parsedLines [1].ToString ());
 
 		if ((lineIndex + 1) == lineList.Count) {
 			endOfDialogueChain = true;
@@ -107,7 +107,7 @@ public class DialogController : MonoBehaviour {
 
 	public void EndDialog()
 	{
-		Game.control.ui.DIALOG.ToggleDialog(false);
+		Game.control.stageUI.DIALOG.ToggleDialog(false);
 		handlingDialog = false;
 		endOfDialogueChain = false;
 	}

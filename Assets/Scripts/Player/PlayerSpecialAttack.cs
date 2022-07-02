@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerSpecialAttack : MonoBehaviour {
 
+    PlayerHandler playerHandler;
 	PlayerMovement movement;
 	PlayerShoot shoot;
 	public bool specialAttack;
@@ -29,6 +30,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 	void Awake(){
 		movement = GetComponent<PlayerMovement>();
 		shoot = GetComponent<PlayerShoot>();
+        playerHandler = GetComponent<PlayerHandler>();
 
 		starLightBomb = Resources.Load ("Prefabs/StarLightBomb") as GameObject;
 
@@ -50,7 +52,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			else if (movement.focusMode && nightCorePoints >= 20)
 				StartCoroutine(SpecialAttack ("Night"));
 			else
-				Game.control.ui.PlayToast("Not enough points for special attack");
+				Game.control.stageUI.PlayToast("Not enough points for special attack");
 		}
 	}
 
@@ -74,15 +76,15 @@ public class PlayerSpecialAttack : MonoBehaviour {
 		DepleteCore (core, true);
 
 		if (core == "Day") {
-			Game.control.ui.WORLD.ShowFXLayer("Light");
+			Game.control.stageUI.WORLD.ShowFXLayer("Light");
 			Game.control.sound.PlaySpellSound("Player", "DayCore1");
-			Game.control.ui.ShowActivatedPlayerPhase ("Day Core: Dawnbreaker");
+			Game.control.stageUI.RIGHT_SIDE_PANEL.ShowActivatedPlayerPhase ("Day Core: Dawnbreaker");
 			daySpecial.SetActive (true);
 			dayAnimatedSprite.GetComponent<AnimationController> ().Scale (true, .3f * (dayCoreLevel + 1), true, false);
 			dayAnimatedSprite.GetComponent<AnimationController> ().StartRotating(4f);
 			yield return new WaitForSeconds (specialAttackTime);
 			daySpecial.SetActive (false);
-			Game.control.ui.WORLD.HideFXLayer();
+			Game.control.stageUI.WORLD.HideFXLayer();
 
 
 			//UNUSED STARBOMB SPECIAL, NOT SURE IF WANNA SCRAP YET
@@ -107,10 +109,10 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			}*/
 
 		} else if(core == "Night") {
-			Game.control.ui.WORLD.ShowFXLayer("Night");
+			Game.control.stageUI.WORLD.ShowFXLayer("Night");
 			//Game.control.ui.EffectOverlay("NightCore", true, 2);
 			Game.control.sound.PlaySpellSound("Player", "NightCore1");
-			Game.control.ui.ShowActivatedPlayerPhase ("Night Core: Trick or Treat");
+			Game.control.stageUI.RIGHT_SIDE_PANEL.ShowActivatedPlayerPhase ("Night Core: Trick or Treat");
 
 			nightSpecial.SetActive (true);
 			nightAnimatedSprite.GetComponent<AnimationController> ().Scale (true, .4f * (nightCoreLevel + 1), true, true);
@@ -120,7 +122,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			nightAnimatedSprite.GetComponent<AnimationController> ().Scale (false, .4f * (nightCoreLevel + 1), true, true);
 			//Game.control.ui.EffectOverlay("NightCore", false, 2);
 			nightSpecial.SetActive (false);
-			Game.control.ui.WORLD.HideFXLayer();
+			Game.control.stageUI.WORLD.HideFXLayer();
 			
 		}
         PowerUpdate (core, false);
@@ -144,7 +146,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 		limit = points - threshold;
 		if(limit < 0) limit = 0;
 		
-		Game.control.ui.LEFT_SIDE_PANEL.DepleteCoreCharge(core, 4f, points, limit);
+		Game.control.stageUI.LEFT_SIDE_PANEL.DepleteCoreCharge(core, 4f, points, limit);
 		
 		if (core == "Day") dayCorePoints = limit;
 		else nightCorePoints = limit;
@@ -179,8 +181,8 @@ public class PlayerSpecialAttack : MonoBehaviour {
 		if(core == "Day") 	 dayCorePoints = corePoints;
 		if (core == "Night") nightCorePoints = corePoints;
 
-		GetComponent<MiniToast>().PlayCorePointToast(gainedCharge, core);
-		Game.control.ui.LEFT_SIDE_PANEL.UpdateCoreCharge (core, gainedCharge);
+	    playerHandler.miniToaster.PlayToast(core + "Core");
+		Game.control.stageUI.LEFT_SIDE_PANEL.UpdateCoreCharge (core, gainedCharge);
 
 		Game.control.player.GainScore (coreCap * multiplier);
 	}
@@ -197,8 +199,8 @@ public class PlayerSpecialAttack : MonoBehaviour {
 				if (nightCoreLevel != 0) nightCoreLevel--;
 		}
 
-		Game.control.ui.LEFT_SIDE_PANEL.UpdatePower("Day", dayCoreLevel);
-		Game.control.ui.LEFT_SIDE_PANEL.UpdatePower("Night", nightCoreLevel);
+		Game.control.stageUI.LEFT_SIDE_PANEL.UpdatePower("Day", dayCoreLevel);
+		Game.control.stageUI.LEFT_SIDE_PANEL.UpdatePower("Night", nightCoreLevel);
 
 		//Debug.Log("day core level " + dayCoreLevel);
 		//Debug.Log("night core level " + nightCoreLevel);

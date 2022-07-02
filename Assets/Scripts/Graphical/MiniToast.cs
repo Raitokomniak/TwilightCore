@@ -6,39 +6,79 @@ using TMPro;
 
 public class MiniToast : MonoBehaviour
 {
-    public Canvas fxCanvas;
+    Canvas fxCanvas;
     public Object miniToastPrefab;
+    public Sprite scoreSprite;
+    public Sprite dayCoreSprite;
+    public Sprite nightCoreSprite;
+    public Sprite XPSprite;
+
+    string previousType;
+
+    bool readyForToast = true;
     
+    float toastTimer;
+    float toastCD = .2f;
 
-    public void PlayScoreToast(int value){
-        string toastText = "+" + value.ToString() + " score";
-        Toast(toastText);
+
+    void Awake(){
+        fxCanvas = GetComponent<Canvas>();
     }
-    public void PlayXPToast(int value){
-        string toastText = "+" + value.ToString() + " XP";
-        Toast(toastText);
-    }
-
-
-    public void PlayCorePointToast(int value, string core){
-        string toastText = "+" + core;
-        Toast(toastText);
+    void Update(){
+        if(!readyForToast) ToastTimer();
     }
 
-    void Toast(string toastText){
-       /* GameObject miniToastObject = Instantiate(miniToastPrefab) as GameObject;
-        miniToastObject.transform.SetParent(fxCanvas.transform);
-        miniToastObject.transform.position = transform.position + new Vector3(1f,0,0);
-        miniToastObject.GetComponent<TextMeshProUGUI>().text = toastText;
-        IEnumerator toastRoutine = ShowToastRoutine(miniToastObject);
-        StartCoroutine(toastRoutine);*/
+    void ToastTimer(){
+        if(toastTimer >= toastCD) readyForToast = true;
+        else {
+            readyForToast = false;
+            toastTimer+=Time.deltaTime;
+        }
+    }
+
+    public void PlayToast(string type){
+        if(type != "Score"){
+            if(previousType != type) readyForToast = true;
+            else readyForToast = false;
+            previousType = type;
+        }
+        else previousType = "Score";
+
+        if(!readyForToast) return;
+
+        GameObject o = InstantiateToast();
+        SpriteRenderer spriteRenderer = o.GetComponent<SpriteRenderer>();
+        
+        if     (type == "Score")     spriteRenderer.sprite = scoreSprite;
+        else if(type == "XP")        spriteRenderer.sprite = XPSprite;
+        else if(type == "DayCore")   spriteRenderer.sprite = dayCoreSprite;
+        else if(type == "NightCore") spriteRenderer.sprite = nightCoreSprite;
+        
+        IEnumerator toastRoutine = ShowToastRoutine(o);
+        StartCoroutine(toastRoutine);
+    }
+
+    GameObject InstantiateToast(){
+        GameObject o = Instantiate(miniToastPrefab) as GameObject;
+        SpriteRenderer spriteRenderer = o.GetComponent<SpriteRenderer>();
+        o.transform.SetParent(fxCanvas.transform);
+        o.transform.position = transform.position + new Vector3(Random.Range(-1, 2),Random.Range(-1, 1),0);
+       
+        //INSTEAD OF SCALING, MAKE THE SPRITES THE SIZE YOU WANT THEM TO BE
+        if(previousType == "Score") o.transform.localScale = new Vector3(1.5f, 1.5f,1.5f);
+        else o.transform.localScale = new Vector3(2,2,2);
+        return o;
     }
 
     IEnumerator ShowToastRoutine(GameObject toastObject){
+        toastTimer = 0;
+        readyForToast = false;
+
+        SpriteRenderer r = toastObject.GetComponent<SpriteRenderer>();
          for(float i = 1; i > 0; i-=Time.deltaTime){
             toastObject.transform.position += new Vector3(0,Time.deltaTime * 2,0);
             yield return new WaitForSeconds(Time.deltaTime);
-            toastObject.GetComponent<TextMeshProUGUI>().color = new Color(1,1,1,i);
+            r.color = new Color(1,1,1,i);
         }
         Destroy(toastObject);
     }

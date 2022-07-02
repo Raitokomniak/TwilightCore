@@ -18,92 +18,51 @@ public class MenuController : MonoBehaviour
 
 	public bool menuOn = false;
 
+    void Start(){
+        InitMenu();
+    }
 
-	string CheckInput(){
+	string CheckInput(string returnValue){
 		string input = "";
+        string iType = "";
 
-		if(Input.GetKeyDown (KeyCode.UpArrow))      input = "up";
-		if(Input.GetKeyDown (KeyCode.DownArrow))    input = "down";
-		if(Input.GetKeyDown (KeyCode.RightArrow))   input = "right";
-		if(Input.GetKeyDown (KeyCode.LeftArrow))    input = "left";
+		if(Input.GetKeyDown (KeyCode.UpArrow)) {    input = "up";       iType = "cursor"; }
+		if(Input.GetKeyDown (KeyCode.DownArrow)){   input = "down";     iType = "cursor"; }
+		if(Input.GetKeyDown (KeyCode.RightArrow)){  input = "right";    iType = "cursor"; }
+		if(Input.GetKeyDown (KeyCode.LeftArrow)) {  input = "left";     iType = "cursor"; }
 
-		if(Input.GetKeyDown (KeyCode.Z) || Input.GetKeyDown (KeyCode.Return)) input = "confirm";
-		if(Input.GetKeyDown (KeyCode.Escape)) input = "back";
-		
-		return input;		
+		if(Input.GetKeyDown (KeyCode.Z) || Input.GetKeyDown (KeyCode.Return)) input = "confirm"; iType = "selection";
+		if(Input.GetKeyDown (KeyCode.Escape)) input = "back"; iType = "selection";
+
+        if(returnValue == "value") return input;
+        if(returnValue == "type")  return iType;	
+
+        return "";
 	}
 
-	bool MainMenuContext(){
-		if(context == "MainMenu" || context == "DifficultyMenu") return true;
-		else return false;
-	}
-	
-	bool OtherMenuContext(){
-		if(context == "SaveScoreScreen") return false;
-		if(context == "Hiscores") return false;
-		return true;
-	}
-
-	// Update is called once per frame
-	void Update ()
+    void LateUpdate ()
 	{
 		if (AllowInput()) {
+            
+			if (CheckInput("value") == "up")    Game.control.ui.UpdateMenuSelection(context, Move ("up"));
+			if (CheckInput("value") == "down")  Game.control.ui.UpdateMenuSelection(context, Move ("down"));
 
-			if (CheckInput() == "up") { 
-				Game.control.sound.PlayMenuSound("Cursor");
-				if(MainMenuContext()) Game.control.mainMenuUI.UpdateMenuSelection (context, MoveUp ()); 
-				else if(context == "OptionsMenu" && Game.control.mainMenuUI == null) Game.control.ui.UpdateMenuSelection (context, MoveUp ());
-				else if(context == "OptionsMenu" && Game.control.mainMenuUI != null) Game.control.mainMenuUI.UpdateMenuSelection (context, MoveUp ());
-				else if(OtherMenuContext()) Game.control.ui.UpdateMenuSelection (context, MoveUp ());
+            if(context == "OptionsMenu") {
+                if (CheckInput("value") == "right") Game.control.options.UpdateOption(true, selectedIndex);
+                if (CheckInput("value") == "left") 	Game.control.options.UpdateOption(false, selectedIndex);
 			}
-			if (CheckInput() == "down") {
-				Game.control.sound.PlayMenuSound("Cursor");
-				if(MainMenuContext()) Game.control.mainMenuUI.UpdateMenuSelection (context, MoveDown ()); 
-				else if(context == "OptionsMenu" && Game.control.mainMenuUI == null) Game.control.ui.UpdateMenuSelection (context, MoveDown ());
-				else if(context == "OptionsMenu" && Game.control.mainMenuUI != null) Game.control.mainMenuUI.UpdateMenuSelection (context, MoveDown ());
-				else if(OtherMenuContext()) Game.control.ui.UpdateMenuSelection (context, MoveDown ());
-			}
-			if (CheckInput() == "right") 	{
-				if(context == "OptionsMenu"){
-					Game.control.sound.PlayMenuSound("Cursor");
-					Game.control.options.UpdateOption(true, selectedIndex);
-				}
-			}
-			if (CheckInput() == "left") 	{
-				if(context == "OptionsMenu"){
-					Game.control.sound.PlayMenuSound("Cursor");
-					Game.control.options.UpdateOption(false, selectedIndex);
-				}
-			}
-			if (CheckInput() == "confirm") CheckSelection ();	
-
-			if(CheckInput() == "back"){
-				if(context == "PauseMenu") Game.control.sound.PlayMenuSound("Selection");
-				else Game.control.sound.PlayMenuSound("Cancel");
-
-				if(context == "PauseMenu") ClosePauseMenu();
-				else if(context == "DifficultyMenu") Menu("MainMenu");
-				
-				else if(context == "OptionsMenu"){
-					if(Game.control.mainMenuUI == null) 
-						 Menu("PauseMenu");
-					else Menu("MainMenu");
-				}
-				else if(context == "Hiscores"){
-					if(Game.control.mainMenuUI != null) Menu("MainMenu");
-				}
-				else if(context == "SaveScoreScreen") Menu("GameOverMenu");
-			}
-
+        
+			if (CheckInput("value") == "confirm")   CheckSelection ();	
+			if (CheckInput("value") == "back")      CheckPrevious();
 
 		}
-
-		else if(AllowPause() && CheckInput() == "back"){
-				Menu("PauseMenu");
-				Game.control.sound.PlayMenuSound("Pause");
-				Game.control.pause.HandlePause();
-			}
+		else if(AllowPause() && CheckInput("value") == "back"){
+			Menu("PauseMenu");
+			Game.control.sound.PlayMenuSound("Pause");
+			Game.control.pause.HandlePause();
+		}
 	}
+
 	
 	bool AllowInput(){
 		if(!menuOn) return false;
@@ -133,40 +92,37 @@ public class MenuController : MonoBehaviour
 		if(context == "MainMenu"){
 			selectedList = mainMenuItems;
 			Game.control.mainMenuUI.ToggleMainMenu(true);
-			Game.control.mainMenuUI.UpdateMenuSelection ("MainMenu", 0);
 		}
 		else if(context == "PauseMenu") {
 			selectedList = pauseMenuItems;
-			Game.control.ui.UpdateMenuSelection ("PauseMenu", 0);
-			Game.control.ui.ToggleOptionsScreen(false);
+            Game.control.stageUI.TogglePauseMenu(true);
+			Game.control.ui.ToggleOptions(false);
 		}
 		else if(context == "DifficultyMenu"){
 			selectedList = difficultyMenuItems;
 			Game.control.mainMenuUI.ToggleDifficultySelection(true);
-			Game.control.mainMenuUI.UpdateMenuSelection ("DifficultyMenu", 0);
 		}
 		else if(context == "OptionsMenu"){
 			selectedList = optionsMenuItems;
-			Game.control.ui.ToggleOptionsScreen(true);
+			Game.control.ui.ToggleOptions(true);
 			Game.control.options.UpdateAllValues();
 		}
 		else if(context == "SaveScorePrompt"){
 			selectedList = yesNoItems;
-			Game.control.ui.UpdateMenuSelection ("SaveScorePrompt", 0);
-			//Game.control.ui.togglesavescoreprompt
 		}
 		else if(context == "OptionsMenuMain"){
 			selectedList = optionsMenuItems;
-			Game.control.mainMenuUI.ToggleOptions(true);
-			Game.control.mainMenuUI.UpdateMenuSelection ("OptionsMenu", 0);
+            Game.control.mainMenuUI.ToggleMainMenu(false);
+			Game.control.ui.ToggleOptions(true);
 			Game.control.options.UpdateAllValues();
 			context = "OptionsMenu";
 		}
 		else if(context == "GameOverMenu"){
 			selectedList = gameOverMenuItems;
-			Game.control.ui.GAMEOVER.GameOverSelections(true);
-			Game.control.ui.UpdateMenuSelection ("GameOverMenu", 0);
+			Game.control.stageUI.GAMEOVER.GameOverSelections(true);
 		}
+
+        Game.control.ui.UpdateMenu(context, selectedList);
 	}
 
 	public void InitMenu(){
@@ -176,7 +132,7 @@ public class MenuController : MonoBehaviour
 
 		//INSTEAD OF ITEMS, JUST FOLLOW INDEX
 		mainMenuItems = new List<string>();
-		mainMenuItems.Add ("Start Game");
+		mainMenuItems.Add ("New Game");
 		mainMenuItems.Add ("Hiscores");
 		mainMenuItems.Add ("Options");
 		mainMenuItems.Add ("Quit Game");
@@ -211,35 +167,57 @@ public class MenuController : MonoBehaviour
 		menuOn = false;
 	}
 
+    int Move(string dir){
+        if(context == "Hiscores") return 0;
+        Game.control.sound.PlayMenuSound("Cursor");
 
-	int MoveUp ()
-	{
-		if (selectedIndex == 0) 
+        if(dir == "up") {
+            if (selectedIndex == 0) 
 			selectedIndex = selectedList.Count - 1;
-		else selectedIndex--;
-		return selectedIndex;
-	}
-
-	int MoveDown ()
-	{
-		if (selectedIndex == selectedList.Count - 1) 
+            else selectedIndex--;
+            return selectedIndex;
+        }
+        else if (dir == "down") {
+            if (selectedIndex == selectedList.Count - 1) 
 			selectedIndex = 0;
-		else selectedIndex++;
-		return selectedIndex;
-	}
+            else selectedIndex++;
+            return selectedIndex;
+        }
+        return 0;
+    }
 
+
+    void CheckPrevious(){
+        Game.control.sound.PlayMenuSound("Cancel");
+        
+        switch(context){
+            case "PauseMenu": ClosePauseMenu();
+            break;
+            case "DifficultyMenu": Menu("MainMenu");
+            break;
+            case "OptionsMenu":
+                if(Game.control.mainMenuUI == null) Menu("PauseMenu");
+                else Menu("MainMenu");
+            break;
+            case "Hiscores": Menu("MainMenu");
+            break;
+            case "SaveScoreScreen": Menu("GameOverMenu");
+            break;
+        }
+    }
 	void CheckSelection ()
 	{
-	
+        Game.control.sound.PlayMenuSound("Selection");
+
 		if(context == "MainMenu"){
-			Game.control.sound.PlayMenuSound("Selection");
+			
 			if(selectedIndex == 0) Menu("DifficultyMenu");
 			if(selectedIndex == 1) {Game.control.mainMenuUI.ToggleScorePanel(true); context = "Hiscores"; }
 			if(selectedIndex == 2) Menu("OptionsMenuMain");
 			if(selectedIndex == 3) Game.control.QuitGame();
 		}
 		else if(context == "DifficultyMenu"){
-			Game.control.sound.PlayMenuSound("Selection");
+
 			if(selectedIndex == 0) Game.control.stageHandler.SetDifficulty(2);
 			if(selectedIndex == 1) Game.control.stageHandler.SetDifficulty(3);
 			if(selectedIndex == 2) Game.control.stageHandler.SetDifficulty(5);
@@ -248,7 +226,7 @@ public class MenuController : MonoBehaviour
 			Game.control.StartGame ();
 		}
 		else if(context == "PauseMenu"){
-			Game.control.sound.PlayMenuSound("Selection");
+
 			if(selectedIndex == 0) {
 				Game.control.pause.HandlePause();
 				menuOn = false;
@@ -257,17 +235,17 @@ public class MenuController : MonoBehaviour
 			if(selectedIndex == 2) Menu("OptionsMenu");
 			if(selectedIndex == 3) Game.control.stageHandler.MainMenu();
 			if(selectedIndex == 4) Game.control.QuitGame();
-			Game.control.ui.UpdateMenuSelection (context, 0);
+			Game.control.stageUI.UpdateMenuSelection (context, 0);
 		}
 		else if(context == "GameOverMenu"){
-			Game.control.sound.PlayMenuSound("Selection");
+
 			if(selectedIndex == 0) Game.control.stageHandler.StartGame();
 			if(selectedIndex == 1) Game.control.stageHandler.MainMenu();
 			if(selectedIndex == 2) Game.control.QuitGame();
 		}
 		else if(context == "SaveScorePrompt"){
-			Game.control.sound.PlayMenuSound("Selection");
-			if(selectedIndex == 0) {Game.control.ui.GAMEOVER.SaveScoreScreen(true); context = "SaveScoreScreen";}
+
+			if(selectedIndex == 0) {Game.control.stageUI.GAMEOVER.SaveScoreScreen(true); context = "SaveScoreScreen";}
 			if(selectedIndex == 1) Menu("GameOverMenu");
 		}
 	}

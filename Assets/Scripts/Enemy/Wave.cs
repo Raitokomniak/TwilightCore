@@ -137,7 +137,7 @@ public class Wave
 		else if(bossIndex == 2f) bossScript = enemy.AddComponent<Boss2> ();
 		else if(bossIndex == 3f) bossScript = enemy.AddComponent<Boss3> ();
 		bossScript.Init();
-		enemy.GetComponent<BossLife> ().SetHealth (health, healthBars, bossScript);
+		enemy.GetComponent<BossLife> ().Init (health, healthBars, bossScript);
 		enemy.GetComponentInChildren<SpriteRenderer> ().sprite = sprite;
 
 		GameObject MCspriteAnim = enemy.transform.GetChild(2).gameObject;
@@ -152,6 +152,6 @@ public class Wave
 		//start execution
 		Game.control.enemySpawner.DestroyAllProjectiles();
 		bossScript.NextPhase ();
-		Game.control.ui.BOSS.ToggleBossHealthSlider (true, enemy.GetComponent<BossLife> ().maxHealth, bossName);
+		Game.control.stageUI.BOSS.ToggleBossHealthSlider (true, enemy.GetComponent<BossLife> ().maxHealth, bossName);
 	}
 }

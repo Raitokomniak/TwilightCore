@@ -22,7 +22,7 @@ public class Stage1 : Stage
 
 
 	IEnumerator StageHandlerRoutine(){
-        
+        /*
 		scene.SetPlaneSpeed(50f);
 		while (dialog.handlingDialog) yield return null;
 		dialog.StartDialog ("Stage1_0");
@@ -49,7 +49,9 @@ public class Stage1 : Stage
 		dialog.StartDialog ("Stage1_2");
 		while (dialog.handlingDialog) yield return null;
 		scene.SetPlaneSpeed (35f);
-      
+      */
+
+      // BOSS //
 
 		while (stage.stageTimer < boss.spawnTime - 1) yield return null;
 
@@ -63,6 +65,7 @@ public class Stage1 : Stage
 		}
 		Game.control.sound.PlayMusic ("Boss", 1);
 
+        
         while(!stage.bossScript.life.dead) yield return null;
         stage.ToggleTimer(false);
 		yield return new WaitForSeconds(1f);
@@ -351,20 +354,22 @@ public class Stage1 : Stage
 		p.SetSprite ("Circle", "Glow", "Green", "Medium");
 		stage.NewWave (new Wave (91f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "gand_sitar"));
 
+
+
+
 /*
-
-
 	//BOSDEBUG
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
 		
 
-		boss = new Wave(mp, 1f, 90, true, 2);
-		boss.SetUpBoss (1, "Maaya, Forest Guardian", false);
+		boss = new Wave(mp, 1f, 50, true, 2);
+		boss.SetUpBoss (1, "Maaya, TEST SUBJECT", false);
 		stage.NewWave (boss);
 
 	}
-*/
+    */
+
 
 
 
@@ -376,7 +381,7 @@ public class Stage1 : Stage
 		boss = new Wave(mp, 102f, 750, true, 2);
 		boss.SetUpBoss (1, "Maaya, Forest Guard", false);
 		stage.NewWave (boss);
-	
+
 	}
     
 

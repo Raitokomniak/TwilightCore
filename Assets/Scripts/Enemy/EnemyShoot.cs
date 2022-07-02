@@ -68,7 +68,7 @@ public class EnemyShoot : MonoBehaviour {
     bool OutOfBounds(){
 		float y = transform.position.y;
 		float x = transform.position.x;
-		float[] walls = Game.control.ui.WORLD.GetBoundaries();
+		float[] walls = Game.control.stageUI.WORLD.GetBoundaries();
         if(walls == null) return true;
 
 		if (y < walls[0] || x < walls[1] + 1 || y > walls[2] - 1 || x > walls[3] - 1)

@@ -47,22 +47,23 @@ public class PlayerHandler : MonoBehaviour {
 	public PlayerMovement movement;
 	public PlayerLife health;
 	public PlayerSpecialAttack special;
-
+    public MiniToast miniToaster;
 
 	void Awake(){
 		combat = GetComponent<PlayerShoot>();
 		movement = GetComponent<PlayerMovement>();
 		health = GetComponent<PlayerLife>();
 		special = GetComponent<PlayerSpecialAttack>();
+        miniToaster = GetComponentInChildren<MiniToast>();
 	}
 
 	public void Init(){
 		transform.position = Game.control.vectorLib.GetVector("X8");
 		health.Init ();
 		combat.Init ();
-		Game.control.ui.RIGHT_SIDE_PANEL.UpdateScore (Game.control.stageHandler.stats.score);
-		Game.control.ui.RIGHT_SIDE_PANEL.UpdateLives(Game.control.stageHandler.stats.lives);
-		Game.control.ui.RIGHT_SIDE_PANEL.UpdateXP(Game.control.stageHandler.stats.xp);
+		Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateScore (Game.control.stageHandler.stats.score);
+		Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateLives(Game.control.stageHandler.stats.lives);
+		Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateXP(Game.control.stageHandler.stats.xp);
 	}
 
 	public long GainScore(int gained){
@@ -70,9 +71,9 @@ public class PlayerHandler : MonoBehaviour {
 		Game.control.stageHandler.stats.score += gainedScore;
 		if (Game.control.stageHandler.stats.score >= Game.control.stageHandler.stats.hiScore) {
 			Game.control.stageHandler.stats.hiScore = Game.control.stageHandler.stats.score;
-			Game.control.ui.RIGHT_SIDE_PANEL.UpdateHiScore (Game.control.stageHandler.stats.hiScore);
+			Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateHiScore (Game.control.stageHandler.stats.hiScore);
 		}
-		Game.control.ui.RIGHT_SIDE_PANEL.UpdateScore (Game.control.stageHandler.stats.score);
+		Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateScore (Game.control.stageHandler.stats.score);
 
 		return gainedScore;
 	}
@@ -82,16 +83,16 @@ public class PlayerHandler : MonoBehaviour {
 	{
 		PlayerStats stats = Game.control.stageHandler.stats;
 		stats.xp += gainedXP;
-		GetComponent<MiniToast>().PlayXPToast(gainedXP);
+		miniToaster.PlayToast("XP");
 
 		if(stats.xp >= stats.xpCap) {
 			stats.xp = stats.xp - stats.xpCap;
 			stats.xpCap += 50;
 			stats.lives += 1;
-			GetComponent<PlayerLife>().GainLife();
+			health.GainLife();
 		}
 
-		Game.control.ui.RIGHT_SIDE_PANEL.UpdateXP(Game.control.stageHandler.stats.xp);
+		Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateXP(Game.control.stageHandler.stats.xp);
 	}
 
 
