@@ -34,7 +34,7 @@ public class BMP_TurnToSpears : BulletMovementPattern
         startHoming = true;
 		yield return new WaitForSeconds (.5f);
 		accelMax = 40;
-        accelSpeed = 20;
+        accelSpeed = 40;
 		SmoothAcceleration ();
         yield return new WaitForSeconds (.5f);
         if(bulletHomingWarningLine) bulletHomingWarningLine.DisableLine();

@@ -48,12 +48,10 @@ public class StageHandler : MonoBehaviour {
 		if(stageOn){
             if(!stageTimerOn || Game.control.pause.paused) return;
 			
-            if(Game.control.pause.playerHitTimerOn) 
-                stageTimer += Time.unscaledDeltaTime;
-            else
-                stageTimer += Time.deltaTime;
+            if(Game.control.pause.playerHitTimerOn) stageTimer += Time.unscaledDeltaTime;
+            else stageTimer += Time.deltaTime;
 
-			Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateTimer(stageTimer);
+			//Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateTimer(stageTimer);
 		}
 		else {
 			if(AllowInput()){
@@ -294,7 +292,7 @@ public class StageHandler : MonoBehaviour {
 		
 		yield return new WaitUntil(() => Game.control.enemySpawner.AbortSpawner() == true);
 
-        Game.control.bulletPool.InstantiateBulletsToPool(300);
+        Game.control.bulletPool.InstantiateBulletsToPool(100 * difficultyMultiplier);
         yield return new WaitUntil(() => Game.control.bulletPool.done == true);
 		
 		Game.control.pause.Unpause (false);

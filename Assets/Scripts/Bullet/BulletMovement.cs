@@ -21,6 +21,15 @@ public class BulletMovement : MonoBehaviour {
 	float trailSpawnCD = .07f;
 	bool canSpawnTrail = true;
 
+
+
+    Vector3 findPlayer;
+    GameObject nightCoreField;
+    GameObject dayCoreField;
+    Collider2D bulletCollider;
+    Vector3 stageBot;
+    bool canEnable;
+
 	void Awake() {
 		active = false;
 		lib = Game.control.vectorLib;
@@ -31,6 +40,11 @@ public class BulletMovement : MonoBehaviour {
         boxCollider = GetComponent<BoxCollider2D>();
         circleCollider = GetComponent<CircleCollider2D>();
         bulletBouncer = GetComponent<BulletBouncer>();
+
+
+
+        
+
 	}
 
 	public void Init(BulletMovementPattern _BMP, EnemyShoot enemyShoot){
@@ -39,6 +53,15 @@ public class BulletMovement : MonoBehaviour {
 		shooter = enemyShoot;
 		SetUpBulletMovement ();
 		active = true;
+        
+        bulletCollider = null; 
+        if     (BMP.hitBoxType == "Box")    bulletCollider = boxCollider;
+        else if(BMP.hitBoxType == "Circle") bulletCollider = circleCollider;
+
+        nightCoreField = Game.control.player.special.nightSpecial;
+		dayCoreField = Game.control.player.special.daySpecial;
+
+        stageBot = new Vector3(0, Game.control.stageUI.WORLD.GetBoundaries()[0],0);
 	}
 
     public void SetUpBulletMovement()
@@ -104,7 +127,7 @@ public class BulletMovement : MonoBehaviour {
         if(BMP.isMoving){
             if(BMP.accelerating){
                 if(BMP.movementSpeed < BMP.accelIniSpeed)
-                    BMP.movementSpeed += 4f * BMP.accelSpeed * Time.deltaTime;
+                    BMP.movementSpeed += BMP.accelSpeed * Time.deltaTime;
                 else if(BMP.movementSpeed > BMP.accelIniSpeed)
                     BMP.accelerating = false;
             }
@@ -120,20 +143,15 @@ public class BulletMovement : MonoBehaviour {
 	}
     
 	void CheckCollider(){
-		bool canEnable = false;
-		Vector3 findPlayer = Game.control.player.gameObject.transform.position;
-		GameObject nightCoreField = Game.control.player.special.nightSpecial;
-		GameObject dayCoreField = Game.control.player.special.daySpecial;
+		canEnable = false;
+		findPlayer = Game.control.player.gameObject.transform.position;
 
 		if((transform.position - findPlayer).magnitude < 1f) canEnable = true; // IF NEAR PLAYER
-		if(Game.control.stageUI.WORLD.GetBoundaries() != null) if(bulletBouncer && (transform.position - new Vector3(0, Game.control.stageUI.WORLD.GetBoundaries()[0],0)).magnitude < 1f) canEnable = true; //IF BOUNCER && NEAR BOT WALL
-		if(nightCoreField.activeSelf && (transform.position - nightCoreField.transform.position).magnitude < 6f) canEnable = true;
-		if(dayCoreField.activeSelf && (transform.position - dayCoreField.transform.position).magnitude < 13f) canEnable = true;
-		
-        Collider2D bulletCollider = null; 
-        if     (BMP.hitBoxType == "Box")    bulletCollider = boxCollider;
-        else if(BMP.hitBoxType == "Circle") bulletCollider = circleCollider;
-
+		if(Game.control.stageUI.WORLD.GetBoundaries() != null) 
+            if(bulletBouncer) if ((transform.position - stageBot).magnitude < 1f) canEnable = true; //IF BOUNCER && NEAR BOT WALL
+		if(nightCoreField.activeSelf)   if((transform.position - nightCoreField.transform.position).magnitude < 6f)     canEnable = true;
+		if(dayCoreField.activeSelf)     if((transform.position - dayCoreField.transform.position).magnitude < 13f)      canEnable = true;
+        
 		if(!hitBoxEnabled && canEnable) {
             hitBoxEnabled = true;
             bulletCollider.enabled = true;
@@ -170,7 +188,7 @@ public class BulletMovement : MonoBehaviour {
     }
 
     void CheckScale(){
-        if(BMP != null) if(BMP.forceScale) transform.localScale = BMP.scale;
+        if(BMP != null) if(BMP.forceScale && transform.localScale != BMP.scale) transform.localScale = BMP.scale;
     }
 
     
@@ -188,9 +206,9 @@ public class BulletMovement : MonoBehaviour {
 	}
 	
 	void UpdateRotations(){
-		transform.rotation = BMP.rotation;
-		transform.GetChild(0).rotation = BMP.spriteRotation;
-		transform.GetChild(1).rotation = BMP.spriteRotation;
+		if(transform.rotation != BMP.rotation) transform.rotation = BMP.rotation;
+		if(transform.GetChild(0).rotation != BMP.spriteRotation) transform.GetChild(0).rotation = BMP.spriteRotation;
+		if(transform.GetChild(1).rotation != BMP.spriteRotation) transform.GetChild(1).rotation = BMP.spriteRotation;
 	}
 
     //////////////////////////////

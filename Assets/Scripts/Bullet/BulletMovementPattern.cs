@@ -59,6 +59,9 @@ public class BulletMovementPattern
 
     public HomingWarningLine bulletHomingWarningLine;
 
+
+    BulletMovementPattern copiedBMP;
+
     public void ReceiveBulletData(GameObject _bullet){
        bullet = _bullet;
        bulletSprite = bullet.GetComponentInChildren<SpriteRenderer>().sprite;
@@ -80,45 +83,45 @@ public class BulletMovementPattern
 	}
 
 	public BulletMovementPattern CopyValues(string bmpType, BulletMovementPattern _bmp){
-		BulletMovementPattern bmp = new BulletMovementPattern();
-		if(bmpType == "Aurora") bmp = new BMP_Aurora();
-		if(bmpType == "RainDrop") bmp = new BMP_RainDrop();
-		if(bmpType == "DownAndExplode") bmp = new BMP_DownAndExplode();
-		if(bmpType == "Explode") bmp = new BMP_Explode();
-        if(bmpType == "LaserExpand") bmp = new BMP_LaserExpand();
-		if(bmpType == "SlowWaving") bmp = new BMP_SlowWaving();
-		if(bmpType == "Stop") bmp = new BMP_Stop();
-		if(bmpType == "StopAndRotate") bmp = new BMP_StopAndRotate();
-		if(bmpType == "TurnToSpears") bmp = new BMP_TurnToSpears();
-		if(bmpType == "WaitAndExplode") bmp = new BMP_WaitAndExplode();
-		if(bmpType == "WaitToHome") bmp = new BMP_WaitToHome();
+		copiedBMP = new BulletMovementPattern();
+		if(bmpType == "Aurora") copiedBMP = new BMP_Aurora();
+		if(bmpType == "RainDrop") copiedBMP = new BMP_RainDrop();
+		if(bmpType == "DownAndExplode") copiedBMP = new BMP_DownAndExplode();
+		if(bmpType == "Explode") copiedBMP = new BMP_Explode();
+        if(bmpType == "LaserExpand") copiedBMP = new BMP_LaserExpand();
+		if(bmpType == "SlowWaving") copiedBMP = new BMP_SlowWaving();
+		if(bmpType == "Stop") copiedBMP = new BMP_Stop();
+		if(bmpType == "StopAndRotate") copiedBMP = new BMP_StopAndRotate();
+		if(bmpType == "TurnToSpears") copiedBMP = new BMP_TurnToSpears();
+		if(bmpType == "WaitAndExplode") copiedBMP = new BMP_WaitAndExplode();
+		if(bmpType == "WaitToHome") copiedBMP = new BMP_WaitToHome();
 
-		bmp.bullet = _bmp.bullet;
-		bmp.centerPoint = _bmp.centerPoint;
-		bmp.targetMagnitude = _bmp.targetMagnitude;
-		bmp.isHoming = _bmp.isHoming;
-		bmp.startHoming = _bmp.startHoming;
-		bmp.isMoving = _bmp.isMoving;
-		bmp.randomDirs = _bmp.randomDirs;
-		bmp.rotateOnAxis = _bmp.rotateOnAxis;
-		bmp.dontDestroy = _bmp.dontDestroy;
-		bmp.movementSpeed = _bmp.movementSpeed;
-		bmp.accelMax = _bmp.accelMax;
-		bmp.accelSpeed = _bmp.accelSpeed;
-		bmp.rotation = _bmp.rotation;
-		bmp.scale = _bmp.scale;
-		bmp.forceScale = _bmp.forceScale;
-		bmp.pattern = _bmp.pattern;
-		bmp.layer = _bmp.layer;
-		bmp.trail = _bmp.trail;
-		bmp.moveWithForce = _bmp.moveWithForce;
-		bmp.forceRotation = _bmp.forceRotation;
-		bmp.rotationDir = _bmp.rotationDir;
-		bmp.waitAndExplodeWaitTime = _bmp.waitAndExplodeWaitTime;
-        bmp.hitBoxType = _bmp.hitBoxType;
-        bmp.name = _bmp.name;
+		copiedBMP.bullet = _bmp.bullet;
+		copiedBMP.centerPoint = _bmp.centerPoint;
+		copiedBMP.targetMagnitude = _bmp.targetMagnitude;
+		copiedBMP.isHoming = _bmp.isHoming;
+		copiedBMP.startHoming = _bmp.startHoming;
+		copiedBMP.isMoving = _bmp.isMoving;
+		copiedBMP.randomDirs = _bmp.randomDirs;
+		copiedBMP.rotateOnAxis = _bmp.rotateOnAxis;
+		copiedBMP.dontDestroy = _bmp.dontDestroy;
+		copiedBMP.movementSpeed = _bmp.movementSpeed;
+		copiedBMP.accelMax = _bmp.accelMax;
+		copiedBMP.accelSpeed = _bmp.accelSpeed;
+		copiedBMP.rotation = _bmp.rotation;
+		copiedBMP.scale = _bmp.scale;
+		copiedBMP.forceScale = _bmp.forceScale;
+		copiedBMP.pattern = _bmp.pattern;
+		copiedBMP.layer = _bmp.layer;
+		copiedBMP.trail = _bmp.trail;
+		copiedBMP.moveWithForce = _bmp.moveWithForce;
+		copiedBMP.forceRotation = _bmp.forceRotation;
+		copiedBMP.rotationDir = _bmp.rotationDir;
+		copiedBMP.waitAndExplodeWaitTime = _bmp.waitAndExplodeWaitTime;
+        copiedBMP.hitBoxType = _bmp.hitBoxType;
+        copiedBMP.name = _bmp.name;
 
-		return bmp;
+		return copiedBMP;
 	}
 
 

@@ -23,7 +23,8 @@ public class P_Rain : Pattern
                 posX = Random.Range(0, 9);
                 spawnPosition = lib.GetVector(XCOORS[posX] + "1");
                 BMP = new BMP_RainDrop(this);
-                BMP.accelMax = 40f;
+                BMP.movementSpeed = 1f;
+                BMP.accelMax = 5f;
                 BMP.accelSpeed = 4;
                 BMP.trail = true;
                 BMP.moveWithForce = true;

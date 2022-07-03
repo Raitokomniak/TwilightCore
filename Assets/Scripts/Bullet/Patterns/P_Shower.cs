@@ -27,7 +27,8 @@ public class P_Shower : Pattern
                 int randomDir = Random.Range(-10, 10);
                 BMP.rotation = Quaternion.Euler(0,0, BMP.rotation.z + (1f * randomDir));
                 SetSprite ("Circle", "Glow", "Blue", "Small");
-                BMP.accelMax = 30f;
+                 BMP.movementSpeed = 1f;
+                BMP.accelMax = 5f;
                 BMP.accelSpeed = 2;
                 BMP.moveWithForce = true;
                 //SpawnBullet (enemyBullet, bulletMovement);
