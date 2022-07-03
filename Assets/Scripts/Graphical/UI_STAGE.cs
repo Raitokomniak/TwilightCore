@@ -14,7 +14,7 @@ public class UI_STAGE : UI {
 	public UI_GameOver GAMEOVER;
 	public UI_StageToastPanel STAGETOAST;
 	public UI_StageComplete STAGEEND;
-
+    public UI_INTRO INTRO;
 
 	//EFFECT OVERLAY
 	public Image EFFECT_OVERLAY;

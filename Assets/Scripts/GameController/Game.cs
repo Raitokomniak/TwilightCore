@@ -39,6 +39,8 @@ public class Game : MonoBehaviour {
 	}
 
 	void Start(){
+        if(GetCurrentScene() == "MainMenu") SetUI("MainMenu");
+        else SetUI("Stage");
 		MainMenu();
 	}
 
@@ -49,13 +51,8 @@ public class Game : MonoBehaviour {
 		} else if (control != this) {
 			Destroy (gameObject);
 		}
-
-        if(GameObject.Find("MainMenuCanvas")) mainMenuUI = GameObject.Find("MainMenuCanvas").GetComponent<UI_MAINMENU>();
-        if(GameObject.Find("StageCanvas"))    stageUI = GameObject.Find("StageCanvas").GetComponent<UI_STAGE>();
-
-        if(mainMenuUI==null) ui = stageUI;
-        else ui = mainMenuUI;
 	}
+
 
 	public void MainMenu (){
 		StartCoroutine(LoadMainMenu());
@@ -75,6 +72,7 @@ public class Game : MonoBehaviour {
 
 	IEnumerator LoadMainMenu(){
         loading = true;
+        
         ui.ToggleLoadingScreen(true);
 
 		if(GetCurrentScene() != "MainMenu") {
@@ -85,6 +83,8 @@ public class Game : MonoBehaviour {
 			AsyncOperation loadScene = SceneManager.LoadSceneAsync ("MainMenu");
 			yield return new WaitUntil(() => loadScene.isDone == true);
 		}
+
+        yield return new WaitUntil(() => GameObject.Find("MainMenuCanvas") != null);
         
         SetUI("MainMenu");
         ui.ToggleLoadingScreen(true);

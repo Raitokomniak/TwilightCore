@@ -15,20 +15,19 @@ public class P_SpiderWeb : Pattern
 	}
 
    public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
+        //yield return new WaitForSeconds(delayBeforeAttack);
 		spawnedBullets = new ArrayList ();
 		allBulletsSpawned = false;
 		pos = enemy.transform.position;
-
-        yield return new WaitForSeconds(delayBeforeAttack);
-        
 		animation = (Resources.Load ("Images/Animations/SmallWeb") as GameObject);
 		animation.GetComponent<SpriteAnimationController>().stayTime = 2f;
 		bulletRotation = rot;
 		animating = false;
+
 		for (int i = 0; i < bulletCount; i++) {
 			bullet = SpawnBullet (BMP);
-            Debug.Log(bullet.GetComponent<BulletMovement>());
-            bullet.GetComponent<BulletMovement>().spriteR.sprite = Game.control.spriteLib.SetBulletSprite ("Spider_Glow", "", "");
+            bullet.GetComponent<BulletMovement>().spriteR.sprite = Game.control.spriteLib.SetBulletSprite ("Spider_Glow");
+            bullet.GetComponent<BulletMovement>().glowRend.sprite = null;
 		}
 		yield return new WaitUntil(() => allBulletsSpawned == true);
 		Animate(1, 2f, BMP.centerPoint);

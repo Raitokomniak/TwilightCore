@@ -84,10 +84,10 @@ public class Pattern
 	public void StopPattern(){
 		//Debug.Log("stoppat");
 		stop = true;
-        if(spawnedBullets == null) return;
+        /*if(spawnedBullets == null) return;
         foreach(GameObject b in spawnedBullets){
             if(b != null && BMP != null) b.GetComponent<BulletMovement>().StopCoroutine(BMP.ExecuteRoutine());
-        }
+        }*/
 	}
 	
 	/// 
@@ -115,6 +115,10 @@ public class Pattern
 		if(BMP == null) BMP = new BMP_Explode(this, 5f); //DEFAULT
 		BMP = BMP.GetNewBulletMovement(BMP);
 		bullet = Game.control.bulletPool.FetchBulletFromPool();
+        if(bullet == null) {
+            bullet = GameObject.Instantiate(Resources.Load("Prefabs/enemyBullet"), spawnPosition, Quaternion.identity) as GameObject;
+            bullet.transform.SetParent(Game.control.bulletPool.bulletContainer);
+        }
         //bullet = GameObject.Instantiate(Resources.Load("Prefabs/enemyBullet"), spawnPosition, Quaternion.identity) as GameObject;
        // BMP.bullet = bullet;
         BMP.ReceiveBulletData(bullet);
@@ -223,6 +227,7 @@ public class Pattern
 	{
         bSprite = new BulletSprite(shape, "", "", size);
 		sprite = Game.control.spriteLib.SetBulletSprite (shape, "", "");
+        glowSprite = null;
 		SetSize(size);
 	}
 

@@ -29,7 +29,6 @@ public class Boss2 : Phaser
 
         switch (phase) {
 			case 0:
-				//movementPatterns.Add(new EnemyMovementPattern (new Vector3 (2.63f, 7.63f, 0f), false, 0));
 				Game.control.enemySpawner.DestroyAllEnvironmentalHazards();
                 StartPhaseTimer(30);
 				

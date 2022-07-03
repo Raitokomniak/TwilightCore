@@ -25,21 +25,19 @@ public class BMP_DownAndExplode : BulletMovementPattern
         movementSpeed = 5f;
 		yield return Wait1;
         pattern.allBulletsSpawned = true;
-		
+
+        //i guess there was an extra bullet?
 		if (pattern.spawnedBullets.Count != 0) 
             pattern.spawnedBullets.RemoveAt (pattern.spawnedBullets.Count - 1);
 
-		rotation.eulerAngles = new Vector3 (0f, 0f, (pattern.spawnedBullets.Count - 1) * (360 / (pattern.bulletCount)));
+		centerPoint = bullet.transform.position;
+        rotation.eulerAngles = new Vector3 (0f, 0f, (pattern.spawnedBullets.Count - 1) * (360 / (pattern.bulletCount)));
 
         movementSpeed = 6f;
-        centerPoint = bullet.transform.position;
 		Explode (2.5f);
-        
         yield return new WaitUntil (() => bulletMovement.GetRemainingDistance (centerPoint) > targetMagnitude);
-        //moveWithForce = false;
-        movementSpeed = 0f;
-        
 		Stop (bullet);
+        movementSpeed = 0f;
         
 		yield return new WaitForSeconds (0.3f);
 		RotateOnAxis (1, 100f);

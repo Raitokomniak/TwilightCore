@@ -12,6 +12,8 @@ public class UI_MAINMENU : UI
 	public GameObject scorePanel;
 
 
+
+
    	public override void InitMainMenu(){
         gameObject.SetActive(true);
 		ToggleMainMenu(true);

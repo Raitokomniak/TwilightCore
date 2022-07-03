@@ -39,15 +39,6 @@ public class UI_RightSidePanel : MonoBehaviour
         lifeSprites = tempList;
     }
 
-    public void AddLife(int lives){
-        //foreach(GameObject life in lifeSprites) Destroy(life);
-        //lifeSprites = new List<GameObject>();
-        Transform lastLife = lifeSprites[lifeSprites.Count - 1].transform;
-        Vector3 spawnPos = new Vector3(lastLife.position.x + 50, livesContainer.position.y, livesContainer.position.z);
-        GameObject newLife = Instantiate(lifeSpritePrefab, spawnPos, Quaternion.identity) as GameObject;
-        newLife.transform.SetParent(livesContainer);
-        lifeSprites.Add(newLife);
-    }
 
     public void InitLives(int lives){
         for(int i = 0; i < lives; i++){

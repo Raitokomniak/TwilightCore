@@ -52,6 +52,10 @@ public class BulletMovement : MonoBehaviour {
 	public void Pool(){
         
         DisableHitBoxes();
+        spriteR.sortingOrder = 4;
+        glowRend.sortingOrder = 0;
+        spriteR.sprite = null;
+        glowRend.sprite = null;
         transform.localScale = new Vector3 (0, 0, 0);
         if(BMP != null) BMP.accelerating = false;
 		BMP = null;
@@ -92,30 +96,27 @@ public class BulletMovement : MonoBehaviour {
 	void Update(){
         if(BMP == null) return;
 
-
         CheckCollider();
-		CheckScale();
-        CheckBounds();
+		CheckScale(); 
 
-        //MOVEMENT
-        if(BMP == null) return;
-        if(!BMP.isMoving) return;
-
-		if(BMP.trail && canSpawnTrail) MakeTrail();
+		if(BMP!=null) if(BMP.trail && canSpawnTrail) MakeTrail();
             
-        if(BMP.rotateOnAxis)  AxisRotation();
-        else {
-            UpdateRotations();
-			CheckMovementType();
+        if(BMP.isMoving){
+            if(BMP.accelerating){
+                if(BMP.movementSpeed < BMP.accelIniSpeed)
+                    BMP.movementSpeed += 4f * BMP.accelSpeed * Time.deltaTime;
+                else if(BMP.movementSpeed > BMP.accelIniSpeed)
+                    BMP.accelerating = false;
+            }
+
+            if(BMP.rotateOnAxis)  AxisRotation();
+            else {
+                UpdateRotations();
+                CheckMovementType();
+            }
         }
 
-        //ACCEL
-        if(!BMP.accelerating) return;
-
-		if(BMP.movementSpeed < BMP.accelIniSpeed)
-			BMP.movementSpeed += 4f * BMP.accelSpeed * Time.deltaTime;
-		else if(BMP.movementSpeed > BMP.accelIniSpeed)
-			BMP.accelerating = false;
+        CheckBounds();
 	}
     
 	void CheckCollider(){
@@ -151,11 +152,7 @@ public class BulletMovement : MonoBehaviour {
 
 
     void AxisRotation(){
-        BMP.centerPoint = transform.position;
-		BMP.movementSpeed = 100;
-		Quaternion q = Quaternion.AngleAxis (BMP.movementSpeed, Vector3.up);
-		rb.MovePosition (q * (rb.transform.position - BMP.centerPoint) + BMP.centerPoint);
-		rb.MoveRotation (rb.transform.rotation * q);
+        transform.RotateAround (BMP.centerPoint, Vector3.back, (Time.deltaTime * BMP.movementSpeed));
     }
 
     void CheckMovementType(){
@@ -182,8 +179,9 @@ public class BulletMovement : MonoBehaviour {
 		float x = transform.position.x;
 
 		if(y < lib.OOBBot || x < lib.OOBLeft || y > lib.OOBTop || x > lib.OOBRight){
-			if (active && !BMP.dontDestroy)
+			if (active && !BMP.dontDestroy){
 				Game.control.bulletPool.StoreBulletToPool(this);
+            }
 			return false;
 		}
 		else return true;

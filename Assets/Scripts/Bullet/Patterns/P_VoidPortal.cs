@@ -12,7 +12,6 @@ public class P_VoidPortal : Pattern
     public bool dontDestroyAnimation = false;
     
     public P_VoidPortal(float _stayTime, float _targetScale, float _scalingTime){
-       // bulletCount = 1;
 		coolDown = 3;
 		tempMagnitude = originMagnitude;
         stayTime = _stayTime;
@@ -22,7 +21,6 @@ public class P_VoidPortal : Pattern
 
 
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
-        Debug.Log("voidportal");
         yield return new WaitUntil(() => enemy.GetComponent<EnemyMovement>().pattern.HasReachedDestination(enemy.GetComponent<EnemyMovement>()) == true);
         yield return new WaitForSeconds(delayBeforeAttack);
 		pos = enemy.transform.position;

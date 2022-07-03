@@ -97,6 +97,7 @@ public class MenuController : MonoBehaviour
 			selectedList = pauseMenuItems;
             Game.control.stageUI.TogglePauseMenu(true);
 			Game.control.ui.ToggleOptions(false);
+            
 		}
 		else if(context == "DifficultyMenu"){
 			selectedList = difficultyMenuItems;

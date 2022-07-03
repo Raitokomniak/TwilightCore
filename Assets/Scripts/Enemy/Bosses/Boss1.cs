@@ -309,7 +309,7 @@ public class Boss1 : Phaser
 				break;
 			case 3:
 				Game.control.stageUI.BOSS.ShowActivatedPhase ("Hoodwink: Fox Fires");
-				//StartPhaseTimer(30);
+				StartPhaseTimer(30);
 				
 				p = new P_FoxFires(difficulty, 40 * difficulty);
 				p.SetSprite ("Fireball", "Glow", "Orange", "Small");

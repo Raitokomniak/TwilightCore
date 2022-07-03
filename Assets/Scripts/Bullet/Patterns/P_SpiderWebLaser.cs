@@ -16,7 +16,6 @@ public class P_SpiderWebLaser : Pattern
         allBulletsSpawned = false;
         string[] xcoors = new string[7]{"B", "C", "D", "E", "F", "G", "H"};
         yield return new WaitForSeconds(delayBeforeAttack);
-        Debug.Log("bulletcount " + bulletCount);
 
         for (int i = -1; i < bulletCount * 2; i++) {
             float ang = 0;
@@ -29,8 +28,10 @@ public class P_SpiderWebLaser : Pattern
                 int xcor = Random.Range(0, 7);
                 spawnPosition = lib.GetVector(xcoors[xcor] + "10");
             }
-            bulletRotation = Quaternion.Euler(0,0,ang);
+            //bulletRotation = Quaternion.Euler(0,0,ang);
+            //bulletRotation.eulerAngles = new Vector3(0,0,ang);
             BMP = new BMP_LaserExpand(this);
+            BMP.rotation = Quaternion.Euler(0,0,ang);
            // SpawnBullet (enemyBullet, bulletMovement);
             SpawnBullet (BMP);
             bullet.GetComponent<BulletMovement> ().spriteR.sprite = sprite;

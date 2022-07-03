@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3777612600331798498}
   - component: {fileID: 7305404837695070346}
   - component: {fileID: 4111270878783590831}
+  - component: {fileID: 8038422772108365913}
   m_Layer: 0
   m_Name: STAGE
   m_TagString: Untagged
@@ -49,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossScript: {fileID: 0}
+  intro: {fileID: 8038422772108365913}
   difficultyMultiplier: 0
   difficultyAsString: 
   gameOver: 0
@@ -86,6 +88,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e2226ce8748034bb2e34ffe0ddb985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPool: {fileID: 0}
+  bulletContainer: {fileID: 0}
   done: 0
 --- !u!114 &3777612600331798498
 MonoBehaviour:
@@ -132,6 +136,19 @@ MonoBehaviour:
   parent: {fileID: 0}
   planes: []
   e_camera: {fileID: 0}
+--- !u!114 &8038422772108365913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329376158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652cecd3bd021244a827adf8dc722877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  introDone: 0
 --- !u!1 &901527562
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,6 +914,7 @@ MonoBehaviour:
   pause: {fileID: 7305404837695070346}
   player: {fileID: 0}
   mainMenuUI: {fileID: 0}
+  stageUI: {fileID: 0}
   ui: {fileID: 0}
   loading: 0
 --- !u!114 &5880166184728285871

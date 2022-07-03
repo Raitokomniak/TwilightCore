@@ -3,6 +3,7 @@ using System.Collections;
 
 public class SpriteAnimationController : MonoBehaviour {
 
+    public Pattern pattern;
 	SpriteRenderer _renderer;
 	bool fadedIn;
 	float scalingTime = 0.03f;
@@ -74,6 +75,7 @@ public class SpriteAnimationController : MonoBehaviour {
 		_renderer.color = new Color (1, 1, 1, 0);
 		for (int i = 0; i < (10*targetScale); i++) {
 			if(stop) break;
+            if(pattern!=null) if(pattern.stop) break;
 			//_renderer.color += new Color (1, 1, 1, 0.1f);
 			//transform.localScale += new Vector3 (0.1f, 0.1f, 0.1f);
 			//yield return new WaitForSeconds (0.03f * scalingTime);

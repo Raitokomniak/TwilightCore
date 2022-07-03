@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
 	void Update ()
 	{
+        if(CanForceMove()) transform.position = Vector3.Lerp(transform.position, forceMoveTarget, Time.deltaTime);
         if(!CanMove()) return;
 		if(AllowInput()) FocusMode (Input.GetKey (KeyCode.LeftShift));
 
@@ -22,9 +23,6 @@ public class PlayerMovement : MonoBehaviour
 		float ver = Input.GetAxisRaw ("Vertical");
         Move (hor, ver);
 		CheckPickUpThreshold();
-		
-		if(CanForceMove())
-			transform.position = Vector3.Lerp(transform.position, forceMoveTarget, movementSpeed / 10);
 	}
 
 	bool AllowInput(){
@@ -45,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
 		GetComponentInChildren<Hitbox>().gameObject.SetActive(false);
 		forceMoveTarget = targetPos;
 		forceMoving = true;
+        Debug.Log("player forcemove");
 	}
 
 	bool CanForceMove(){
@@ -60,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
 		if(forceMoving) return false;
 		if(GetComponent<PlayerHandler>() == null) return false;
         if(Game.control.pause.paused) return false;
+        if(Game.control.stageHandler.gameOver) return false;
 		return true;
 	}
 

@@ -18,14 +18,12 @@ public class PlayerLife : MonoBehaviour {
 	}
 
 	void Update(){
-		DevGodMode(); ///////////////////////////////////////////////////////////////
-		if(!invulnerable)
-			GetComponent<SpriteRenderer> ().enabled = true;
+		//DevGodMode(); ///////////////////////////////////////////////////////////////
+		if(!invulnerable) GetComponent<SpriteRenderer> ().enabled = true;
 	}
 
-	void DevGodMode(){
-		invulnerable = true;
-	}
+	void DevGodMode(){ invulnerable = true; }
+    
 	public void TakeHit()
 	{
         if(invulnerable || Game.control.stageHandler.gameOver) return;
@@ -58,10 +56,9 @@ public class PlayerLife : MonoBehaviour {
 
 	public void GainLife(){
 		lives += 1;
-        if(lives > Game.control.stageHandler.stats.maxLives) Game.control.stageHandler.stats.maxLives = lives;
 		Game.control.sound.PlaySound("Player", "ExtraLife", false);
 		Game.control.stageUI.PlayToast("New Life!");
-		Game.control.stageUI.RIGHT_SIDE_PANEL.AddLife(lives);
+		Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateLives(lives);
 	}
 
 	IEnumerator Die(){

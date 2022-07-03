@@ -56,6 +56,9 @@ public class Stage2 : Stage
 		while (stage.stageTimer < 83f) yield return null;
 		scene.SetPlaneSpeed (1f);
 
+        //////////////////////////////
+        // BOSS //
+
 		while (Game.control.dialog.handlingDialog) yield return null;
 		while (stage.stageTimer < Game.control.enemySpawner.bossWave.spawnTime - 1) yield return null;
 		
@@ -365,6 +368,7 @@ public class Stage2 : Stage
 		
 		mp = new EnemyMovementPattern(lib.GetVector("X3"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3", 2), new WayPoint("R3")});
+        mp.disableHitBox = true;
 		p = new P_Spiral(6 * (int)difficultyMultiplier);
 		p.loopCircles =  288 * 4;
 		p.rotationDirection = 1;
@@ -491,12 +495,12 @@ public class Stage2 : Stage
 		p.BMP = new BMP_Explode(p, 0);
 		stage.NewWave (new Wave (108f, mp, p, 1, false, 5, 100, "default")); //105
 
-
 /*
+
 		//debug boss
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
-		boss = new Wave(mp, 33f, 20, true, 2);
+		boss = new Wave(mp, 1f, 50, true, 2);
 		boss.SetUpBoss (2, "Joanette, Queen of Spiders", false);
 		stage.NewWave (boss);
     }

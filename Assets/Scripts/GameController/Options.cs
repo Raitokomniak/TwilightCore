@@ -57,7 +57,7 @@ public class Options : MonoBehaviour
 
     void Resolution(bool increase){
         int tempValue = Game.control.gfx.resolution;
-        if(increase && tempValue < Game.control.gfx.GetResolutions().Count - 1) 
+        if(increase && tempValue < Game.control.gfx.resolutions.Count - 1) 
             tempValue++;
         else if(!increase && tempValue > 0)
             tempValue--;
@@ -100,8 +100,7 @@ public class Options : MonoBehaviour
     }
 
     public void LoadValuesFromFile(OptionsValues file){
-        Game.control.gfx.screenMode = file.screenMode;
-        Game.control.gfx.resolution = file.resolution;
+        Game.control.gfx.SetLoadedValues(file.screenMode, file.resolution);
         Game.control.dialog.autoScroll = file.autoScroll;
         Game.control.sound.SetBGMVolume(file.bgmVolume);
         Game.control.sound.SetSFXVolume(file.sfxVolume);
@@ -110,8 +109,7 @@ public class Options : MonoBehaviour
 
     
     public void DefaultOptions(){
-        Game.control.gfx.screenMode = 0;
-        Game.control.gfx.resolution = Game.control.gfx.GetResolutions().Count - 1;
+        Game.control.gfx.SetLoadedValues(2, 0);
         Game.control.dialog.autoScroll = true;
         Game.control.sound.SetBGMVolume(1);
         Game.control.sound.SetSFXVolume(1);

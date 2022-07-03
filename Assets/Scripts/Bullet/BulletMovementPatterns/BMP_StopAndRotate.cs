@@ -28,7 +28,6 @@ public class BMP_StopAndRotate : BulletMovementPattern
 		Stop (bullet);
 		yield return Wait1;
 		pattern.allBulletsSpawned = true;
-
 		if (layer == 0) RotateOnAxis (-1, 80f);
 		if (layer == 1) RotateOnAxis (1, 80f);
 		if (layer == 2) RotateOnAxis (-1, 80f);

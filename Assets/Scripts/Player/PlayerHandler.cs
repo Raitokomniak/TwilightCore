@@ -24,8 +24,8 @@ public class PlayerStats {
 	public PlayerStats(){
 		damageMin = 1.3f;
 
-		maxLives = 5;
-		lives = maxLives;
+		maxLives = 10;
+		lives = 5;
 		xpCap = 30;
 		xp = 0;
 		level = 1;

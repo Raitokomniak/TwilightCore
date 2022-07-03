@@ -22,7 +22,7 @@ public class Stage1 : Stage
 
 
 	IEnumerator StageHandlerRoutine(){
-        /*
+        
 		scene.SetPlaneSpeed(50f);
 		while (dialog.handlingDialog) yield return null;
 		dialog.StartDialog ("Stage1_0");
@@ -35,7 +35,7 @@ public class Stage1 : Stage
 		scene.e_camera.Rotate (new Vector3(65, 0, -5));
 		scene.SetPlaneSpeed (1f);
 		while (stage.stageTimer < 24f) yield return null;
-		Game.control.ui.PlayStageToast();
+		Game.control.stageUI.PlayStageToast();
 
 		scene.e_camera.Move (new Vector3(50, 45, 72));
 		scene.e_camera.Rotate (new Vector3(65, 0, 5));
@@ -49,9 +49,9 @@ public class Stage1 : Stage
 		dialog.StartDialog ("Stage1_2");
 		while (dialog.handlingDialog) yield return null;
 		scene.SetPlaneSpeed (35f);
-      */
-
-      // BOSS //
+      
+        //////////////////////////////////////////////////////////
+        // BOSS //
 
 		while (stage.stageTimer < boss.spawnTime - 1) yield return null;
 

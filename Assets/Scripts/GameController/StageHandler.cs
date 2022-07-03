@@ -7,9 +7,13 @@ using System.IO;
 
 public class StageHandler : MonoBehaviour {
 
+    AsyncOperation loadScene;
 	Stage stageScript;
     public Phaser bossScript;
 
+    bool start;
+
+    public Intro intro;
 
 	SpriteLibrary spriteLib;
 	public ArrayList waves;
@@ -35,6 +39,7 @@ public class StageHandler : MonoBehaviour {
     public bool onBonusScreen;
 
 	IEnumerator startStageRoutine;
+
 
 
 	void Update () {
@@ -84,17 +89,14 @@ public class StageHandler : MonoBehaviour {
 
 	public List<int> CalculateBonuses(){
 		List<int> bonuses = new List<int>();
-		int timeBonus = (500 - Mathf.RoundToInt(stageTimer)) * 10;
-		if(timeBonus < 0) timeBonus = 0;
 		int dayBonus = Game.control.player.special.dayCorePoints * 10;
 		int nightBonus = Game.control.player.special.nightCorePoints * 10;
 		stageTimer = 0;
 
-		int bonusTimesDifficulty = Mathf.CeilToInt((timeBonus + dayBonus + nightBonus) * (0.3f * difficultyMultiplier));
+		int bonusTimesDifficulty = Mathf.CeilToInt((dayBonus + nightBonus) * (0.3f * difficultyMultiplier));
 
 		Game.control.player.GainScore(bonusTimesDifficulty);
 
-		bonuses.Add(timeBonus);
 		bonuses.Add(dayBonus);
 		bonuses.Add(nightBonus);
 		bonuses.Add(difficultyMultiplier);
@@ -182,7 +184,7 @@ public class StageHandler : MonoBehaviour {
 
 		Game.control.menu.Menu("SaveScorePrompt");
 		if(death) Game.control.stageUI.GAMEOVER.GameOverScreen (true);
-		else Game.control.stageUI.GAMEOVER.GameCompleteScreen (true);
+		else      Game.control.stageUI.GAMEOVER.GameCompleteScreen (true);
 		
 		stageOn = false;
 		stageTimerOn = false;
@@ -238,8 +240,9 @@ public class StageHandler : MonoBehaviour {
 	}
 
 	public void StartGame(){
+        start = true;
 		stats = new PlayerStats();
-		StartStage(1);
+		StartStage(2);
 	}
 
 	public void StartStage (int stage){
@@ -264,6 +267,10 @@ public class StageHandler : MonoBehaviour {
         // WAS THINKING OF ADDING A QUICK FADE HERE
     }
 
+    void LoadStage(){
+        loadScene = SceneManager.LoadSceneAsync("Level1");
+    }
+
 	IEnumerator StartStageRoutine(){
         if(Game.control.stageUI != null) Game.control.stageUI.ToggleLoadingScreen(true);
 		Game.control.loading = true;
@@ -272,10 +279,11 @@ public class StageHandler : MonoBehaviour {
 		Game.control.enemySpawner.DestroyAllProjectiles();
         Game.control.enemySpawner.DestroyAllEnemies();
         
-
-		AsyncOperation loadScene = SceneManager.LoadSceneAsync("Level1");
+        LoadStage();
 		yield return new WaitUntil(() => loadScene.isDone == true);
 		
+        
+    
 		//Game.control.stageUI = GameObject.Find("StageCanvas").GetComponent<UI_STAGE>();
         Game.control.SetUI("Stage");
 		Game.control.stageUI.ToggleLoadingScreen(true);
@@ -295,6 +303,7 @@ public class StageHandler : MonoBehaviour {
 		waves = new ArrayList();
 		
         
+        
 		Game.control.scene.SetUpEnvironment ();
 		Game.control.io.LoadHiscoreByDifficulty(difficultyAsString);
 		Game.control.dialog.Init();
@@ -302,6 +311,16 @@ public class StageHandler : MonoBehaviour {
 		Game.control.menu.InitMenu();
 		Game.control.player.Init();
 		Game.control.player.gameObject.SetActive (true);
+
+        if(start) {
+            Game.control.stageUI.ToggleLoadingScreen(false);
+            intro.Run();
+            //yield return new WaitUntil(() => intro.introDone == true);
+            while(!intro.introDone) yield return null;
+        }
+        start = false;
+
+
 		Game.control.sound.PlayMusic ("Stage", currentStage);
 		Game.control.enemySpawner.StartSpawner (currentStage);
 

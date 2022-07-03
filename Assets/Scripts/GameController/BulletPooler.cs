@@ -7,9 +7,9 @@ public class BulletPooler : MonoBehaviour
    // Transform[] bulletsInPool;
     GameObject bulletPrefab;
     List<GameObject> bulletsInPool;
-	Transform bulletPool;
+	public Transform bulletPool;
     GameObject fetchedBullet;
-    Transform bulletContainer;
+    public Transform bulletContainer;
 
     public bool done;
 
@@ -56,6 +56,8 @@ public class BulletPooler : MonoBehaviour
         if(bulletsInPool.Count < 10) InstantiateBulletsToPool(50);
 		fetchedBullet = bulletsInPool[bulletsInPool.Count - 1];
 		bulletsInPool.RemoveAt(bulletsInPool.Count - 1);
+        if(fetchedBullet == null) return null;
+        if(bulletContainer == null) return null;
         fetchedBullet.transform.SetParent(bulletContainer);
         fetchedBullet.SetActive(true);
 		return fetchedBullet;
