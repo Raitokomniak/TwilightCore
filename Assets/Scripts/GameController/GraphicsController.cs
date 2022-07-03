@@ -43,7 +43,7 @@ public class GraphicsController : MonoBehaviour
         Application.targetFrameRate = -1;
 		QualitySettings.vSyncCount = 0;
         ListResolutions();
-        SetResolution(0);
+        SetResolution(resolutions.Count - 1);
         SetScreenMode(2);
     }
 
@@ -62,6 +62,9 @@ public class GraphicsController : MonoBehaviour
         return FullScreenMode.Windowed;
     }
 
+    public void SetMaxReso(){
+        SetResolution(resolutions.Count - 1);
+    }
     public void SetResolution(int index){
         resolution = index;
         Resolution reso = resolutions[resolution];

@@ -97,6 +97,7 @@ public class MenuController : MonoBehaviour
 			selectedList = pauseMenuItems;
             Game.control.stageUI.TogglePauseMenu(true);
 			Game.control.ui.ToggleOptions(false);
+            Game.control.ui.ToggleTutorial(false);
             
 		}
 		else if(context == "DifficultyMenu"){
@@ -135,6 +136,7 @@ public class MenuController : MonoBehaviour
 		mainMenuItems = new List<string>();
 		mainMenuItems.Add ("New Game");
 		mainMenuItems.Add ("Hiscores");
+        mainMenuItems.Add ("Tutorial");
 		mainMenuItems.Add ("Options");
 		mainMenuItems.Add ("Quit Game");
 
@@ -147,6 +149,7 @@ public class MenuController : MonoBehaviour
 		pauseMenuItems = new List<string>();
 		pauseMenuItems.Add ("Resume");
 		pauseMenuItems.Add ("Restart Stage");
+        pauseMenuItems.Add ("Tutorial");
 		pauseMenuItems.Add ("Options");
 		pauseMenuItems.Add ("Main Menu");
 		pauseMenuItems.Add ("Quit");
@@ -214,8 +217,9 @@ public class MenuController : MonoBehaviour
 			
 			if(selectedIndex == 0) Menu("DifficultyMenu");
 			if(selectedIndex == 1) {Game.control.mainMenuUI.ToggleScorePanel(true); context = "Hiscores"; }
-			if(selectedIndex == 2) Menu("OptionsMenuMain");
-			if(selectedIndex == 3) Game.control.QuitGame();
+            if(selectedIndex == 2) Game.control.ui.ToggleTutorial(true);
+			if(selectedIndex == 3) Menu("OptionsMenuMain");
+			if(selectedIndex == 4) Game.control.QuitGame();
 		}
 		else if(context == "DifficultyMenu"){
 
@@ -233,9 +237,10 @@ public class MenuController : MonoBehaviour
 				menuOn = false;
 			}
 			if(selectedIndex == 1) Game.control.stageHandler.RestartStage ();
-			if(selectedIndex == 2) Menu("OptionsMenu");
-			if(selectedIndex == 3) Game.control.stageHandler.MainMenu();
-			if(selectedIndex == 4) Game.control.QuitGame();
+            if(selectedIndex == 2) Game.control.ui.ToggleTutorial(true); context = "Tutorial";
+            if(selectedIndex == 3) Menu("OptionsMenu");
+			if(selectedIndex == 4) Game.control.stageHandler.MainMenu();
+			if(selectedIndex == 5) Game.control.QuitGame();
 			Game.control.stageUI.UpdateMenuSelection (context, 0);
 		}
 		else if(context == "GameOverMenu"){

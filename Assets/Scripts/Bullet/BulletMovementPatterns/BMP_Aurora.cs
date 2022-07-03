@@ -37,9 +37,9 @@ public class BMP_Aurora : BulletMovementPattern
 
 		yield return Wait2;
         
-        if(bulletSprite.name != "Fireball_Glow_Orange") {
+        /*if(bulletSprite.name != "Fireball_Glow_Orange") {
             yield break;
-        }
+        }*/
 
         SmoothAcceleration();
         rotation = Quaternion.Euler (0, 0, 90 * Random.Range (-1, 1));

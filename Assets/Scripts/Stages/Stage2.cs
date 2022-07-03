@@ -65,7 +65,7 @@ public class Stage2 : Stage
 		Game.control.dialog.StartDialog ("Boss2");
 
 		while(Game.control.dialog.handlingDialog) {
-			if(stage.stageTimer > 125.9f) break;
+			if(stage.stageTimer > 123.9f) break;
 			else yield return null;
 		}
 		Game.control.sound.PlayMusic ("Boss", 2);
@@ -376,7 +376,7 @@ public class Stage2 : Stage
 		p.infinite = false;
 		p.BMP = new BMP_Explode(p, 3f);
 		p.SetSprite ("Circle", "Glow", "White", "Medium");
-		Wave w = new Wave(85f, mp, p, 5, false, 1, 5 / difficultyMultiplier, "default");
+		Wave w = new Wave(85f, mp, p, 5, false, 1, 5 / difficultyMultiplier, "asura");
 		w.invulnerable = true;
 		stage.NewWave(w); ///// 85f
 
@@ -425,7 +425,7 @@ public class Stage2 : Stage
 		p.BMP = new BMP_WaitAndExplode(p, 11f);
 		p.BMP.movementSpeed = 1f;
 		p.SetSprite ("Circle", "Glow", "White", "Medium");
-		w = new Wave(95f, mp, p, 3, false, 3, 6 / difficultyMultiplier, "default");
+		w = new Wave(95f, mp, p, 3, false, 3, 6 / difficultyMultiplier, "asura");
 		w.invulnerable = true;
 		stage.NewWave(w);
 
@@ -437,7 +437,7 @@ public class Stage2 : Stage
 		p.BMP = new BMP_WaitAndExplode(p, 11f);
 		p.BMP.movementSpeed = 1f;
 		p.SetSprite ("Circle", "Glow", "White", "Medium");
-		w = new Wave(96f, mp, p, 3, false, 3, 6 / difficultyMultiplier, "default");
+		w = new Wave(96f, mp, p, 3, false, 3, 6 / difficultyMultiplier, "asura");
 		w.invulnerable = true;
 		stage.NewWave(w);
 
@@ -449,7 +449,7 @@ public class Stage2 : Stage
 		p.BMP = new BMP_WaitAndExplode(p, 11f);
 		p.BMP.movementSpeed = 1f;
 		p.SetSprite ("Circle", "Glow", "White", "Medium");
-		w = new Wave(97f, mp, p, 3, false, 3, 6 / difficultyMultiplier, "default");
+		w = new Wave(97f, mp, p, 3, false, 3, 6 / difficultyMultiplier, "asura");
 		w.invulnerable = true;
 		stage.NewWave(w);
 

@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652cecd3bd021244a827adf8dc722877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  introOn: 0
   introDone: 0
 --- !u!1 &901527562
 GameObject:
@@ -863,6 +864,7 @@ GameObject:
   - component: {fileID: 4442655861058145965}
   - component: {fileID: 7431238292123598925}
   - component: {fileID: 8004102441264736628}
+  - component: {fileID: 1963004741899002805}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -906,6 +908,7 @@ MonoBehaviour:
   menu: {fileID: 4442655861058145965}
   options: {fileID: 8004102441264736628}
   sound: {fileID: 4442655862132054637}
+  inputHandler: {fileID: 1963004741899002805}
   dialog: {fileID: 3777612600331798498}
   stageHandler: {fileID: 329376159}
   scene: {fileID: 4111270878783590831}
@@ -982,6 +985,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   optionStrings: []
+--- !u!114 &1963004741899002805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4442655861058145966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208d828834d9b2a4ab15483b55510b45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  context: 
 --- !u!1 &4442655862132054638
 GameObject:
   m_ObjectHideFlags: 0

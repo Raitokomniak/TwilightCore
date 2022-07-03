@@ -14,6 +14,10 @@ public class UI_StageComplete : MonoBehaviour
     int difficultyMultiplier;
     long finalScore;
 
+    float defaultWaitTime = .4f;
+    public float waitTime;
+
+
     
 	public void Hide(){
 		container.SetActive(false);
@@ -27,6 +31,7 @@ public class UI_StageComplete : MonoBehaviour
 
 
     public void UpdateScoreBreakDown(){
+        
         List<int> bonuses = Game.control.stageHandler.CalculateBonuses();
         dayBonus = bonuses[0];
         nightBonus = bonuses[1];
@@ -42,31 +47,34 @@ public class UI_StageComplete : MonoBehaviour
     }
 
     IEnumerator BonusRoutine(){
+        Game.control.inputHandler.skipContext = "Bonus";
+        waitTime = defaultWaitTime;
+        
         Game.control.stageHandler.countingStageEndBonuses = true;
         scorebreakDown.text = scoreText;
         Game.control.sound.PlaySound("Player", "Bonus", true);
-        yield return new WaitForSeconds(.4f);
+        yield return new WaitForSeconds(waitTime);
 
         scoreText += "Day Points: " + dayBonus.ToString() + '\n';
         scorebreakDown.text = scoreText;
         Game.control.sound.PlaySound("Player", "Bonus", true);
-        yield return new WaitForSeconds(.4f);
+        yield return new WaitForSeconds(waitTime);
 
         scoreText += "Night Points: " + nightBonus.ToString() + '\n';
         scorebreakDown.text = scoreText;
         Game.control.sound.PlaySound("Player", "Bonus", true);
-        yield return new WaitForSeconds(.4f);
+        yield return new WaitForSeconds(waitTime);
 
         /////////////////////////
         scoreText += "Difficulty multiplier: " + (0.3f * difficultyMultiplier).ToString("F1") + "x" + '\n';
         scorebreakDown.text = scoreText;
         Game.control.sound.PlaySound("Player", "Bonus", true);
-        yield return new WaitForSeconds(.4f);
+        yield return new WaitForSeconds(waitTime);
 
         scoreText += "Final score: " + finalScore.ToString() + '\n' + '\n';
         scorebreakDown.text = scoreText;
         Game.control.sound.PlaySound("Player", "Bonus", true);
-        yield return new WaitForSeconds(.4f);
+        yield return new WaitForSeconds(waitTime);
 
         scoreText += "Press Z to continue";
         scorebreakDown.text = scoreText;

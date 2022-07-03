@@ -29,6 +29,7 @@ public class UI_Boss : MonoBehaviour
 		bossTimer.gameObject.SetActive(false);
 		bossNamePanel.SetActive (false);
 		bossSpellToast.SetActive (false);
+        ToggleBossXPos(false);
 	}
 
     public void UpdateBossXPos(float posX){
@@ -57,7 +58,7 @@ public class UI_Boss : MonoBehaviour
 	}
 
 	public void ToggleBossHealthSlider(bool value, float maxHealth, string name){
-		bossX.SetActive (value	);
+		ToggleBossXPos(value);
 		bossName	.gameObject.SetActive(value);
 		bossHealthSlider.gameObject.SetActive(value);
 		bossHealthSlider.maxValue = maxHealth;

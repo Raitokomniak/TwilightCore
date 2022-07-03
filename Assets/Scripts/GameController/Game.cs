@@ -10,11 +10,13 @@ public class Game : MonoBehaviour {
 	[SerializeField] public VectorLib vectorLib;
 	[SerializeField] public SpriteLibrary spriteLib;
 
+
     [SerializeField] public GraphicsController gfx;
     [SerializeField] public SaveLoadHandler io;
 	[SerializeField] public MenuController menu;
 	[SerializeField] public Options options;
     [SerializeField] public SoundController sound;
+    [SerializeField] public InputHandler inputHandler;
 
 	[SerializeField] public DialogController dialog;
 	[SerializeField] public StageHandler stageHandler;
@@ -41,6 +43,7 @@ public class Game : MonoBehaviour {
 	void Start(){
         if(GetCurrentScene() == "MainMenu") SetUI("MainMenu");
         else SetUI("Stage");
+        io.LoadScore();
 		MainMenu();
 	}
 
@@ -85,7 +88,7 @@ public class Game : MonoBehaviour {
 		}
 
         yield return new WaitUntil(() => GameObject.Find("MainMenuCanvas") != null);
-        
+        yield return new WaitUntil(() => io.LoadScore() == true);
         SetUI("MainMenu");
         ui.ToggleLoadingScreen(true);
 		ui.InitMainMenu ();

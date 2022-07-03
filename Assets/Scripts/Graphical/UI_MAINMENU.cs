@@ -12,8 +12,6 @@ public class UI_MAINMENU : UI
 	public GameObject scorePanel;
 
 
-
-
    	public override void InitMainMenu(){
         gameObject.SetActive(true);
 		ToggleMainMenu(true);
@@ -38,10 +36,12 @@ public class UI_MAINMENU : UI
             difficultyPanel.gameObject.SetActive(false);
             ToggleOptions(false);
             scorePanel.SetActive(false);
+            tutorial.gameObject.SetActive(false);
             mainMenuPanel.GetComponentsInChildren<TextMeshProUGUI>()[0].fontStyle = FontStyles.Bold;
             mainMenuPanel.gameObject.SetActive(true);
         }
 	}
+
 
 	public void ToggleDifficultySelection(bool toggle){
 		difficultyPanel.gameObject.SetActive(toggle);
@@ -49,6 +49,8 @@ public class UI_MAINMENU : UI
 	}
 
 	public void ToggleScorePanel(bool toggle){
+        Game.control.io.LoadScore();
+        scorePanel.GetComponent<ScorePanel>().Activate();
 		mainMenuPanel.gameObject.SetActive(!toggle);
 		scorePanel.SetActive(toggle);
 	}

@@ -7,6 +7,8 @@ using System.IO;
 
 public class StageHandler : MonoBehaviour {
 
+    int STARTING_STAGE = 1;
+
     AsyncOperation loadScene;
 	Stage stageScript;
     public Phaser bossScript;
@@ -242,7 +244,7 @@ public class StageHandler : MonoBehaviour {
 	public void StartGame(){
         start = true;
 		stats = new PlayerStats();
-		StartStage(2);
+		StartStage(STARTING_STAGE);
 	}
 
 	public void StartStage (int stage){

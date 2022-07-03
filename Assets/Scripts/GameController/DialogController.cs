@@ -39,7 +39,7 @@ public class DialogController : MonoBehaviour {
 		if(!handlingDialog) return false; 
 		return true;
 	}
-	void AdvanceDialog(){
+	public void AdvanceDialog(){
 		advanceDialogTrigger = true;
 		autoScrollTimer = 0;
 	}
@@ -58,7 +58,7 @@ public class DialogController : MonoBehaviour {
 
 	public void StartDialog(string _phase)
 	{	
-
+        Game.control.inputHandler.skipContext = "Dialog";
 		Game.control.stageUI.DIALOG.ToggleDialog(true);
 		
 		if(!_phase.Contains("Boss")) Game.control.stageUI.DIALOG.InitPlayerSpeaker();

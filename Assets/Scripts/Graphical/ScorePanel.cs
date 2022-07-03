@@ -7,37 +7,30 @@ using TMPro;
 public class ScorePanel : MonoBehaviour
 {
     public Object scoreSlotPrefab;
-    public List<GameObject> scoreSlots;
+    public List<Transform> scoreSlots;
     public Transform contentPanel;
 
     public static int CompareScores(ScoreSave x, ScoreSave y){
         return y.score.CompareTo(x.score);
     }
     
-    void Awake()
-    {
+    public void Activate(){
         Game.control.io.LoadScore();
         List<ScoreSave> scoreObjects = Game.control.io.scoreList.allScores;
         scoreObjects.Sort(CompareScores);
         if(scoreObjects.Count > 10) scoreObjects.RemoveRange(10, scoreObjects.Count - 10);
 
-        scoreSlots = new List<GameObject>();
-        for(int i = 1; i < 11; i++){
-            GameObject slot = Instantiate(scoreSlotPrefab) as GameObject;
-            scoreSlots.Add(slot);
-            slot.transform.SetParent(contentPanel);
-            slot.GetComponent<RectTransform>().offsetMin = Vector2.zero;
-            slot.GetComponent<RectTransform>().offsetMax = new Vector2(0, 50);
-            slot.GetComponent<RectTransform>().position = new Vector3(109, 950 - (100 + (75 * i)), 0);
-            TextMeshProUGUI[] textObjects = slot.transform.GetComponentsInChildren<TextMeshProUGUI>();
-            int scoreIndex = i - 1;
-            textObjects[0].text = i.ToString();
-
-            if(scoreIndex < scoreObjects.Count){
-                textObjects[1].text = scoreObjects[scoreIndex].name;
-                textObjects[2].text = scoreObjects[scoreIndex].score.ToString();
-                textObjects[3].text = scoreObjects[scoreIndex].difficulty;
-                textObjects[4].text = scoreObjects[scoreIndex].date;
+        for(int i = 0; i < 10; i++){
+            GameObject slot = scoreSlots[i].gameObject;
+            TextMeshProUGUI[] textObjects = slot.GetComponentsInChildren<TextMeshProUGUI>();
+            //int scoreIndex = i;
+            textObjects[0].text = (i + 1).ToString();
+            
+            if(i < scoreObjects.Count){
+                textObjects[1].text = scoreObjects[i].name;
+                textObjects[2].text = scoreObjects[i].score.ToString();
+                textObjects[3].text = scoreObjects[i].difficulty;
+                textObjects[4].text = scoreObjects[i].date;
             }
             else {
                 textObjects[1].text = "-";

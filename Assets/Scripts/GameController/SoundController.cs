@@ -83,7 +83,7 @@ public class SoundController : MonoBehaviour {
 	}
 
 	public void SetSFXVolume(float value){
-        SFXVolume = value;
+        SFXVolume = Mathf.Round(value * 10.0f) * 0.1f;
 		foreach(AudioSource s in SFXsources) s.volume = value;
 	}
 

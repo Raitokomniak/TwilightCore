@@ -8,7 +8,7 @@ public class Intro : MonoBehaviour
     List<string> lineList;
     int lineIndex;
 
-    bool introOn;
+    public bool introOn;
     public bool introDone;
 
     bool skipping;
@@ -22,7 +22,7 @@ public class Intro : MonoBehaviour
     private void LateUpdate() {
 
         if(!introOn) return;
-
+/*
         if(skipping){
             if(skipTimer<= skipTime) skipTimer+= Time.deltaTime;
             else {
@@ -38,13 +38,14 @@ public class Intro : MonoBehaviour
         else {
             holdTimer = 0;
             skipping = false;
-        }
+        }*/
         if(Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Return))
             NextPara();
         
     }
     
     public void Run(){
+        Game.control.inputHandler.skipContext = "Intro";
         introOn = true;
         introDone = false;
         introText = Resources.Load<TextAsset> ("DialogText/IntroText");

@@ -39,6 +39,7 @@ public class BossLife : EnemyLife
 
         Game.control.sound.PlaySound("Enemy", "BossHit", false);
 		float damage = Game.control.stageHandler.stats.damage;
+        Game.control.player.GainScore(1 * Game.control.stageHandler.difficultyMultiplier);
 		miniToaster.PlayToast("Score");
 		
 		if(CanTakeHit()){
@@ -80,6 +81,7 @@ public class BossLife : EnemyLife
         dead = true;
         GetComponent<EnemyShoot>().enabled = false;
         Game.control.stageUI.BOSS.HideUI();
+        
     }
 
     public override void Die(bool silent) {

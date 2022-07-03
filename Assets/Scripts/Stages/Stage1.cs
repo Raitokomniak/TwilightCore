@@ -356,8 +356,8 @@ public class Stage1 : Stage
 
 
 
-
 /*
+
 	//BOSDEBUG
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
@@ -367,8 +367,8 @@ public class Stage1 : Stage
 		boss.SetUpBoss (1, "Maaya, TEST SUBJECT", false);
 		stage.NewWave (boss);
 
-	}
-    */
+	}*/
+    
 
 
 

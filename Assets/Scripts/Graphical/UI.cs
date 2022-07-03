@@ -15,10 +15,19 @@ public class UI : MonoBehaviour
 	public GameObject optionsValues;
     public TextMeshProUGUI[] optionsValuesTexts = null;
 
+
+    public TutorialScreen tutorial;
+
    	public void ToggleLoadingScreen(bool toggle){
 		LOADING_SCREEN.gameObject.SetActive(toggle);
         if(toggle) LOADING_SCREEN.ShowLoadingScreen();
 	}
+
+    
+    public void ToggleTutorial(bool toggle){
+        tutorial.gameObject.SetActive(toggle);
+        tutorial.tutorialOn = toggle;
+    }
 
     public void ToggleOptions(bool toggle){
 		optionsScreen.SetActive(toggle);

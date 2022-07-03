@@ -184,6 +184,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 	    playerHandler.miniToaster.PlayToast(core + "Core");
 		Game.control.stageUI.LEFT_SIDE_PANEL.UpdateCoreCharge (core, gainedCharge);
 
+        if(dayCoreLevel == 5 && nightCoreLevel == 5) multiplier *= 10; //extra score for full power
 		Game.control.player.GainScore (coreCap * multiplier);
 	}
 
