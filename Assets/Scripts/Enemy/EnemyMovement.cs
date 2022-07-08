@@ -46,6 +46,7 @@ public class EnemyMovement : MonoBehaviour {
 	void MoveWithLerp(){
 		transform.position = Vector3.LerpUnclamped (transform.position, pattern.targetPosition, (pattern.speed * Time.deltaTime));
 	}
+    
 	
 	void MoveWithForce(){
 		Vector2 tpos = new Vector2(pattern.targetPosition.x, pattern.targetPosition.y);
@@ -104,4 +105,10 @@ public class EnemyMovement : MonoBehaviour {
 	void CheckSpriteDirection(){
 		enemySprite.flipX = !pattern.goingRight;
 	}
+
+    
+    public void CorrectRotation(){
+        transform.rotation = Quaternion.Euler(0,0,0);
+        enemySprite.transform.rotation = Quaternion.Euler(0,0,0);
+    }
 }

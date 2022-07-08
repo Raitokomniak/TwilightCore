@@ -32,6 +32,7 @@ public class DialogController : MonoBehaviour {
 			}
 		}
 	}
+    
 
 	bool AllowInput(){
 		if(Game.control.loading) return false;
@@ -52,7 +53,7 @@ public class DialogController : MonoBehaviour {
 	public void Init(){
 		lineIndex = 0;
 		handlingDialog = false;
-		ToggleAutoScroll(true); //MAKE THIS AN OPTION
+        Game.control.stageUI.DIALOG.UpdateAutoScrollInfo(autoScroll);
 	}
 
 

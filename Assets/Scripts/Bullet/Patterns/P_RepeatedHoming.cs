@@ -16,7 +16,7 @@ public class P_RepeatedHoming : Pattern
 			spawnPosition = enemyShoot.transform.position;
 			Game.control.sound.PlaySound ("Enemy", "Shoot", false);
 			//SpawnBullet (enemyBullet, bulletMovement);
-			bullet = SpawnBullet (BMP);
+			bullet = SpawnBullet ();
 			yield return new WaitForSeconds (coolDown);
 		}
     }

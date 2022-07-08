@@ -86,6 +86,20 @@ public class Stage1 : Stage
 		Pattern p;
 		EnemyMovementPattern mp;
 
+        
+/*
+        mp = new EnemyMovementPattern(lib.GetVector("C1"));
+		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("C3", 4), new WayPoint("R4")});
+		mp.speed = 2f;
+		p = new P_Maelstrom();
+        p.infinite = false;
+        p.BMP = new BMP_Explode(p, 7f);
+		p.bulletCount =  Mathf.CeilToInt(4 * difficultyMultiplier);
+		p.SetSprite ("Circle", "Glow", "Yellow", "Medium");	 
+		stage.NewWave (new Wave (1f, mp, p, 1, false, 40, .5f, "gand_sitar"));
+
+*/
+
 
 		//PHASE 1
 		mp = new EnemyMovementPattern(lib.GetVector("I1"));
@@ -93,6 +107,7 @@ public class Stage1 : Stage
 		p = new P_SingleHoming();
 		p.SetSprite ("BigCircle", "Big", "Red", "Huge");
 		stage.NewWave (new Wave (3f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "gand_flute"));
+
 
 		mp = new EnemyMovementPattern(lib.GetVector("K3"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 1), new WayPoint("L4")});
@@ -267,6 +282,23 @@ public class Stage1 : Stage
 		stage.NewWave (new Wave (45f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "gand_horn"));
 
 
+
+
+/*
+//debug
+    //mp = new EMP_EnterFromTop();
+		mp = new EnemyMovementPattern(lib.GetVector("X1"));
+		//mp.leaveDir = lib.GetVector("XU");
+		mp.stayTime = 23f;
+		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
+		Wave midBoss = new Wave(mp, 1f, 150, false, 1); //55f
+		midBoss.SetUpBoss (0.5f, "Asura", true);
+		stage.NewWave (midBoss);
+
+*/
+
+
+
 		//MID-BOSS
 		//mp = new EMP_EnterFromTop();
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
@@ -276,6 +308,7 @@ public class Stage1 : Stage
 		Wave midBoss = new Wave(mp, 55f, 150, false, 1); //55f
 		midBoss.SetUpBoss (0.5f, "Asura", true);
 		stage.NewWave (midBoss);
+        
 
 
 
@@ -354,10 +387,20 @@ public class Stage1 : Stage
 		p.SetSprite ("Circle", "Glow", "Green", "Medium");
 		stage.NewWave (new Wave (91f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "gand_sitar"));
 
+		//BOSS 1
+		//mp = new EMP_EnterFromTop();
+		mp = new EnemyMovementPattern(lib.GetVector("X1"));
+		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
+
+		boss = new Wave(mp, 102f, 650, true, 2);
+		boss.SetUpBoss (1, "Maaya, Forest Guard", false);
+		stage.NewWave (boss);
+
+	}
+
 
 
 /*
-
 	//BOSDEBUG
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
@@ -369,20 +412,5 @@ public class Stage1 : Stage
 
 	}*/
     
-
-
-
-
-		//BOSS 1
-		//mp = new EMP_EnterFromTop();
-		mp = new EnemyMovementPattern(lib.GetVector("X1"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
-
-		boss = new Wave(mp, 102f, 750, true, 2);
-		boss.SetUpBoss (1, "Maaya, Forest Guard", false);
-		stage.NewWave (boss);
-
-	}
     
-
 }

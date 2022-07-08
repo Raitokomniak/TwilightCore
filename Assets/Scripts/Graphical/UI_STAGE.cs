@@ -31,7 +31,7 @@ public class UI_STAGE : UI {
 
 	public void InitStage(){
 		EffectOverlay("Black");
-		LEFT_SIDE_PANEL.EmptyCores();
+		//LEFT_SIDE_PANEL.EmptyCores();
 		BOSS.HideUI();
 		
 		STAGEEND.Hide();

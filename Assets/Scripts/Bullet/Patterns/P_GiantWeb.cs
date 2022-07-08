@@ -5,11 +5,11 @@ using UnityEngine;
 public class P_GiantWeb : Pattern
 {
 	//CUSTOM PATTERN FOR BOSS2 WHERE BULLETS SPAWN IN 4 ROWS OF CIRCLES
-
+    int tempLayer;
+    
 	public P_GiantWeb(){
 		bossSpecial = true;
 		bulletCount = 30;
-		layers = 2;
 		originMagnitude = 12;
 		tempMagnitude = originMagnitude;
 	}
@@ -34,7 +34,7 @@ public class P_GiantWeb : Pattern
 					spawnPosition = pos + new Vector3 (0f, 0f, 0f);
 					bulletRotation = Quaternion.Euler (0f, 0f, i * (360 / b));
 					BMP = new BMP_StopAndRotate(this, tempLayer, tempMagnitude);
-				    SpawnBullet (BMP);
+				    SpawnBullet ();
 					bullet.GetComponent<BulletMovement>().spriteR.sprite = Game.control.spriteLib.SetBulletSprite ("BigCircle", "Big", "Red");
 				}		
 				tempMagnitude -= 3;

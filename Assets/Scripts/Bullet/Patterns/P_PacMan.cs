@@ -22,7 +22,7 @@ public class P_PacMan : Pattern
 				//bulletMovement = new BulletMovementPattern (false, null, 0.5f, this, 0, tempMagnitude);
 				startingRotation += 0.1f;
 				//SpawnBullet (enemyBullet, bulletMovement);
-				SpawnBullet (BMP);
+				SpawnBullet ();
 				bullet.GetComponent<BulletMovement>().spriteR.sprite = sprite;
 			}
             

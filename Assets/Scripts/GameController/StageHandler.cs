@@ -89,8 +89,8 @@ public class StageHandler : MonoBehaviour {
 
 	public List<int> CalculateBonuses(){
 		List<int> bonuses = new List<int>();
-		int dayBonus = Game.control.player.special.dayCorePoints * 10;
-		int nightBonus = Game.control.player.special.nightCorePoints * 10;
+		int dayBonus = stats.dayCorePoints * 10;
+		int nightBonus = stats.nightCorePoints * 10;
 		stageTimer = 0;
 
 		int bonusTimesDifficulty = Mathf.CeilToInt((dayBonus + nightBonus) * (0.3f * difficultyMultiplier));
@@ -196,6 +196,7 @@ public class StageHandler : MonoBehaviour {
 	{	
         onBonusScreen = true;
 		stats.lives = Game.control.player.health.lives;
+        Game.control.player.special.SaveToStats();
 		Game.control.stageUI.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
 		Game.control.stageUI.BOSS.HideUI();
 		Game.control.stageUI.BOSS.ToggleBossHealthSlider (false, 0, "");
@@ -209,22 +210,10 @@ public class StageHandler : MonoBehaviour {
 
 	void NextStage ()
 	{
-		//Game.control.MainMenu ();
 		Game.control.stageUI.STAGEEND.Hide ();
 		currentStage++;
 		StartStage(currentStage);
 	}
-
-/*
-	//If time is up, boss leaves the screen and stage is completed
-	IEnumerator TimeUp ()
-	{
-		GameObject boss = GameObject.FindWithTag ("Boss");
-		boss.GetComponent<EnemyLife> ().SetInvulnerable (true);
-		boss.GetComponent<EnemyMovement> ().SetUpPatternAndMove (Game.control.enemyLib.leaving);
-		yield return new WaitForSeconds (2);
-		StartCoroutine (StageCompleteHandling ());
-	}*/
 	
     public void StopStage(){
         if(stageScript != null) stageScript.StopStage();
@@ -272,6 +261,7 @@ public class StageHandler : MonoBehaviour {
     }
 
 	IEnumerator StartStageRoutine(){
+        //STOP PREVIOUS SCRENE
         if(Game.control.stageUI != null) Game.control.stageUI.ToggleLoadingScreen(true);
 		Game.control.loading = true;
 		stageTimer = 0;
@@ -279,31 +269,32 @@ public class StageHandler : MonoBehaviour {
 		Game.control.enemySpawner.DestroyAllProjectiles();
         Game.control.enemySpawner.DestroyAllEnemies();
         
+        //RELOAD STAGE
         LoadStage();
 		yield return new WaitUntil(() => loadScene.isDone == true);
 		
         
     
-		//Game.control.stageUI = GameObject.Find("StageCanvas").GetComponent<UI_STAGE>();
         Game.control.SetUI("Stage");
 		Game.control.stageUI.ToggleLoadingScreen(true);
 		
 		Game.control.player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler> ();
-		
+
+        //ENEMYSPAWNER MIGHT NOT RESET
 		yield return new WaitUntil(() => Game.control.enemySpawner.AbortSpawner() == true);
+        
 
         Game.control.bulletPool.InstantiateBulletsToPool(100 * difficultyMultiplier);
         yield return new WaitUntil(() => Game.control.bulletPool.done == true);
 		
 		Game.control.pause.Unpause (false);
 		
+        //SAFETY MEASURE FOR ENEMYSPAWNER TO TRULY ABORT. THERE MUST BE A BETTER WAY
 		yield return new WaitForSeconds(1f);
 
 		spriteLib = Game.control.spriteLib;
 		waves = new ArrayList();
 		
-        
-        
 		Game.control.scene.SetUpEnvironment ();
 		Game.control.io.LoadHiscoreByDifficulty(difficultyAsString);
 		Game.control.dialog.Init();
@@ -313,9 +304,9 @@ public class StageHandler : MonoBehaviour {
 		Game.control.player.gameObject.SetActive (true);
 
         if(start) {
+            Game.control.player.special.GameInit();
             Game.control.stageUI.ToggleLoadingScreen(false);
             intro.Run();
-            //yield return new WaitUntil(() => intro.introDone == true);
             while(!intro.introDone) yield return null;
         }
         start = false;

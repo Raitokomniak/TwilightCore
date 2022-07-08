@@ -4,6 +4,11 @@ using System.Collections.Generic;
 
 public class SoundController : MonoBehaviour {
 	public bool disableSound;
+
+    //Boss music looping
+    bool canloopBoss;
+    float loopStartPoint;
+    bool bossMusicOn;
     
 	List<AudioSource> SFXsources;
 	public AudioSource playerSFXSource, enemySFXSource, menuSFXSource, loopingSFXSource, BGMSource;
@@ -11,7 +16,7 @@ public class SoundController : MonoBehaviour {
 	//Music
 	AudioClip BGM_mainmenu;
 	AudioClip[] BGM_stageMusic;
-	AudioClip[] BGM_bossMusic;
+	List<AudioClip> BGM_bossMusic;
 
 	//SFX
 	AudioClip SFX_shoot, SFX_enemyDie, SFX_takeHit, SFX_bonus, SFX_pickUp, SFX_extraLife, SFX_bossDie, SFX_bossTimerCountDown, SFX_bossHit;
@@ -34,6 +39,10 @@ public class SoundController : MonoBehaviour {
 		LoadSFX();
 	}
 
+    void Update() {
+       if(bossMusicOn && canloopBoss) if(Mathf.Abs(BGMSource.time - BGMSource.clip.length) < .05f) LoopMusicFromPoint();
+    }
+
 	void LoadMusic(){
 		BGM_mainmenu = Resources.Load ("Sound/Music/MainMenu") as AudioClip;
 
@@ -45,10 +54,10 @@ public class SoundController : MonoBehaviour {
 		BGM_stageMusic[1] = Resources.Load("Sound/Music/stage2_lulmix") as AudioClip;
 		BGM_stageMusic[2] = Resources.Load("Sound/Music/asura-who-remain-asura_piano") as AudioClip;
 
-		BGM_bossMusic = new AudioClip[3];
-		BGM_bossMusic[0] = Resources.Load ("Sound/Music/Boss1") as AudioClip;
-		BGM_bossMusic[1] = Resources.Load ("Sound/Music/void-dance") as AudioClip;
-		BGM_bossMusic[2] = Resources.Load ("Sound/Music/mothersfears_motherstears_lulmix") as AudioClip;
+		BGM_bossMusic = new List<AudioClip>();
+		BGM_bossMusic.Add(Resources.Load ("Sound/Music/Boss1") as AudioClip);
+		BGM_bossMusic.Add(Resources.Load ("Sound/Music/void-dance") as AudioClip);
+		BGM_bossMusic.Add(Resources.Load ("Sound/Music/mothersfears_motherstears_lulmix") as AudioClip);
 	}
 
 	void LoadSFX(){
@@ -212,12 +221,22 @@ public class SoundController : MonoBehaviour {
 		loopingSFXSource.Stop();
 	}
 
+    void LoopMusicFromPoint(){
+        canloopBoss = false;
+        BGMSource.time = loopStartPoint;
+        canloopBoss = true;
+    }
+
 	public void PlayMusic(string type){
 		PlayMusic(type, -1);
 	}
 
 	public void PlayMusic(string type, int i){
+        bossMusicOn = false;
+        canloopBoss = false;
 		BGMSource.Stop ();
+        BGMSource.time = 0;
+
 		AudioClip c = null;
 		i = i - 1;
 
@@ -225,15 +244,25 @@ public class SoundController : MonoBehaviour {
 			c = BGM_mainmenu;
 		else if(type == "Stage")
 			c = BGM_stageMusic[i];
-		else if(type == "Boss")
-			c = BGM_bossMusic[i];
-
+		else if(type == "Boss"){
+            c = BGM_bossMusic[i];
+            bossMusicOn = true;
+            if(i == 0) loopStartPoint = 26.89f;
+            if(i == 1) loopStartPoint = 12.79f;
+            if(i == 2) loopStartPoint = 33.45f;
+        }
+			
 		//JESARIA BUILDIIN
 		if(type == "MainMenu")Game.control.sound.StopLoopingEffects();
 		if(type == "Stage") Game.control.sound.StopLoopingEffects();
 
 		BGMSource.clip = c;
 		BGMSource.loop = true;
+
+        ///DEBUG
+       // BGMSource.time = BGMSource.clip.length - 3;
+        
+
 		ResumeMusic();
 	}
 

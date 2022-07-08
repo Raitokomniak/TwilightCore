@@ -51,7 +51,7 @@ public class EnemyLife : MonoBehaviour {
         string pointType = "";
     
 		if(type == "Core"){
-            int lootAmount = Random.Range(1,3);
+            int lootAmount = Random.Range(1,2);
 			for(int i = 0; i < lootAmount; i++){ ////////// MANAGE AMOUNT OF LOOT
                 Vector3 spawnPoint = transform.position + new Vector3(Random.Range(-5, 5), 2f, 0);
                 GameObject pickUpPoint = Instantiate(pickUpPointPrefab, spawnPoint, Quaternion.Euler(0,0,0));

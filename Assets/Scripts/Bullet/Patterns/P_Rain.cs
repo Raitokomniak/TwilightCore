@@ -34,7 +34,7 @@ public class P_Rain : Pattern
                 if(randomSprite == 0) SetSprite ("Diamond", "Glow", "Blue", "Small");
                 if(randomSprite == 1) SetSprite ("Diamond", "Glow", "Turquoise", "Medium");
                 //SpawnBullet (enemyBullet, bulletMovement);
-				SpawnBullet (BMP);
+				SpawnBullet ();
                 yield return new WaitForSeconds(.2f);
         }
         allBulletsSpawned = true;

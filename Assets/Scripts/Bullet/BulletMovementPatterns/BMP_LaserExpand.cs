@@ -16,7 +16,9 @@ public class BMP_LaserExpand : BulletMovementPattern
     }
 
     public override IEnumerator ExecuteRoutine(){
-        BulletMovement bulletMovement = bullet.GetComponent<BulletMovement>();
+        bulletMovement = bullet.GetComponent<BulletMovement>();
+        bulletBoxCollider = bullet.GetComponent<BoxCollider2D>();
+
 		moveWithForce = false;
 		forceScale = true;
 		scale = new Vector3 (0, 0, 0);
@@ -27,7 +29,7 @@ public class BMP_LaserExpand : BulletMovementPattern
 		bulletBoxCollider.enabled = false;
 		dontDestroy = true;
 		centerPoint = bullet.transform.position;
-		Explode (1);
+		StartMoving (1);
 		pattern.Animate(6, 1, centerPoint);
 		Stop (bullet);
 		yield return new WaitForSeconds (.5f);
@@ -42,7 +44,7 @@ public class BMP_LaserExpand : BulletMovementPattern
 			yield return new WaitForSeconds (.02f);
 		}
 
-		yield return Wait2;
+		yield return new WaitForSeconds(2f);
 
 		bulletBoxCollider.enabled = true;
 		for (float i = 50; i > 0; i--) {

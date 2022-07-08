@@ -5,6 +5,8 @@ using UnityEngine;
 public class BMP_SlowWaving : BulletMovementPattern
 {
 
+
+
 	public BMP_SlowWaving(){}
 
     public BMP_SlowWaving(Pattern p, float _movementSpeed, bool _randomDirs){
@@ -20,7 +22,7 @@ public class BMP_SlowWaving : BulletMovementPattern
 
 
     public override IEnumerator ExecuteRoutine(){
-        Explode (14);
+        StartMoving (14);
 
         isMoving = true;
 		

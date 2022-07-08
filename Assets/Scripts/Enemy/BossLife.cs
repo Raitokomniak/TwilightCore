@@ -9,6 +9,8 @@ public class BossLife : EnemyLife
 	public int healthBars;
     bool deathFlag = false;
     MiniToast miniToaster;
+
+    ParticleSystem hitFXparticles;
    
 
     public override void Init(int setMaxHealth, int _healthBars, Phaser _bossScript){
@@ -18,6 +20,8 @@ public class BossLife : EnemyLife
 		currentHealth = maxHealth;
 		superThreshold = maxHealth * .20f;
         miniToaster = GetComponentInChildren<MiniToast>();
+        hitFXparticles = GetComponentInChildren<ParticleSystem>();
+        hitFXparticles.Stop();
 		//Game.control.ui.UpdateBossHealthBars (healthBars);
 	}
 
@@ -64,18 +68,17 @@ public class BossLife : EnemyLife
 				NextHealthBar();
 			}
 		}
-        
-        IEnumerator animateHitRoutine = AnimateHit();
-        StartCoroutine(animateHitRoutine);
+
+        hitFXparticles.Emit(1);
+        IEnumerator animateHit = AnimateHit();
+        StartCoroutine(animateHit);
 	}
 
     IEnumerator AnimateHit(){
         GetComponent<EnemyMovement>().enemySprite.color = new Color(1, 0.5f, 0.5f, 1);
-        GameObject hitFX = Instantiate(Resources.Load("Prefabs/HitFX"), transform.position, Quaternion.identity) as GameObject;
         yield return new WaitForSeconds(0.1f);
         GetComponent<EnemyMovement>().enemySprite.color = new Color(1, 1, 1, 1);
     }
-
     public void FakeDeath(){
         deathFlag = true;
         dead = true;
@@ -138,4 +141,5 @@ public class BossLife : EnemyLife
 			BossTakeHit();
 		}
 	}
+
 }

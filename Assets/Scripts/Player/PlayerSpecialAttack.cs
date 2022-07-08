@@ -17,10 +17,11 @@ public class PlayerSpecialAttack : MonoBehaviour {
 
 	GameObject starLightBomb;
 
-	public int dayCorePoints;
-	public int dayCoreLevel;
-	public int nightCorePoints;
-	public int nightCoreLevel;
+    int dayCoreLevel;
+    int dayCorePoints;
+    int nightCoreLevel;
+    int nightCorePoints;
+
 	public int coreCap;
 	public int dayCoreThreshold;
 	public int nightCoreThreshold;
@@ -32,17 +33,40 @@ public class PlayerSpecialAttack : MonoBehaviour {
 		shoot = GetComponent<PlayerShoot>();
         playerHandler = GetComponent<PlayerHandler>();
 
-		starLightBomb = Resources.Load ("Prefabs/StarLightBomb") as GameObject;
-
-		dayCoreLevel = 0;
-		dayCorePoints = 0;
-		nightCoreLevel = 0;
-		nightCorePoints = 0;
+		//starLightBomb = Resources.Load ("Prefabs/StarLightBomb") as GameObject;
 
 		coreCap = 150;
 		dayCoreThreshold = coreCap / 5;
 		nightCoreThreshold = coreCap / 5;
 	}
+
+    public void GameInit(){
+        dayCoreLevel = 0;
+		dayCorePoints = 0;
+		nightCoreLevel = 0;
+		nightCorePoints = 0;
+
+        SaveToStats();
+    }
+
+    public void StageInit(){
+        dayCoreLevel = Game.control.stageHandler.stats.dayCoreLevel;
+        dayCorePoints = Game.control.stageHandler.stats.dayCorePoints;
+        nightCoreLevel = Game.control.stageHandler.stats.nightCoreLevel;
+        nightCorePoints = Game.control.stageHandler.stats.nightCorePoints;
+
+        Game.control.stageUI.LEFT_SIDE_PANEL.UpdateCoreCharge ("Day", dayCorePoints);
+        Game.control.stageUI.LEFT_SIDE_PANEL.UpdateCoreCharge ("Night", nightCorePoints);
+        Game.control.stageUI.LEFT_SIDE_PANEL.UpdatePower("Day", dayCoreLevel);
+        Game.control.stageUI.LEFT_SIDE_PANEL.UpdatePower("Night", nightCoreLevel);
+    }
+
+    public void SaveToStats(){
+        Game.control.stageHandler.stats.dayCoreLevel = dayCoreLevel;
+        Game.control.stageHandler.stats.dayCorePoints = dayCorePoints;
+        Game.control.stageHandler.stats.nightCoreLevel = nightCoreLevel;
+        Game.control.stageHandler.stats.nightCorePoints = nightCorePoints;
+    }
 
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.X) && CanUseSpecial())
@@ -62,6 +86,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 		if(Game.control.menu.menuOn) return false;
 		if(specialAttack) return false;
 		if(Game.control.dialog.handlingDialog) return false;
+        if(!Game.control.stageHandler.stageOn) return false;
 		return true;
 	}
 

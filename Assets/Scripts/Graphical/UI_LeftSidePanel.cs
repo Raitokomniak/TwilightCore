@@ -45,6 +45,7 @@ public class UI_LeftSidePanel : MonoBehaviour
 		nightCoreSlider.maxValue = Game.control.player.special.coreCap;
 	}
 
+
 	public void EmptyCores(){
 		dayCoreSlider.value = 0;
 		nightCoreSlider.value = 0;

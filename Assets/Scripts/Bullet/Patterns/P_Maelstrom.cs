@@ -8,12 +8,22 @@ public class P_Maelstrom : Pattern
 
 	public P_Maelstrom(){
 		bulletCount = 10;
-		coolDown = 0.2f;
+		coolDown = 0.3f;
+        rotationDirection = 1;
         patternName = "MaelStrom";
 	}
 
-	public P_Maelstrom(int _bulletCount, float _coolDown){
+    
+	public P_Maelstrom(int _bulletCount, int _rotationDirection){
 		bulletCount = _bulletCount;
+        rotationDirection = _rotationDirection;
+		coolDown = 0.3f;
+        patternName = "MaelStrom";
+	}
+
+	public P_Maelstrom(int _bulletCount, float _coolDown, int _rotationDirection){
+		bulletCount = _bulletCount;
+        rotationDirection = _rotationDirection;
 		coolDown = _coolDown;
         patternName = "MaelStrom";
 	}
@@ -29,8 +39,10 @@ public class P_Maelstrom : Pattern
 			for (int i = 0; i < bulletCount; i++) {
 				spawnPosition = SpawnInCircle (pos, 1.5f, GetAng (i, 360) + startRot);
 				bulletRotation = SpawnInCircle (i, startRot);
+                
 				startRot += maelStromRotationMultiplier * rotationDirection;
-				SpawnBullet (BMP);
+				SpawnBullet ();
+                //BMP.bulletMovement.bulletRot = SpawnInCircle (i, startRot);
 				if(circleDelay > 0) yield return new WaitForSeconds(circleDelay);
 			}
 			if(!infinite) yield break;

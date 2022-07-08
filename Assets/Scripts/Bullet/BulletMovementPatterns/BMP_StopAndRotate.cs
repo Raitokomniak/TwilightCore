@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BMP_StopAndRotate : BulletMovementPattern
 {
+
 	public BMP_StopAndRotate(){
 	}
 
@@ -20,26 +21,27 @@ public class BMP_StopAndRotate : BulletMovementPattern
 
 
     public override IEnumerator ExecuteRoutine(){
+        bulletMovement = bullet.GetComponent<BulletMovement>();
         dontDestroy = true;
 		rotation = bullet.transform.rotation;
 		movementSpeed = 10;
-		Explode (targetMagnitude);
+		StartMoving (targetMagnitude);
 		yield return new WaitUntil (() => bulletMovement.GetRemainingDistance (centerPoint) > targetMagnitude);
 		Stop (bullet);
-		yield return Wait1;
+		yield return new WaitForSeconds(1f);
 		pattern.allBulletsSpawned = true;
 		if (layer == 0) RotateOnAxis (-1, 80f);
 		if (layer == 1) RotateOnAxis (1, 80f);
 		if (layer == 2) RotateOnAxis (-1, 80f);
 		if (layer == 3) RotateOnAxis (1, 80f);
 
-		yield return Wait1;
+		yield return new WaitForSeconds(1f);
 		
         isMoving = true;
 		movementSpeed = 10f;
 		rotateOnAxis = false;
 
-		yield return Wait1;
+		yield return new WaitForSeconds(1f);
 
 		dontDestroy = false;
     }

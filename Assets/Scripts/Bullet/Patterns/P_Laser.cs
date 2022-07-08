@@ -29,7 +29,7 @@ public class P_Laser : Pattern
 					laserIndex++;
 
 					//SpawnBullet (enemyBullet, bulletMovement);
-				SpawnBullet (BMP);
+				SpawnBullet ();
 
 					bullet.GetComponent<BulletMovement>().spriteR.sprite = sprite;
 					if (laserIndex == 0)
@@ -47,7 +47,7 @@ public class P_Laser : Pattern
 				//BMP = new BMP_LaserPendulum(this);
 			
 				//SpawnBullet (enemyBullet, bulletMovement);
-				SpawnBullet (BMP);
+				SpawnBullet ();
 			}
     }
 }

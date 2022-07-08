@@ -33,7 +33,7 @@ public class P_SpiderWebLaser : Pattern
             BMP = new BMP_LaserExpand(this);
             BMP.rotation = Quaternion.Euler(0,0,ang);
            // SpawnBullet (enemyBullet, bulletMovement);
-            SpawnBullet (BMP);
+            SpawnBullet ();
             bullet.GetComponent<BulletMovement> ().spriteR.sprite = sprite;
             
             yield return new WaitForSeconds(0.2f);

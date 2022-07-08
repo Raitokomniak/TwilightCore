@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class BulletMovement : MonoBehaviour {
+    TrailMaker trailMaker;
     HomingWarningLine homingWarningLine;
 
     BoxCollider2D boxCollider;
@@ -14,14 +15,9 @@ public class BulletMovement : MonoBehaviour {
 	VectorLib lib;
 	Vector3 movementDirection;
 	public BulletMovementPattern BMP = null;
-	EnemyShoot shooter;
 	public Rigidbody2D rb;
 	public bool active;
     bool hitBoxEnabled;
-	float trailSpawnCD = .07f;
-	bool canSpawnTrail = true;
-
-
 
     Vector3 findPlayer;
     GameObject nightCoreField;
@@ -40,17 +36,13 @@ public class BulletMovement : MonoBehaviour {
         boxCollider = GetComponent<BoxCollider2D>();
         circleCollider = GetComponent<CircleCollider2D>();
         bulletBouncer = GetComponent<BulletBouncer>();
-
-
-
-        
-
+        trailMaker = GetComponentInChildren<TrailMaker>();
+        trailMaker.gameObject.SetActive(false);
 	}
 
 	public void Init(BulletMovementPattern _BMP, EnemyShoot enemyShoot){
 		rb.simulated = true;
 		BMP = _BMP;
-		shooter = enemyShoot;
 		SetUpBulletMovement ();
 		active = true;
         
@@ -64,6 +56,11 @@ public class BulletMovement : MonoBehaviour {
         stageBot = new Vector3(0, Game.control.stageUI.WORLD.GetBoundaries()[0],0);
 	}
 
+    public void EnableTrail(Sprite sprite){
+        trailMaker.gameObject.SetActive(true);
+        trailMaker.MakeTrail(gameObject, sprite);
+    }
+
     public void SetUpBulletMovement()
 	{
 		if (BMP.startHoming) BMP.FindPlayer(gameObject);
@@ -73,7 +70,7 @@ public class BulletMovement : MonoBehaviour {
 	}
 
 	public void Pool(){
-        
+        trailMaker.gameObject.SetActive(false);
         DisableHitBoxes();
         spriteR.sortingOrder = 4;
         glowRend.sortingOrder = 0;
@@ -87,30 +84,11 @@ public class BulletMovement : MonoBehaviour {
         if(homingWarningLine) homingWarningLine.gameObject.SetActive(false);
 		Stop();
         this.enabled = false;
+        
         //Destroy(this.gameObject);
 	}
 
-    //////////////////////////////
-    // TRAIL
-	void MakeTrail(){
-		GameObject trailSprite = new GameObject();
-		trailSprite.AddComponent<SpriteRenderer>();
-		trailSprite.GetComponent<SpriteRenderer>().sprite = BMP.pattern.sprite;
-		trailSprite.AddComponent<TrailMaker>();
-		trailSprite.transform.SetParent(gameObject.transform);
-		trailSprite.transform.position = gameObject.transform.position;
 
-		GameObject instance = Instantiate(trailSprite, gameObject.transform.position, Quaternion.identity);
-
-		IEnumerator wait = WaitForTrailCD();
-		StartCoroutine(wait);
-	}
-
-	IEnumerator WaitForTrailCD(){
-		canSpawnTrail = false;
-		yield return new WaitForSeconds(trailSpawnCD);
-		canSpawnTrail = true;
-	}
     
 
     //////////////////////////////
@@ -121,8 +99,6 @@ public class BulletMovement : MonoBehaviour {
 
         CheckCollider();
 		CheckScale(); 
-
-		if(BMP!=null) if(BMP.trail && canSpawnTrail) MakeTrail();
             
         if(BMP.isMoving){
             if(BMP.accelerating){
@@ -132,12 +108,15 @@ public class BulletMovement : MonoBehaviour {
                     BMP.accelerating = false;
             }
 
-            if(BMP.rotateOnAxis)  AxisRotation();
-            else {
-                UpdateRotations();
-                CheckMovementType();
-            }
+           if(BMP.rotateOnAxis)  AxisRotation();
+           else CheckMovementType();
         }
+
+         
+        if(!BMP.rotateOnAxis) {
+                UpdateRotations();
+                
+            }
 
         CheckBounds();
 	}
@@ -206,6 +185,8 @@ public class BulletMovement : MonoBehaviour {
 	}
 	
 	void UpdateRotations(){
+        //if(transform.rotation != bulletRot) transform.rotation = bulletRot;
+        
 		if(transform.rotation != BMP.rotation) transform.rotation = BMP.rotation;
 		if(transform.GetChild(0).rotation != BMP.spriteRotation) transform.GetChild(0).rotation = BMP.spriteRotation;
 		if(transform.GetChild(1).rotation != BMP.spriteRotation) transform.GetChild(1).rotation = BMP.spriteRotation;

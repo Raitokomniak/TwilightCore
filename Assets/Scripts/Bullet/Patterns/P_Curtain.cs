@@ -17,16 +17,13 @@ public class P_Curtain : Pattern
         yield return new WaitForSeconds(delayBeforeAttack);
 		pos = enemy.transform.position;
         for (int i = 0; i < bulletCount; i++) {
-				spawnPosition = SpawnInLine (pos.x, 20, lineDirection, i);
-				//bulletMovement = new BMP_TurnToSpears(patterns[0], 6f);
-
-				//SpawnBullet (enemyBullet, bulletMovement);
-				SpawnBullet (BMP);
-				bullet.GetComponent<BulletMovement>().spriteR.sprite = sprite;
-
-				yield return new WaitForSeconds (coolDown);
-				Game.control.sound.PlaySound ("Enemy", "Shoot", false);
-			}
-			lineDirection = -lineDirection;
+			if(stop) break;
+            spawnPosition = SpawnInLine (pos.x, 20, lineDirection, i);
+			SpawnBullet ();
+			bullet.GetComponent<BulletMovement>().spriteR.sprite = sprite;
+			yield return new WaitForSeconds (coolDown);
+			Game.control.sound.PlaySound ("Enemy", "Shoot", false);
+		}
+		lineDirection = -lineDirection;
     }
 }

@@ -23,7 +23,7 @@ public class P_FoxFires : Pattern
 		for (int i = 0; i < bulletCount; i++) {	
 			spawnPosition = enemyShoot.transform.position + new Vector3 (Random.Range (-.8f, .8f), 1.5f * dir, 0);
 			bulletRotation = bulletRotation * Quaternion.Euler (0, 0, 180f + (Random.Range (-10, 10)));
-			SpawnBullet (BMP);
+			SpawnBullet ();
 			dir = -dir;
 			yield return new WaitForSeconds (coolDown);
 			CheckSoundPlay (i, 5);

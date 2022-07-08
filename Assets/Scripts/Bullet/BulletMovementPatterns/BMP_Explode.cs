@@ -7,7 +7,6 @@ public class BMP_Explode : BulletMovementPattern
     public BMP_Explode(){}
 
     public BMP_Explode(Pattern p, float _movementSpeed){
-        name = "explode";
         pattern = p;
         movementSpeed = _movementSpeed;
 		//scale = new Vector3 (2,2,2);
@@ -18,7 +17,7 @@ public class BMP_Explode : BulletMovementPattern
     }
 
     public override IEnumerator ExecuteRoutine(){    
-        Explode (14);
+        StartMoving (14);
         rotation = bullet.transform.rotation;
         if(startHoming) FindPlayer(bullet);
         isMoving = true;

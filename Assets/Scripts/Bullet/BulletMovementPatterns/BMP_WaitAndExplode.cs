@@ -5,10 +5,12 @@ using UnityEngine;
 public class BMP_WaitAndExplode : BulletMovementPattern
 {
 
+
 	public BMP_WaitAndExplode(){}
 
-    public BMP_WaitAndExplode(Pattern p, float _movementSpeed){
+    public BMP_WaitAndExplode(Pattern p, float _movementSpeed, float _waitTime){
         accelMax = _movementSpeed;
+        waitAndExplodeWaitTime = _waitTime;
         pattern = p;
 		scale = new Vector3 (2,2,2);
     }
@@ -20,14 +22,13 @@ public class BMP_WaitAndExplode : BulletMovementPattern
     public override IEnumerator ExecuteRoutine(){
         movementSpeed = 0;
 		rotation = bullet.transform.rotation;
-		Explode (14);
-		yield return new WaitUntil (() => pattern.allBulletsSpawned);
+		StartMoving (14);
+		yield return new WaitUntil (() => pattern.allBulletsSpawned == true);
 		yield return new WaitForSeconds(waitAndExplodeWaitTime);
-
 		movementSpeed = accelMax;
-		accelSpeed = 10f;
+		accelSpeed = 20f;
 		SmoothAcceleration ();
-		Explode (14);
+		StartMoving (14);
 		rotation = bullet.transform.rotation;
 
 		yield return null;

@@ -6,7 +6,6 @@ public class EnemyShoot : MonoBehaviour {
 	EnemyLife enemyLife;
 	public Wave wave;
 	GameObject enemyBullet;
-	public ArrayList bulletsShot;
 	float shootSpeed;
 	Pattern pattern;
 	IEnumerator patternRoutine;
@@ -20,8 +19,6 @@ public class EnemyShoot : MonoBehaviour {
 		wave = Game.control.enemySpawner.curWave;
 		if(wave.isBoss || wave.isMidBoss) enemyLife = GetComponent<BossLife>();
 		else if(tag == "Enemy") enemyLife = GetComponent<EnemyLife>();
-
-		bulletsShot = new ArrayList ();
 	}
 
     void Update(){

@@ -19,11 +19,12 @@ public class HomingWarningLine : MonoBehaviour
         if(!bulletMovement.active && gameObject.activeSelf) lineRenderer.enabled = false;
     }
     public void ActivateLine(){
+        /*
         lineRenderer.enabled = true;
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, Game.control.player.transform.position);
         IEnumerator animateLine = AnimateLine();
-        StartCoroutine(animateLine);
+        StartCoroutine(animateLine);*/
     }
 
     public void DisableLine(){

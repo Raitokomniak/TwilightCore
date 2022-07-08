@@ -4,11 +4,6 @@ using System.Collections.Generic;
 
 public class BulletMovementPattern
 {
-    public WaitForSeconds Waitp1;
-    public WaitForSeconds Wait1;
-    public WaitForSeconds Wait2;
-
-
     public string name;
 
 	public GameObject bullet;
@@ -38,6 +33,7 @@ public class BulletMovementPattern
 
 	public float waitAndExplodeWaitTime;
 
+    public bool waitToTrail = false;
 	public bool trail;
 
 	public Pattern pattern;
@@ -46,6 +42,7 @@ public class BulletMovementPattern
 
 	public float accelIniSpeed;
 	public bool accelerating;
+
 
     public string hitBoxType = "Circle"; //DEFAULT  
 
@@ -70,13 +67,7 @@ public class BulletMovementPattern
        bulletCircleCollider = bullet.GetComponent<CircleCollider2D>();
        bulletHomingWarningLine = bullet.GetComponentInChildren<HomingWarningLine>();
     }
-
-	public BulletMovementPattern(){
-        Waitp1 = new WaitForSeconds(.1f);
-        Wait1 = new WaitForSeconds(1);
-        Wait2 = new WaitForSeconds(2);
-    }
-
+    
 	public virtual BulletMovementPattern GetNewBulletMovement(BulletMovementPattern bmp){
 		Debug.Log("not this getnew");
 		return null;
@@ -90,7 +81,6 @@ public class BulletMovementPattern
 		if(bmpType == "Explode") copiedBMP = new BMP_Explode();
         if(bmpType == "LaserExpand") copiedBMP = new BMP_LaserExpand();
 		if(bmpType == "SlowWaving") copiedBMP = new BMP_SlowWaving();
-		if(bmpType == "Stop") copiedBMP = new BMP_Stop();
 		if(bmpType == "StopAndRotate") copiedBMP = new BMP_StopAndRotate();
 		if(bmpType == "TurnToSpears") copiedBMP = new BMP_TurnToSpears();
 		if(bmpType == "WaitAndExplode") copiedBMP = new BMP_WaitAndExplode();
@@ -108,6 +98,8 @@ public class BulletMovementPattern
 		copiedBMP.movementSpeed = _bmp.movementSpeed;
 		copiedBMP.accelMax = _bmp.accelMax;
 		copiedBMP.accelSpeed = _bmp.accelSpeed;
+        copiedBMP.accelIniSpeed = _bmp.accelIniSpeed;
+        copiedBMP.accelerating = _bmp.accelerating;
 		copiedBMP.rotation = _bmp.rotation;
 		copiedBMP.scale = _bmp.scale;
 		copiedBMP.forceScale = _bmp.forceScale;
@@ -154,7 +146,7 @@ public class BulletMovementPattern
 
 
 
-	public void Explode(float magnitude){
+	public void StartMoving(float magnitude){
         centerPoint = bullet.transform.position;
 		targetMagnitude = magnitude;
 		isMoving = true;
@@ -178,6 +170,7 @@ public class BulletMovementPattern
 		accelerating = true;
 		accelIniSpeed = accelMax;
 		movementSpeed = 0;
+        isMoving = true;
 	}
 
 	public void CancelAxisRotation(float speed)

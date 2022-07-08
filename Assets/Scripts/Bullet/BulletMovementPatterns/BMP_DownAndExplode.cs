@@ -7,9 +7,8 @@ public class BMP_DownAndExplode : BulletMovementPattern
 
     public BMP_DownAndExplode(){}
 
-    public BMP_DownAndExplode(Pattern p, float _movementSpeed, bool _isHoming, float _targetMagnitude){
+    public BMP_DownAndExplode(Pattern p, float _movementSpeed, float _targetMagnitude){
         pattern = p;
-        isHoming = _isHoming;
         movementSpeed = _movementSpeed;
         scale = new Vector3 (2,2,2);
         targetMagnitude = _targetMagnitude;
@@ -23,7 +22,7 @@ public class BMP_DownAndExplode : BulletMovementPattern
     public override IEnumerator ExecuteRoutine(){
         moveWithForce = false;
         movementSpeed = 5f;
-		yield return Wait1;
+		yield return new WaitForSeconds(1f);
         pattern.allBulletsSpawned = true;
 
         //i guess there was an extra bullet?
@@ -34,7 +33,8 @@ public class BMP_DownAndExplode : BulletMovementPattern
         rotation.eulerAngles = new Vector3 (0f, 0f, (pattern.spawnedBullets.Count - 1) * (360 / (pattern.bulletCount)));
 
         movementSpeed = 6f;
-		Explode (2.5f);
+		StartMoving (2.5f);
+        bulletMovement = bullet.GetComponent<BulletMovement>();
         yield return new WaitUntil (() => bulletMovement.GetRemainingDistance (centerPoint) > targetMagnitude);
 		Stop (bullet);
         movementSpeed = 0f;
@@ -42,7 +42,7 @@ public class BMP_DownAndExplode : BulletMovementPattern
 		yield return new WaitForSeconds (0.3f);
 		RotateOnAxis (1, 100f);
 
-		yield return Wait1;
+		yield return new WaitForSeconds(1f);
 		CancelAxisRotation (10f);
     }
 

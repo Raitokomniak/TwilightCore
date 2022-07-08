@@ -139,6 +139,7 @@ public class EnemyMovementPattern
 		} 
 	}
 
+
 	//with custom threshold for leeway
 	public bool HasReachedDestination(EnemyMovement _m, float threshold)
 	{

@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class TrailMaker : MonoBehaviour
 {
-
+    float trailSpawnCD = .07f;
+	bool canSpawnTrail = true;
+    ParticleSystem PS;
+    ParticleSystemRenderer PSRenderer;
+    
     void Awake(){
-        IEnumerator fadeTrail = FadeTrailSprite();
-		StartCoroutine(fadeTrail);
+        PS = GetComponent<ParticleSystem>();
+        PSRenderer = GetComponent<ParticleSystemRenderer>();
+        PSRenderer.enabled = false;
     }
 
-    IEnumerator FadeTrailSprite(){
-		for(float i = .8f; i >= 0; i-=Time.deltaTime * 100){
-			GetComponent<SpriteRenderer>().color = new Color(1,1,1,i);
-			yield return new WaitForSeconds(.05f);
-		}
-		Destroy(this.gameObject);
-		yield return null;
+	public void MakeTrail(GameObject bullet, Sprite sprite){
+        PSRenderer.enabled = true;
+        PS.textureSheetAnimation.RemoveSprite(0);
+        PS.textureSheetAnimation.AddSprite(sprite);
+        PS.Play();
 	}
-	
 }

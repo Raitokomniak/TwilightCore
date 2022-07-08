@@ -11,7 +11,7 @@ public class P_SpiderWeb : Pattern
 		tempMagnitude = originMagnitude;
 		Pattern p = this;
 
-		BMP = new BMP_DownAndExplode(p, 7f, false, 2.6f);
+		BMP = new BMP_DownAndExplode(p, 7f, 2.6f);
 	}
 
    public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
@@ -25,7 +25,7 @@ public class P_SpiderWeb : Pattern
 		animating = false;
 
 		for (int i = 0; i < bulletCount; i++) {
-			bullet = SpawnBullet (BMP);
+			bullet = SpawnBullet ();
             bullet.GetComponent<BulletMovement>().spriteR.sprite = Game.control.spriteLib.SetBulletSprite ("Spider_Glow");
             bullet.GetComponent<BulletMovement>().glowRend.sprite = null;
 		}

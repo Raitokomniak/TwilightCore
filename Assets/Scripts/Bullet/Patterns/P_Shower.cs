@@ -32,7 +32,7 @@ public class P_Shower : Pattern
                 BMP.accelSpeed = 2;
                 BMP.moveWithForce = true;
                 //SpawnBullet (enemyBullet, bulletMovement);
-				SpawnBullet (BMP);
+				SpawnBullet ();
                 
                 bullet.AddComponent<BulletBouncer>();
                 bullet.GetComponent<BulletBouncer>().multiply = true;

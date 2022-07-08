@@ -18,6 +18,11 @@ public class PlayerStats {
     public float nightShootSpeed;
 	public float bulletScale;
 
+    public int dayCorePoints;
+	public int dayCoreLevel;
+	public int nightCorePoints;
+	public int nightCoreLevel;
+
 	public long score;
 	public long hiScore;
 
@@ -32,6 +37,11 @@ public class PlayerStats {
 		damage = damageMin;
 		bulletScaleMin = 1f;
 		bulletScale = bulletScaleMin;
+
+        dayCorePoints = 0;
+	    dayCoreLevel = 0;
+	    nightCorePoints = 0;
+	    nightCoreLevel = 0;
 
 		movementSpeed = 15f;
 		dayShootSpeed = .1f;
@@ -61,6 +71,7 @@ public class PlayerHandler : MonoBehaviour {
 		transform.position = Game.control.vectorLib.GetVector("X8");
 		health.Init ();
 		combat.Init ();
+        special.StageInit();
 		Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateScore (Game.control.stageHandler.stats.score);
 		Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateLives(Game.control.stageHandler.stats.lives);
 		Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateXP(Game.control.stageHandler.stats.xp);

@@ -29,7 +29,7 @@ public class Boss05 : Phaser
         
 		difficulty = Game.control.stageHandler.difficultyMultiplier;
 		ResetLists();
-		Pattern p;
+		Pattern p = null;
 
 		 switch(phase)
 			{
@@ -75,20 +75,19 @@ public class Boss05 : Phaser
 				StartPhaseTimer(11);
 				//Game.control.ui.BOSS.StartBossTimer (enemy.wave.movementPattern.stayTime);
 
-				patterns.Add(new P_Spiral(Mathf.CeilToInt(4 * (difficulty / 2f))));
-				patterns[0].SetSprite ("Circle", "Glow", "BlackPurple", "Medium");
-				patterns[0].BMP = new BMP_WaitAndExplode(patterns[0], 3f);
-				patterns[0].BMP.accelMax = 20f;
-				patterns[0].loopCircles = 288 * difficulty;
-				patterns[0].bulletCount = 5 * difficulty;
+				p = new P_Spiral(Mathf.CeilToInt(5 * difficulty), 1);
+				p.SetSprite ("Circle", "Glow", "BlackPurple", "Medium");
+				p.BMP = new BMP_WaitAndExplode(p, 3f, 0);
+				p.BMP.accelMax = 20f;
+				p.loopCircles = 288 * difficulty;
+                patterns.Add(p);
 
-				patterns.Add(new P_Spiral(Mathf.CeilToInt(4 * (difficulty / 2f))));
-				patterns[1].SetSprite ("Circle", "Glow", "BlackLilac", "Medium");
-				patterns[1].BMP = new BMP_WaitAndExplode(patterns[0], 3f);
-				patterns[1].BMP.accelMax = 20f;
-				patterns[1].loopCircles = 288 * difficulty;
-				patterns[1].bulletCount = 5 * difficulty;
-				patterns[1].rotationDirection = -1;
+				p = new P_Spiral(Mathf.CeilToInt(5 * difficulty), -1);
+				p.SetSprite ("Circle", "Glow", "BlackLilac", "Medium");
+				p.BMP = new BMP_WaitAndExplode(p, 3f, 0);
+				p.BMP.accelMax = 20f;
+				p.loopCircles = 288 * difficulty;
+                patterns.Add(p);
 
 				p = new P_Maelstrom();
 				p.BMP = new BMP_Explode(p, 6f);
@@ -98,6 +97,8 @@ public class Boss05 : Phaser
 				p.bulletCount =  Mathf.CeilToInt(2f * difficulty);
 				p.coolDown = 2.5f / difficulty;
 				patterns.Add(p);
+
+
 				shooter.BossShoot (patterns[2]);
 
 				while(!endOfPhase)

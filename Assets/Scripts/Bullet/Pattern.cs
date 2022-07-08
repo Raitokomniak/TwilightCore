@@ -110,7 +110,7 @@ public class Pattern
 		if(enemyShoot.bulletsShot != null) enemyShoot.bulletsShot.Add (bullet);
 	}*/
 
-	public GameObject SpawnBullet (BulletMovementPattern _BMP)
+	public GameObject SpawnBullet ()
 	{
 		if(BMP == null) BMP = new BMP_Explode(this, 5f); //DEFAULT
 		BMP = BMP.GetNewBulletMovement(BMP);
@@ -135,7 +135,6 @@ public class Pattern
             bullet.GetComponent<BulletMovement>().enabled = true;
 			bullet.GetComponent<BulletMovement>().Init(BMP, enemyShoot);
 		
-			if(enemyShoot.bulletsShot != null) enemyShoot.bulletsShot.Add (bullet);
             return bullet;
 		}
 

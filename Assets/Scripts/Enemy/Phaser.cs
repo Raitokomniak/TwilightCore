@@ -133,7 +133,7 @@ public class Phaser : MonoBehaviour {
 		if(superPhase) life.NextHealthBar();
 		if(bossPhase == numberOfPhases - 1) life.Die(false);
 		else {
-			life.DropLoot("Core");
+			life.DropLoot("Core"); //
 			life.DropLoot("Core");
             if(bossPhase >=0 && bossBonus) {
                 Game.control.stageUI.PlayToast("Boss Bonus 3000!");

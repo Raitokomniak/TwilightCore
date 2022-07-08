@@ -50,11 +50,10 @@ public class P_MusicalNotes : Pattern
         for (int i = 0; i < bulletCount; i++) {
             
 			spawnPosition = SpawnInCircle (pos, 0f, GetAng (i, 360));
-			//SpawnBullet (enemyBullet, bulletMovement);
-				SpawnBullet (BMP);
+			SpawnBullet ();
             int randomSprite = Random.Range(0,21);
             SetSprite(notesprites[randomSprite][0], notesprites[randomSprite][1], notesprites[randomSprite][2], "Tiny");
-            BMP.SetSpriteRotation(new Vector3(0,0,0));
+            BMP.SetSpriteRotation(new Vector3(0,0,bullet.transform.rotation.z * -1));
 		}
     }
 }

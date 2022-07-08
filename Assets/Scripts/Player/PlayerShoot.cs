@@ -39,16 +39,13 @@ public class PlayerShoot : MonoBehaviour {
 	public void Init(){
 		weaponsInUse = new List<GameObject> ();
 		
-		
 		//hidesprites
 		foreach (GameObject w in weapons) {
 			w.GetComponent<SpriteRenderer>().enabled = false;
 		}
 		weapons[0].GetComponent<SpriteRenderer>().enabled = true;
 		weaponsInUse.Add ((GameObject)weapons [0]);
-		UpdateShootLevel (0,0);
-
-
+		UpdateShootLevel (Game.control.stageHandler.stats.dayCoreLevel,Game.control.stageHandler.stats.nightCoreLevel);
 		init = true;
 	}
 
@@ -63,6 +60,7 @@ public class PlayerShoot : MonoBehaviour {
 		if(Game.control.menu.menuOn) return false;
 		if(coolDownTimer > 0) return false;
 		if(Game.control.stageHandler.gameOver) return false;
+        if(!Game.control.stageHandler.stageOn) return false;
 		if(Game.control.pause.paused) return false;
 		if(Game.control.dialog.handlingDialog) return false;
 		return true;

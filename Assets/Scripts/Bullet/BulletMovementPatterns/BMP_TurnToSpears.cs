@@ -19,18 +19,21 @@ public class BMP_TurnToSpears : BulletMovementPattern
 
     public override IEnumerator ExecuteRoutine(){
         movementSpeed = 0;
+        isMoving = false;
 		rotation = Quaternion.Euler(0,0,0);
-		yield return Wait1;
+		yield return new WaitForSeconds(1f);
+
 		bulletMovement.spriteR.sprite = Game.control.spriteLib.SetBulletSprite ("Spear", "Bevel", "Purple");
         bulletMovement.glowRend.sprite = Game.control.spriteLib.SetBulletGlow("Spear");
         bulletMovement.glowRend.color = Game.control.spriteLib.GetColor("Purple");
 
 		bulletBoxCollider.size = new Vector2 (.15f, 2.9f);
         
-		yield return Wait1;
+		yield return new WaitForSeconds(1f);
 		FindPlayer(bullet);
         bullet.transform.GetChild(2).gameObject.SetActive(true);
-        if(bulletHomingWarningLine) bulletHomingWarningLine.ActivateLine();
+        //if(bulletHomingWarningLine) bulletHomingWarningLine.ActivateLine();
+        bullet.GetComponent<BulletMovement>().EnableTrail(Game.control.spriteLib.SetBulletSprite ("Spear", "Bevel", "Purple"));
         startHoming = true;
 		yield return new WaitForSeconds (.5f);
 		accelMax = 40;
