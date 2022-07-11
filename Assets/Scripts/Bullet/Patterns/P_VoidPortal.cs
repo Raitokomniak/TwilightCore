@@ -22,7 +22,7 @@ public class P_VoidPortal : Pattern
 
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
         yield return new WaitUntil(() => enemy.GetComponent<EnemyMovement>().pattern.HasReachedDestination(enemy.GetComponent<EnemyMovement>()) == true);
-        yield return new WaitForSeconds(delayBeforeAttack);
+        yield return new WaitForSeconds(executeDelay);
 		pos = enemy.transform.position;
 
         spawnedBullets = new ArrayList ();

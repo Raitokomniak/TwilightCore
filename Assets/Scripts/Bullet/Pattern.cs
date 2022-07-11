@@ -28,8 +28,6 @@ public class Pattern
 	public Sprite sprite;
 	public Sprite glowSprite;
 
-    public SpriteRenderer glowRenderer;
-
 	public Vector3 spawnPosition;
 	public Quaternion bulletRotation;
 	public BulletMovementPattern BMP;
@@ -38,8 +36,7 @@ public class Pattern
 	public IEnumerator routine;
 	//public GameObject enemyBullet;
 
-	public bool startsHoming;
-	public float delayBeforeAttack = 0; //DEFAULT
+	public float executeDelay = 0; //DEFAULT
 	public float coolDown = 1; //DEFAULT
 	public int bulletCount = 1; //DEFAULT
 	public float rotationMultiplier = 0;  //DEFAULT
@@ -52,8 +49,8 @@ public class Pattern
 	public GameObject animation;
 	public bool animating;
 
+    public string shapeName;
 
-	public int layers = 1;  //DEFAULT
 	public int tempLayer;
 
 	public bool infinite = true; //DEFAULT BECAUSE BOSSES, SEE IF YOU BOTHER TO CHANGE THIS
@@ -62,8 +59,6 @@ public class Pattern
 	public float originMagnitude = 100;  //DEFAULT
 	public float tempMagnitude;
 
-
-
 	public bool bossSpecial = false;
 	public bool allBulletsSpawned;
 
@@ -71,6 +66,8 @@ public class Pattern
 
 	public int lineDirection = 1;
 
+
+    public int shapeSize;
 
 	public int rotationDirection;
 
@@ -82,45 +79,19 @@ public class Pattern
 
 
 	public void StopPattern(){
-		//Debug.Log("stoppat");
 		stop = true;
-        /*if(spawnedBullets == null) return;
-        foreach(GameObject b in spawnedBullets){
-            if(b != null && BMP != null) b.GetComponent<BulletMovement>().StopCoroutine(BMP.ExecuteRoutine());
-        }*/
 	}
-	
-	/// 
-	/*
-	public void SpawnBullet (GameObject enemyBullet, BulletMovementPattern _bulletMovement)
-	{
-		if(bulletMovement == null) bulletMovement = new BMP_Explode(this, 5f); //DEFAULT
-		bulletMovement = bulletMovement.GetNewBulletMovement(bulletMovement);
-		
-		//bullet = (Object.Instantiate (enemyBullet, spawnPosition, bulletRotation) as GameObject);   // GET BULLET FROM POOL
-		
-		bullet.transform.SetParent (GameObject.FindWithTag ("BulletsRepo").transform);
-		
-		spawnedBullets.Add(bullet);
-		bullet.GetComponent<BulletMovement> ().SetUpBulletMovement (bulletMovement, enemyShoot);
-		bullet.transform.GetChild(0).GetComponent<SpriteRenderer> ().sprite = sprite;
-		bullet.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = glowSprite;
-		
-		bullet.transform.localScale = new Vector3(bulletSize, bulletSize, bulletSize);
-		if(enemyShoot.bulletsShot != null) enemyShoot.bulletsShot.Add (bullet);
-	}*/
 
 	public GameObject SpawnBullet ()
 	{
 		if(BMP == null) BMP = new BMP_Explode(this, 5f); //DEFAULT
-		BMP = BMP.GetNewBulletMovement(BMP);
+		BulletMovementPattern BMP_new = BMP.GetNewBulletMovement(BMP);
 		bullet = Game.control.bulletPool.FetchBulletFromPool();
         if(bullet == null) {
             bullet = GameObject.Instantiate(Resources.Load("Prefabs/enemyBullet"), spawnPosition, Quaternion.identity) as GameObject;
             bullet.transform.SetParent(Game.control.bulletPool.bulletContainer);
         }
-        //bullet = GameObject.Instantiate(Resources.Load("Prefabs/enemyBullet"), spawnPosition, Quaternion.identity) as GameObject;
-       // BMP.bullet = bullet;
+
         BMP.ReceiveBulletData(bullet);
 
 		if(bullet != null){
@@ -133,7 +104,7 @@ public class Pattern
 			bullet.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = glowSprite;
             if(bSprite != null) bullet.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Game.control.spriteLib.GetColor(bSprite.colorS);
             bullet.GetComponent<BulletMovement>().enabled = true;
-			bullet.GetComponent<BulletMovement>().Init(BMP, enemyShoot);
+			bullet.GetComponent<BulletMovement>().Init(BMP_new, enemyShoot);
 		
             return bullet;
 		}
@@ -166,9 +137,9 @@ public class Pattern
 	}
 
 
-	public float GetAng (int i, float fullDegrees)
+	public float GetAng (int i, float fullDegrees, int _bulletCount)
 	{
-		float ang = i * (fullDegrees / bulletCount); 
+		float ang = i * (fullDegrees / _bulletCount); 
 		return ang;
 	}
 

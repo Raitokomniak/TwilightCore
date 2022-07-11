@@ -16,7 +16,6 @@ public class MiniToast : MonoBehaviour
     string previousType;
 
     bool readyForToast = true;
-    
     float toastTimer;
     float toastCD = .2f;
 
@@ -26,6 +25,7 @@ public class MiniToast : MonoBehaviour
     }
     void Update(){
         if(!readyForToast) ToastTimer();
+
     }
 
     void ToastTimer(){
@@ -36,13 +36,9 @@ public class MiniToast : MonoBehaviour
         }
     }
 
+
     public void PlayToast(string type){
-        if(type != "Score"){
-            if(previousType != type) readyForToast = true;
-            else readyForToast = false;
-            previousType = type;
-        }
-        else previousType = "Score";
+        previousType = type;
 
         if(!readyForToast) return;
 
@@ -75,7 +71,7 @@ public class MiniToast : MonoBehaviour
         readyForToast = false;
 
         SpriteRenderer r = toastObject.GetComponent<SpriteRenderer>();
-         for(float i = 1; i > 0; i-=Time.deltaTime){
+         for(float i = 1; i > 0; i-=Time.deltaTime * 2){
             toastObject.transform.position += new Vector3(0,Time.deltaTime * 2,0);
             yield return new WaitForSeconds(Time.deltaTime);
             r.color = new Color(1,1,1,i);

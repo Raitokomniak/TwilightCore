@@ -14,7 +14,7 @@ public class P_Curtain : Pattern
 	}
 
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
-        yield return new WaitForSeconds(delayBeforeAttack);
+        yield return new WaitForSeconds(executeDelay);
 		pos = enemy.transform.position;
         for (int i = 0; i < bulletCount; i++) {
 			if(stop) break;

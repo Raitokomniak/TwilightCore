@@ -13,7 +13,7 @@ public class P_Laser : Pattern
 	}
 	
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
-        yield return new WaitForSeconds(delayBeforeAttack);
+        yield return new WaitForSeconds(executeDelay);
 		pos = enemy.transform.position;
 		
 			if (bulletCount > 1) {

@@ -14,7 +14,7 @@ public class BMP_TurnToSpears : BulletMovementPattern
     }
 
 	public override BulletMovementPattern GetNewBulletMovement(BulletMovementPattern _bmp){
-       return CopyValues("TurnToSpears", _bmp);
+       return CopyValues(_bmp, new BMP_TurnToSpears());
     }
 
     public override IEnumerator ExecuteRoutine(){

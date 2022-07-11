@@ -15,7 +15,7 @@ public class BMP_DownAndExplode : BulletMovementPattern
     }
 
     public override BulletMovementPattern GetNewBulletMovement(BulletMovementPattern _bmp){
-        return CopyValues("DownAndExplode", _bmp);
+        return CopyValues(_bmp, new BMP_DownAndExplode());
     }
 
 
@@ -40,7 +40,7 @@ public class BMP_DownAndExplode : BulletMovementPattern
         movementSpeed = 0f;
         
 		yield return new WaitForSeconds (0.3f);
-		RotateOnAxis (1, 100f);
+		RotateOnAxis (1, 10f);
 
 		yield return new WaitForSeconds(1f);
 		CancelAxisRotation (10f);

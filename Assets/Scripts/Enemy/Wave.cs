@@ -136,6 +136,8 @@ public class Wave
 		else if(bossIndex == 1f) bossScript = enemy.AddComponent<Boss1> ();
 		else if(bossIndex == 2f) bossScript = enemy.AddComponent<Boss2> ();
 		else if(bossIndex == 3f) bossScript = enemy.AddComponent<Boss3> ();
+        else if	(bossIndex == 2.5f) bossScript = enemy.AddComponent<Boss25> ();
+
 		bossScript.Init();
 		enemy.GetComponent<BossLife> ().Init (health, healthBars, bossScript);
 		enemy.GetComponentInChildren<SpriteRenderer> ().sprite = sprite;

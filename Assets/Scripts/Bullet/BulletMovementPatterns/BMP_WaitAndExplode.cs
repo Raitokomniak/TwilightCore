@@ -16,7 +16,7 @@ public class BMP_WaitAndExplode : BulletMovementPattern
     }
 
 	public override BulletMovementPattern GetNewBulletMovement(BulletMovementPattern _bmp){
-       return CopyValues("WaitAndExplode", _bmp);
+       return CopyValues(_bmp, new BMP_WaitAndExplode());
     }
 
     public override IEnumerator ExecuteRoutine(){

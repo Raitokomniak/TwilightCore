@@ -29,7 +29,7 @@ public class P_Maelstrom : Pattern
 	}
 
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
-        yield return new WaitForSeconds(delayBeforeAttack);
+        yield return new WaitForSeconds(executeDelay);
 		float startRot = startingRotation;
 
 		while (!stop) {
@@ -37,7 +37,7 @@ public class P_Maelstrom : Pattern
 			Game.control.sound.PlaySound ("Enemy", "Shoot", true);
 			
 			for (int i = 0; i < bulletCount; i++) {
-				spawnPosition = SpawnInCircle (pos, 1.5f, GetAng (i, 360) + startRot);
+				spawnPosition = SpawnInCircle (pos, 1.5f, GetAng (i, 360, bulletCount) + startRot);
 				bulletRotation = SpawnInCircle (i, startRot);
                 
 				startRot += maelStromRotationMultiplier * rotationDirection;

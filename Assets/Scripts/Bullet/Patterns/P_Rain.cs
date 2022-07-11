@@ -10,7 +10,7 @@ public class P_Rain : Pattern
 
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
         allBulletsSpawned = false;
-        yield return new WaitForSeconds(delayBeforeAttack);
+        yield return new WaitForSeconds(executeDelay);
         lib = Game.control.vectorLib;
 		//pos = enemy.transform.position;
 
@@ -22,7 +22,6 @@ public class P_Rain : Pattern
         while(!stop){
                 posX = Random.Range(0, 9);
                 spawnPosition = lib.GetVector(XCOORS[posX] + "1");
-                BMP = new BMP_RainDrop(this);
                 BMP.movementSpeed = 1f;
                 BMP.accelMax = 5f;
                 BMP.accelSpeed = 4;
@@ -30,9 +29,9 @@ public class P_Rain : Pattern
                 BMP.moveWithForce = true;
                 BMP.dontDestroy = true;
                 
-                int randomSprite = Random.Range(0, 2);
-                if(randomSprite == 0) SetSprite ("Diamond", "Glow", "Blue", "Small");
-                if(randomSprite == 1) SetSprite ("Diamond", "Glow", "Turquoise", "Medium");
+                //int randomSprite = Random.Range(0, 2);
+                //if(randomSprite == 0) SetSprite ("Diamond", "Glow", "Blue", "Small");
+                //if(randomSprite == 1) SetSprite ("Diamond", "Glow", "Turquoise", "Medium");
                 //SpawnBullet (enemyBullet, bulletMovement);
 				SpawnBullet ();
                 yield return new WaitForSeconds(.2f);

@@ -19,6 +19,7 @@ public class UI_STAGE : UI {
 	//EFFECT OVERLAY
 	public Image EFFECT_OVERLAY;
     public bool fadeOver;
+    public bool fadeFromBlack;
 
     //TOAST
 	public TextMeshProUGUI toast;
@@ -30,7 +31,8 @@ public class UI_STAGE : UI {
 
 
 	public void InitStage(){
-		EffectOverlay("Black");
+		if(fadeFromBlack) EffectOverlay("Black");
+        else EffectOverlay("White");
 		//LEFT_SIDE_PANEL.EmptyCores();
 		BOSS.HideUI();
 		
@@ -47,7 +49,8 @@ public class UI_STAGE : UI {
 		LEFT_SIDE_PANEL.SetSliderMaxValues();
 
 		RIGHT_SIDE_PANEL.UpdateDifficulty(Game.control.stageHandler.difficultyAsString);
-		EffectOverlay("Black", false, 1);
+		if(fadeFromBlack) EffectOverlay("Black", false, 1);
+        else EffectOverlay("White", false, 1);
 	}
 
 	void Awake(){

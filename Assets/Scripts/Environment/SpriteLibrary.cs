@@ -38,9 +38,7 @@ public class SpriteLibrary : MonoBehaviour {
         else if(colorName == "Lilac")        color = new Color(0.08f,0,1,1);
         else if(colorName == "Purple")       color = new Color(0.5f,0,1,1);
         else if(colorName == "White")        color = Color.white;
-        else if(colorName == "Black")        color = Color.black;
-        else if(colorName == "BlackLilac")   color = Color.black;
-        else if(colorName == "BlackPurple")  color = Color.black;
+        else if(colorName.Contains("Black")) color = Color.black;
         else if(colorName != "") Debug.Log("no defined color for " + colorName);
         return color;
     }

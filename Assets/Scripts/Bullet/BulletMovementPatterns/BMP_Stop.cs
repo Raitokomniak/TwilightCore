@@ -11,7 +11,7 @@ public class BMP_Stop : BulletMovementPattern
     }
 
      public override BulletMovementPattern GetNewBulletMovement(BulletMovementPattern _bmp){
-       return CopyValues("Stop", _bmp);
+       return CopyValues(_bmp, new BMP_Stop());
      }
 
 

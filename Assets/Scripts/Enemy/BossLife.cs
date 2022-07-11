@@ -69,7 +69,8 @@ public class BossLife : EnemyLife
 			}
 		}
 
-        hitFXparticles.Emit(1);
+        if(deathFlag) return;
+        PlayFX("Hit");
         IEnumerator animateHit = AnimateHit();
         StartCoroutine(animateHit);
 	}
@@ -93,12 +94,53 @@ public class BossLife : EnemyLife
 		StartCoroutine(animateDeathRoutine);
 	}
 
+
+    void PlayFX(string type){
+        var shape = hitFXparticles.shape;
+        var main = hitFXparticles.main;
+        var emitter = hitFXparticles.emission;
+
+        if(type == "Hit"){
+            shape.shapeType = ParticleSystemShapeType.SingleSidedEdge;
+            main.startSpeed = 8;
+            hitFXparticles.Emit(1);
+        }
+        if(type == "Death"){
+            shape.shapeType = ParticleSystemShapeType.Sphere;
+            emitter.rateOverTime = 30;
+            main.startSpeed = 20;
+            hitFXparticles.Play();
+        }
+    }
     public override IEnumerator AnimateDeath(bool silent){
         deathFlag = true;
         bossScript.StopPats();
 		bossScript.StopCoro();
         Game.control.enemySpawner.DestroyAllProjectiles();
-        yield return new WaitForSeconds(2f);
+        
+        
+        
+        Color opaq =  new Color(1, 1, 1, 1);
+        Color invis =  new Color(1, 1, 1, 0);
+        SpriteRenderer s = GetComponent<EnemyMovement>().enemySprite;
+
+        int times = 1;
+        for(float i = 0.2f; i > 0.05; i-=0.05f){
+            for(int j = 0; j < times; j++){
+                s.color = invis;
+                yield return new WaitForSeconds(i);
+                s.color = opaq;
+                yield return new WaitForSeconds(i);
+            }
+
+            times+=1;
+
+            if(i < 0.3f) PlayFX("Death");
+        }
+        s.color = invis;
+
+      //  yield return new WaitForSeconds(2f);
+        hitFXparticles.Stop();
 
         if(!silent) Game.control.sound.PlaySound("Enemy", "BossDie", true);
 		DropLoot("Core");

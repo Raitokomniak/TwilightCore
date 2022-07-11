@@ -9,7 +9,7 @@ public class P_RepeatedHoming : Pattern
 		}
 
         public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
-        yield return new WaitForSeconds(delayBeforeAttack);
+        yield return new WaitForSeconds(executeDelay);
 		pos = enemy.transform.position;
 		
 		while(!stop && enemyShoot != null){

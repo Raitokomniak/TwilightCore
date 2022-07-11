@@ -14,7 +14,7 @@ public class BMP_WaitToHome : BulletMovementPattern
     }
 
     public override BulletMovementPattern GetNewBulletMovement(BulletMovementPattern _bmp){
-       return CopyValues("WaitToHome", _bmp);
+       return CopyValues(_bmp, new BMP_WaitToHome());
     }
 
     public override IEnumerator ExecuteRoutine(){

@@ -51,9 +51,9 @@ public class EnemySpawner : MonoBehaviour {
 		
 	public void StartSpawner(int currentStage)
 	{
-		Game.control.stageHandler.InitWaves (currentStage);
+		waves = Game.control.stageHandler.InitWaves (currentStage);
 		currentWave = 0;
-		waves = Game.control.stageHandler.waves;
+		//Game.control.stageHandler.waves;
 		
 		if(waves.Count != 0) {
 			foreach (Wave w in waves) {

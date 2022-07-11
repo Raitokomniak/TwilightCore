@@ -16,7 +16,7 @@ public class BMP_StopAndRotate : BulletMovementPattern
     }
 
 	 public override BulletMovementPattern GetNewBulletMovement(BulletMovementPattern _bmp){
-       return CopyValues("StopAndRotate", _bmp);
+       return CopyValues(_bmp, new BMP_StopAndRotate());
     }
 
 
@@ -30,10 +30,10 @@ public class BMP_StopAndRotate : BulletMovementPattern
 		Stop (bullet);
 		yield return new WaitForSeconds(1f);
 		pattern.allBulletsSpawned = true;
-		if (layer == 0) RotateOnAxis (-1, 80f);
-		if (layer == 1) RotateOnAxis (1, 80f);
-		if (layer == 2) RotateOnAxis (-1, 80f);
-		if (layer == 3) RotateOnAxis (1, 80f);
+		if (layer == 0) RotateOnAxis (-1, 8f);
+		if (layer == 1) RotateOnAxis (1, 8f);
+		if (layer == 2) RotateOnAxis (-1, 8f);
+		if (layer == 3) RotateOnAxis (1, 8f);
 
 		yield return new WaitForSeconds(1f);
 		

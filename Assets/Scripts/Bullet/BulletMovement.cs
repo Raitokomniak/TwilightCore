@@ -108,17 +108,20 @@ public class BulletMovement : MonoBehaviour {
                     BMP.accelerating = false;
             }
 
-           if(BMP.rotateOnAxis)  AxisRotation();
-           else CheckMovementType();
+            if(!BMP.rotateOnAxis) CheckMovementType();
+            else if(BMP.rotateOnAxis && !BMP.moveWhileRotates)  AxisRotation();
+            else if(BMP.rotateOnAxis && BMP.moveWhileRotates) {
+                AxisRotation();
+                CheckMovementType();
+            }
         }
 
          
         if(!BMP.rotateOnAxis) {
                 UpdateRotations();
-                
             }
 
-        CheckBounds();
+        CheckBounds(); ////////////////////////////////////////////////////////////
 	}
     
 	void CheckCollider(){
@@ -149,7 +152,7 @@ public class BulletMovement : MonoBehaviour {
 
 
     void AxisRotation(){
-        transform.RotateAround (BMP.centerPoint, Vector3.back, (Time.deltaTime * BMP.movementSpeed));
+        transform.RotateAround (BMP.centerPoint, Vector3.back, (Time.deltaTime * BMP.axisRotateSpeed));
     }
 
     void CheckMovementType(){
@@ -161,7 +164,9 @@ public class BulletMovement : MonoBehaviour {
 		}
 		else {
 			rb.isKinematic = true;
-			movementDirection = -transform.up;
+			if(BMP.holdShape) movementDirection = new Vector3(BMP.randomForcedXDir, -1, 0);
+            else if(BMP.unFold) movementDirection = -Vector3.up * (BMP.rotation.z + .5f);
+            else movementDirection = -transform.up;
 			rb.velocity = movementDirection * BMP.movementSpeed;
 		}
     }
@@ -186,7 +191,7 @@ public class BulletMovement : MonoBehaviour {
 	
 	void UpdateRotations(){
         //if(transform.rotation != bulletRot) transform.rotation = bulletRot;
-        
+
 		if(transform.rotation != BMP.rotation) transform.rotation = BMP.rotation;
 		if(transform.GetChild(0).rotation != BMP.spriteRotation) transform.GetChild(0).rotation = BMP.spriteRotation;
 		if(transform.GetChild(1).rotation != BMP.spriteRotation) transform.GetChild(1).rotation = BMP.spriteRotation;

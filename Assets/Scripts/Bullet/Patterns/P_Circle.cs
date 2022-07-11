@@ -18,12 +18,12 @@ public class P_Circle : Pattern
 
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
         allBulletsSpawned = false;
-        yield return new WaitForSeconds(delayBeforeAttack);
+        yield return new WaitForSeconds(executeDelay);
 		pos = enemy.transform.position;
         
         Game.control.sound.PlaySound ("Enemy", "Shoot", true);
         for (int i = 0; i < bulletCount; i++) {
-				spawnPosition = SpawnInCircle (pos, 0f, GetAng (i + 20, 380));
+				spawnPosition = SpawnInCircle (pos, 0f, GetAng (i + 20, 380, bulletCount));
                 SpawnBullet ();
 		    }
 

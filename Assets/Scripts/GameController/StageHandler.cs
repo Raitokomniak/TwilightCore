@@ -7,10 +7,10 @@ using System.IO;
 
 public class StageHandler : MonoBehaviour {
 
-    int STARTING_STAGE = 1;
+    int STARTING_STAGE = 3;
 
     AsyncOperation loadScene;
-	Stage stageScript;
+	public Stage stageScript;
     public Phaser bossScript;
 
     bool start;
@@ -51,7 +51,7 @@ public class StageHandler : MonoBehaviour {
             if(Game.control.pause.playerHitTimerOn) stageTimer += Time.unscaledDeltaTime;
             else stageTimer += Time.deltaTime;
 
-			//Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateTimer(stageTimer);
+			Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateTimer(stageTimer);
 		}
 		else {
 			if(AllowInput()){
@@ -105,7 +105,7 @@ public class StageHandler : MonoBehaviour {
 	}
 
 	//THERE MUST BE A BETTER WAY
-	public void InitWaves(int stage){
+	public ArrayList InitWaves(int stage){
 		if(stage == 1){
 			gameObject.AddComponent<Stage1>();
 			stageScript = GetComponent<Stage1>();
@@ -120,7 +120,8 @@ public class StageHandler : MonoBehaviour {
 			if(GetComponent<Stage2>()!=null) Destroy(GetComponent<Stage2>());
 			gameObject.AddComponent<Stage3>();
 			stageScript = GetComponent<Stage3>();
-		} 
+		}
+        return waves;
 	}
 
 	public void NewWave(Wave w){

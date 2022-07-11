@@ -5,8 +5,7 @@ using UnityEngine;
 public class P_GiantWeb : Pattern
 {
 	//CUSTOM PATTERN FOR BOSS2 WHERE BULLETS SPAWN IN 4 ROWS OF CIRCLES
-    int tempLayer;
-    
+
 	public P_GiantWeb(){
 		bossSpecial = true;
 		bulletCount = 30;
@@ -16,7 +15,7 @@ public class P_GiantWeb : Pattern
 
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
         allBulletsSpawned = false;
-		yield return new WaitForSeconds(delayBeforeAttack);
+		yield return new WaitForSeconds(executeDelay);
 		if(stop) yield return null;
 		pos = enemy.transform.position;
         spawnedBullets = new ArrayList ();

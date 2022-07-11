@@ -17,7 +17,7 @@ public class P_MusicalNotes : Pattern
     }
 
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
-        yield return new WaitForSeconds(delayBeforeAttack);
+        yield return new WaitForSeconds(executeDelay);
 		pos = enemy.transform.position;
 
         List<string[]> notesprites = new List<string[]>();
@@ -49,7 +49,7 @@ public class P_MusicalNotes : Pattern
 		
         for (int i = 0; i < bulletCount; i++) {
             
-			spawnPosition = SpawnInCircle (pos, 0f, GetAng (i, 360));
+			spawnPosition = SpawnInCircle (pos, 0f, GetAng (i, 360, bulletCount));
 			SpawnBullet ();
             int randomSprite = Random.Range(0,21);
             SetSprite(notesprites[randomSprite][0], notesprites[randomSprite][1], notesprites[randomSprite][2], "Tiny");

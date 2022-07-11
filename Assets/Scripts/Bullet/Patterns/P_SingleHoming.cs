@@ -13,7 +13,7 @@ public class P_SingleHoming : Pattern
 
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
         BMP.startHoming = true;
-        yield return new WaitForSeconds(delayBeforeAttack);
+        yield return new WaitForSeconds(executeDelay);
         pos = enemy.transform.position;
 
 		while(!stop){

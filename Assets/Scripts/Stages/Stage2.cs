@@ -120,7 +120,7 @@ public class Stage2 : Stage
 		p.bulletCount = 3 * Mathf.CeilToInt(difficultyMultiplier);
 		p.BMP = new BMP_Explode(p, 8f);
 		p.SetSprite ("Circle", "Glow", "Red", "Medium");
-		p.delayBeforeAttack= 1f;
+		p.executeDelay= 1f;
 		p.coolDown = .5f;
 		stage.NewWave (new Wave (3f, mp, p, 3, false, 0, 10f / difficultyMultiplier, "gand_flute"));
 
@@ -132,7 +132,7 @@ public class Stage2 : Stage
 		p.bulletCount = 3 * Mathf.CeilToInt(difficultyMultiplier);
 		p.BMP = new BMP_Explode(p, 8f);
 		p.SetSprite ("Circle", "Glow", "White", "Medium");
-		p.delayBeforeAttack= 1f;
+		p.executeDelay= 1f;
 		p.coolDown = .5f;
 		stage.NewWave (	new Wave (8f, mp, p, 3, false, 0, 10f / difficultyMultiplier, "gand_flute"));
 
@@ -253,7 +253,7 @@ public class Stage2 : Stage
 		p.infinite = false;
 		p.bulletCount = 3 * Mathf.CeilToInt(difficultyMultiplier);
 		p.SetSprite ("Circle", "Glow", "Red", "Medium");
-		p.delayBeforeAttack= 1f;
+		p.executeDelay= 1f;
 		p.coolDown = 1f;
 		stage.NewWave (new Wave (47f, mp, p, 1, false, 0, 3f / difficultyMultiplier, "gand_flute"));
 
@@ -287,7 +287,7 @@ public class Stage2 : Stage
 		p.infinite = false;
 		p.bulletCount = 4 * Mathf.CeilToInt(difficultyMultiplier);
 		p.SetSprite ("Circle", "Glow", "White", "Medium");
-		p.delayBeforeAttack= 1f;
+		p.executeDelay= 1f;
 		p.coolDown = 1f;
 		stage.NewWave (new Wave (64f, mp, p, 2, false, 0, 3f / difficultyMultiplier, "gand_flute"),
 						new List<Vector3> {lib.GetVector("H1"), lib.GetVector("C1")},
@@ -309,7 +309,7 @@ public class Stage2 : Stage
 		p.infinite = false;
 		p.bulletCount = 3 * Mathf.CeilToInt(difficultyMultiplier);
 		p.SetSprite ("Circle", "Glow", "White", "Medium");
-		p.delayBeforeAttack= 1f;
+		p.executeDelay= 1f;
 		p.coolDown = 1f;
 		stage.NewWave (new Wave (68f, mp, p, 2, false, 0, 3f / difficultyMultiplier, "gand_flute"),
 						new List<Vector3> {lib.GetVector("H1"), lib.GetVector("C1")},
@@ -342,7 +342,7 @@ public class Stage2 : Stage
 		p.infinite = false;
 		p.bulletCount = 3 * Mathf.CeilToInt(difficultyMultiplier);
 		p.SetSprite ("Diamond", "Glow", "Red", "Small");
-		p.delayBeforeAttack= 1f;
+		p.executeDelay= 1f;
 		p.coolDown = 1f;
 		stage.NewWave (new Wave (75f, mp, p, 2, false, 0, 3f / difficultyMultiplier, "gand_flute"),
 						new List<Vector3> {lib.GetVector("H1"), lib.GetVector("C1")},
@@ -355,7 +355,7 @@ public class Stage2 : Stage
 		p.infinite = false;
 		p.bulletCount = 3 * Mathf.CeilToInt(difficultyMultiplier);
 		p.SetSprite ("Diamond", "Glow", "Red", "Small");
-		p.delayBeforeAttack= 1f;
+		p.executeDelay= 1f;
 		p.coolDown = 1f;
 		stage.NewWave (new Wave (78f, mp, p, 2, false, 0, 3f / difficultyMultiplier, "gand_flute"),
 						new List<Vector3> {lib.GetVector("H1"), lib.GetVector("C1")},
@@ -373,7 +373,7 @@ public class Stage2 : Stage
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
 		p = new P_VoidPortal(3f, 5, 6);
-		p.delayBeforeAttack = 2f;
+		p.executeDelay = 2f;
 		p.infinite = false;
 		p.BMP = new BMP_Explode(p, 0);
 		stage.NewWave (new Wave (80f, mp, p, 1, false, 5, 100, "default"));
@@ -384,7 +384,7 @@ public class Stage2 : Stage
         mp.disableHitBox = true;
 		p = new P_Spiral(6 * (int)difficultyMultiplier, 1);
 		p.loopCircles =  288 * 4;
-		p.delayBeforeAttack = 1f;
+		p.executeDelay = 1f;
 		p.infinite = false;
 		p.BMP = new BMP_Explode(p, 3f);
 		p.SetSprite ("Circle", "Glow", "White", "Medium");
@@ -402,7 +402,7 @@ public class Stage2 : Stage
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
 		p = new P_VoidPortal(9f, 5, 6);
-		p.delayBeforeAttack = 2f;
+		p.executeDelay = 2f;
 		p.infinite = false;
 		p.BMP = new BMP_Explode(p, 0);
 		stage.NewWave (new Wave (90f, mp, p, 1, false, 5, 100, "default"));
@@ -412,7 +412,7 @@ public class Stage2 : Stage
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
 		p = new P_VoidPortal(9f, 5, 6);
-		p.delayBeforeAttack = 2f;
+		p.executeDelay = 2f;
 		p.infinite = false;
 		p.BMP = new BMP_Explode(p, 0);
 		stage.NewWave (new Wave (90.5f, mp, p, 1, false, 5, 100, "default"));
@@ -422,7 +422,7 @@ public class Stage2 : Stage
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
 		p = new P_VoidPortal(9f, 5, 6);
-		p.delayBeforeAttack = 2f;
+		p.executeDelay = 2f;
 		p.infinite = false;
 		p.BMP = new BMP_Explode(p, 0);
 		stage.NewWave (new Wave (91f, mp, p, 1, false, 5, 100, "default"));
@@ -472,7 +472,7 @@ public class Stage2 : Stage
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
 		p = new P_VoidPortal(13f, 7, 6);
-		p.delayBeforeAttack = 2f;
+		p.executeDelay = 2f;
 		p.infinite = false;
 		p.BMP = new BMP_Explode(p, 0);
 		stage.NewWave (new Wave (105f, mp, p, 1, false, 5, 100, "default")); //105
@@ -482,7 +482,7 @@ public class Stage2 : Stage
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
 		p = new P_VoidPortal(13f, 7, 6);
-		p.delayBeforeAttack = 2f;
+		p.executeDelay = 2f;
 		p.infinite = false;
 		p.BMP = new BMP_Explode(p, 0);
 		stage.NewWave (new Wave (106f, mp, p, 1, false, 5, 100, "default")); //105
@@ -492,7 +492,7 @@ public class Stage2 : Stage
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
 		p = new P_VoidPortal(13f, 7, 6);
-		p.delayBeforeAttack = 2f;
+		p.executeDelay = 2f;
 		p.infinite = false;
 		p.BMP = new BMP_Explode(p, 0);
 		stage.NewWave (new Wave (107f, mp, p, 1, false, 5, 100, "default")); //105
@@ -502,7 +502,7 @@ public class Stage2 : Stage
 		mp.hideSpriteOnSpawn = true;
 		mp.disableHitBox = true;
 		p = new P_VoidPortal(13f, 7, 6);
-		p.delayBeforeAttack = 2f;
+		p.executeDelay = 2f;
 		p.infinite = false;
 		p.BMP = new BMP_Explode(p, 0);
 		stage.NewWave (new Wave (108f, mp, p, 1, false, 5, 100, "default")); //105

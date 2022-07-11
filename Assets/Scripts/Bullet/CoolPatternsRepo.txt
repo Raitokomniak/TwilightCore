@@ -1,0 +1,20 @@
+// COOL "KNEADING" PATTERN
+p.BMP = new BMP_Explode(p, 10);
+p.BMP.rotateOnAxis = true;
+p.BMP.moveWhileRotates = true;
+
+//rotate & move
+p.BMP = new BMP_Explode(p, 10, true);
+       // p.BMP.holdShape = true;
+       // p.BMP.axisRotateSpeed = 4;
+        //p.BMP.rotateOnAxis = true;
+        //p.BMP.moveWhileRotates = true;
+
+
+//unfolding pattern
+p.BMP = new BMP_Explode(p, 10, true);
+       // p.BMP.holdShape = true;
+       p.BMP.unFold = true;
+       // p.BMP.axisRotateSpeed = 4;
+        //p.BMP.rotateOnAxis = true;
+        //p.BMP.moveWhileRotates = true;

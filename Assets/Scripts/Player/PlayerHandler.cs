@@ -111,7 +111,7 @@ public class PlayerHandler : MonoBehaviour {
 
 	public void DebugFillCores(){
 		//POWERUP DOESNT TAKE INTO ACCOUNT BIG AMOUNTS OF CORE POINT GAINS
-		for(int i = 0; i < special.coreCap; i++){
+		for(int i = 0; i < special.coreCap / 2; i++){
 			special.GainCoreCharge("Day", i);
 			special.GainCoreCharge("Night", i);
 		}

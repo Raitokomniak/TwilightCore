@@ -16,7 +16,7 @@ public class P_Spiral : Pattern
 
 
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
-        yield return new WaitForSeconds(delayBeforeAttack);
+        yield return new WaitForSeconds(executeDelay);
 		pos = enemy.transform.position;
     
         if (loopCircles == 0) loopCircles = 360;
@@ -24,7 +24,7 @@ public class P_Spiral : Pattern
         Vector3 centerPos = pos;
 
 		for (int i = 0; i < bulletCount; i++) {
-			spawnPosition = SpawnInCircle (pos, 1f + (i * 0.1f), GetAng (i, loopCircles));
+			spawnPosition = SpawnInCircle (pos, 1f + (i * 0.1f), GetAng (i, loopCircles, bulletCount));
             //THIS YIELDS SOME WEIRD/COOL ROTATIONS
            // startingRotation = i * (360 / (bulletCount));
             //BMP.rotation.eulerAngles = new Vector3(0,0,i * (360 / (bulletCount)));

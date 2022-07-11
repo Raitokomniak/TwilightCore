@@ -406,7 +406,7 @@ public class Stage1 : Stage
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
 		
 
-		boss = new Wave(mp, 1f, 50, true, 2);
+		boss = new Wave(mp, 1f, 30, true, 2);
 		boss.SetUpBoss (1, "Maaya, TEST SUBJECT", false);
 		stage.NewWave (boss);
 

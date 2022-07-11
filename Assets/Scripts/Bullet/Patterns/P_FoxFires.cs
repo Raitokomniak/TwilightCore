@@ -17,7 +17,7 @@ public class P_FoxFires : Pattern
 
  	public override IEnumerator ExecuteRoutine (EnemyShoot enemy)
 	{
-		yield return new WaitForSeconds(delayBeforeAttack);
+		yield return new WaitForSeconds(executeDelay);
 		pos = enemy.transform.position;
         int dir = 1;
 		for (int i = 0; i < bulletCount; i++) {	

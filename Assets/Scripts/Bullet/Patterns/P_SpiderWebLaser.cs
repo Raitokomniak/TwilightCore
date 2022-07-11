@@ -15,7 +15,7 @@ public class P_SpiderWebLaser : Pattern
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
         allBulletsSpawned = false;
         string[] xcoors = new string[7]{"B", "C", "D", "E", "F", "G", "H"};
-        yield return new WaitForSeconds(delayBeforeAttack);
+        yield return new WaitForSeconds(executeDelay);
 
         for (int i = -1; i < bulletCount * 2; i++) {
             float ang = 0;

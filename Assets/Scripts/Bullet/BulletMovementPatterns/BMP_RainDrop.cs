@@ -7,16 +7,18 @@ public class BMP_RainDrop : BulletMovementPattern
     public BMP_RainDrop(){}
 
     //FOR SETTING UP IN WAVE INITS
-    public BMP_RainDrop(Pattern p){
+    public BMP_RainDrop(Pattern p, float _speed){
         pattern = p;
+        movementSpeed = _speed;
     }
 
     public override BulletMovementPattern GetNewBulletMovement(BulletMovementPattern bmp){
-        return CopyValues("RainDrop", bmp);
+        return CopyValues(bmp, new BMP_RainDrop());
     }
 
     public override IEnumerator ExecuteRoutine(){
-        movementSpeed = 5f;
+        bulletMovement = bullet.GetComponent<BulletMovement>();
+
         SmoothAcceleration ();
         
         //SPAWNS OOB SO WAIT UNTIL IS IB AND THEN SET TO BE DESTROYED 

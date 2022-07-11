@@ -73,7 +73,7 @@ public class Boss2 : Phaser
 			//patterns[0].bulletCount = 6 * difficultyMultiplier;
 				if(difficulty == 5) patterns[0].bulletCount = 30; 
 				else patterns[0].bulletCount = 2 * difficulty;
-				patterns[0].delayBeforeAttack = 2f;
+				patterns[0].executeDelay = 2f;
 				patterns[0].BMP = new BMP_Explode(patterns[0], 6f);
 				patterns[0].SetSprite("BigCircle", "Big", "Red", "Big");
 
@@ -150,7 +150,7 @@ public class Boss2 : Phaser
 				patterns.Add(portal);
 				patterns[0].infinite = false;
 				patterns[0].BMP = new BMP_Explode(patterns[0], 0);
-				patterns[0].delayBeforeAttack = 1f;
+				patterns[0].executeDelay = 1f;
 
 				patterns.Add(new P_Spiral(6 * difficulty, 1));
 				patterns[1].loopCircles =  288 * 3;
