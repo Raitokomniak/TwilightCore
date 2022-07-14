@@ -26,10 +26,12 @@ public class Boss2 : Phaser
 		difficulty = Game.control.stageHandler.difficultyMultiplier;
         ResetLists();
 		GetComponent<EnemyMovement>().EnableSprite(true);
+        Pattern p;
 
         switch (phase) {
 			case 0:
 				Game.control.enemySpawner.DestroyAllEnvironmentalHazards();
+                Game.control.stageUI.BOSS.ShowActivatedPhase ("Itsy Bitsy");
                 StartPhaseTimer(30);
 				
 				patterns.Add(new P_Spiral(2 * difficulty, 1));
@@ -62,11 +64,11 @@ public class Boss2 : Phaser
 					shooter.BossShoot (patterns[1]);
 					yield return new WaitForSeconds(3);
 				}
-				patterns[2].StopPattern();
+				patterns[2].Stop();
 				break;
 			case 1:
                 Game.control.sound.PlaySpellSound ("Enemy", "Default");
-				Game.control.stageUI.BOSS.ShowActivatedPhase ("Indra's Net");
+				Game.control.stageUI.BOSS.ShowActivatedPhase ("Deva's Offering: Indra's Net");
 				StartPhaseTimer(30);
 
 				patterns.Add(new P_GiantWeb());
@@ -90,18 +92,20 @@ public class Boss2 : Phaser
 					shooter.BossShoot (patterns[1]);
 					shooter.BossShoot (patterns[0]);
 					yield return new WaitForSeconds (9);
-					patterns[1].StopPattern();
+					patterns[1].Stop();
 					yield return new WaitForSeconds (1);
 				}
-				patterns[0].StopPattern();
-				patterns[1].StopPattern();
+				patterns[0].Stop();
+				patterns[1].Stop();
 				break;
 			case 2:
-				
+				Game.control.stageUI.BOSS.ShowActivatedPhase ("Itsier, Bitsier");
 				StartPhaseTimer(30);
-				patterns.Add(new P_SpiderWebLaser());
-				patterns[0].bulletCount = 3;
-				patterns[0].rotationDirection =  0;
+				p = new P_SpiderWebLaser();
+                p.SetSprite ("Laser", "Glow", "Red", "Small");
+				p.bulletCount = 3;
+				p.rotationDirection =  0;
+                patterns.Add(p);
 
 				patterns.Add(new P_Maelstrom());
 				//patterns[1].SetSprite ("Spider_Glow");
@@ -137,12 +141,12 @@ public class Boss2 : Phaser
 					movement.pattern.UpdateDirection("H4");
 
 					yield return new WaitForSeconds(2f);
-					patterns[1].StopPattern();
-					patterns[2].StopPattern();
+					patterns[1].Stop();
+					patterns[2].Stop();
 				}
 				break;
 			case 3:
-				Game.control.stageUI.BOSS.ShowActivatedPhase ("Void Dance");
+				Game.control.stageUI.BOSS.ShowActivatedPhase ("Deva's Offering: Void Dance");
 				StartPhaseTimer(30);
 
 				P_VoidPortal portal = new P_VoidPortal(20f, 15, 40);
@@ -185,7 +189,7 @@ public class Boss2 : Phaser
 					yield return new WaitForSeconds (1f);
 				}
 				patterns[0].animation.GetComponent<SpriteAnimationController>().stop = true;
-				patterns[3].StopPattern();
+				patterns[3].Stop();
 				break;
 			}
         yield return new WaitForEndOfFrame();

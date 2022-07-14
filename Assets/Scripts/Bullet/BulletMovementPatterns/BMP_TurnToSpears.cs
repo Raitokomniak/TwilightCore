@@ -18,6 +18,9 @@ public class BMP_TurnToSpears : BulletMovementPattern
     }
 
     public override IEnumerator ExecuteRoutine(){
+        bulletMovement = bullet.GetComponent<BulletMovement>();
+        bulletBoxCollider = bullet.GetComponent<BoxCollider2D>();
+        
         movementSpeed = 0;
         isMoving = false;
 		rotation = Quaternion.Euler(0,0,0);

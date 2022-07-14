@@ -11,6 +11,7 @@ public class Stage1 : Stage
 
 		scene = Game.control.scene;
 		//stageHandler = Game.control.stageHandler;
+        fadeFromWhite = false;
 		UpdateStageInfoToUI();
 		InitWaves(stage.difficultyMultiplier);
 	}
@@ -129,12 +130,6 @@ public class Stage1 : Stage
 		p.SetSprite ("Circle", "Glow", "Green", "Small");	 
 		stage.NewWave (new Wave (6f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "gand_sitar"));
 
-		mp = new EnemyMovementPattern(lib.GetVector("I1"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("L4")});
-		p = new P_SingleHoming();
-		p.SetSprite ("BigCircle", "Big", "Red", "Huge");
-		stage.NewWave (new Wave (7f, mp, p, 2, false, 0, 3f / difficultyMultiplier, "gand_sitar"));
-
 			
 		//2ND PHASE
 
@@ -203,14 +198,6 @@ public class Stage1 : Stage
 		p.BMP = new BMP_Explode(p, 11f);
 		p.SetSprite ("Circle", "Glow", "Yellow", "Medium");	 
 		stage.NewWave (new Wave (30f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "gand_sitar"));
-
-		mp = new EnemyMovementPattern(lib.GetVector("K3"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 1), new WayPoint("L4")});
-		p = new P_Circle();
-		p.BMP = new BMP_Explode(p, 7f);
-		p.SetSprite ("Circle", "Glow", "Green", "Small");	 
-		stage.NewWave (new Wave (31f, mp, p, 5, false, 0,  3f / difficultyMultiplier, "gand_sitar"));
-												 //31f
 		
 		
 		mp = new EnemyMovementPattern(lib.GetVector("A3"));
@@ -229,13 +216,6 @@ public class Stage1 : Stage
 		p.SetSprite ("Circle", "Glow", "Green", "Medium");	 
 		stage.NewWave (new Wave (34f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "gand_flute"));
 
-		mp = new EnemyMovementPattern(lib.GetVector("K3"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 1), new WayPoint("L4")});
-		p = new P_MusicalNotes();
-		p.bulletCount =  10;
-		p.BMP = new BMP_Explode(p, 7f);
-		p.SetSprite ("Circle", "Glow", "Green", "Small");	 
-		stage.NewWave (new Wave (36f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "gand_horn"));
 
 		mp = new EnemyMovementPattern(lib.GetVector("K3"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 1), new WayPoint("L4")});
@@ -392,7 +372,7 @@ public class Stage1 : Stage
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
 
-		boss = new Wave(mp, 102f, 650, true, 2);
+		boss = new Wave(mp, 105f, 600, true, 2);
 		boss.SetUpBoss (1, "Maaya, Forest Guard", false);
 		stage.NewWave (boss);
 

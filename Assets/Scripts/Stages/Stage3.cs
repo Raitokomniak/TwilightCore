@@ -12,6 +12,7 @@ public class Stage3 : Stage
         lib = Game.control.vectorLib;
 		scene = Game.control.scene;
 		stage = Game.control.stageHandler;
+        fadeFromWhite = true;
 		UpdateStageInfoToUI();
 		InitWaves(stage.difficultyMultiplier);
 	}
@@ -23,7 +24,7 @@ public class Stage3 : Stage
 
 	IEnumerator StageHandlerRoutine(){
       
-      /*
+      
         Game.control.stageUI.EffectOverlay("White", false, 2.5f);
 
         scene.SetPlaneSpeed (2f);
@@ -49,21 +50,38 @@ public class Stage3 : Stage
         while (stage.stageTimer < 50f) yield return null;
 
         scene.e_camera.Rotate (new Vector3(65, 0, 0));
-*/
+
+        scene.SetPlaneSpeed (20f);
+
+        while (stage.stageTimer < Game.control.enemySpawner.midBossWave.spawnTime - 1) yield return null;
+
+        scene.SetPlaneSpeed (5f);
+
+        while (stage.midBossOn) yield return null;
+
+        scene.SetPlaneSpeed (20f);
+
+        
 
         // BOSS //
-        Game.control.stageUI.WORLD.SetTopLayerSpeed(1);
+        
         while (stage.stageTimer < Game.control.enemySpawner.bossWave.spawnTime - 1) yield return null;
+        Game.control.stageUI.WORLD.SetTopLayerSpeed(1);
+        scene.SetPlaneSpeed (5f);
 		Game.control.dialog.StartDialog ("Boss3");
 
         while(Game.control.dialog.handlingDialog) {
-			if(stage.stageTimer > 123.9f) break;
+			if(stage.stageTimer > 119f) break;
 			else yield return null;
 		}
 		Game.control.sound.PlayMusic ("Boss", 3);
 
 		
 		while(!Game.control.enemySpawner.bossWave.dead) yield return null;
+
+        Game.control.sound.FadeOutMusic();
+        Game.control.sound.StopLoopingEffects();
+        
 		Game.control.stageHandler.ToggleTimer(false);
 
 		yield return new WaitUntil(() => Game.control.stageHandler.CheckIfAllPickUpsGone() == true);
@@ -105,7 +123,7 @@ public class Stage3 : Stage
 
 
 
-/*
+
 
         //PORTAL
         mp = new EnemyMovementPattern(lib.GetVector("C1"));
@@ -264,7 +282,7 @@ public class Stage3 : Stage
 		p.infinite = false;
         p.BMP = new BMP_Explode(p, 7, true, true, true);
         p.BMP.axisRotateSpeed = 4;
-		p.SetSprite ("Circle", "Glow", "BlackOrange", "Tiny");	 
+		p.SetSprite ("Fireball", "Glow", "Turquoise", "Small");	 
 		stage.NewWave (new Wave (28f, mp, p, 10, false, 0, 10f / difficultyMultiplier, "asura"));
 
 
@@ -302,7 +320,7 @@ public class Stage3 : Stage
         p.BMP = new BMP_Explode(p, 7, true, true, true);
         p.BMP.axisRotateSpeed = 4;
         p.BMP.rotationDir = 1;
-		p.SetSprite ("Circle", "Glow", "BlackOrange", "Tiny");	 
+		p.SetSprite ("Fireball", "Glow", "Turquoise", "Small");	 
 		stage.NewWave (new Wave (45f, mp, p, 10, false, 0, 10f / difficultyMultiplier, "asura"));
 
         mp = new EnemyMovementPattern(lib.GetVector("A6"));
@@ -337,9 +355,9 @@ public class Stage3 : Stage
         //mid boss
 
         mp = new EnemyMovementPattern(lib.GetVector("X1"));
-		mp.stayTime = 20f;
+		mp.stayTime = 18f;
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
-		Wave midBoss = new Wave(mp, 65f, 200, false, 1);
+		Wave midBoss = new Wave(mp, 65f, 500, false, 1);
 		midBoss.SetUpBoss (2.5f, "????", true);
 		stage.NewWave (midBoss);
 
@@ -403,24 +421,99 @@ public class Stage3 : Stage
 		p.SetSprite ("Diamond", "Glow", "Turquoise", "Small");	 
 		stage.NewWave (new Wave (100f, mp, p, 5, false, 0, 5f / difficultyMultiplier, "asura"));
 
-*/
-
-        /// BOSS DEBUG ///
-
         
-        mp = new EnemyMovementPattern(lib.GetVector("X1"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
-		boss = new Wave(mp, 1f, Mathf.CeilToInt(100), true, 2);
-		boss.SetUpBoss (3, "Danu, Mother of the Asura", false);
-		stage.NewWave (boss);
+        //PORTAL
+        mp = new EnemyMovementPattern(lib.GetVector("C1"));
+		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("C3", 4f), new WayPoint("L3")});
+		mp.hideSpriteOnSpawn = true;
+		mp.disableHitBox = true;
+		p = new P_VoidPortal(2f, 5, 6);
+		p.executeDelay = 1f;
+		p.infinite = false;
+		p.BMP = new BMP_Explode(p, 0);
+		stage.NewWave (new Wave (103f, mp, p, 1, false, 5, 100, "default"));
 
-/*
+        //ASURA
+        mp = new EnemyMovementPattern(lib.GetVector("C3"));
+		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("B1")});
+		mp.disableHitBox = true;
+        p = new P_Spiral(3 * (int)difficultyMultiplier, 1);
+		p.loopCircles =  288 * 1;
+		p.BMP = new BMP_WaitAndExplode(p, 11f, 0);
+		p.BMP.movementSpeed = 1f;
+		p.SetSprite ("Circle", "Glow", "White", "Medium");
+		w = new Wave(105f, mp, p, 1, false, 3, 6 / difficultyMultiplier, "asura");
+		w.invulnerable = true;
+		stage.NewWave(w);
+
+        //portal
+        mp = new EnemyMovementPattern(lib.GetVector("C1"));
+		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("I4", 4f), new WayPoint("L3")});
+		mp.hideSpriteOnSpawn = true;
+		mp.disableHitBox = true;
+		p = new P_VoidPortal(2f, 5, 6);
+		p.executeDelay = 1f;
+		p.infinite = false;
+		p.BMP = new BMP_Explode(p, 0);
+		stage.NewWave (new Wave (104f, mp, p, 1, false, 5, 100, "default"));
+
+        //asura
+        mp = new EnemyMovementPattern(lib.GetVector("I4"));
+		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("J1")});
+		mp.disableHitBox = true;
+        p = new P_Spiral(3 * (int)difficultyMultiplier, 1);
+		p.loopCircles =  288 * 1;
+		p.BMP = new BMP_WaitAndExplode(p, 11f, 0);
+		p.BMP.movementSpeed = 1f;
+		p.SetSprite ("Circle", "Glow", "White", "Medium");
+		w = new Wave(107f, mp, p, 1, false, 3, 6 / difficultyMultiplier, "asura");
+		w.invulnerable = true;
+		stage.NewWave(w);
+
+        //portal
+        mp = new EnemyMovementPattern(lib.GetVector("C1"));
+		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("D5", 4f), new WayPoint("L3")});
+		mp.hideSpriteOnSpawn = true;
+		mp.disableHitBox = true;
+		p = new P_VoidPortal(2f, 5, 6);
+		p.executeDelay = 1f;
+		p.infinite = false;
+		p.BMP = new BMP_Explode(p, 0);
+		stage.NewWave (new Wave (105f, mp, p, 1, false, 5, 100, "default"));
+
+        //asura
+        mp = new EnemyMovementPattern(lib.GetVector("D5"));
+		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("B1")});
+		mp.disableHitBox = true;
+        p = new P_Spiral(3 * (int)difficultyMultiplier, 1);
+		p.loopCircles =  288 * 1;
+		p.BMP = new BMP_WaitAndExplode(p, 11f, 0);
+		p.BMP.movementSpeed = 1f;
+		p.SetSprite ("Circle", "Glow", "White", "Medium");
+		w = new Wave(109f, mp, p, 1, false, 3, 6 / difficultyMultiplier, "asura");
+		w.invulnerable = true;
+		stage.NewWave(w);
+
+
+
+
+
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
-		boss = new Wave(mp, 115f, Mathf.CeilToInt(400), true, 2);
+		boss = new Wave(mp, 115f, 800, true, 3);
 		boss.SetUpBoss (3, "Danu, Mother of the Asura", false);
 		stage.NewWave (boss);
 
-        */
+        
+/*
+
+        /// BOSS DEBUG ///
+        mp = new EnemyMovementPattern(lib.GetVector("X1"));
+		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
+		boss = new Wave(mp, 1f, 300, true, 3);
+		boss.SetUpBoss (3, "Danu, Mother of the Asura", false);
+		stage.NewWave (boss);
+*/
+        
 	}
 }

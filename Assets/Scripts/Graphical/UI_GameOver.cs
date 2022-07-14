@@ -18,34 +18,35 @@ public class UI_GameOver : MonoBehaviour
    	public GameObject saveScorePrompt;
 	public GameObject saveScoreContainer;
     public TMP_InputField scoreSaveNameInput;
+    
+    public bool saveScoreOn;
+
+    bool gameOver = false;
+    bool gameComplete = false;
 
 
-	void Update(){
-		
-		if(AllowInput() && scoreSaveNameInput.gameObject.activeSelf){
-			if(Input.GetKeyDown(KeyCode.Return)){
-				//DONT DO LIKE THIS, THIS IS JUST A TEMP SOLUTION
-				if(gameOverImage.gameObject.activeSelf) Game.control.menu.Menu("GameOverMenu");
-				else if(gameCompleteImage.gameObject.activeSelf) Game.control.stageHandler.MainMenu();
-				Game.control.io.SaveScore(scoreSaveNameInput.text, Game.control.stageHandler.stats.score, Game.control.stageHandler.difficultyAsString);
-			}
-		}
-	}
-	bool AllowInput(){
-		if(Game.control.loading) return false;
-		return true;
-	}
+    public void SendScore(){
+        if(gameOver) Game.control.menu.Menu("GameOverMenu");
+		else if(gameComplete) Game.control.stageHandler.MainMenu();
+        gameOver = false;
+        gameComplete = false;
+        saveScoreOn = false;
+		Game.control.io.SaveScore(scoreSaveNameInput.text, Game.control.stageHandler.stats.score, Game.control.stageHandler.difficultyAsString);
+    }
+
 	public void GameCompleteScreen(bool value){
 		this.gameObject.SetActive(value);
 		gameOverImage.gameObject.SetActive(false);
 		gameCompleteImage.gameObject.SetActive(true);
 		saveScorePrompt.SetActive(true);
+        gameComplete = true;
 	}
 	public void GameOverScreen(bool value){
 		this.gameObject.SetActive(value);
 		gameOverImage.gameObject.SetActive(true);
 		gameCompleteImage.gameObject.SetActive(false);
 		saveScorePrompt.SetActive(true);
+        gameOver = true;
 	}
 
 	public void GameOverSelections(bool value){
@@ -58,6 +59,7 @@ public class UI_GameOver : MonoBehaviour
 		saveScoreScreen.SetActive(value);
 		saveScorePrompt.SetActive(false);
 		scoreSaveNameInput.ActivateInputField();
+        saveScoreOn = true;
 		scoreInfo.text = Game.control.stageHandler.stats.score.ToString() + " " + Game.control.stageHandler.difficultyAsString;
 	}
     

@@ -28,6 +28,14 @@ public class PauseController : MonoBehaviour {
         }
     }
 
+    public bool AllowPause(){
+        if(playerHitTimerOn) return false;
+		if(Game.control.menu.menuOn) return false;
+		if(Game.control.mainMenuUI != null) return false;
+		if(!Game.control.stageHandler.stageOn) return false;
+		return true;
+    }
+
     public void PlayerHitPause(){
         Game.control.player.movement.ShowHitBox(true);
         playerHitTimer = 0;
@@ -41,7 +49,9 @@ public class PauseController : MonoBehaviour {
         SetTimeScale(true);
         Game.control.player.movement.ShowHitBox(false);
         Game.control.enemySpawner.DestroyAllProjectiles ();
-        Game.control.enemySpawner.DestroyAllPickUpPoints();
+        //Game.control.enemySpawner.DestroyAllPickUpPoints(); // DON'T KNOW IF SHOULD KEEP THIS OR NOT
+        if(!Game.control.stageHandler.bossOn && !Game.control.stageHandler.midBossOn) 
+            Game.control.enemySpawner.DestroyAllEnemies();
         playerHitTimerOn = false;
     }
 

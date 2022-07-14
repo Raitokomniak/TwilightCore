@@ -20,6 +20,8 @@ public class BMP_DownAndExplode : BulletMovementPattern
 
 
     public override IEnumerator ExecuteRoutine(){
+        bulletMovement = bullet.GetComponent<BulletMovement>();
+
         moveWithForce = false;
         movementSpeed = 5f;
 		yield return new WaitForSeconds(1f);
@@ -34,7 +36,6 @@ public class BMP_DownAndExplode : BulletMovementPattern
 
         movementSpeed = 6f;
 		StartMoving (2.5f);
-        bulletMovement = bullet.GetComponent<BulletMovement>();
         yield return new WaitUntil (() => bulletMovement.GetRemainingDistance (centerPoint) > targetMagnitude);
 		Stop (bullet);
         movementSpeed = 0f;

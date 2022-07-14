@@ -21,6 +21,7 @@ public class BMP_StopAndRotate : BulletMovementPattern
 
 
     public override IEnumerator ExecuteRoutine(){
+        
         bulletMovement = bullet.GetComponent<BulletMovement>();
         dontDestroy = true;
 		rotation = bullet.transform.rotation;

@@ -30,7 +30,7 @@ public class P_SpiderWebLaser : Pattern
             }
             //bulletRotation = Quaternion.Euler(0,0,ang);
             //bulletRotation.eulerAngles = new Vector3(0,0,ang);
-            BMP = new BMP_LaserExpand(this);
+            BMP = new BMP_LaserExpand(this, 1);
             BMP.rotation = Quaternion.Euler(0,0,ang);
            // SpawnBullet (enemyBullet, bulletMovement);
             SpawnBullet ();

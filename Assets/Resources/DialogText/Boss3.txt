@@ -1,2 +1,9 @@
-Soma	Allright long-nails, there's nowhere to run off to
-Boss	No
+Soma	Hey, you!
+Boss	A little girl... from the mortal realm?
+Soma	I'm NOT a little... 
+Soma	... 
+Soma	Are you in charge here?
+Boss	Yes... I am the mother of all who dwell here in the realm of the Danava
+Soma	You have hundreds of children???
+Boss	And I won't let you harm any of them
+Boss	Not anymore...

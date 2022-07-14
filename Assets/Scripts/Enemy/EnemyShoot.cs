@@ -36,7 +36,7 @@ public class EnemyShoot : MonoBehaviour {
 	public void StopPattern(){
         if(patternRoutine == null) return;
 		StopCoroutine(patternRoutine);
-		pattern.StopPattern();
+		pattern.Stop();
 		patternOver = true;
 	}
 

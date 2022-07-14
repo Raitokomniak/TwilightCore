@@ -37,7 +37,7 @@ public class BulletMovement : MonoBehaviour {
         circleCollider = GetComponent<CircleCollider2D>();
         bulletBouncer = GetComponent<BulletBouncer>();
         trailMaker = GetComponentInChildren<TrailMaker>();
-        trailMaker.gameObject.SetActive(false);
+        if(trailMaker!=null) trailMaker.gameObject.SetActive(false);
 	}
 
 	public void Init(BulletMovementPattern _BMP, EnemyShoot enemyShoot){
@@ -70,7 +70,7 @@ public class BulletMovement : MonoBehaviour {
 	}
 
 	public void Pool(){
-        trailMaker.gameObject.SetActive(false);
+        if(trailMaker != null && trailMaker.gameObject != null) trailMaker.gameObject.SetActive(false);
         DisableHitBoxes();
         spriteR.sortingOrder = 4;
         glowRend.sortingOrder = 0;
@@ -131,8 +131,8 @@ public class BulletMovement : MonoBehaviour {
 		if((transform.position - findPlayer).magnitude < 1f) canEnable = true; // IF NEAR PLAYER
 		if(Game.control.stageUI.WORLD.GetBoundaries() != null) 
             if(bulletBouncer) if ((transform.position - stageBot).magnitude < 1f) canEnable = true; //IF BOUNCER && NEAR BOT WALL
-		if(nightCoreField.activeSelf)   if((transform.position - nightCoreField.transform.position).magnitude < 6f)     canEnable = true;
-		if(dayCoreField.activeSelf)     if((transform.position - dayCoreField.transform.position).magnitude < 13f)      canEnable = true;
+		if(nightCoreField != null) if(nightCoreField.activeSelf)   if((transform.position - nightCoreField.transform.position).magnitude < 6f)     canEnable = true;
+		if(dayCoreField != null) if(dayCoreField.activeSelf)     if((transform.position - dayCoreField.transform.position).magnitude < 13f)      canEnable = true;
         
 		if(!hitBoxEnabled && canEnable) {
             hitBoxEnabled = true;

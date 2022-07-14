@@ -13,22 +13,25 @@ public class PlayerMovement : MonoBehaviour
 
 	public bool atPickUpThreshold;
 
+    float hor = 0;
+    float ver = 0;
+
 	void Update ()
 	{
         if(CanForceMove()) transform.position = Vector3.Lerp(transform.position, forceMoveTarget, Time.deltaTime);
-        if(!CanMove()) return;
-		if(AllowInput()) FocusMode (Input.GetKey (KeyCode.LeftShift));
-
-		float hor = Input.GetAxisRaw ("Horizontal");
-		float ver = Input.GetAxisRaw ("Vertical");
-        Move (hor, ver);
 		CheckPickUpThreshold();
 	}
 
-	bool AllowInput(){
-		if(Game.control.loading) return false;
+
+    public bool AllowMovement(){
+		if(!Game.control.stageHandler.stageOn && !Game.control.stageHandler.onBonusScreen) return false;
+        if(Game.control.player == null) return false;
+		if(Game.control.player.health.dead) return false;
+		if(Game.control.player.movement.forceMoving) return false;
+        if(Game.control.pause.paused) return false;
+        if(Game.control.stageHandler.gameOver) return false;
 		return true;
-	}
+    }
 
 	public void CheckPickUpThreshold(){
 		if(Game.control.stageUI){
@@ -53,15 +56,7 @@ public class PlayerMovement : MonoBehaviour
 		return true;
 	}
 
-	bool CanMove(){
-		if(!Game.control.stageHandler.stageOn && !Game.control.stageHandler.onBonusScreen) return false;
-		if(GetComponent<PlayerLife>().dead) return false;
-		if(forceMoving) return false;
-		if(GetComponent<PlayerHandler>() == null) return false;
-        if(Game.control.pause.paused) return false;
-        if(Game.control.stageHandler.gameOver) return false;
-		return true;
-	}
+	
 
     public void ShowHitBox(bool toggle){
         float alpha = 0;
@@ -92,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
-	void Move (float x, float y)
+	public void Move (float x, float y)
 	{
         float[] walls = Game.control.stageUI.WORLD.GetBoundaries();
         if(walls == null) return;

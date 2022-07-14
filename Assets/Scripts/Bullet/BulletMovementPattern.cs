@@ -53,6 +53,9 @@ public class BulletMovementPattern
 
 	public float accelIniSpeed;
 	public bool accelerating;
+    public float laserMaxScale = 50;
+
+    public float laserDelay = 2;
 
 
     public string hitBoxType = "Circle"; //DEFAULT  
@@ -116,6 +119,8 @@ public class BulletMovementPattern
         newInstance.randomForcedXDir = _bmp.randomForcedXDir;
         newInstance.xAxisRotation = _bmp.xAxisRotation;
         newInstance.yAxisRotation = _bmp.yAxisRotation;
+        newInstance.laserMaxScale = _bmp.laserMaxScale;
+        newInstance.laserDelay = _bmp.laserDelay;
 
 		return newInstance;
 	}

@@ -18,6 +18,8 @@ public class BMP_Aurora : BulletMovementPattern
     }
 
     public override IEnumerator ExecuteRoutine(){
+        bulletMovement = bullet.GetComponent<BulletMovement>();
+        
         StartMoving (14);
 		rotation = bullet.transform.rotation;
 		yield return new WaitForSeconds(0.1f);

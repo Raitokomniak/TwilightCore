@@ -22,61 +22,31 @@ public class MenuController : MonoBehaviour
         InitMenu();
     }
 
-	string CheckInput(string returnValue){
-		string input = "";
-        string iType = "";
-
-		if(Input.GetKeyDown (KeyCode.UpArrow)) {    input = "up";       iType = "cursor"; }
-		if(Input.GetKeyDown (KeyCode.DownArrow)){   input = "down";     iType = "cursor"; }
-		if(Input.GetKeyDown (KeyCode.RightArrow)){  input = "right";    iType = "cursor"; }
-		if(Input.GetKeyDown (KeyCode.LeftArrow)) {  input = "left";     iType = "cursor"; }
-
-		if(Input.GetKeyDown (KeyCode.Z) || Input.GetKeyDown (KeyCode.Return)) input = "confirm"; iType = "selection";
-		if(Input.GetKeyDown (KeyCode.Escape)) input = "back"; iType = "selection";
-
-        if(returnValue == "value") return input;
-        if(returnValue == "type")  return iType;	
-
-        return "";
-	}
+	
 
     void LateUpdate ()
 	{
-		if (AllowInput()) {
+		if (Game.control.inputHandler.AllowMenuInput()) {
             
-			if (CheckInput("value") == "up")    Game.control.ui.UpdateMenuSelection(context, Move ("up"));
-			if (CheckInput("value") == "down")  Game.control.ui.UpdateMenuSelection(context, Move ("down"));
+			if (Game.control.inputHandler.CheckMenuInput("value") == "up")    Game.control.ui.UpdateMenuSelection(context, Move ("up"));
+			if (Game.control.inputHandler.CheckMenuInput("value") == "down")  Game.control.ui.UpdateMenuSelection(context, Move ("down"));
 
             if(context == "OptionsMenu") {
-                if (CheckInput("value") == "right") Game.control.options.UpdateOption(true, selectedIndex);
-                if (CheckInput("value") == "left") 	Game.control.options.UpdateOption(false, selectedIndex);
+                if (Game.control.inputHandler.CheckMenuInput("value") == "right") Game.control.options.UpdateOption(true, selectedIndex);
+                if (Game.control.inputHandler.CheckMenuInput("value") == "left") 	Game.control.options.UpdateOption(false, selectedIndex);
 			}
         
-			if (CheckInput("value") == "confirm")   CheckSelection ();	
-			if (CheckInput("value") == "back")      CheckPrevious();
+			if (Game.control.inputHandler.CheckMenuInput("value") == "confirm")   CheckSelection ();	
+			if (Game.control.inputHandler.CheckMenuInput("value") == "back")      CheckPrevious();
 
 		}
-		else if(AllowPause() && CheckInput("value") == "back"){
+		else if(Game.control.pause.AllowPause() && Game.control.inputHandler.CheckMenuInput("value") == "back"){
 			Menu("PauseMenu");
 			Game.control.sound.PlayMenuSound("Pause");
 			Game.control.pause.HandlePause();
 		}
 	}
 
-	
-	bool AllowInput(){
-		if(!menuOn) return false;
-		if(Game.control.loading) return false;
-		return true;
-	}
-
-	bool AllowPause(){
-        if(Game.control.pause.playerHitTimerOn) return false;
-		if(menuOn) return false;
-		if(Game.control.mainMenuUI != null) return false;
-		if(!Game.control.stageHandler.stageOn) return false;
-		return true;
-	}
 
 
 	void ClosePauseMenu(){
@@ -89,16 +59,19 @@ public class MenuController : MonoBehaviour
 		selectedIndex = 0;
 		menuOn = true;
 
+        
+
 		if(context == "MainMenu"){
 			selectedList = mainMenuItems;
 			Game.control.mainMenuUI.ToggleMainMenu(true);
+            Game.control.ui.ToggleTutorial(false);
 		}
 		else if(context == "PauseMenu") {
+            
 			selectedList = pauseMenuItems;
             Game.control.stageUI.TogglePauseMenu(true);
 			Game.control.ui.ToggleOptions(false);
             Game.control.ui.ToggleTutorial(false);
-            
 		}
 		else if(context == "DifficultyMenu"){
 			selectedList = difficultyMenuItems;
@@ -123,6 +96,7 @@ public class MenuController : MonoBehaviour
 			selectedList = gameOverMenuItems;
 			Game.control.stageUI.GAMEOVER.GameOverSelections(true);
 		}
+        
 
         Game.control.ui.UpdateMenu(context, selectedList);
 	}

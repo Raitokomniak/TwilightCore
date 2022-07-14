@@ -26,7 +26,15 @@ public class UI : MonoBehaviour
     
     public void ToggleTutorial(bool toggle){
         tutorial.gameObject.SetActive(toggle);
-        tutorial.tutorialOn = toggle;
+        if(toggle) tutorial.tutorialOn = true;
+        else {    
+            IEnumerator wait = waitTut();
+            StartCoroutine(wait);
+        }
+    }
+    IEnumerator waitTut(){
+        yield return new WaitForSecondsRealtime(0.1f);
+        tutorial.tutorialOn = false;
     }
 
     public void ToggleOptions(bool toggle){

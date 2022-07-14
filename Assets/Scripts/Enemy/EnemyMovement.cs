@@ -12,6 +12,8 @@ public class EnemyMovement : MonoBehaviour {
 
 	public bool normalizedForce;
 
+    public bool staticSpriteDir;
+
 	float rotateAngle;
 
 	void Awake () {
@@ -103,6 +105,7 @@ public class EnemyMovement : MonoBehaviour {
 	}
 
 	void CheckSpriteDirection(){
+        if(staticSpriteDir) return;
 		enemySprite.flipX = !pattern.goingRight;
 	}
 

@@ -68,19 +68,16 @@ public class PlayerSpecialAttack : MonoBehaviour {
         Game.control.stageHandler.stats.nightCorePoints = nightCorePoints;
     }
 
-	void Update () {
-		if(Input.GetKeyDown(KeyCode.X) && CanUseSpecial())
-		{
-			if (!movement.focusMode && dayCorePoints >= 20)
+    public void CheckUsedSpecial(){
+	if (!movement.focusMode && dayCorePoints >= 20)
 				StartCoroutine(SpecialAttack ("Day"));
 			else if (movement.focusMode && nightCorePoints >= 20)
 				StartCoroutine(SpecialAttack ("Night"));
 			else
 				Game.control.stageUI.PlayToast("Not enough points for special attack");
-		}
-	}
+    }
 
-	bool CanUseSpecial(){
+	public bool CanUseSpecial(){
         if(Game.control.pause.playerHitTimerOn) return false;
 		if(Game.control.loading) return false;
 		if(Game.control.menu.menuOn) return false;

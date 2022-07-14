@@ -19,30 +19,7 @@ public class Intro : MonoBehaviour
     float skipTimer;
     float skipTime = .1f;
 
-    private void LateUpdate() {
-
-        if(!introOn) return;
-/*
-        if(skipping){
-            if(skipTimer<= skipTime) skipTimer+= Time.deltaTime;
-            else {
-                skipTimer = 0;
-                NextPara();
-            }
-        }
-
-        if(Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.Return)){
-            if(holdTimer>=holdTime) skipping = true;
-            else holdTimer+=Time.deltaTime;
-        }
-        else {
-            holdTimer = 0;
-            skipping = false;
-        }*/
-        if(Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Return))
-            NextPara();
-        
-    }
+ 
     
     public void Run(){
         Game.control.inputHandler.skipContext = "Intro";

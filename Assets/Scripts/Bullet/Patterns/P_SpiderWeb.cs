@@ -16,7 +16,7 @@ public class P_SpiderWeb : Pattern
 
    public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
         //yield return new WaitForSeconds(delayBeforeAttack);
-		spawnedBullets = new ArrayList ();
+		spawnedBullets = new List<GameObject>();
 		allBulletsSpawned = false;
 		pos = enemy.transform.position;
 		animation = (Resources.Load ("Images/Animations/SmallWeb") as GameObject);

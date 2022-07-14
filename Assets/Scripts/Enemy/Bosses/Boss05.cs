@@ -64,8 +64,8 @@ public class Boss05 : Phaser
 				{
 					yield return null;
 				}
-				patterns[0].StopPattern();
-				patterns[1].StopPattern();
+				patterns[0].Stop();
+				patterns[1].Stop();
 				NextPhase();
 				break;
 			case 1:
@@ -93,7 +93,7 @@ public class Boss05 : Phaser
 				p.BMP = new BMP_Explode(p, 6f);
 				p.rotationDirection = 1;
                 p.maelStromRotationMultiplier = 1f;
-				p.SetSprite ("BigCircle", "Big", "Purple", "Huge");
+				p.SetSprite ("BigCircle", "Big", "BlackPurple", "Huge");
 				p.bulletCount =  Mathf.CeilToInt(2f * difficulty);
 				p.coolDown = 2.5f / difficulty;
 				patterns.Add(p);

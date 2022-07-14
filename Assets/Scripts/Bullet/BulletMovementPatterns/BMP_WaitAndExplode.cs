@@ -20,6 +20,7 @@ public class BMP_WaitAndExplode : BulletMovementPattern
     }
 
     public override IEnumerator ExecuteRoutine(){
+        bulletMovement = bullet.GetComponent<BulletMovement>();
         movementSpeed = 0;
 		rotation = bullet.transform.rotation;
 		StartMoving (14);

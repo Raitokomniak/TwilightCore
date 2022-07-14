@@ -25,7 +25,7 @@ public class P_VoidPortal : Pattern
         yield return new WaitForSeconds(executeDelay);
 		pos = enemy.transform.position;
 
-        spawnedBullets = new ArrayList ();
+        spawnedBullets = new List<GameObject>();
         animation = (Resources.Load ("Images/Animations/A_VoidPortal") as GameObject);
         animation.GetComponent<SpriteAnimationController> ().stayTime = stayTime;
         animation.GetComponent<SpriteAnimationController> ().rotationSpeed = 10f;

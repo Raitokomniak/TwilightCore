@@ -9,6 +9,9 @@ public class SoundController : MonoBehaviour {
     bool canloopBoss;
     float loopStartPoint;
     bool bossMusicOn;
+
+    bool canResumeBGM;
+    bool canResumeSFX;
     
 	List<AudioSource> SFXsources;
 	public AudioSource playerSFXSource, enemySFXSource, menuSFXSource, loopingSFXSource, BGMSource;
@@ -53,6 +56,7 @@ public class SoundController : MonoBehaviour {
 		//BGM_stageMusic[1] = Resources.Load("Sound/Music/stage2") as AudioClip;
 		BGM_stageMusic[1] = Resources.Load("Sound/Music/stage2_lulmix") as AudioClip;
 		BGM_stageMusic[2] = Resources.Load("Sound/Music/stage3") as AudioClip;
+        //BGM_stageMusic[2] = Resources.Load("Sound/Music/stage3_wipmix") as AudioClip;
 
 		BGM_bossMusic = new List<AudioClip>();
 		BGM_bossMusic.Add(Resources.Load ("Sound/Music/Boss1") as AudioClip);
@@ -184,6 +188,7 @@ public class SoundController : MonoBehaviour {
 	}
 
 	public void FadeOutMusic(){
+        if(!BGMSource.isPlaying) return;
 		IEnumerator fadeOutRoutine = FadeOutRoutine();
 		StartCoroutine(fadeOutRoutine);
 	}
@@ -194,22 +199,27 @@ public class SoundController : MonoBehaviour {
 			BGMSource.volume = i;
 			yield return new WaitForSeconds(Time.deltaTime);
 		}
-		BGMSource.Stop();
+		StopMusic();
 		BGMSource.volume = tempVol;
 	}
 
+    public void StopMusic(){
+        BGMSource.Stop();
+        canResumeBGM = false;
+    }
 	public void PauseMusic(){
 		BGMSource.Pause ();
-		
 	}
 	public void PauseEffects(){
 		loopingSFXSource.Pause();
 	}
 	public void ResumeMusic(){
-		BGMSource.Play ();
+		if(!canResumeBGM) return;
+        BGMSource.Play ();
 	}
 
 	public void ResumeEffects(){
+        if(!canResumeSFX) return;
 		loopingSFXSource.Play();
 	}
 	public void StopMusicAndEffects(){
@@ -219,6 +229,7 @@ public class SoundController : MonoBehaviour {
 
 	public void StopLoopingEffects(){
 		loopingSFXSource.Stop();
+        canResumeSFX = false;
 	}
 
     void LoopMusicFromPoint(){
@@ -262,7 +273,7 @@ public class SoundController : MonoBehaviour {
         ///DEBUG
        // BGMSource.time = BGMSource.clip.length - 3;
         
-
+        canResumeBGM = true;
 		ResumeMusic();
 	}
 

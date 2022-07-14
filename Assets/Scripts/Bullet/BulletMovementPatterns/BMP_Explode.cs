@@ -25,6 +25,8 @@ public class BMP_Explode : BulletMovementPattern
     }
 
     public override IEnumerator ExecuteRoutine(){
+        bulletMovement = bullet.GetComponent<BulletMovement>();
+        
         StartMoving (14);
         rotation = bullet.transform.rotation;
         if(startHoming) FindPlayer(bullet);

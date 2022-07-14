@@ -16,6 +16,7 @@ public class BMP_Stop : BulletMovementPattern
 
 
     public override IEnumerator ExecuteRoutine(){
+        bulletMovement = bullet.GetComponent<BulletMovement>();
         StartMoving (14);
 		rotation = bullet.transform.rotation;
 		yield return new WaitForSeconds(.1f);

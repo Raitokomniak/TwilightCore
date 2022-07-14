@@ -107,10 +107,10 @@ public class Boss1 : Phaser
 					
 				
 					yield return new WaitForSeconds(3f);
-					patterns[3].StopPattern();
-					patterns[4].StopPattern();
-					patterns[1].StopPattern();
-					patterns[2].StopPattern();
+					patterns[3].Stop();
+					patterns[4].Stop();
+					patterns[1].Stop();
+					patterns[2].Stop();
 
 					movement.pattern.UpdateDirection("C3");
 					yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
@@ -164,8 +164,8 @@ public class Boss1 : Phaser
                     shooter.BossShoot (patterns[1]);
 					shooter.BossShoot (patterns[2]);
 					yield return new WaitForSeconds(2.2f);
-					patterns[1].StopPattern();
-					patterns[2].StopPattern();
+					patterns[1].Stop();
+					patterns[2].Stop();
 					yield return new WaitForSeconds(1f);
 					movement.pattern.UpdateDirection("B3");
 					shooter.BossShoot (patterns[0]);
@@ -174,8 +174,8 @@ public class Boss1 : Phaser
 					shooter.BossShoot (patterns[1]);
 					shooter.BossShoot (patterns[2]);
 					yield return new WaitForSeconds(2.2f);
-					patterns[1].StopPattern();
-					patterns[2].StopPattern();
+					patterns[1].Stop();
+					patterns[2].Stop();
 					yield return new WaitForSeconds(1f);
 				}
 
@@ -281,15 +281,15 @@ public class Boss1 : Phaser
 					shooter.BossShoot (patterns[3]);
 					shooter.BossShoot (patterns[6]);
 
-					patterns[4].StopPattern();
-					patterns[5].StopPattern();
-					patterns[7].StopPattern();
-					patterns[8].StopPattern();
+					patterns[4].Stop();
+					patterns[5].Stop();
+					patterns[7].Stop();
+					patterns[8].Stop();
 				
 					yield return new WaitForSeconds(3f);
 					shooter.BossShoot (patterns[6]);
-					patterns[1].StopPattern();
-					patterns[2].StopPattern();
+					patterns[1].Stop();
+					patterns[2].Stop();
 
 					movement.pattern.UpdateDirection("C3");
 					yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
@@ -345,7 +345,7 @@ public class Boss1 : Phaser
 					yield return new WaitUntil(() => movement.pattern.rotateOnAxis == false);
                     movement.CorrectRotation();
 					movement.moving = false;
-                    patterns[0].StopPattern();
+                    patterns[0].Stop();
 					movementPatterns[0].force = true;
 					movementPatterns[0].speed = 7f;
 					movement.moving = true;
@@ -354,7 +354,7 @@ public class Boss1 : Phaser
                     patterns[1].BMP = new BMP_Explode(p, 6f);
 					shooter.BossShoot (patterns[1]);
 					yield return new WaitForSeconds(4f);
-					patterns[1].StopPattern();
+					patterns[1].Stop();
 				}
 				break;
 		}

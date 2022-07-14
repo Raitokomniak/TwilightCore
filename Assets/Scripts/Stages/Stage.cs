@@ -11,7 +11,7 @@ public class Stage : MonoBehaviour
     public string bgmName;
     public int stageindex;
 
-    public bool fadeFromBlack;
+    public bool fadeFromWhite;
 
 	
     public EnvironmentHandler scene;
@@ -21,7 +21,7 @@ public class Stage : MonoBehaviour
     public VectorLib lib;
 
     public void UpdateStageInfoToUI(){
-        Game.control.stageUI.fadeFromBlack = fadeFromBlack;
+        Game.control.stageUI.fadeFromWhite = fadeFromWhite;
         Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateStage(stageName);
 		Game.control.stageUI.STAGETOAST.UpdateStageToastText (stageindex, stageName, bgmName);
     }

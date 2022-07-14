@@ -18,7 +18,7 @@ public class P_GiantWeb : Pattern
 		yield return new WaitForSeconds(executeDelay);
 		if(stop) yield return null;
 		pos = enemy.transform.position;
-        spawnedBullets = new ArrayList ();
+        spawnedBullets = new List<GameObject>();
 		animation = (Resources.Load ("Images/Animations/SmallWeb") as GameObject);
 		animation.GetComponent<SpriteAnimationController>().stayTime = 3f;
         animation.GetComponent<SpriteAnimationController>().pattern = this;

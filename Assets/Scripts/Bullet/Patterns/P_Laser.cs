@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class P_Laser : Pattern
-{  
-    int laserIndex = 0;
+{   
+    int size = 1;
+    float laserDelay = 2f;
 
-	public P_Laser(){
+	public P_Laser(int _size, float delay){
 		coolDown = 10;
+        size = _size;
+        laserDelay = delay;
 		originMagnitude = 15;
 		tempMagnitude = originMagnitude;
 	}
@@ -19,34 +22,20 @@ public class P_Laser : Pattern
 			if (bulletCount > 1) {
 				for (int i = 0; i < bulletCount; i++) {
 					float ang = (i * (360 / bulletCount) + (360 / bulletCount)) * 0.7f;
-					if (i >= 3)
-						ang += 30;
+					if (i >= 3) ang += 30;
 
 					spawnPosition = SpawnInCircle (pos + new Vector3 (0, 1f, 0), 1.5f, ang);
+                    
+					BMP = new BMP_LaserExpand(this, size);
+                    BMP.rotation = Quaternion.Euler(0,0,ang);
+                    BMP.laserDelay = laserDelay;
 
-				//	bulletMovement = new BulletMovementPattern (false, "ExpandToLaser", 0f, this, 0, tempMagnitude);
-					BMP = new BMP_LaserExpand(this);
-					laserIndex++;
-
-					//SpawnBullet (enemyBullet, bulletMovement);
-				SpawnBullet ();
-
-					bullet.GetComponent<BulletMovement>().spriteR.sprite = sprite;
-					if (laserIndex == 0)
-						laserIndex++;
-					else
-						laserIndex = 0;
-				}
-
+				    SpawnBullet ();
+                }
 			} 
 			else {
-				sprite = Resources.Load<Sprite> ("Sprites/enemyLaser");
 				spawnPosition = pos - new Vector3 (0f, .2f, 0f);
-				
-				//bulletMovement = new BulletMovementPattern (false, "PendulumLaser", 0f, this, 0, tempMagnitude);
-				//BMP = new BMP_LaserPendulum(this);
-			
-				//SpawnBullet (enemyBullet, bulletMovement);
+				BMP = new BMP_LaserExpand(this, size);
 				SpawnBullet ();
 			}
     }

@@ -1,1 +1,8 @@
-Boss	Kiitos kun testasit peliä ^_^
+Boss	Curse you, curse the Deva!
+Boss	Is it not enough to take my Vrtra?
+Boss	Haven't I shed enough tears?
+Soma	Look, I need to know where your, um, son, is taking my possessions
+Boss	...
+Boss	I reckon you saw Lakshmi on your way here?
+Boss	The Tridevi forced me to form a connection to the mortal world but to what end I was not told... 
+Boss	She must know what you seek, little girl

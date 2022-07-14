@@ -18,6 +18,8 @@ public class BMP_WaitToHome : BulletMovementPattern
     }
 
     public override IEnumerator ExecuteRoutine(){
+        bulletMovement = bullet.GetComponent<BulletMovement>();
+        
         if(trail) {
             waitToTrail = true;
             trail = false;

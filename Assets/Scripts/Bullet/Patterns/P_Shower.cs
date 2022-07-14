@@ -22,7 +22,7 @@ public class P_Shower : Pattern
         while(!stop){
             for(int i = 0; i < bulletCount; i++){
                 int dir = 1;
-                spawnPosition = enemy.transform.position + new Vector3 (-2 + (Random.Range (-.8f, .8f)), 0, 0);
+                spawnPosition = enemy.transform.position + new Vector3 (-2 + (Random.Range (-.8f, 0f)), 0, 0);
                 bulletRotation = bulletRotation * Quaternion.Euler (0, 0, 180f + (Random.Range (-10, 10)));
                 BMP = new BMP_RainDrop(this, 5);
                 int randomDir = Random.Range(-10, 10);
@@ -38,7 +38,7 @@ public class P_Shower : Pattern
                 bullet.GetComponent<BulletBouncer>().multiply = true;
                 
                 dir = -dir;
-                yield return new WaitForSeconds (.06f);
+                yield return new WaitForSeconds (.08f);
             }
             yield return new WaitForSeconds (.2f);
             yield return null;

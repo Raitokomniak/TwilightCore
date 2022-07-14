@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerShoot : MonoBehaviour {
-	bool init;
+	public bool init;
 
-	float coolDownTimer;
+	public float coolDownTimer;
 
 	public int shootLevel;
 	public int dayShootLevel;
@@ -50,11 +50,15 @@ public class PlayerShoot : MonoBehaviour {
 	}
 
 	void Update () {
-		if(Input.GetKey	(KeyCode.Z) && CanShoot()) Shoot();
 		if(coolDownTimer > 0)  coolDownTimer -= Time.deltaTime;
 	}
 	
-	public bool CanShoot(){
+	public void DisableWeapons(){
+		foreach(GameObject weapon in weapons) weapon.SetActive(false);
+	}
+
+    
+    public bool CanShoot(){
 		if(Game.control.loading) return false;
 		if(!init) return false;
 		if(Game.control.menu.menuOn) return false;
@@ -66,13 +70,7 @@ public class PlayerShoot : MonoBehaviour {
 		return true;
 	}
 
-	public void DisableWeapons(){
-		foreach(GameObject weapon in weapons){
-			weapon.SetActive(false);
-		}
-	}
-
-	void Shoot()
+	public void Shoot()
 	{
         bool focusMode = GetComponent<PlayerMovement> ().focusMode;
 
@@ -118,18 +116,10 @@ public class PlayerShoot : MonoBehaviour {
 	}
 
 	void SetProjectileScale(int i){
-		if(shootLevel == 0) {
-			projectile.transform.localScale = new Vector3 (1.5f, 1.5f, 1.5f);
-		}
-		if(shootLevel == 1){
-			projectile.transform.localScale = new Vector3 (2f, 2f, 2f);
-		}
-		if(shootLevel > 1){
-			projectile.transform.localScale = new Vector3 (2.5f, 2.5f, 2.5f);
-		}
-		if(shootLevel > 3 ){
-			if(!GetComponent<PlayerMovement> ().focusMode) projectile.transform.localScale = new Vector3 (4f, 4f, 4f);
-		}
+		if(shootLevel == 0) projectile.transform.localScale = new Vector3 (1.5f, 1.5f, 1.5f);
+		if(shootLevel == 1) projectile.transform.localScale = new Vector3 (2f, 2f, 2f);
+		if(shootLevel > 1) projectile.transform.localScale = new Vector3 (2.5f, 2.5f, 2.5f);
+		if(shootLevel > 3 ) if(!GetComponent<PlayerMovement> ().focusMode) projectile.transform.localScale = new Vector3 (4f, 4f, 4f);
 	}
 
 
@@ -176,11 +166,6 @@ public class PlayerShoot : MonoBehaviour {
 		}
 	}
 
-/*
-	public void UpdateShootLevel(string core, int coreLevel){
-		if(core == "Day") dayShootLevel = coreLevel;
-		if(core == "Night") nightShootLevel = coreLevel;
-	}*/
 
 	public void UpdateShootLevel(int dayCoreLevel, int nightCoreLevel){
 		foreach (GameObject weapon in weaponsInUse) weapon.GetComponent<SpriteRenderer>().enabled = false;
@@ -195,28 +180,23 @@ public class PlayerShoot : MonoBehaviour {
 		} 
 		
 		//weapon count
-		if(shootLevel >= 0){
-			weaponsInUse.Add (weapons [0]);
-		}
+		if(shootLevel >= 0) weaponsInUse.Add (weapons [0]);
+
 		if(shootLevel >= 1){
 			weaponsInUse.Add (weapons [1]);
 			weaponsInUse.Add (weapons [2]);
 		}
-		if(shootLevel >= 3){
-			weaponsInUse.Add (weapons [3]);
-		}
+		if(shootLevel >= 3) weaponsInUse.Add (weapons [3]);
 
 		//set scales
-		if(shootLevel < 1){
-			sideWeaponRots = new List<Quaternion>() {Quaternion.Euler(0,0,0), Quaternion.Euler(0,0,0)};
-		}
+		if(shootLevel < 1) sideWeaponRots = new List<Quaternion>() {Quaternion.Euler(0,0,0), Quaternion.Euler(0,0,0)};
+
 		if(shootLevel >= 1){
 			sideWeaponRots = new List<Quaternion>() {Quaternion.Euler(0,0,-25), Quaternion.Euler(0,0,25)};
 			weaponsInUse[1].transform.rotation = sideWeaponRots[0];
 			weaponsInUse[2].transform.rotation = sideWeaponRots[1];
-			foreach (GameObject weapon in weaponsInUse){
-				weapon.transform.localScale = new Vector3 (1.5f, 1.5f, 1.5f);
-			}
+			foreach (GameObject weapon in weaponsInUse)
+                weapon.transform.localScale = new Vector3 (1.5f, 1.5f, 1.5f);
 		}
 		if(shootLevel > 3){
 			weaponsInUse[3].transform.localScale = new Vector3 (2f, 2f, 2f);

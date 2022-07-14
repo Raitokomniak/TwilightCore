@@ -17,29 +17,13 @@ public class DialogController : MonoBehaviour {
 	
 
 	void LateUpdate () {
-		if(AllowInput()){
-			if(autoScroll){
-
-				if(autoScrollTimer < autoScrollTime)
-					autoScrollTimer += Time.deltaTime;
-				else
-					AdvanceDialog();
-			}
-
-			if (Input.GetKeyDown (KeyCode.Z)) {
-				Game.control.sound.PlayMenuSound("Cursor");
-				AdvanceDialog();
-			}
+        if(autoScroll){
+			if(autoScrollTimer < autoScrollTime) autoScrollTimer += Time.deltaTime;
+			else AdvanceDialog();
 		}
 	}
-    
 
-	bool AllowInput(){
-		if(Game.control.loading) return false;
-		if(Game.control.pause.paused) return false;
-		if(!handlingDialog) return false; 
-		return true;
-	}
+    
 	public void AdvanceDialog(){
 		advanceDialogTrigger = true;
 		autoScrollTimer = 0;

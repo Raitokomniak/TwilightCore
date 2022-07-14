@@ -11,6 +11,7 @@ public class Stage2 : Stage
 
 		scene = Game.control.scene;
 		stage = Game.control.stageHandler;
+        fadeFromWhite = false;
 		UpdateStageInfoToUI();
 		InitWaves(stage.difficultyMultiplier);
 		lib = Game.control.vectorLib;
@@ -65,7 +66,7 @@ public class Stage2 : Stage
 		Game.control.dialog.StartDialog ("Boss2");
 
 		while(Game.control.dialog.handlingDialog) {
-			if(stage.stageTimer > 121.9f) break;
+			if(stage.stageTimer > 124.1f) break;
 			else yield return null;
 		}
 		Game.control.sound.PlayMusic ("Boss", 2);
@@ -266,6 +267,7 @@ public class Stage2 : Stage
 		mp.disableHitBox = true;
 		mp.hideSpriteOnSpawn = true;
 		p = new P_SpiderWebLaser();
+        p.SetSprite ("Laser", "Glow", "Red", "Small");
 		p.bulletCount = 4 * Mathf.CeilToInt(difficultyMultiplier);
 		stage.NewWave (new Wave (55.5f, mp, p, 1, false, 100, 5, "gand_flute"));
 
@@ -299,6 +301,7 @@ public class Stage2 : Stage
 		mp.disableHitBox = true;
 		mp.hideSpriteOnSpawn = true;
 		p = new P_SpiderWebLaser();
+        p.SetSprite ("Laser", "Glow", "Red", "Small");
 		p.bulletCount = 4 * Mathf.CeilToInt(difficultyMultiplier);
 		stage.NewWave (new Wave (67.5f, mp, p, 1, false, 100, 5, "gand_flute"));
 
@@ -392,6 +395,18 @@ public class Stage2 : Stage
 		w.invulnerable = true;
 		stage.NewWave(w); ///// 85f
 
+        // EXTRA SPIDERS
+        mp = new EnemyMovementPattern(lib.GetVector("A8"));
+		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("C3", 1), new WayPoint("L3")});
+		p = new P_Maelstrom();
+		p.infinite = false;
+		p.circleDelay= 1f;
+		p.bulletCount = 1 * Mathf.CeilToInt(difficultyMultiplier);
+		p.SetSprite ("Spider_Glow", "Small");
+		p.BMP = new BMP_SlowWaving(p, 9f, true);
+		stage.NewWave (new Wave (86f, mp, p, 5, false, 0, 2f / difficultyMultiplier,  "gand_flute"));
+
+        
 
 		////////////////////////////////////////////////////////
 		//3 PORTALS 9 ASURAS
@@ -466,6 +481,19 @@ public class Stage2 : Stage
 		stage.NewWave(w);
 
 
+        // EXTRA SPIDERS
+		mp = new EnemyMovementPattern(lib.GetVector("A8"));
+		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("C3", 1), new WayPoint("L3")});
+		p = new P_Maelstrom();
+		p.infinite = false;
+		p.circleDelay= 1f;
+		p.bulletCount = 1 * Mathf.CeilToInt(difficultyMultiplier);
+		p.SetSprite ("Spider_Glow", "Small");
+		p.BMP = new BMP_SlowWaving(p, 9f, true);
+		stage.NewWave (new Wave (97f, mp, p, 5, false, 0, 2f / difficultyMultiplier,  "gand_flute"));
+
+
+
 		//TRAPPING VOIDS
 		mp = new EnemyMovementPattern(lib.GetVector("I1"));
 		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("I3", 4f), new WayPoint("L3")});
@@ -512,7 +540,7 @@ public class Stage2 : Stage
 
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
-		boss = new Wave(mp, 114f, 900, true, 2);
+		boss = new Wave(mp, 114f, 600, true, 2);
 		boss.SetUpBoss (2, "Joanette, Queen of Spiders", false);
 		stage.NewWave (boss);
 

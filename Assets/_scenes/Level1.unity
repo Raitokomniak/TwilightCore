@@ -16281,6 +16281,7 @@ MonoBehaviour:
   INTRO: {fileID: 2119133599}
   EFFECT_OVERLAY: {fileID: 1131801793}
   fadeOver: 0
+  fadeFromWhite: 0
   toast: {fileID: 1608336244}
   pauseScreen: {fileID: 3939676775667824397}
   pauseMenuOptions: {fileID: 3939676775135301316}

@@ -14,6 +14,7 @@ public class BMP_3DRotation : BulletMovementPattern
     }
 
     public override BulletMovementPattern GetNewBulletMovement(BulletMovementPattern bmp){
+        
         return CopyValues(bmp, new BMP_3DRotation());
     }
 

@@ -109,7 +109,7 @@ public class Phaser : MonoBehaviour {
 
 	public void StopPats(){
 		foreach(Pattern p in patterns){
-			p.StopPattern();
+			p.Stop();
 			if(p.routine != null) StopCoroutine(p.routine);
 			if(p.animation){
 				if(!p.animation.GetComponent<SpriteAnimationController>().dontDestroy) 
@@ -124,7 +124,7 @@ public class Phaser : MonoBehaviour {
 		Game.control.stageUI.BOSS.HideSpell();
 		StopPats();
 		StopCoro();
-		foreach(Pattern p in patterns){ p.StopPattern(); }
+		foreach(Pattern p in patterns){ p.Stop(); }
 		routineOver = true;
 	}
 

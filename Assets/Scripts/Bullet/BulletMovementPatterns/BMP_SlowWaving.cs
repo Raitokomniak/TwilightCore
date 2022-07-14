@@ -22,6 +22,7 @@ public class BMP_SlowWaving : BulletMovementPattern
 
 
     public override IEnumerator ExecuteRoutine(){
+        bulletMovement = bullet.GetComponent<BulletMovement>();
         StartMoving (14);
 
         isMoving = true;

@@ -7,7 +7,7 @@ using System.IO;
 
 public class StageHandler : MonoBehaviour {
 
-    int STARTING_STAGE = 3;
+    int STARTING_STAGE = 1;
 
     AsyncOperation loadScene;
 	public Stage stageScript;
@@ -32,7 +32,7 @@ public class StageHandler : MonoBehaviour {
 	public bool bossOn;
     public bool midBossOn;
 
-	int stageCount = 3;
+	public int stageCount = 3;
 	public int currentStage;
 	public bool stageTimerOn;
 
@@ -54,25 +54,27 @@ public class StageHandler : MonoBehaviour {
 			Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateTimer(stageTimer);
 		}
 		else {
-			if(AllowInput()){
-				if (CanAdvanceStage() && Input.GetKeyDown (KeyCode.Z)) {
-					Game.control.stageUI.STAGEEND.Hide();
-					if(currentStage == stageCount) {
-						IEnumerator gameCompleteRoutine =  GameOverRoutine(false);
-						StartCoroutine(gameCompleteRoutine);
-					}
-					else NextStage ();
-				}
-			}
+
 		}
 	}
 
-	bool AllowInput(){
+    public void CheckStageEnd(){
+        if (!CanAdvanceStage()) return;
+
+        Game.control.stageUI.STAGEEND.Hide();
+		if(currentStage == stageCount) {
+			IEnumerator gameCompleteRoutine =  GameOverRoutine(false);
+			StartCoroutine(gameCompleteRoutine);
+		}
+		else NextStage ();
+    }
+
+	bool AllowStageAdvanceInput(){
 		if(Game.control.loading) return false;
 		return true;
 	}
 
-	bool CanAdvanceStage(){
+	public bool CanAdvanceStage(){
 		if(gameOver) return false;
 		if(!stageCompleted) return false;
 		if(countingStageEndBonuses) return false;
@@ -209,7 +211,7 @@ public class StageHandler : MonoBehaviour {
 		yield return new WaitUntil(() => countingStageEndBonuses == false);
 	}
 
-	void NextStage ()
+	public void NextStage ()
 	{
 		Game.control.stageUI.STAGEEND.Hide ();
 		currentStage++;
@@ -224,6 +226,8 @@ public class StageHandler : MonoBehaviour {
 
 	public void RestartStage(){
 		if(stageScript != null) stageScript.StopStage();
+        bossOn = false;
+        midBossOn = false;
         stats.score = 0;
         stats.hiScore = 0;
 		StartStage(currentStage);

@@ -23,7 +23,7 @@ public class Pattern
     public string patternName;
 	public VectorLib lib;
 	public GameObject bullet;
-	public ArrayList spawnedBullets;
+	public List<GameObject> spawnedBullets;
 	public EnemyShoot enemyShoot;
 	public Sprite sprite;
 	public Sprite glowSprite;
@@ -71,6 +71,8 @@ public class Pattern
 
 	public int rotationDirection;
 
+    
+
 
 	public Vector3 pos;
 	public Quaternion rot;
@@ -78,7 +80,7 @@ public class Pattern
 	public Pattern(){}
 
 
-	public void StopPattern(){
+	public void Stop(){
 		stop = true;
 	}
 
@@ -113,7 +115,7 @@ public class Pattern
 	}
 
 	public IEnumerator Execute(EnemyShoot _enemy){
-		spawnedBullets = new ArrayList();
+		spawnedBullets = new List<GameObject>();
 		enemyShoot = _enemy;
 		pos = _enemy.transform.position;
 		rot = _enemy.transform.rotation;
@@ -185,6 +187,12 @@ public class Pattern
 		SetSize(size);
 	}
 
+    public void SetGlow(string color){
+        glowSprite = Game.control.spriteLib.SetBulletGlow (bSprite.shape);
+        bSprite.colorS = color;
+        bSprite.color = Game.control.spriteLib.GetColor(color);
+    }
+
 	void SetSize(string size){
 		if(size == "Tiny")    bulletSize = 1;
 		if(size == "Small")   bulletSize = 2;
@@ -200,5 +208,24 @@ public class Pattern
         glowSprite = null;
 		SetSize(size);
 	}
+
+    public void ModifyAllBullets(string modifier, float value){
+        
+        foreach(GameObject bullet in spawnedBullets){
+            if(bullet != null && bullet.GetComponent<BulletMovement>() != null && bullet.GetComponent<BulletMovement>().BMP != null){
+                if(modifier == "speed") bullet.GetComponent<BulletMovement>().BMP.movementSpeed = value;
+                if(modifier == "rotatespeed") bullet.GetComponent<BulletMovement>().BMP.axisRotateSpeed = value;
+            }
+        }
+    }
+
+    public void ModifyAllBullets(Sprite sprite){
+        
+        foreach(GameObject bullet in spawnedBullets){
+            if(bullet != null && bullet.GetComponent<BulletMovement>() != null && bullet.GetComponent<BulletMovement>().BMP != null){
+                bullet.GetComponent<BulletMovement>().spriteR.sprite = sprite;
+            }
+        }
+    }
 
 }

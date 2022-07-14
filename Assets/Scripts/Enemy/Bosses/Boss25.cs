@@ -107,8 +107,8 @@ public class Boss25 : Phaser
 
 					yield return null;
 				}
-				patterns[0].StopPattern();
-				patterns[1].StopPattern();
+				patterns[0].Stop();
+				patterns[1].Stop();
 				NextPhase();
 				break;
             case 1:
