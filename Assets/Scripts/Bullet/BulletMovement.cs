@@ -17,14 +17,14 @@ public class BulletMovement : MonoBehaviour {
 	public BulletMovementPattern BMP = null;
 	public Rigidbody2D rb;
 	public bool active;
-    bool hitBoxEnabled;
+    public bool hitBoxEnabled;
 
     Vector3 findPlayer;
     GameObject nightCoreField;
     GameObject dayCoreField;
     Collider2D bulletCollider;
     Vector3 stageBot;
-    bool canEnable;
+    public bool canEnable;
 
 	void Awake() {
 		active = false;
@@ -96,9 +96,11 @@ public class BulletMovement : MonoBehaviour {
 
 	void Update(){
         if(BMP == null) return;
+        if(!BMP.rotateOnAxis) UpdateRotations();
 
         CheckCollider();
-		CheckScale(); 
+		CheckScale();
+        CheckSprite();
             
         if(BMP.isMoving){
             if(BMP.accelerating){
@@ -117,37 +119,77 @@ public class BulletMovement : MonoBehaviour {
         }
 
          
-        if(!BMP.rotateOnAxis) {
-                UpdateRotations();
-            }
+        
 
         CheckBounds(); ////////////////////////////////////////////////////////////
 	}
-    
+
+    void CheckSprite(){
+        if(!BMP.forceSprite) return;
+       // if(BMP.pattern.patternName == "MusicalNotes") return;
+       // if(BMP.name == "TurnToSpears") return;
+        if(spriteR.sprite != BMP.pattern.sprite) spriteR.sprite = BMP.pattern.sprite;
+    }
+
 	void CheckCollider(){
-		canEnable = false;
+
 		findPlayer = Game.control.player.gameObject.transform.position;
 
-		if((transform.position - findPlayer).magnitude < 1f) canEnable = true; // IF NEAR PLAYER
-		if(Game.control.stageUI.WORLD.GetBoundaries() != null) 
-            if(bulletBouncer) if ((transform.position - stageBot).magnitude < 1f) canEnable = true; //IF BOUNCER && NEAR BOT WALL
-		if(nightCoreField != null) if(nightCoreField.activeSelf)   if((transform.position - nightCoreField.transform.position).magnitude < 6f)     canEnable = true;
-		if(dayCoreField != null) if(dayCoreField.activeSelf)     if((transform.position - dayCoreField.transform.position).magnitude < 13f)      canEnable = true;
+        // IF NEAR PLAYER
+		if((transform.position - findPlayer).magnitude < 1f) canEnable = true; 
+
+		/*if(Game.control.stageUI.WORLD.GetBoundaries() != null && bulletBouncer) 
+            if ((transform.position - stageBot).magnitude < 1f) canEnable = true; //IF BOUNCER && NEAR BOT WALL*/
+		
+
+        if(nightCoreField != null && nightCoreField.activeSelf)
+            if((transform.position - nightCoreField.transform.position).magnitude < 10f + Game.control.player.special.specialScale)
+                 canEnable = true;
+            else canEnable = false;
+        if(dayCoreField != null && dayCoreField.activeSelf)
+            if((transform.position - dayCoreField.transform.position).magnitude < 10f + Game.control.player.special.specialScale)
+                canEnable = true;
+            else canEnable = false;
         
-		if(!hitBoxEnabled && canEnable) {
-            hitBoxEnabled = true;
-            bulletCollider.enabled = true;
-            if(!bulletBouncer) Physics2D.IgnoreCollision(boxCollider, bulletCollider, true);
+		ToggleHitBox();
+	}
+
+    void ToggleHitBox(){
+        if(bulletCollider==null) return;
+        if(!hitBoxEnabled){
+            if(canEnable) {
+                bulletCollider.enabled = true;
+                hitBoxEnabled = true;
+            }
+            else {
+                bulletCollider.enabled = false;
+                hitBoxEnabled =  false;
+            }
+        }
+        else {
+            if(canEnable) {
+                bulletCollider.enabled = true;
+                hitBoxEnabled = true;
+            }
+            else {
+                bulletCollider.enabled = false;
+                hitBoxEnabled =  false;
+            }
+        }
+/*
+        if(!hitBoxEnabled && canEnable) {
+            
+            //if(!bulletBouncer) Physics2D.IgnoreCollision(boxCollider, bulletCollider, true);
         }
 		if(hitBoxEnabled && !canEnable) {
             bulletCollider.enabled = false;
             hitBoxEnabled =  false;
-        }
-	}
+        }*/
+    }
 
     public void DisableHitBoxes(){
         boxCollider.enabled = false;
-       circleCollider.enabled = false;
+        circleCollider.enabled = false;
     }
 
 
@@ -214,6 +256,10 @@ public class BulletMovement : MonoBehaviour {
     // COLLIDER
 
 	public void OnTriggerStay2D(Collider2D c){
+		if (c.tag == "NullField") Game.control.bulletPool.StoreBulletToPool(this);
+	}
+
+    public void OnTriggerEnter2D(Collider2D c){
 		if (c.tag == "NullField") Game.control.bulletPool.StoreBulletToPool(this);
 	}
 

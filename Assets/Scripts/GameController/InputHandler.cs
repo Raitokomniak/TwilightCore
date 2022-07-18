@@ -35,11 +35,6 @@ public class InputHandler : MonoBehaviour
 		return true;
 	}
 
-    bool Back(){
-        if(Input.GetKeyDown(BACK[0]) || Input.GetKeyDown(BACK[1])) return true;
-        return false;
-    }
-
     void LateUpdate(){
         CheckDialog();
         CheckSkipping();
@@ -108,7 +103,8 @@ public class InputHandler : MonoBehaviour
 		if(Input.GetKeyDown (ARROW[0])) {  input = "left";     iType = "cursor"; }
 
 		if(Input.GetKeyDown (CONFIRM)) input = "confirm"; iType = "selection";
-		if(Back())  input = "back"; iType = "selection";
+		if(Input.GetKeyDown(BACK[0]) || Input.GetKeyDown(BACK[1]))  input = "back"; iType = "selection";
+        if(Input.GetKeyDown(BACK[1])) input = "pause"; iType = "selection";
 
         if(returnValue == "value") return input;
         if(returnValue == "type")  return iType;	
@@ -121,7 +117,7 @@ public class InputHandler : MonoBehaviour
     void CheckTutorial(){
         if(!Game.control.ui.tutorial.tutorialOn) return;
         if(Input.GetKeyDown(CONFIRM)) Game.control.ui.tutorial.NextImage();
-        if(Back()) Game.control.ui.tutorial.Abort();
+        if(Input.GetKeyDown(BACK[0]) || Input.GetKeyDown(BACK[1])) Game.control.ui.tutorial.Abort();
     }
 
     /// INTRO ///
@@ -136,11 +132,11 @@ public class InputHandler : MonoBehaviour
     
     void CheckStageEnd(){
        if(!AllowStageAdvanceInput()) return;
-       if(Input.GetKeyDown("CONFIRM")) Game.control.stageHandler.CheckStageEnd();	
+       if(Input.GetKeyDown(CONFIRM)) Game.control.stageHandler.CheckStageEnd();	
     }
     public bool AllowStageAdvanceInput(){
 		if(Game.control.loading) return false;
-        if(!Game.control.stageHandler.countingStageEndBonuses) return false;
+        if(!Game.control.stageHandler.CanAdvanceStage()) return false;
 		return true;
 	}
 

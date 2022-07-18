@@ -57,8 +57,11 @@ public class BulletMovementPattern
 
     public float laserDelay = 2;
 
+    public bool retainSpriteRotation;
 
     public string hitBoxType = "Circle"; //DEFAULT  
+
+    public bool forceSprite = true;
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -121,6 +124,8 @@ public class BulletMovementPattern
         newInstance.yAxisRotation = _bmp.yAxisRotation;
         newInstance.laserMaxScale = _bmp.laserMaxScale;
         newInstance.laserDelay = _bmp.laserDelay;
+        newInstance.retainSpriteRotation = _bmp.retainSpriteRotation;
+        newInstance.forceSprite = _bmp.forceSprite;
 
 		return newInstance;
 	}

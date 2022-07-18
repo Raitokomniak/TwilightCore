@@ -46,19 +46,7 @@ public class UI_Dialog : MonoBehaviour
 	public void UpdateDialog(string speaker, string content){
 		dialogContent.text = content;
 
-		if (speaker == "Boss") {
-
-			dialogBG.transform.localScale = new Vector3 (-1, 1, 1);
-
-			if (dialogRightChar.GetComponent<Image>().color.a != .3f) {
-				dialogRightChar.transform.position += new Vector3 (10, 0, 0);
-				dialogLeftChar.transform.position += new Vector3 (10, 0, 0);
-			}
-			dialogLeftChar.GetComponent<Image> ().color = new Color (1, 1, 1, 1);
-			dialogRightChar.GetComponent<Image> ().color = new Color (1, 1, 1, .3f);
-		}
-		else 
-		{
+		if (speaker == "Soma") {
 			dialogBG.transform.localScale = new Vector3 (1, 1, 1);
 			
 			if (dialogLeftChar.GetComponent<Image>().color.a != .3f) {
@@ -68,8 +56,17 @@ public class UI_Dialog : MonoBehaviour
 			dialogLeftChar.GetComponent<Image> ().color = new Color (1, 1, 1, .3f);
 			dialogRightChar.GetComponent<Image> ().color = new Color (1, 1, 1, 1f);
 		}
+		else 
+		{
+            dialogBG.transform.localScale = new Vector3 (-1, 1, 1);
 
-
+			if (dialogRightChar.GetComponent<Image>().color.a != .3f) {
+				dialogRightChar.transform.position += new Vector3 (10, 0, 0);
+				dialogLeftChar.transform.position += new Vector3 (10, 0, 0);
+			}
+			dialogLeftChar.GetComponent<Image> ().color = new Color (1, 1, 1, 1);
+			dialogRightChar.GetComponent<Image> ().color = new Color (1, 1, 1, .3f);
+		}
 	}
 
 	public void UpdateBossInfo(string name, string description){

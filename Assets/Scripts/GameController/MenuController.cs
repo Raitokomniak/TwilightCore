@@ -36,11 +36,12 @@ public class MenuController : MonoBehaviour
                 if (Game.control.inputHandler.CheckMenuInput("value") == "left") 	Game.control.options.UpdateOption(false, selectedIndex);
 			}
         
-			if (Game.control.inputHandler.CheckMenuInput("value") == "confirm")   CheckSelection ();	
-			if (Game.control.inputHandler.CheckMenuInput("value") == "back")      CheckPrevious();
+			if (Game.control.inputHandler.CheckMenuInput("value") == "confirm")     CheckSelection ();	
+			if (Game.control.inputHandler.CheckMenuInput("value") == "back")        CheckPrevious();
+            if (context == "PauseMenu" && Game.control.inputHandler.CheckMenuInput("value") == "pause")       ClosePauseMenu();
 
 		}
-		else if(Game.control.pause.AllowPause() && Game.control.inputHandler.CheckMenuInput("value") == "back"){
+		else if(Game.control.pause.AllowPause() && Game.control.inputHandler.CheckMenuInput("value") == "pause"){
 			Menu("PauseMenu");
 			Game.control.sound.PlayMenuSound("Pause");
 			Game.control.pause.HandlePause();
@@ -174,7 +175,7 @@ public class MenuController : MonoBehaviour
             case "DifficultyMenu": Menu("MainMenu");
             break;
             case "OptionsMenu":
-                if(Game.control.mainMenuUI == null) Menu("PauseMenu");
+                if(Game.control.ui == Game.control.stageUI) Menu("PauseMenu");
                 else Menu("MainMenu");
             break;
             case "Hiscores": Menu("MainMenu");

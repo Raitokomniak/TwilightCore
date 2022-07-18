@@ -9,6 +9,7 @@ public class Wave
 	public int enemyCount;
 	public int enemyCounter;
 
+    public bool hasHealth;
 	public int health;
 	public int healthBars;
 	public bool isBoss;
@@ -132,13 +133,8 @@ public class Wave
 		if(isBoss) 	  enemy.tag = "Boss";
 		if(isMidBoss) enemy.tag = "MidBoss";
 		enemy.GetComponent<EnemyLife>().enabled = false;
-		if	 (bossIndex == 0.5f) bossScript = enemy.AddComponent<Boss05> ();
-		else if(bossIndex == 1f) bossScript = enemy.AddComponent<Boss1> ();
-		else if(bossIndex == 2f) bossScript = enemy.AddComponent<Boss2> ();
-		else if(bossIndex == 3f) bossScript = enemy.AddComponent<Boss3> ();
-        else if	(bossIndex == 2.5f) bossScript = enemy.AddComponent<Boss25> ();
+		GetBossScript(enemy);
 
-		bossScript.Init();
 		enemy.GetComponent<BossLife> ().Init (health, healthBars, bossScript);
 		enemy.GetComponentInChildren<SpriteRenderer> ().sprite = sprite;
 
@@ -156,4 +152,17 @@ public class Wave
 		bossScript.NextPhase ();
 		Game.control.stageUI.BOSS.ToggleBossHealthSlider (true, enemy.GetComponent<BossLife> ().maxHealth, bossName);
 	}
+
+    void GetBossScript(GameObject enemy){
+        if	 (bossIndex == 0.5f) bossScript = enemy.AddComponent<Boss05> ();
+		else if(bossIndex == 1f) bossScript = enemy.AddComponent<Boss1> ();
+		else if(bossIndex == 2f) bossScript = enemy.AddComponent<Boss2> ();
+		else if(bossIndex == 3f) bossScript = enemy.AddComponent<Boss3> ();
+        else if(bossIndex == 4f) bossScript = enemy.AddComponent<Boss4> ();
+        else if(bossIndex == 4.1f) bossScript = enemy.AddComponent<Boss4_1> ();
+        else if(bossIndex == 4.2f) bossScript = enemy.AddComponent<Boss4_2> ();
+        else if	(bossIndex == 2.5f) bossScript = enemy.AddComponent<Boss25> ();
+
+        bossScript.Init();
+    }
 }

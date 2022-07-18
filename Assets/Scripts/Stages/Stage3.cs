@@ -23,7 +23,7 @@ public class Stage3 : Stage
 	}
 
 	IEnumerator StageHandlerRoutine(){
-      
+       Game.control.sound.PlayMusic ("Stage", 3);
       
         Game.control.stageUI.EffectOverlay("White", false, 2.5f);
 

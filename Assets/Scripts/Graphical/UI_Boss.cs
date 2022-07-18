@@ -32,6 +32,15 @@ public class UI_Boss : MonoBehaviour
         ToggleBossXPos(false);
 	}
 
+
+    public void RevealUI(){
+        bossHealthSlider.gameObject.SetActive(true);
+		bossTimer.gameObject.SetActive(true);
+		bossNamePanel.SetActive (true);
+		bossSpellToast.SetActive (true);
+        ToggleBossXPos(true);
+    }
+
     public void UpdateBossXPos(float posX){
 		bossX.transform.position = new Vector3 (posX, bossX.transform.position.y, 0);
 	}
@@ -68,9 +77,10 @@ public class UI_Boss : MonoBehaviour
 	}
 
 
-	public void UpdateBossHealth(float h)
+	public void UpdateBossHealth(float h, float maxHealth)
 	{
 		bossHealthSlider.value = h;
+        bossHealthSlider.maxValue = maxHealth;
 	}
 
 	public void ToggleInvulnerable(bool toggle){

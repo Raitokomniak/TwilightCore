@@ -18,7 +18,7 @@ public class SoundController : MonoBehaviour {
 
 	//Music
 	AudioClip BGM_mainmenu;
-	AudioClip[] BGM_stageMusic;
+	List<AudioClip> BGM_stageMusic;
 	List<AudioClip> BGM_bossMusic;
 
 	//SFX
@@ -49,19 +49,19 @@ public class SoundController : MonoBehaviour {
 	void LoadMusic(){
 		BGM_mainmenu = Resources.Load ("Sound/Music/MainMenu") as AudioClip;
 
-		BGM_stageMusic = new AudioClip[3];
-		//BGM_stageMusic[0] = Resources.Load("Sound/Music/asura-who-remain-asura_piano") as AudioClip;
-		BGM_stageMusic[0] = Resources.Load("Sound/Music/asura-who-remain-asura_lulmix") as AudioClip;
-		//BGM_stageMusic[0] = Resources.Load ("Sound/Music/Stage1") as AudioClip;
-		//BGM_stageMusic[1] = Resources.Load("Sound/Music/stage2") as AudioClip;
-		BGM_stageMusic[1] = Resources.Load("Sound/Music/stage2_lulmix") as AudioClip;
-		BGM_stageMusic[2] = Resources.Load("Sound/Music/stage3") as AudioClip;
-        //BGM_stageMusic[2] = Resources.Load("Sound/Music/stage3_wipmix") as AudioClip;
+		BGM_stageMusic = new List<AudioClip>();
+		BGM_stageMusic.Add(Resources.Load("Sound/Music/asura-who-remain-asura_lulmix") as AudioClip);
+		BGM_stageMusic.Add(Resources.Load("Sound/Music/stage2_lulmix") as AudioClip);
+		//BGM_stageMusic.Add(Resources.Load("Sound/Music/stage3") as AudioClip);
+        BGM_stageMusic.Add(Resources.Load("Sound/Music/stage3_lulmix") as AudioClip);
+        BGM_stageMusic.Add(Resources.Load("Sound/Music/stage3_lulmix") as AudioClip);
 
 		BGM_bossMusic = new List<AudioClip>();
-		BGM_bossMusic.Add(Resources.Load ("Sound/Music/Boss1") as AudioClip);
+		//BGM_bossMusic.Add(Resources.Load ("Sound/Music/Boss1") as AudioClip);
+        BGM_bossMusic.Add(Resources.Load ("Sound/Music/boss1_lulmix") as AudioClip);
 		BGM_bossMusic.Add(Resources.Load ("Sound/Music/void-dance") as AudioClip);
 		BGM_bossMusic.Add(Resources.Load ("Sound/Music/mothersfears_motherstears_lulmix") as AudioClip);
+        BGM_bossMusic.Add(Resources.Load ("Sound/Music/boss4_wipmix") as AudioClip);
 	}
 
 	void LoadSFX(){
@@ -251,20 +251,25 @@ public class SoundController : MonoBehaviour {
 		AudioClip c = null;
 		i = i - 1;
 
-		if(type == "MainMenu")
+		if(type == "MainMenu"){
 			c = BGM_mainmenu;
-		else if(type == "Stage")
+            canResumeBGM = false;
+        }
+		else if(type == "Stage"){
 			c = BGM_stageMusic[i];
+            canResumeBGM = true;
+        }
 		else if(type == "Boss"){
             c = BGM_bossMusic[i];
             bossMusicOn = true;
+            canResumeBGM = true;
             if(i == 0) loopStartPoint = 26.89f;
             if(i == 1) loopStartPoint = 12.79f;
             if(i == 2) loopStartPoint = 33.45f;
         }
 			
 		//JESARIA BUILDIIN
-		if(type == "MainMenu")Game.control.sound.StopLoopingEffects();
+		if(type == "MainMenu") Game.control.sound.StopLoopingEffects();
 		if(type == "Stage") Game.control.sound.StopLoopingEffects();
 
 		BGMSource.clip = c;

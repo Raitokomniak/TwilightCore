@@ -25,7 +25,8 @@ public class PlayerSpecialAttack : MonoBehaviour {
 	public int coreCap;
 	public int dayCoreThreshold;
 	public int nightCoreThreshold;
-
+    
+    public float specialScale;
 
 
 	void Awake(){
@@ -102,9 +103,13 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			Game.control.sound.PlaySpellSound("Player", "DayCore1");
 			Game.control.stageUI.RIGHT_SIDE_PANEL.ShowActivatedPlayerPhase ("Day Core: Dawnbreaker");
 			daySpecial.SetActive (true);
-			dayAnimatedSprite.GetComponent<AnimationController> ().Scale (true, .3f * (dayCoreLevel + 1), true, false);
+            specialScale = .3f * (dayCoreLevel + 1);
+			dayAnimatedSprite.GetComponent<AnimationController> ().Scale (true, specialScale, true, false);
 			dayAnimatedSprite.GetComponent<AnimationController> ().StartRotating(4f);
+            
+
 			yield return new WaitForSeconds (specialAttackTime);
+            dayAnimatedSprite.GetComponent<AnimationController> ().Scale (false, specialScale, true, false);
 			daySpecial.SetActive (false);
 			Game.control.stageUI.WORLD.HideFXLayer();
 
@@ -136,12 +141,13 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			Game.control.sound.PlaySpellSound("Player", "NightCore1");
 			Game.control.stageUI.RIGHT_SIDE_PANEL.ShowActivatedPlayerPhase ("Night Core: Trick or Treat");
 
+            specialScale = .4f * (nightCoreLevel + 1);
 			nightSpecial.SetActive (true);
-			nightAnimatedSprite.GetComponent<AnimationController> ().Scale (true, .4f * (nightCoreLevel + 1), true, true);
+			nightAnimatedSprite.GetComponent<AnimationController> ().Scale (true, specialScale, true, true);
 
 			yield return new WaitForSeconds (specialAttackTime);
 
-			nightAnimatedSprite.GetComponent<AnimationController> ().Scale (false, .4f * (nightCoreLevel + 1), true, true);
+			nightAnimatedSprite.GetComponent<AnimationController> ().Scale (false, specialScale, true, true);
 			//Game.control.ui.EffectOverlay("NightCore", false, 2);
 			nightSpecial.SetActive (false);
 			Game.control.stageUI.WORLD.HideFXLayer();
@@ -213,13 +219,11 @@ public class PlayerSpecialAttack : MonoBehaviour {
 	public void PowerUpdate(string core, bool up){
 		if (core == "Day") {
 			if (up) dayCoreLevel++;
-			else
-				if (dayCoreLevel != 0) dayCoreLevel--;
+			else if (dayCoreLevel != 0) dayCoreLevel--;
 		} 
 		else if (core == "Night") {
 			if (up) nightCoreLevel++;
-			else 
-				if (nightCoreLevel != 0) nightCoreLevel--;
+			else if (nightCoreLevel != 0) nightCoreLevel--;
 		}
 
 		Game.control.stageUI.LEFT_SIDE_PANEL.UpdatePower("Day", dayCoreLevel);

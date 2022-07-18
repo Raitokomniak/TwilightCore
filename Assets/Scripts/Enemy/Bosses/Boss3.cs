@@ -80,6 +80,7 @@ public class Boss3 : Phaser
                 p.infinite = false;
                 p.BMP = new BMP_Explode(p, 2, true, true, false);
                 p.BMP.axisRotateSpeed = 5;
+                p.BMP.forceSprite = false;
                 p.SetSprite ("Fireball", "Glow", "Black", "Small");	 
                 patterns.Add(p);
 
@@ -88,6 +89,7 @@ public class Boss3 : Phaser
                 p.infinite = false;
                 p.BMP = new BMP_Explode(p, 4, true, true, false);
                 p.BMP.axisRotateSpeed = 4;
+                p.BMP.forceSprite = false;
                 p.SetSprite ("Fireball", "Glow", "Black", "Small");	 
                 patterns.Add(p);
 
@@ -96,6 +98,7 @@ public class Boss3 : Phaser
                 p.infinite = false;
                 p.BMP = new BMP_Explode(p, 5, true, true, false);
                 p.BMP.axisRotateSpeed = 3;
+                p.BMP.forceSprite = false;
                 p.SetSprite ("Fireball", "Glow", "Black", "Small");	 
                 patterns.Add(p);
 
@@ -104,6 +107,7 @@ public class Boss3 : Phaser
                 p.infinite = false;
                 p.BMP = new BMP_Explode(p, 6, true, true, false);
                 p.BMP.axisRotateSpeed = 2;
+                p.BMP.forceSprite = false;
                 p.SetSprite ("Fireball", "Glow", "Black", "Small");	 
                 patterns.Add(p);
                 
@@ -112,6 +116,7 @@ public class Boss3 : Phaser
                 p.infinite = false;
                 p.BMP = new BMP_Explode(p, 7, true, true, false);
                 p.BMP.axisRotateSpeed = 1;
+                p.BMP.forceSprite = false;
                 p.SetSprite ("Fireball", "Glow", "Black", "Small");	 
                 patterns.Add(p);
 
@@ -276,10 +281,13 @@ public class Boss3 : Phaser
                 
                 //add and init components
                 enemy.AddComponent<EnemyLife> ();
+                enemy.GetComponent<EnemyLife>().hasHealth = true;
+                enemy.GetComponent<EnemyLife>().SetHealth(100);
                 enemy.GetComponentInChildren<SpriteRenderer> ().sprite = Resources.Load<Sprite>("Sprites/waterPitcher");
                 enemy.GetComponentInChildren<SpriteRenderer> ().sortingOrder = 5;
                 enemy.GetComponent<EnemyShoot> ().SetUpAndShoot (patterns[0], 1);
-                enemy.GetComponent<BoxCollider2D>().enabled = false;
+                enemy.GetComponent<BoxCollider2D>().enabled = true;
+                enemy.GetComponent<BoxCollider2D>().size = new Vector2(1.7f,1);
                 enemy.GetComponent<EnemyMovement> ().staticSpriteDir = true;
                 
 
@@ -288,8 +296,8 @@ public class Boss3 : Phaser
                 yield return new WaitForSeconds(1);
 
 				while(!endOfPhase){
-                    enemy.GetComponent<EnemyMovement> ().SetUpPatternAndMove (mp);
-                    enemy.GetComponent<EnemyMovement> ().pattern.speed = 2f;
+                    if(enemy != null) enemy.GetComponent<EnemyMovement> ().SetUpPatternAndMove (mp);
+                    if(enemy != null) enemy.GetComponent<EnemyMovement> ().pattern.speed = 2f;
 					movement.pattern.UpdateDirection("F5");
 					//shooter.BossShoot (patterns[0]);
 					shooter.BossShoot (patterns[1]);

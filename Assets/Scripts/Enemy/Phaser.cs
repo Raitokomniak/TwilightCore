@@ -55,6 +55,8 @@ public class Phaser : MonoBehaviour {
 		if(timerOn && Game.control.stageHandler.stageOn) PhaseTimer();
 	}
 
+    public virtual void KeepTrackOfDamage(float d){}
+
     void CheckTimerSoundTick(){
         if(phaseTimer <= 6) {
             for(int i = 0; i < 6; i++){
@@ -77,13 +79,17 @@ public class Phaser : MonoBehaviour {
             CheckTimerSoundTick();
 		}
 		else {
-            if(!Game.control.stageHandler.midBossOn) 
-                Game.control.stageHandler.DenyBossBonus();
-			if(!superPhase)  life.SetHealthToThreshold();
-			StopPhaseTimer();
-			NextPhase();
+            TimeOut();
 		}
 	}
+
+    void TimeOut(){
+        if(!Game.control.stageHandler.midBossOn && bossIndex != 4) 
+                Game.control.stageHandler.DenyBossBonus();
+		if(!superPhase && bossIndex != 4)  life.SetHealthToThreshold();
+		StopPhaseTimer();
+		NextPhase();
+    }
 
 	public void StartPhaseTimer(float time){
         phaseCountDownTick = 0;

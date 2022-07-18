@@ -23,7 +23,8 @@ public class Stage1 : Stage
 
 
 	IEnumerator StageHandlerRoutine(){
-        
+        Game.control.sound.PlayMusic ("Stage", 1);
+
 		scene.SetPlaneSpeed(50f);
 		while (dialog.handlingDialog) yield return null;
 		dialog.StartDialog ("Stage1_0");
@@ -54,7 +55,11 @@ public class Stage1 : Stage
         //////////////////////////////////////////////////////////
         // BOSS //
 
-		while (stage.stageTimer < boss.spawnTime - 1) yield return null;
+        while (stage.stageTimer < boss.spawnTime - 5) yield return null;
+
+        if(Game.control.enemySpawner.EnemiesAlive()) while (stage.stageTimer < boss.spawnTime - 1) yield return null;
+        else boss.spawnTime = boss.spawnTime - 5;
+		
 
 		dialog.StartDialog ("Boss1");
 		scene.SetPlaneSpeed (3f);
@@ -113,7 +118,8 @@ public class Stage1 : Stage
 		mp = new EnemyMovementPattern(lib.GetVector("K3"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 1), new WayPoint("L4")});
 		p = new P_MusicalNotes();
-		p.BMP = new BMP_SlowWaving(p, 10, false);
+		p.BMP = new BMP_Explode(p, 7f);
+        p.BMP.retainSpriteRotation = true;
 		p.SetSprite ("Note", "NoStem", "Green", "Small");	 
 		stage.NewWave (new Wave (4f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "gand_horn"));
 
@@ -127,7 +133,8 @@ public class Stage1 : Stage
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 1), new WayPoint("L4")});
 		p = new P_MusicalNotes();
 		p.BMP = new BMP_Explode(p, 7f);
-		p.SetSprite ("Circle", "Glow", "Green", "Small");	 
+        p.BMP.retainSpriteRotation = true;
+		p.SetSprite ("Note", "NoStem", "Green", "Small");	 
 		stage.NewWave (new Wave (6f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "gand_sitar"));
 
 			
@@ -152,7 +159,8 @@ public class Stage1 : Stage
 		p = new P_MusicalNotes();
 		p.bulletCount =  Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
 		p.BMP = new BMP_Explode(p, 7f);
-		p.SetSprite ("Circle", "Glow", "Green", "Medium");	 
+        p.BMP.retainSpriteRotation = true;
+		p.SetSprite ("Note", "NoStem", "Green", "Small");	 
 		stage.NewWave (new Wave (9f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "gand_flute"));
 
 		mp = new EnemyMovementPattern(lib.GetVector("I1"));
@@ -161,7 +169,8 @@ public class Stage1 : Stage
 		p = new P_MusicalNotes();
 		p.bulletCount =  Mathf.CeilToInt(4 * difficultyMultiplier);
 		p.BMP = new BMP_Explode(p, 11f);
-		p.SetSprite ("Circle", "Glow", "Green", "Smallm");	 
+        p.BMP.retainSpriteRotation = true;
+		p.SetSprite ("Note", "NoStem", "Green", "Small");	  
 		stage.NewWave (new Wave (13f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "gand_horn"));
 
 		mp = new EnemyMovementPattern(lib.GetVector("I1"));
@@ -169,7 +178,8 @@ public class Stage1 : Stage
 		p = new P_MusicalNotes();
 		p.bulletCount = Mathf.CeilToInt(2.8f * (difficultyMultiplier / 2));
 		p.BMP = new BMP_Explode(p, 7f);
-		p.SetSprite ("Circle", "Glow", "Green", "Medium");	
+        p.BMP.retainSpriteRotation = true;
+		p.SetSprite ("Note", "NoStem", "Green", "Small");	 
 		stage.NewWave (new Wave (16f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "gand_sitar"));
 
 
@@ -177,7 +187,8 @@ public class Stage1 : Stage
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("L4")});
 		p = new P_MusicalNotes();
 		p.BMP = new BMP_Explode(p, 7f);
-		p.SetSprite ("Circle", "Glow", "Green", "Small");	 
+        p.BMP.retainSpriteRotation = true;
+		p.SetSprite ("Note", "NoStem", "Green", "Small");	 
 		stage.NewWave (new Wave (17f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "gand_flute"));
 
 			
@@ -187,7 +198,8 @@ public class Stage1 : Stage
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("C3", 1), new WayPoint("R4")});
 		p = new P_MusicalNotes();
 		p.BMP = new BMP_Explode(p, 7f);
-		p.SetSprite ("Circle", "Glow", "Green", "Small");	 
+        p.BMP.retainSpriteRotation = true;
+		p.SetSprite ("Note", "NoStem", "Green", "Small");	 
 		stage.NewWave (new Wave (28f, mp, p, 5, false, 0,  3f / difficultyMultiplier,  "gand_horn"));
 		
 		mp = new EnemyMovementPattern(lib.GetVector("C1"));
@@ -196,7 +208,7 @@ public class Stage1 : Stage
 		p = new P_Circle();
 		p.bulletCount =  Mathf.CeilToInt(4 * difficultyMultiplier);
 		p.BMP = new BMP_Explode(p, 11f);
-		p.SetSprite ("Circle", "Glow", "Yellow", "Medium");	 
+		p.SetSprite ("Circle", "Glow", "Green", "Small");	 
 		stage.NewWave (new Wave (30f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "gand_sitar"));
 		
 		
@@ -205,7 +217,8 @@ public class Stage1 : Stage
 		p = new P_MusicalNotes();
 		p.bulletCount =  10;
 		p.BMP = new BMP_Explode(p, 7f);
-		p.SetSprite ("Circle", "Glow", "Green", "Small");	 
+        p.BMP.retainSpriteRotation = true;
+		p.SetSprite ("Note", "NoStem", "Green", "Small");	 
 		stage.NewWave (new Wave (33f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "gand_flute"));
 
 		mp = new EnemyMovementPattern(lib.GetVector("A3"));
@@ -250,7 +263,8 @@ public class Stage1 : Stage
 		p = new P_MusicalNotes();
 		p.bulletCount =  10;
 		p.BMP = new BMP_Explode(p, 7f);
-		p.SetSprite ("Circle", "Glow", "Green", "Small");	 
+        p.BMP.retainSpriteRotation = true;
+		p.SetSprite ("Note", "NoStem", "Green", "Small");	 
 		stage.NewWave (new Wave (43f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "gand_horn"));
 
 		mp = new EnemyMovementPattern(lib.GetVector("K3"));
@@ -306,7 +320,8 @@ public class Stage1 : Stage
 		p = new P_MusicalNotes();
 		p.bulletCount = Mathf.CeilToInt(4 * difficultyMultiplier);
 		p.BMP = new BMP_Explode(p, 11f);
-		p.SetSprite ("Circle", "Glow", "Green", "Medium");
+        p.BMP.retainSpriteRotation = true;
+		p.SetSprite ("Note", "NoStem", "Green", "Small");	 
 		stage.NewWave (new Wave (85f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "gand_sitar"));
 
 		mp = new EnemyMovementPattern(lib.GetVector("I1"));
@@ -322,7 +337,8 @@ public class Stage1 : Stage
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 1), new WayPoint("L4")});
 		p = new P_MusicalNotes();
 		p.BMP = new BMP_Explode(p, 7f);
-		p.SetSprite ("Circle", "Glow", "Green", "Medium");	 
+        p.BMP.retainSpriteRotation = true;
+		p.SetSprite ("Note", "NoStem", "Green", "Small");	 
 		stage.NewWave (new Wave (87f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "gand_sitar"));
 
 		mp = new EnemyMovementPattern(lib.GetVector("K3"));
@@ -364,7 +380,8 @@ public class Stage1 : Stage
 		p = new P_MusicalNotes();
 		p.bulletCount = Mathf.CeilToInt(4 * difficultyMultiplier);
 		p.BMP = new BMP_Explode(p, 11f);
-		p.SetSprite ("Circle", "Glow", "Green", "Medium");
+        p.BMP.retainSpriteRotation = true;
+		p.SetSprite ("Note", "NoStem", "Green", "Small");	 
 		stage.NewWave (new Wave (91f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "gand_sitar"));
 
 		//BOSS 1

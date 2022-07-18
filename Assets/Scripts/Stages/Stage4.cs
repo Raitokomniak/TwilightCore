@@ -5,7 +5,7 @@ using UnityEngine;
 public class Stage4 : Stage
 {
 	void Awake(){
-		stageName = "Lotus Garden";
+		stageName = "Celestial Lotus Garden";
 		bgmName = "????";
 		stageindex = 4;
 
@@ -14,6 +14,7 @@ public class Stage4 : Stage
 		stage = Game.control.stageHandler;
         fadeFromWhite = false;
 		UpdateStageInfoToUI();
+        Game.control.enemySpawner.holdTimer = true;
 		InitWaves(stage.difficultyMultiplier);
 	}
 	
@@ -24,19 +25,25 @@ public class Stage4 : Stage
 
 	IEnumerator StageHandlerRoutine(){
       
-      
-        Game.control.stageUI.EffectOverlay("White", false, 2.5f);
+       // Game.control.player.DebugFillCores();
+
+        Game.control.stageUI.EffectOverlay("Black", false, 2.5f);
 
         scene.SetPlaneSpeed (2f);
         Game.control.stageUI.WORLD.SetTopLayerSpeed(5);
-
-        Game.control.dialog.StartDialog("Stage4_0");
-
-        while (stage.stageTimer < 12f) yield return null;
 		Game.control.stageUI.PlayStageToast();
 
-        while (stage.stageTimer < Game.control.enemySpawner.midBossWave.spawnTime - 1) yield return null;
-        while (stage.midBossOn) yield return null;
+       // while (stage.stageTimer < Game.control.enemySpawner.midBossWave.spawnTime - 1) yield return null;
+      //  while (stage.midBossOn) yield return null;
+      
+      //
+      /*
+       while(Game.control.dialog.handlingDialog) {
+			yield return null;
+		}*/
+
+        //Game.control.sound.PlayMusic ("Stage", 4);
+
 
 
 
@@ -45,13 +52,16 @@ public class Stage4 : Stage
         while (stage.stageTimer < Game.control.enemySpawner.bossWave.spawnTime - 1) yield return null;
         Game.control.stageUI.WORLD.SetTopLayerSpeed(1);
         scene.SetPlaneSpeed (5f);
-		Game.control.dialog.StartDialog ("Boss4");
+		Game.control.dialog.StartDialog ("Boss4_0");
 
         while(Game.control.dialog.handlingDialog) {
-			if(stage.stageTimer > 119f) break;
-			else yield return null;
+			//if(stage.stageTimer > 0) break;
+			//else 
+            yield return null;
 		}
 		Game.control.sound.PlayMusic ("Boss", 4);
+
+        Game.control.stageHandler.ToggleTimer(true);
 
 		
 		while(!Game.control.enemySpawner.bossWave.dead) yield return null;
@@ -100,397 +110,51 @@ public class Stage4 : Stage
 
 
 
-
-
-        //PORTAL
-        mp = new EnemyMovementPattern(lib.GetVector("C1"));
-		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("C3", 4f), new WayPoint("L3")});
-		mp.hideSpriteOnSpawn = true;
-		mp.disableHitBox = true;
-		p = new P_VoidPortal(2f, 5, 6);
-		p.executeDelay = 1f;
-		p.infinite = false;
-		p.BMP = new BMP_Explode(p, 0);
-		stage.NewWave (new Wave (1f, mp, p, 1, false, 5, 100, "default"));
-
-        //ASURA
-        mp = new EnemyMovementPattern(lib.GetVector("C3"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("B1")});
-		mp.disableHitBox = true;
-		Wave w = new Wave(3f, mp, p, 1, false, 3, 6 / difficultyMultiplier, "asura");
-		w.invulnerable = true;
-		stage.NewWave(w);
-
-        //portal
-        mp = new EnemyMovementPattern(lib.GetVector("C1"));
-		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("I4", 4f), new WayPoint("L3")});
-		mp.hideSpriteOnSpawn = true;
-		mp.disableHitBox = true;
-		p = new P_VoidPortal(2f, 5, 6);
-		p.executeDelay = 1f;
-		p.infinite = false;
-		p.BMP = new BMP_Explode(p, 0);
-		stage.NewWave (new Wave (2f, mp, p, 1, false, 5, 100, "default"));
-
-        //asura
-        mp = new EnemyMovementPattern(lib.GetVector("I4"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("J1")});
-		mp.disableHitBox = true;
-		w = new Wave(5f, mp, p, 1, false, 3, 6 / difficultyMultiplier, "asura");
-		w.invulnerable = true;
-		stage.NewWave(w);
-
-        //portal
-        mp = new EnemyMovementPattern(lib.GetVector("C1"));
-		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("D5", 4f), new WayPoint("L3")});
-		mp.hideSpriteOnSpawn = true;
-		mp.disableHitBox = true;
-		p = new P_VoidPortal(2f, 5, 6);
-		p.executeDelay = 1f;
-		p.infinite = false;
-		p.BMP = new BMP_Explode(p, 0);
-		stage.NewWave (new Wave (3f, mp, p, 1, false, 5, 100, "default"));
-
-        //asura
-        mp = new EnemyMovementPattern(lib.GetVector("D5"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("B1")});
-		mp.disableHitBox = true;
-		w = new Wave(7f, mp, p, 1, false, 3, 6 / difficultyMultiplier, "asura");
-		w.invulnerable = true;
-		stage.NewWave(w);
-
-        //portal
-        mp = new EnemyMovementPattern(lib.GetVector("C1"));
-		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("X4", 4f), new WayPoint("L3")});
-		mp.hideSpriteOnSpawn = true;
-		mp.disableHitBox = true;
-		p = new P_VoidPortal(2f, 5, 6);
-		p.executeDelay = 1f;
-		p.infinite = false;
-		p.BMP = new BMP_Explode(p, 0);
-		stage.NewWave (new Wave (4f, mp, p, 1, false, 5, 100, "default"));
-
-        //asura
-        mp = new EnemyMovementPattern(lib.GetVector("X4"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("J1")});
-		mp.disableHitBox = true;
-		w = new Wave(9f, mp, p, 1, false, 3, 6 / difficultyMultiplier, "asura");
-		w.invulnerable = true;
-		stage.NewWave(w);
-
-        /// INTERLUDE //
-
-
-
-        
-
-
-
-
-        
-        
-
-        //BLUE STARS BURSTING INTO CIRCLES
-        mp = new EnemyMovementPattern(lib.GetVector("A3"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("C3", 1), new WayPoint("I5", 5, -1), new WayPoint("R3")});
-		mp.force = true;
-		p = new P_Circle();
-		p.coolDown = 2;
-		p.infinite = false;
-		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
-		p.BMP = new BMP_WaitAndExplode(p, 7f, 1f);
-		p.SetSprite ("Diamond", "Glow", "Blue", "Small");	 
-		stage.NewWave (new Wave (15f, mp, p, 3, false, 0, 5f / difficultyMultiplier, "asura"));
-
-
-        mp = new EnemyMovementPattern(lib.GetVector("H1"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 1), new WayPoint("D5", 5, -1), new WayPoint("L3")});
-		mp.force = true;
-		p = new P_Circle();
-		p.coolDown = 2;
-		p.infinite = false;
-		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
-		p.BMP = new BMP_WaitAndExplode(p, 7f, 1f);
-		p.SetSprite ("Diamond", "Glow", "Turquoise", "Small");	 
-		stage.NewWave (new Wave (16f, mp, p, 3, false, 0, 5f / difficultyMultiplier, "asura"));
-
-
-
-        //COOL 3D CIRCLE ARROW PATTERN
-        mp = new EnemyMovementPattern(lib.GetVector("K3"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 1), new WayPoint("C5", 1), new WayPoint("L3")});
-		mp.force = true;
-		p = new P_Maelstrom();
-		p.coolDown = 2;
-		p.infinite = false;
-		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
-		p.BMP = new BMP_WaitToHome(p, 9f, false);
-		p.SetSprite ("Arrow", "Glow", "Blue", "Small");	 
-		stage.NewWave (new Wave (20f, mp, p, 5, false, 0, 20f / difficultyMultiplier, "asura"));
-
-        mp = new EnemyMovementPattern(lib.GetVector("H1"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 1), new WayPoint("D5", 5, -1), new WayPoint("L3")});
-		mp.force = true;
-		p = new P_Circle();
-		p.coolDown = 2;
-		p.infinite = false;
-		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
-		p.BMP = new BMP_WaitAndExplode(p, 7f, 1f);
-		p.SetSprite ("Diamond", "Glow", "Turquoise", "Small");	 
-		stage.NewWave (new Wave (22f, mp, p, 3, false, 0, 5f / difficultyMultiplier, "asura"));
-
-        mp = new EnemyMovementPattern(lib.GetVector("C1"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3", 1), new WayPoint("E4", 1, -1), new WayPoint("B1")});
-		mp.force = true;
-		p = new P_Maelstrom();
-		p.coolDown = 2;
-		p.infinite = false;
-		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
-		p.BMP = new BMP_WaitToHome(p, 9f, false);
-		p.SetSprite ("Arrow", "Glow", "Turquoise", "Small");	 
-		stage.NewWave (new Wave (25f, mp, p, 5, false, 0, 20f / difficultyMultiplier, "asura"));
-
-        //SMALL CIRCLE CLUSTER
-        mp = new EnemyMovementPattern(lib.GetVector("A3"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("C4", 1), new WayPoint("D5", 1, -1), new WayPoint("L3")});
-		mp.force = true;
-		p = new P_Shape(Mathf.CeilToInt(2 * (difficultyMultiplier)), "ThreeCircles", 1);
-		p.coolDown = 2;
-		p.infinite = false;
-        p.BMP = new BMP_Explode(p, 7, true, true, true);
-        p.BMP.axisRotateSpeed = 4;
-		p.SetSprite ("Fireball", "Glow", "Turquoise", "Small");	 
-		stage.NewWave (new Wave (28f, mp, p, 10, false, 0, 10f / difficultyMultiplier, "asura"));
-
-
-        mp = new EnemyMovementPattern(lib.GetVector("A3"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("C3", 1), new WayPoint("I5", 5, -1), new WayPoint("R3")});
-		mp.force = true;
-		p = new P_Circle();
-		p.coolDown = 2;
-		p.infinite = false;
-		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
-		p.BMP = new BMP_WaitAndExplode(p, 7f, 1f);
-		p.SetSprite ("Diamond", "Glow", "Red", "Small");	 
-		stage.NewWave (new Wave (30f, mp, p, 3, false, 0, 5f / difficultyMultiplier, "asura"));
-
-
-        //ROTATING CIRCLES
-        mp = new EnemyMovementPattern(lib.GetVector("K3"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 1), new WayPoint("C5", 1), new WayPoint("L3")});
-		mp.force = true;
-		p = new P_Shape(Mathf.CeilToInt(4 * (difficultyMultiplier)), "TwoCircles", 2);
-		p.coolDown = 2;
-		p.infinite = false;
-        p.BMP = new BMP_Explode(p, 5, true, true, false);
-        p.BMP.axisRotateSpeed = 2;
-		p.SetSprite ("Circle", "Glow", "BlackRed", "Small");	 
-		stage.NewWave (new Wave (40f, mp, p, 10, false, 0, 10f / difficultyMultiplier, "asura"));
-
-        //SMALL CIRCLE CLUSTER
-        mp = new EnemyMovementPattern(lib.GetVector("A3"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("C4", 1), new WayPoint("D5", 1), new WayPoint("L3")});
-		mp.force = true;
-		p = new P_Shape(Mathf.CeilToInt(4 * (difficultyMultiplier)), "ThreeCircles", 1);
-		p.coolDown = 2;
-		p.infinite = false;
-        p.BMP = new BMP_Explode(p, 7, true, true, true);
-        p.BMP.axisRotateSpeed = 4;
-        p.BMP.rotationDir = 1;
-		p.SetSprite ("Fireball", "Glow", "Turquoise", "Small");	 
-		stage.NewWave (new Wave (45f, mp, p, 10, false, 0, 10f / difficultyMultiplier, "asura"));
-
-        mp = new EnemyMovementPattern(lib.GetVector("A6"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("L3")});
-		mp.force = true;
-		p = new P_Shape(Mathf.CeilToInt(5 * (difficultyMultiplier)), "TwoCircles", 2);
-		p.coolDown = 2;
-		p.infinite = false;
-        p.BMP = new BMP_Explode(p, 5, true, true, false);
-        p.BMP.axisRotateSpeed = 2;
-		p.SetSprite ("Circle", "Glow", "BlackRed", "Small");	 
-		stage.NewWave (new Wave (46f, mp, p, 3, false, 0, 10f / difficultyMultiplier, "asura"));
-
-         mp = new EnemyMovementPattern(lib.GetVector("A3"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("C3", 1), new WayPoint("I5", 5, -1), new WayPoint("R3")});
-		mp.force = true;
-		p = new P_Circle();
-		p.coolDown = 2;
-		p.infinite = false;
-		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
-		p.BMP = new BMP_WaitAndExplode(p, 7f, 1f);
-		p.SetSprite ("Diamond", "Glow", "Red", "Small");	 
-		stage.NewWave (new Wave (55f, mp, p, 3, false, 0, 5f / difficultyMultiplier, "asura"));
-
-
-
-
-
-
-
-
-        //mid boss
-
-        mp = new EnemyMovementPattern(lib.GetVector("X1"));
-		mp.stayTime = 18f;
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
-		Wave midBoss = new Wave(mp, 65f, 500, false, 1);
-		midBoss.SetUpBoss (2.5f, "????", true);
-		stage.NewWave (midBoss);
-
-
-
-
-
-
-        mp = new EnemyMovementPattern(lib.GetVector("K3"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 1), new WayPoint("C5", 1), new WayPoint("L3")});
-		mp.force = true;
-		p = new P_Maelstrom();
-		p.coolDown = 2;
-		p.infinite = false;
-		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
-		p.BMP = new BMP_WaitToHome(p, 9f, false);
-		p.SetSprite ("Arrow", "Glow", "Red", "Small");	 
-		stage.NewWave (new Wave (89f, mp, p, 5, false, 0, 20f / difficultyMultiplier, "asura"));
-
-        mp = new EnemyMovementPattern(lib.GetVector("K3"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 1), new WayPoint("C5", 1), new WayPoint("L3")});
-		mp.force = true;
-		p = new P_Maelstrom();
-		p.coolDown = 2;
-		p.infinite = false;
-		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
-		p.BMP = new BMP_WaitToHome(p, 9f, false);
-		p.SetSprite ("Arrow", "Glow", "Red", "Small");	 
-		stage.NewWave (new Wave (90f, mp, p, 5, false, 0, 20f / difficultyMultiplier, "asura"));
-
-        mp = new EnemyMovementPattern(lib.GetVector("K3"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3", 2), new WayPoint("L5")});
-		p = new P_Spiral(3 * (int)difficultyMultiplier, 1);
-		p.loopCircles =  288 * 2;
-		p.BMP = new BMP_WaitAndExplode(p, 11f, 0);
-		p.BMP.movementSpeed = 1f;
-		p.SetSprite ("Circle", "Glow", "White", "Medium");
-		w = new Wave(93f, mp, p, 7, false, 3, 6 / difficultyMultiplier, "asura");
-		stage.NewWave(w);
-
-        mp = new EnemyMovementPattern(lib.GetVector("A3"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("C3", 1), new WayPoint("I5", 5, -1), new WayPoint("R3")});
-		mp.force = true;
-		p = new P_Circle();
-		p.coolDown = 2;
-		p.infinite = false;
-		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
-		p.BMP = new BMP_WaitAndExplode(p, 7f, 1f);
-		p.SetSprite ("Diamond", "Glow", "Blue", "Small");	 
-		stage.NewWave (new Wave (95f, mp, p, 10, false, 0, 5f / difficultyMultiplier, "asura"));
-
-
-        mp = new EnemyMovementPattern(lib.GetVector("H1"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 1), new WayPoint("D5", 5, -1), new WayPoint("L3")});
-		mp.force = true;
-		p = new P_Circle();
-		p.coolDown = 2;
-		p.infinite = false;
-		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
-		p.BMP = new BMP_WaitAndExplode(p, 7f, 1f);
-		p.SetSprite ("Diamond", "Glow", "Turquoise", "Small");	 
-		stage.NewWave (new Wave (100f, mp, p, 5, false, 0, 5f / difficultyMultiplier, "asura"));
-
-        
-        //PORTAL
-        mp = new EnemyMovementPattern(lib.GetVector("C1"));
-		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("C3", 4f), new WayPoint("L3")});
-		mp.hideSpriteOnSpawn = true;
-		mp.disableHitBox = true;
-		p = new P_VoidPortal(2f, 5, 6);
-		p.executeDelay = 1f;
-		p.infinite = false;
-		p.BMP = new BMP_Explode(p, 0);
-		stage.NewWave (new Wave (103f, mp, p, 1, false, 5, 100, "default"));
-
-        //ASURA
-        mp = new EnemyMovementPattern(lib.GetVector("C3"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("B1")});
-		mp.disableHitBox = true;
-        p = new P_Spiral(3 * (int)difficultyMultiplier, 1);
-		p.loopCircles =  288 * 1;
-		p.BMP = new BMP_WaitAndExplode(p, 11f, 0);
-		p.BMP.movementSpeed = 1f;
-		p.SetSprite ("Circle", "Glow", "White", "Medium");
-		w = new Wave(105f, mp, p, 1, false, 3, 6 / difficultyMultiplier, "asura");
-		w.invulnerable = true;
-		stage.NewWave(w);
-
-        //portal
-        mp = new EnemyMovementPattern(lib.GetVector("C1"));
-		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("I4", 4f), new WayPoint("L3")});
-		mp.hideSpriteOnSpawn = true;
-		mp.disableHitBox = true;
-		p = new P_VoidPortal(2f, 5, 6);
-		p.executeDelay = 1f;
-		p.infinite = false;
-		p.BMP = new BMP_Explode(p, 0);
-		stage.NewWave (new Wave (104f, mp, p, 1, false, 5, 100, "default"));
-
-        //asura
-        mp = new EnemyMovementPattern(lib.GetVector("I4"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("J1")});
-		mp.disableHitBox = true;
-        p = new P_Spiral(3 * (int)difficultyMultiplier, 1);
-		p.loopCircles =  288 * 1;
-		p.BMP = new BMP_WaitAndExplode(p, 11f, 0);
-		p.BMP.movementSpeed = 1f;
-		p.SetSprite ("Circle", "Glow", "White", "Medium");
-		w = new Wave(107f, mp, p, 1, false, 3, 6 / difficultyMultiplier, "asura");
-		w.invulnerable = true;
-		stage.NewWave(w);
-
-        //portal
-        mp = new EnemyMovementPattern(lib.GetVector("C1"));
-		mp.SetWayPoints(new List<WayPoint>(){ new WayPoint("D5", 4f), new WayPoint("L3")});
-		mp.hideSpriteOnSpawn = true;
-		mp.disableHitBox = true;
-		p = new P_VoidPortal(2f, 5, 6);
-		p.executeDelay = 1f;
-		p.infinite = false;
-		p.BMP = new BMP_Explode(p, 0);
-		stage.NewWave (new Wave (105f, mp, p, 1, false, 5, 100, "default"));
-
-        //asura
-        mp = new EnemyMovementPattern(lib.GetVector("D5"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("B1")});
-		mp.disableHitBox = true;
-        p = new P_Spiral(3 * (int)difficultyMultiplier, 1);
-		p.loopCircles =  288 * 1;
-		p.BMP = new BMP_WaitAndExplode(p, 11f, 0);
-		p.BMP.movementSpeed = 1f;
-		p.SetSprite ("Circle", "Glow", "White", "Medium");
-		w = new Wave(109f, mp, p, 1, false, 3, 6 / difficultyMultiplier, "asura");
-		w.invulnerable = true;
-		stage.NewWave(w);
-
-
-
-
-
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
-		boss = new Wave(mp, 115f, 800, true, 3);
-		boss.SetUpBoss (3, "Danu, Mother of the Asura", false);
+		boss = new Wave(mp, 0f, 800, true, 3);
+		boss.SetUpBoss (4, "Tridevi of the Lotus Garden", false);
 		stage.NewWave (boss);
 
-        
-/*
+        mp = new EnemyMovementPattern(lib.GetVector("I1"));
+		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("L4")});
+		p = new P_SingleHoming();
+		p.SetSprite ("BigCircle", "Big", "Red", "Huge");
+		stage.NewWave (new Wave (1f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "gand_flute"));
 
-        /// BOSS DEBUG ///
-        mp = new EnemyMovementPattern(lib.GetVector("X1"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3")});
-		boss = new Wave(mp, 1f, 300, true, 3);
-		boss.SetUpBoss (3, "Danu, Mother of the Asura", false);
-		stage.NewWave (boss);
-*/
-        
+        mp = new EnemyMovementPattern(lib.GetVector("A1"));
+		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("D3", 1), new WayPoint("R4")});
+		p = new P_SingleHoming();
+		p.SetSprite ("BigCircle", "Big", "Red", "Huge");
+		stage.NewWave (new Wave (3f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "gand_flute"));
+
+        mp = new EnemyMovementPattern(lib.GetVector("C1"));
+		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("C3", 3), new WayPoint("R4")});
+		mp.speed = 2f;
+		p = new P_Circle();
+		p.bulletCount =  Mathf.CeilToInt(4 * difficultyMultiplier);
+		p.BMP = new BMP_Explode(p, 11f);
+		p.SetSprite ("Circle", "Glow", "Purple", "Small");	 
+		stage.NewWave (new Wave (6f, mp, p, 1, false, 40, 3f / difficultyMultiplier, "gand_sitar"));
+
+        mp = new EnemyMovementPattern(lib.GetVector("F1"));
+		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 3), new WayPoint("L4")});
+		mp.speed = 2f;
+		p = new P_Circle();
+		p.bulletCount =  Mathf.CeilToInt(4 * difficultyMultiplier);
+		p.BMP = new BMP_Explode(p, 11f);
+		p.SetSprite ("Circle", "Glow", "Yellow", "Small");	 
+		stage.NewWave (new Wave (8f, mp, p, 1, false, 40, 3f / difficultyMultiplier, "gand_sitar"));
+
+        mp = new EnemyMovementPattern(lib.GetVector("I1"));
+		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 3), new WayPoint("R4")});
+		mp.speed = 2f;
+		p = new P_Circle();
+		p.bulletCount =  Mathf.CeilToInt(4 * difficultyMultiplier);
+		p.BMP = new BMP_Explode(p, 11f);
+		p.SetSprite ("Circle", "Glow", "Blue", "Small");	 
+		stage.NewWave (new Wave (10f, mp, p, 1, false, 40, 3f / difficultyMultiplier, "gand_sitar"));
+
+
 	}
 }

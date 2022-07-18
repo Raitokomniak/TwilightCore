@@ -41,7 +41,7 @@ public class Boss2 : Phaser
 
 				patterns.Add(new P_SpiderWeb());
 				patterns[1].bulletCount = 2 * difficulty;
-				patterns[1].SetSprite ("Circle", "Glow", "Red", "Medium");
+				patterns[1].SetSprite ("Spider_Glow", "Medium");
 
 				patterns.Add(new P_SingleHoming());
 				patterns[2].coolDown = 4f / difficulty;

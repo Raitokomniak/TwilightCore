@@ -55,6 +55,7 @@ MonoBehaviour:
   moving: 0
   teleporting: 0
   normalizedForce: 0
+  staticSpriteDir: 0
 --- !u!50 &5032892
 Rigidbody2D:
   serializedVersion: 4

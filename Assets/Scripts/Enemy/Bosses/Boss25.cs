@@ -59,6 +59,7 @@ public class Boss25 : Phaser
                 p.coolDown = 2;
                 p.infinite = false;
                 p.BMP = new BMP_WaitToHome(p, 2, false);
+                p.BMP.forceSprite = false;
                 p.SetSprite ("Coin", "Small");	 
 				patterns.Add(p);
 

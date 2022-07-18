@@ -5,6 +5,8 @@ public class SpriteAnimationController : MonoBehaviour {
 
     public Pattern pattern;
 	SpriteRenderer _renderer;
+
+    public Vector3 spawnPos;
 	bool fadedIn;
 	float scalingTime = 0.03f;
 	public float rotationSpeed;

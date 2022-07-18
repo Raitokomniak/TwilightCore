@@ -1,8 +1,8 @@
 Boss	Who are you? None may pass into the forest!
-Player	I'm this world's Chandra, from the village nearby
-Player	I was following a thieving asura, you might have seen him?
+Soma	I'm this world's Chandra, from the village nearby
+Soma	I was following a thieving asura, you might have seen him?
 Boss	I didn't see anything, now begone!
-Player	It passed right through here... Don't foxes have good diurnal sight?
+Soma	It passed right through here... Don't foxes have good diurnal sight?
 Boss	I don't know what you're talking about. I'm human!
-Player	But don't you have a tail?
+Soma	But don't you have a tail?
 Boss	...

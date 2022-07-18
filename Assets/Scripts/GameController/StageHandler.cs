@@ -7,7 +7,7 @@ using System.IO;
 
 public class StageHandler : MonoBehaviour {
 
-    int STARTING_STAGE = 1;
+    int STARTING_STAGE = 3;
 
     AsyncOperation loadScene;
 	public Stage stageScript;
@@ -32,7 +32,7 @@ public class StageHandler : MonoBehaviour {
 	public bool bossOn;
     public bool midBossOn;
 
-	public int stageCount = 3;
+	public int stageCount = 4;
 	public int currentStage;
 	public bool stageTimerOn;
 
@@ -122,6 +122,11 @@ public class StageHandler : MonoBehaviour {
 			if(GetComponent<Stage2>()!=null) Destroy(GetComponent<Stage2>());
 			gameObject.AddComponent<Stage3>();
 			stageScript = GetComponent<Stage3>();
+		}
+        else if(stage == 4){
+			if(GetComponent<Stage3>()!=null) Destroy(GetComponent<Stage3>());
+			gameObject.AddComponent<Stage4>();
+			stageScript = GetComponent<Stage4>();
 		}
         return waves;
 	}
@@ -317,7 +322,7 @@ public class StageHandler : MonoBehaviour {
         start = false;
 
 
-		Game.control.sound.PlayMusic ("Stage", currentStage);
+		
 		Game.control.enemySpawner.StartSpawner (currentStage);
 
 		stageScript.StartStageHandler();

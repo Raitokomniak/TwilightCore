@@ -13,6 +13,8 @@ public class EnemySpawner : MonoBehaviour {
 	IEnumerator spawnRoutine;
 	IEnumerator spawnerRoutine;
 
+    public bool holdTimer = false;
+
 	void Awake(){
 		spawnerOn = false;
 		//DestroyAllEnemies ();
@@ -26,8 +28,13 @@ public class EnemySpawner : MonoBehaviour {
 		else return true;
 	}
 
+    public bool EnemiesAlive(){
+        if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0) return false;
+        else return true;
+    }
+
 	IEnumerator SpawnerRoutine(){
-		Game.control.stageHandler.ToggleTimer(true);
+		if(!holdTimer) Game.control.stageHandler.ToggleTimer(true);
 		foreach (Wave wave in waves) {
 			yield return new WaitUntil(() => Game.control.stageHandler.stageTimer >= wave.spawnTime);
 

@@ -17,6 +17,7 @@ public class P_MusicalNotes : Pattern
     }
 
     public override IEnumerator ExecuteRoutine(EnemyShoot enemy){
+        patternName = "MusicalNotes";
         yield return new WaitForSeconds(executeDelay);
 		pos = enemy.transform.position;
 
@@ -54,6 +55,7 @@ public class P_MusicalNotes : Pattern
             int randomSprite = Random.Range(0,21);
             SetSprite(notesprites[randomSprite][0], notesprites[randomSprite][1], notesprites[randomSprite][2], "Tiny");
             BMP.SetSpriteRotation(new Vector3(0,0,bullet.transform.rotation.z * -1));
+            BMP.forceSprite = false;
 		}
     }
 }

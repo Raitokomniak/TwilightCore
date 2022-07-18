@@ -21,8 +21,10 @@ public class P_SpiderWeb : Pattern
 		pos = enemy.transform.position;
 		animation = (Resources.Load ("Images/Animations/SmallWeb") as GameObject);
 		animation.GetComponent<SpriteAnimationController>().stayTime = 2f;
+
 		bulletRotation = rot;
 		animating = false;
+        
 
 		for (int i = 0; i < bulletCount; i++) {
 			bullet = SpawnBullet ();
@@ -30,7 +32,9 @@ public class P_SpiderWeb : Pattern
             bullet.GetComponent<BulletMovement>().glowRend.sprite = null;
 		}
 		yield return new WaitUntil(() => allBulletsSpawned == true);
-		Animate(1, 2f, BMP.centerPoint);
+        Vector3 centerPoint = BMP.bullet.transform.position;
+        yield return new WaitForSeconds(0.2f);
+		Animate(1, 2f, centerPoint);
 		yield return new WaitForSeconds(0.5f);
 		if(animation) animation.GetComponent<SpriteAnimationController>().rotationSpeed = 10f;
 	}

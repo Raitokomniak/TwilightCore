@@ -46,7 +46,7 @@ public class DialogController : MonoBehaviour {
         Game.control.inputHandler.skipContext = "Dialog";
 		Game.control.stageUI.DIALOG.ToggleDialog(true);
 		
-		if(!_phase.Contains("Boss")) Game.control.stageUI.DIALOG.InitPlayerSpeaker();
+		if(_phase.Contains("Soma")) Game.control.stageUI.DIALOG.InitPlayerSpeaker();
 		if (_phase.Contains("Boss1")) { Game.control.stageUI.DIALOG.InitBossSpeaker("Boss1"); }
 		if (_phase.Contains("Boss2")) { Game.control.stageUI.DIALOG.InitBossSpeaker("Boss2"); }
 

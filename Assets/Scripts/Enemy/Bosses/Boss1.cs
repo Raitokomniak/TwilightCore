@@ -32,7 +32,7 @@ public class Boss1 : Phaser
 		
 
 		switch (phase) {
-			case 2:
+			case 0:
 				Game.control.stageUI.BOSS.ShowActivatedPhase ("Daffodil Hypnosis");
                 StartPhaseTimer(30);
 
@@ -76,7 +76,7 @@ public class Boss1 : Phaser
 				patterns.Add(p);
 
 				//spear
-
+                
 				p = new P_SingleHoming();
 				p.BMP = new BMP_TurnToSpears(p, 5f);
 				p.bulletCount = 1;
@@ -181,7 +181,7 @@ public class Boss1 : Phaser
 
 				break;
 			
-			case 0:
+			case 2:
 				movement.pattern.force = true;
 
 				StartPhaseTimer(30);

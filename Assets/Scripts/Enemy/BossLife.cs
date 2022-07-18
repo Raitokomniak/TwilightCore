@@ -10,7 +10,7 @@ public class BossLife : EnemyLife
     bool deathFlag = false;
     MiniToast miniToaster;
 
-    ParticleSystem hitFXparticles;
+
    
 
     public override void Init(int setMaxHealth, int _healthBars, Phaser _bossScript){
@@ -28,8 +28,20 @@ public class BossLife : EnemyLife
 	public void SetHealthToThreshold(){
 		currentHealth = superThreshold;
 		Game.control.enemySpawner.DestroyAllProjectiles ();
-		Game.control.stageUI.BOSS.UpdateBossHealth(currentHealth);
+		Game.control.stageUI.BOSS.UpdateBossHealth(currentHealth, maxHealth);
 	}
+
+    public void SetPhaseHealth(int phaseHealth){
+        maxHealth = phaseHealth;
+        currentHealth = maxHealth;
+        superThreshold = currentHealth * .20f;
+        Game.control.stageUI.BOSS.UpdateBossHealth(currentHealth, maxHealth);
+    }
+
+    public void SetHealthToPercentage(float percentage){
+        currentHealth = (maxHealth * 0.2f) + (maxHealth * percentage);
+        Game.control.stageUI.BOSS.UpdateBossHealth(currentHealth, maxHealth);
+    }
 
 	bool CanTakeHit(){
 		if(invulnerable) return false;
@@ -51,7 +63,10 @@ public class BossLife : EnemyLife
 				 currentHealth -= damage / 4;
 			else currentHealth -= damage;
 
-			Game.control.stageUI.BOSS.UpdateBossHealth(currentHealth);
+            //FOR TRIDEVI
+            if(bossScript.bossIndex == 4) bossScript.KeepTrackOfDamage(damage);
+
+			Game.control.stageUI.BOSS.UpdateBossHealth(currentHealth, maxHealth);
 		}
 
 		if (currentHealth <= superThreshold && !bossScript.superPhase && !invulnerable) {
@@ -69,17 +84,16 @@ public class BossLife : EnemyLife
 			}
 		}
 
+        
+
         if(deathFlag) return;
         PlayFX("Hit");
         IEnumerator animateHit = AnimateHit();
         StartCoroutine(animateHit);
 	}
 
-    IEnumerator AnimateHit(){
-        GetComponent<EnemyMovement>().enemySprite.color = new Color(1, 0.5f, 0.5f, 1);
-        yield return new WaitForSeconds(0.1f);
-        GetComponent<EnemyMovement>().enemySprite.color = new Color(1, 1, 1, 1);
-    }
+
+
     public void FakeDeath(){
         deathFlag = true;
         dead = true;
@@ -95,23 +109,7 @@ public class BossLife : EnemyLife
 	}
 
 
-    void PlayFX(string type){
-        var shape = hitFXparticles.shape;
-        var main = hitFXparticles.main;
-        var emitter = hitFXparticles.emission;
 
-        if(type == "Hit"){
-            shape.shapeType = ParticleSystemShapeType.SingleSidedEdge;
-            main.startSpeed = 8;
-            hitFXparticles.Emit(1);
-        }
-        if(type == "Death"){
-            shape.shapeType = ParticleSystemShapeType.Sphere;
-            emitter.rateOverTime = 30;
-            main.startSpeed = 20;
-            hitFXparticles.Play();
-        }
-    }
     public override IEnumerator AnimateDeath(bool silent){
         deathFlag = true;
         bossScript.StopPats();
@@ -163,7 +161,7 @@ public class BossLife : EnemyLife
 
 	public void NextHealthBar(){
 		currentHealth = maxHealth;
-		Game.control.stageUI.BOSS.UpdateBossHealth (currentHealth);
+		Game.control.stageUI.BOSS.UpdateBossHealth (currentHealth, maxHealth);
 		//Game.control.ui.UpdateBossHealthBars (healthBars);
 		invulnerable = true;
 		bossScript.superPhase = false;			

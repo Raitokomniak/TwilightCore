@@ -3,13 +3,20 @@ using System.Collections;
 
 public class EnemyLife : MonoBehaviour {
 	public bool dead;
+    public bool hasHealth;
 	public float maxHealth;
 	public float currentHealth;
 	public bool invulnerable = false;
 
+    public ParticleSystem hitFXparticles;
+
 
 	SpriteRenderer spriteRenderer;
 
+    void Awake(){
+        hitFXparticles = GetComponentInChildren<ParticleSystem>();
+        hitFXparticles.Stop();
+    }
 	public virtual void Init(int setMaxHealth, int _healthBars, Phaser _bossScript){}
 
 	public void SetHealth(int _maxHealth){
@@ -21,6 +28,48 @@ public class EnemyLife : MonoBehaviour {
 		invulnerable = value;
 		Game.control.stageUI.BOSS.ToggleInvulnerable(invulnerable);
 	}
+    
+    void CheckHit(){
+        if(dead || invulnerable) return;
+        
+        if(hasHealth) TakeHit();
+        else Die (false);
+    }
+
+    void TakeHit(){
+        currentHealth -= 1;
+        if(currentHealth < 0) Die(false);
+        PlayFX("Hit");
+        IEnumerator animateHit = AnimateHit();
+        StartCoroutine(animateHit);
+    }
+
+    public void PlayFX(string type){
+        var shape = hitFXparticles.shape;
+        var main = hitFXparticles.main;
+        var emitter = hitFXparticles.emission;
+
+        if(type == "Hit"){
+            shape.shapeType = ParticleSystemShapeType.SingleSidedEdge;
+            main.startSpeed = 8;
+            hitFXparticles.Emit(1);
+        }
+        if(type == "Death"){
+            shape.shapeType = ParticleSystemShapeType.Sphere;
+            emitter.rateOverTime = 30;
+            main.startSpeed = 20;
+            hitFXparticles.Play();
+        }
+    }
+
+
+    public IEnumerator AnimateHit(){
+        GetComponent<EnemyMovement>().enemySprite.color = new Color(1, 0.5f, 0.5f, 1);
+        yield return new WaitForSeconds(0.1f);
+        GetComponent<EnemyMovement>().enemySprite.color = new Color(1, 1, 1, 1);
+    }
+
+
 
 	public virtual void Die(bool silent) {
 		dead = true;
@@ -75,14 +124,14 @@ public class EnemyLife : MonoBehaviour {
 
 	void OnTriggerStay2D(Collider2D c){
 		if (c.tag == "NullField") {
-			if(!dead && !invulnerable) Die (false);
+			CheckHit();
 		}
 	}
 
 	void OnTriggerEnter2D(Collider2D c) {
 		if (c.tag == "PlayerProjectile") {
-				if(!dead && !invulnerable) Die (false);
-				Destroy(c.gameObject);
+			CheckHit();
+			Destroy(c.gameObject);
 		}
 	}
 }

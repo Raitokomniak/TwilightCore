@@ -29,6 +29,9 @@ public class BMP_Explode : BulletMovementPattern
         
         StartMoving (14);
         rotation = bullet.transform.rotation;
+        if(!retainSpriteRotation) spriteRotation = rotation;
+        else spriteRotation.eulerAngles = new Vector3(0,0,0);
+        
         if(startHoming) FindPlayer(bullet);
         if(rotateOnAxis) {
             if(pattern.enemyShoot!= null) centerPoint = pattern.enemyShoot.transform.position;

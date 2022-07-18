@@ -24,7 +24,7 @@ public class Stage2 : Stage
 	}
 
 	IEnumerator StageHandlerRoutine(){
-		
+		Game.control.sound.PlayMusic ("Stage", 2);
 		scene.e_camera.SetPosition (new Vector3(80,45,72));
 		scene.e_camera.SetRotation (new Vector3(65, 0, 5));
 
@@ -96,18 +96,6 @@ public class Stage2 : Stage
 		Pattern p;
 		EnemyMovementPattern mp;
 		lib = Game.control.vectorLib;
-
-
-/*
-        mp = new EnemyMovementPattern(lib.GetVector("A3"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("C3", 1), new WayPoint("R3")});
-		mp.force = true;
-		p = new P_RepeatedHoming();
-		p.bulletCount = Mathf.CeilToInt(4 * (difficultyMultiplier / 2));
-		p.BMP = new BMP_WaitToHome(p, 9f, true);
-		p.SetSprite ("Arrow", "Glow", "Red", "Small");	
-		stage.NewWave (new Wave (2f, mp, p, 3, false, 0, 3f / difficultyMultiplier,  "gand_flute"));
-*/
 
 
 
