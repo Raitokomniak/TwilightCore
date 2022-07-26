@@ -8,7 +8,6 @@ public class BulletMovement : MonoBehaviour {
 
     BoxCollider2D boxCollider;
     CircleCollider2D circleCollider;
-    BulletBouncer bulletBouncer;
 
 	public SpriteRenderer spriteR;
     public SpriteRenderer glowRend;
@@ -35,7 +34,6 @@ public class BulletMovement : MonoBehaviour {
         homingWarningLine = GetComponent<HomingWarningLine>();
         boxCollider = GetComponent<BoxCollider2D>();
         circleCollider = GetComponent<CircleCollider2D>();
-        bulletBouncer = GetComponent<BulletBouncer>();
         trailMaker = GetComponentInChildren<TrailMaker>();
         if(trailMaker!=null) trailMaker.gameObject.SetActive(false);
 	}
@@ -261,13 +259,5 @@ public class BulletMovement : MonoBehaviour {
 
     public void OnTriggerEnter2D(Collider2D c){
 		if (c.tag == "NullField") Game.control.bulletPool.StoreBulletToPool(this);
-	}
-
-	public void OnCollisionStay2D(Collision2D c){
-		if(c.gameObject.name == "PlayAreaBotWall"){
-			if(GetComponent<BulletBouncer>()){
-				GetComponent<BulletBouncer>().StopBounce();
-			}
-		}
 	}
 }

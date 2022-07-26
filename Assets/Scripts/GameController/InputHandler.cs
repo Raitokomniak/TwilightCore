@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
-    KeyCode CONFIRM = KeyCode.Z;
+    KeyCode[] CONFIRM = {KeyCode.Z, KeyCode.Return};
     KeyCode[] BACK = {KeyCode.X, KeyCode.Escape};
     KeyCode[] ARROW = {KeyCode.LeftArrow, KeyCode.RightArrow, KeyCode.UpArrow, KeyCode.DownArrow};
     KeyCode[] WASD =  {KeyCode.A, KeyCode.D, KeyCode.W, KeyCode.S};
@@ -81,7 +81,7 @@ public class InputHandler : MonoBehaviour
     void CheckSaveScore(){
         if(!Game.control.stageUI.GAMEOVER.saveScoreOn) return;
         if(!AllowgGeneralInput()) return;
-		if(Input.GetKeyDown(CONFIRM)) Game.control.stageUI.GAMEOVER.SendScore();
+		if(Input.GetKeyDown(CONFIRM[1])) Game.control.stageUI.GAMEOVER.SendScore();
     }
 
     /// MENU ///
@@ -93,38 +93,44 @@ public class InputHandler : MonoBehaviour
 		return true;
     }
 
-    public string CheckMenuInput(string returnValue){
-		string input = "";
-        string iType = "";
-
-		if(Input.GetKeyDown (ARROW[2])) {    input = "up";       iType = "cursor"; }
-		if(Input.GetKeyDown (ARROW[3])) {   input = "down";     iType = "cursor"; }
-		if(Input.GetKeyDown (ARROW[1])) {  input = "right";    iType = "cursor"; }
-		if(Input.GetKeyDown (ARROW[0])) {  input = "left";     iType = "cursor"; }
-
-		if(Input.GetKeyDown (CONFIRM)) input = "confirm"; iType = "selection";
-		if(Input.GetKeyDown(BACK[0]) || Input.GetKeyDown(BACK[1]))  input = "back"; iType = "selection";
-        if(Input.GetKeyDown(BACK[1])) input = "pause"; iType = "selection";
-
-        if(returnValue == "value") return input;
-        if(returnValue == "type")  return iType;	
-
+    public string Direction(){
+        if(Input.GetKeyDown (ARROW[2]))        return "up"; 
+		if(Input.GetKeyDown (ARROW[3]))        return "down"; 
+		if(Input.GetKeyDown (ARROW[1]))        return "right";
+		if(Input.GetKeyDown (ARROW[0]))        return "left";
         return "";
-	}
+    }
+
+    public bool Back(){
+        if(Input.GetKeyDown(BACK[0])  || Input.GetKeyDown(BACK[1])) return true;
+        return false;
+    }
+
+    public bool Confirm(){
+        if(Input.GetKeyDown (CONFIRM[0]) || Input.GetKeyDown (CONFIRM[1])) return true;
+        return false;
+    }
+
+    public bool Pause(){
+        if(Input.GetKeyDown(BACK[1])) return true;
+        return false;
+    }
+
+
 
     /// TUTORIAL ///
 
     void CheckTutorial(){
         if(!Game.control.ui.tutorial.tutorialOn) return;
-        if(Input.GetKeyDown(CONFIRM)) Game.control.ui.tutorial.NextImage();
-        if(Input.GetKeyDown(BACK[0]) || Input.GetKeyDown(BACK[1])) Game.control.ui.tutorial.Abort();
+        if(Input.GetKeyDown (CONFIRM[0]) || Input.GetKeyDown (CONFIRM[1]))  Game.control.ui.tutorial.NextImage();
+        if(Input.GetKeyDown(BACK[0]) || Input.GetKeyDown(BACK[1]))          Game.control.ui.tutorial.Abort();
     }
 
     /// INTRO ///
 
     void CheckIntro(){
         if(!Game.control.stageHandler.intro.introOn) return;
-        if(Input.GetKeyDown(CONFIRM)) Game.control.stageHandler.intro.NextPara();
+        if(Input.GetKeyDown (CONFIRM[0]) || Input.GetKeyDown (CONFIRM[1])) Game.control.stageHandler.intro.NextPara();
     }
 
     /// STAGE ///
@@ -132,7 +138,7 @@ public class InputHandler : MonoBehaviour
     
     void CheckStageEnd(){
        if(!AllowStageAdvanceInput()) return;
-       if(Input.GetKeyDown(CONFIRM)) Game.control.stageHandler.CheckStageEnd();	
+       if(Input.GetKeyDown (CONFIRM[0]) || Input.GetKeyDown (CONFIRM[1])) Game.control.stageHandler.CheckStageEnd();	
     }
     public bool AllowStageAdvanceInput(){
 		if(Game.control.loading) return false;
@@ -146,9 +152,9 @@ public class InputHandler : MonoBehaviour
     void CheckDialog(){
         if(!AllowDialogInput()) return;
 			
-		if (Input.GetKeyDown (CONFIRM)) {
+		if(Input.GetKeyDown (CONFIRM[0]) || Input.GetKeyDown (CONFIRM[1])) {
 			Game.control.sound.PlayMenuSound("Cursor");
-			Game.control.dialog.AdvanceDialog();
+			Game.control.dialog.CheckAdvance();
 		}
 		
     }
@@ -169,8 +175,8 @@ public class InputHandler : MonoBehaviour
             keyUp = false;
             return;
         }
-        if(!Input.GetKey(CONFIRM)) keyUp = true;
-        if(Input.GetKeyUp(CONFIRM)) keyUp = true;
+        if(!Input.GetKey(CONFIRM[0])) keyUp = true;
+        if(Input.GetKeyUp(CONFIRM[0])) keyUp = true;
 
         if(!AllowSkip()) return;
 
@@ -182,7 +188,7 @@ public class InputHandler : MonoBehaviour
             }
         }
 
-        if(Input.GetKey(CONFIRM)){
+        if(Input.GetKey(CONFIRM[0])){
             if(holdTimer>=holdTime) skipping = true;
             else holdTimer+=Time.deltaTime;
         }

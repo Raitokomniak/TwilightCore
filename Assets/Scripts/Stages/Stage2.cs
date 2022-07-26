@@ -72,6 +72,8 @@ public class Stage2 : Stage
 		Game.control.sound.PlayMusic ("Boss", 2);
 
 		while(!Game.control.enemySpawner.bossWave.dead) yield return null;
+
+        Game.control.sound.FadeOutMusic();
 		Game.control.stageHandler.ToggleTimer(false);
 
 		yield return new WaitUntil(() => Game.control.stageHandler.CheckIfAllPickUpsGone() == true);

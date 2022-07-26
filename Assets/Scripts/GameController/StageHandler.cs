@@ -7,7 +7,7 @@ using System.IO;
 
 public class StageHandler : MonoBehaviour {
 
-    int STARTING_STAGE = 3;
+    int STARTING_STAGE = 1;
 
     AsyncOperation loadScene;
 	public Stage stageScript;

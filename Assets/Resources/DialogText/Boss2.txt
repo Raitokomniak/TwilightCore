@@ -1,6 +1,6 @@
-Boss	How are you here? Did that idiot of a fox let you through?
-Boss	Ah, doesn't matter. You're trapped now~~
+Joanette	How are you here? Did that idiot of a fox let you through?
+Joanette	Ah, doesn't matter. You're trapped now~~
 Soma	Listen, I'm just looking for an asura. He stole something of mine
 Soma	Actually, there are lots of them here. Where are they coming from?
-Boss	Not your concern!
-Boss	But feel free to open up some more, makes it easier to crawl inside you~~
+Joanette	Not your concern!
+Joanette	But feel free to open up some more, makes it easier to crawl inside you~~

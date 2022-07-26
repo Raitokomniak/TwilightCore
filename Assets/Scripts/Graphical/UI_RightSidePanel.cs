@@ -42,7 +42,7 @@ public class UI_RightSidePanel : MonoBehaviour
 
     public void InitLives(int lives){
         for(int i = 0; i < lives; i++){
-            GameObject life = Instantiate(lifeSpritePrefab, new Vector3(livesContainer.position.x + (i * 50), livesContainer.position.y, livesContainer.position.z), Quaternion.identity) as GameObject;
+            GameObject life = Instantiate(lifeSpritePrefab, new Vector3(livesContainer.position.x + (i * 75), livesContainer.position.y, livesContainer.position.z), Quaternion.identity) as GameObject;
             life.transform.SetParent(livesContainer);
             lifeSprites.Add(life);
         }

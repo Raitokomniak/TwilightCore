@@ -151,9 +151,9 @@ public class Boss4 : Phaser
             case 8:
                 StartPhaseTimer(60);
                 Game.control.stageUI.BOSS.ShowActivatedPhase ("Three Cities, Three Paths");
-                Debug.Log("accumulated damage " + accumulatedDamage);
+/*                Debug.Log("accumulated damage " + accumulatedDamage);
                 Debug.Log("percentage " + accumulatedDamage / 7500);
-                Debug.Log("health should be at " + 4000 * (1 - (accumulatedDamage / 7500)) + "hp");
+                Debug.Log("health should be at " + 4000 * (1 - (accumulatedDamage / 7500)) + "hp");*/
                 life.SetPhaseHealth(4000);
                 life.SetHealthToPercentage(1 - (accumulatedDamage / 7500));
 

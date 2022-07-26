@@ -10,8 +10,10 @@ public class UI_GameOver : MonoBehaviour
     // HANDLES BOTH GAMEOVER AND GAMECOMPLETE & SCORESAVE
     // 
 	public GameObject gameOverOptionsContainer;
-	public Transform gameOverImage;
-	public Transform gameCompleteImage;
+
+    public TextMeshProUGUI gameOverTMP;
+    public TextMeshProUGUI gameCompleteTMP;
+
     public GameObject saveScoreScreen;
 
     public TextMeshProUGUI scoreInfo;
@@ -36,15 +38,15 @@ public class UI_GameOver : MonoBehaviour
 
 	public void GameCompleteScreen(bool value){
 		this.gameObject.SetActive(value);
-		gameOverImage.gameObject.SetActive(false);
-		gameCompleteImage.gameObject.SetActive(true);
+		gameOverTMP.gameObject.SetActive(false);
+		gameCompleteTMP.gameObject.SetActive(true);
 		saveScorePrompt.SetActive(true);
         gameComplete = true;
 	}
 	public void GameOverScreen(bool value){
 		this.gameObject.SetActive(value);
-		gameOverImage.gameObject.SetActive(true);
-		gameCompleteImage.gameObject.SetActive(false);
+		gameOverTMP.gameObject.SetActive(true);
+		gameCompleteTMP.gameObject.SetActive(false);
 		saveScorePrompt.SetActive(true);
         gameOver = true;
 	}

@@ -102,7 +102,7 @@ public class SaveLoadHandler : MonoBehaviour {
             string rawJson = File.ReadAllText(appDataPath + "/options.json");
             OptionsValues options = JsonUtility.FromJson<OptionsValues>(rawJson);
             Game.control.options.LoadValuesFromFile(options);
-            Debug.Log("Options loaded");
+//            Debug.Log("Options loaded");
         }
         else {
             Debug.Log("No options file, default options");

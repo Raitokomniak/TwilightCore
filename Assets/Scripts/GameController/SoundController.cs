@@ -6,7 +6,6 @@ public class SoundController : MonoBehaviour {
 	public bool disableSound;
 
     //Boss music looping
-    bool canloopBoss;
     float loopStartPoint;
     bool bossMusicOn;
 
@@ -14,7 +13,8 @@ public class SoundController : MonoBehaviour {
     bool canResumeSFX;
     
 	List<AudioSource> SFXsources;
-	public AudioSource playerSFXSource, enemySFXSource, menuSFXSource, loopingSFXSource, BGMSource;
+	public AudioSource playerSFXSource, enemySFXSource, generalSFXSource, menuSFXSource, loopingSFXSource, BGMSource;
+    public AudioSource bossTimerSource;
 
 	//Music
 	AudioClip BGM_mainmenu;
@@ -22,7 +22,7 @@ public class SoundController : MonoBehaviour {
 	List<AudioClip> BGM_bossMusic;
 
 	//SFX
-	AudioClip SFX_shoot, SFX_enemyDie, SFX_takeHit, SFX_bonus, SFX_pickUp, SFX_extraLife, SFX_bossDie, SFX_bossTimerCountDown, SFX_bossHit;
+	AudioClip SFX_shoot, SFX_enemyDie, SFX_takeHit, SFX_bonus, SFX_pickUp, SFX_extraLife, SFX_bossDie, SFX_bossTimerCountDown, SFX_bossHit, SFX_dialog;
 
 	//SpellSFX
 	AudioClip SFX_Spell_Default, SFX_Spell_NightCore1, SFX_Spell_DayCore1;
@@ -43,7 +43,9 @@ public class SoundController : MonoBehaviour {
 	}
 
     void Update() {
-       if(bossMusicOn && canloopBoss) if(Mathf.Abs(BGMSource.time - BGMSource.clip.length) < .05f) LoopMusicFromPoint();
+       if(bossMusicOn) {
+            if(Mathf.Abs(BGMSource.time - BGMSource.clip.length) < .05f) LoopMusicFromPoint();
+       }
     }
 
 	void LoadMusic(){
@@ -83,6 +85,7 @@ public class SoundController : MonoBehaviour {
 		SFX_selection = Resources.Load("Sound/SFX/Decision1") as AudioClip;
 		SFX_pause = Resources.Load("Sound/SFX/Decision5") as AudioClip;
 		SFX_cancel = Resources.Load("Sound/SFX/Cancel1") as AudioClip;
+        SFX_dialog = Resources.Load("Sound/SFX/Cursor3") as AudioClip;
 
 		SFX_Loop_River = Resources.Load("Sound/SFX/River") as AudioClip;
 	}
@@ -110,6 +113,8 @@ public class SoundController : MonoBehaviour {
 		SFXsources.Add(enemySFXSource);
 		SFXsources.Add(menuSFXSource);
 		SFXsources.Add(loopingSFXSource);
+        SFXsources.Add(bossTimerSource);
+        SFXsources.Add(generalSFXSource);
 
 		SetSFXVolume(1f);
 		SetBGMVolume(1f);
@@ -165,9 +170,14 @@ public class SoundController : MonoBehaviour {
 		if(sound == "PickUp")		c = SFX_pickUp;
 		if(sound == "ExtraLife")	c = SFX_extraLife;
         if(sound == "CountDown")	c = SFX_bossTimerCountDown;
+        if(sound == "Dialog")       c = SFX_dialog;
 
 		if(source == "Player") 		s = playerSFXSource;
-		else if (source == "Enemy") s = enemySFXSource;
+		else if (source == "Enemy") {
+            if(sound == "CountDown") s = bossTimerSource;
+            else                     s = enemySFXSource;
+        }
+        else if (source == "General") s = generalSFXSource; 
 
 		if (oneShot) {
 			s.PlayOneShot (c);
@@ -218,6 +228,10 @@ public class SoundController : MonoBehaviour {
         BGMSource.Play ();
 	}
 
+    void StartMusic(){
+        BGMSource.Play ();
+    }
+
 	public void ResumeEffects(){
         if(!canResumeSFX) return;
 		loopingSFXSource.Play();
@@ -233,9 +247,7 @@ public class SoundController : MonoBehaviour {
 	}
 
     void LoopMusicFromPoint(){
-        canloopBoss = false;
         BGMSource.time = loopStartPoint;
-        canloopBoss = true;
     }
 
 	public void PlayMusic(string type){
@@ -244,7 +256,6 @@ public class SoundController : MonoBehaviour {
 
 	public void PlayMusic(string type, int i){
         bossMusicOn = false;
-        canloopBoss = false;
 		BGMSource.Stop ();
         BGMSource.time = 0;
 
@@ -263,9 +274,10 @@ public class SoundController : MonoBehaviour {
             c = BGM_bossMusic[i];
             bossMusicOn = true;
             canResumeBGM = true;
-            if(i == 0) loopStartPoint = 26.89f;
+            if(i == 0) loopStartPoint = 26.5f;
             if(i == 1) loopStartPoint = 12.79f;
             if(i == 2) loopStartPoint = 33.45f;
+            if(i == 3) loopStartPoint = 42.39f;
         }
 			
 		//JESARIA BUILDIIN
@@ -275,11 +287,13 @@ public class SoundController : MonoBehaviour {
 		BGMSource.clip = c;
 		BGMSource.loop = true;
 
+/*
         ///DEBUG
-       // BGMSource.time = BGMSource.clip.length - 3;
-        
-        canResumeBGM = true;
-		ResumeMusic();
+        Debug.Log("bossmusicon " + bossMusicOn);
+        Debug.Log("loopstartpoint " + loopStartPoint);
+        BGMSource.time = BGMSource.clip.length - 3;*/
+
+        StartMusic();
 	}
 
 }

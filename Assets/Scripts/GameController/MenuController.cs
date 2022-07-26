@@ -28,20 +28,20 @@ public class MenuController : MonoBehaviour
 	{
 		if (Game.control.inputHandler.AllowMenuInput()) {
             
-			if (Game.control.inputHandler.CheckMenuInput("value") == "up")    Game.control.ui.UpdateMenuSelection(context, Move ("up"));
-			if (Game.control.inputHandler.CheckMenuInput("value") == "down")  Game.control.ui.UpdateMenuSelection(context, Move ("down"));
+			if (Game.control.inputHandler.Direction() == "up")          Game.control.ui.UpdateMenuSelection(context, Move ("up"));
+			if (Game.control.inputHandler.Direction() == "down")        Game.control.ui.UpdateMenuSelection(context, Move ("down"));
 
             if(context == "OptionsMenu") {
-                if (Game.control.inputHandler.CheckMenuInput("value") == "right") Game.control.options.UpdateOption(true, selectedIndex);
-                if (Game.control.inputHandler.CheckMenuInput("value") == "left") 	Game.control.options.UpdateOption(false, selectedIndex);
+                if (Game.control.inputHandler.Direction() == "right")   Game.control.options.UpdateOption(true, selectedIndex);
+                if (Game.control.inputHandler.Direction() == "left") 	Game.control.options.UpdateOption(false, selectedIndex);
 			}
         
-			if (Game.control.inputHandler.CheckMenuInput("value") == "confirm")     CheckSelection ();	
-			if (Game.control.inputHandler.CheckMenuInput("value") == "back")        CheckPrevious();
-            if (context == "PauseMenu" && Game.control.inputHandler.CheckMenuInput("value") == "pause")       ClosePauseMenu();
+			if (Game.control.inputHandler.Confirm())                                CheckSelection ();	
+            if (context == "PauseMenu" && Game.control.inputHandler.Pause())        ClosePauseMenu();
+            if(context != "PauseMenu" && Game.control.inputHandler.Back())          CheckPrevious();
 
 		}
-		else if(Game.control.pause.AllowPause() && Game.control.inputHandler.CheckMenuInput("value") == "pause"){
+		else if(Game.control.pause.AllowPause() && Game.control.inputHandler.Pause()){
 			Menu("PauseMenu");
 			Game.control.sound.PlayMenuSound("Pause");
 			Game.control.pause.HandlePause();
@@ -59,8 +59,6 @@ public class MenuController : MonoBehaviour
 		context = _context;
 		selectedIndex = 0;
 		menuOn = true;
-
-        
 
 		if(context == "MainMenu"){
 			selectedList = mainMenuItems;
@@ -97,8 +95,7 @@ public class MenuController : MonoBehaviour
 			selectedList = gameOverMenuItems;
 			Game.control.stageUI.GAMEOVER.GameOverSelections(true);
 		}
-        
-
+    
         Game.control.ui.UpdateMenu(context, selectedList);
 	}
 

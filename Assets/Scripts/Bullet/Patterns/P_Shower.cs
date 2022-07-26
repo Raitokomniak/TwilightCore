@@ -33,10 +33,6 @@ public class P_Shower : Pattern
                 BMP.moveWithForce = true;
                 //SpawnBullet (enemyBullet, bulletMovement);
 				SpawnBullet ();
-                
-                bullet.AddComponent<BulletBouncer>();
-                bullet.GetComponent<BulletBouncer>().multiply = true;
-                
                 dir = -dir;
                 yield return new WaitForSeconds (.08f);
             }

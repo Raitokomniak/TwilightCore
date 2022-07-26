@@ -73,6 +73,8 @@ public class Stage1 : Stage
 
         
         while(!stage.bossScript.life.dead) yield return null;
+
+        Game.control.sound.FadeOutMusic();
         stage.ToggleTimer(false);
 		yield return new WaitForSeconds(1f);
         yield return new WaitUntil(() => stage.CheckIfAllPickUpsGone() == true);
