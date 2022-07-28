@@ -67,6 +67,8 @@ public class PlayerHandler : MonoBehaviour {
         miniToaster = GetComponentInChildren<MiniToast>();
 	}
 
+
+
 	public void Init(){
 		transform.position = Game.control.vectorLib.GetVector("X8");
 		health.Init ();
@@ -74,7 +76,7 @@ public class PlayerHandler : MonoBehaviour {
         special.StageInit();
 		Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateScore (Game.control.stageHandler.stats.score);
 		Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateLives(Game.control.stageHandler.stats.lives);
-		Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateXP(Game.control.stageHandler.stats.xp);
+		Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateXP(Game.control.stageHandler.stats.xp, Game.control.stageHandler.stats.xpCap);
 	}
 
 	public long GainScore(int gained){
@@ -90,21 +92,6 @@ public class PlayerHandler : MonoBehaviour {
 	}
 
 
-	public void GainXP(int gainedXP)
-	{
-		PlayerStats stats = Game.control.stageHandler.stats;
-		stats.xp += gainedXP;
-		miniToaster.PlayToast("XP");
-
-		if(stats.xp >= stats.xpCap) {
-			stats.xp = stats.xp - stats.xpCap;
-			stats.xpCap += 50;
-			stats.lives += 1;
-			health.GainLife();
-		}
-
-		Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateXP(Game.control.stageHandler.stats.xp);
-	}
 
 
 	/////DEBUG

@@ -77,7 +77,7 @@ public class SaveLoadHandler : MonoBehaviour {
             scoreList = JsonUtility.FromJson<ScoreList>(rawJson);
             return true;
         }
-        else return false;
+        else return true;
     }
 
     
@@ -95,8 +95,7 @@ public class SaveLoadHandler : MonoBehaviour {
     }
 
     public void LoadOptions(){
-        //THIS DATAPATH HAS TO BE CHANGED TO BUILD DATAPATH
-        string path = appDataPath + "/options.json"; //FOR DEV
+        string path = appDataPath + "/options.json";
         
         if(File.Exists(appDataPath + "/options.json")){
             string rawJson = File.ReadAllText(appDataPath + "/options.json");
@@ -108,5 +107,18 @@ public class SaveLoadHandler : MonoBehaviour {
             Debug.Log("No options file, default options");
             Game.control.options.DefaultOptions();
         }
+    }
+
+    public List<Vector3> LoadShape(string shape){
+        ShapeVectorSaveData data = new ShapeVectorSaveData();
+        List<Vector3> vectors = new List<Vector3>();
+        string path = Application.dataPath + "/Resources/PatternShapeData/shape_" + shape + ".json";
+        if(File.Exists(path)){
+            string rawJson = File.ReadAllText(path);
+            data = JsonUtility.FromJson<ShapeVectorSaveData>(rawJson);
+            vectors = data.shapeVectors;
+            return vectors;
+        }
+        else return null;
     }
 }

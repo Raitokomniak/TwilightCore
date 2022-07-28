@@ -203,7 +203,7 @@ public class StageHandler : MonoBehaviour {
 	IEnumerator StageCompleteHandling ()
 	{	
         onBonusScreen = true;
-		stats.lives = Game.control.player.health.lives;
+		Game.control.player.health.SaveToStats();
         Game.control.player.special.SaveToStats();
 		Game.control.stageUI.WORLD.UpdateTopPlayer ("Stage" + Game.control.stageHandler.currentStage);
 		Game.control.stageUI.BOSS.HideUI();
@@ -258,6 +258,7 @@ public class StageHandler : MonoBehaviour {
 		if(diff == 2) difficultyAsString = "Very Easy";
 		if(diff == 3) difficultyAsString = "Easy";
 		if(diff == 5) difficultyAsString = "Normal";
+        if(diff == 8) difficultyAsString = "Hard";
 		if(diff == 10) difficultyAsString = "Nightmare";
 	}
 

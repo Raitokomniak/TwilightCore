@@ -5,12 +5,17 @@ using UnityEngine.SceneManagement;
 public class PlayerLife : MonoBehaviour {
 	
 	public int lives; 
+    public int xp;
+    public int xpCap;
+
 	public bool dead;
 	public bool invulnerable;
 	IEnumerator invulnerabilityRoutine;
 
 	public void Init(){
 		lives = Game.control.stageHandler.stats.lives;
+        xp = Game.control.stageHandler.stats.xp;
+        xpCap = Game.control.stageHandler.stats.xpCap;
 		Game.control.stageUI.RIGHT_SIDE_PANEL.InitLives(Game.control.stageHandler.stats.maxLives);
 		GetComponent<SpriteRenderer> ().enabled = true;
 		invulnerable = false;
@@ -21,6 +26,12 @@ public class PlayerLife : MonoBehaviour {
 		//DevGodMode(); ///////////////////////////////////////////////////////////////
 		if(!invulnerable) GetComponent<SpriteRenderer> ().enabled = true;
 	}
+
+    public void SaveToStats(){
+        Game.control.stageHandler.stats.xp = xp;
+        Game.control.stageHandler.stats.xpCap = xpCap;
+        Game.control.stageHandler.stats.lives = lives;
+    }
 
 	void DevGodMode(){ invulnerable = true; }
     
@@ -38,6 +49,23 @@ public class PlayerLife : MonoBehaviour {
         }
 
 	}
+
+    public void GainXP(int gainedXP)
+	{
+		PlayerStats stats = Game.control.stageHandler.stats;
+	    xp += gainedXP;
+		Game.control.player.miniToaster.PlayToast("XP");
+
+		if(xp >= xpCap) {
+			xp = xp - xpCap;
+			xpCap += 50;
+			GainLife();
+		}
+
+		Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateXP(xp, xpCap);
+	}
+
+
 
 	void LoseLife(){
 		lives -= 1;

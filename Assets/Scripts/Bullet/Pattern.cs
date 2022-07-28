@@ -89,6 +89,8 @@ public class Pattern
 		if(BMP == null) BMP = new BMP_Explode(this, 5f); //DEFAULT
 		BulletMovementPattern BMP_new = BMP.GetNewBulletMovement(BMP);
 		bullet = Game.control.bulletPool.FetchBulletFromPool();
+
+        if(bSprite == null) bSprite = new BulletSprite("Circle", "Glow", "Red", "Tiny"); // DEFAULT IF I FORGET TO SET SPRITE
         if(bullet == null) {
             bullet = GameObject.Instantiate(Resources.Load("Prefabs/enemyBullet"), spawnPosition, Quaternion.identity) as GameObject;
             bullet.transform.SetParent(Game.control.bulletPool.bulletContainer);
@@ -219,6 +221,15 @@ public class Pattern
         }
     }
 
+    public void ModifyAllBullets(BulletMovementPattern bmp){
+        
+        foreach(GameObject bullet in spawnedBullets){
+            if(bullet != null && bullet.GetComponent<BulletMovement>() != null && bullet.GetComponent<BulletMovement>().BMP != null){
+                BulletMovementPattern BMP_new = BMP.GetNewBulletMovement(bmp);
+                bullet.GetComponent<BulletMovement>().Init(BMP_new, enemyShoot);
+            }
+        }
+    }
     public void ModifyAllBullets(Sprite sprite){
         
         foreach(GameObject bullet in spawnedBullets){

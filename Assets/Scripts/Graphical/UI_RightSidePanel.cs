@@ -50,8 +50,8 @@ public class UI_RightSidePanel : MonoBehaviour
         //Game.control.ui.RIGHT_SIDE_PANEL.UpdateLives(lives);
     }
 
-    public void UpdateXP(int value){
-        xp.text = "(XP: " + value.ToString () + " / " + Game.control.stageHandler.stats.xpCap + ")";
+    public void UpdateXP(int value, int xpCap){
+        xp.text = "(XP: " + value.ToString () + " / " + xpCap + ")";
     }
 
 	public void UpdateDifficulty(string _difficulty){

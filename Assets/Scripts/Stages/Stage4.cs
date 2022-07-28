@@ -116,6 +116,7 @@ public class Stage4 : Stage
 		boss.SetUpBoss (4, "Tridevi of the Lotus Garden", false);
 		stage.NewWave (boss);
 
+/*
         mp = new EnemyMovementPattern(lib.GetVector("I1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("L4")});
 		p = new P_SingleHoming();
@@ -154,7 +155,7 @@ public class Stage4 : Stage
 		p.BMP = new BMP_Explode(p, 11f);
 		p.SetSprite ("Circle", "Glow", "Blue", "Small");	 
 		stage.NewWave (new Wave (10f, mp, p, 1, false, 40, 3f / difficultyMultiplier, "gand_sitar"));
-
+*/
 
 	}
 }

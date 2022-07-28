@@ -13,6 +13,8 @@ public class UI_Dialog : MonoBehaviour
 	public TextMeshProUGUI dialogContent;
 	public Image dialogRightChar;
 	public Image dialogLeftChar;
+
+    public Transform bossInfoPanel;
 	public TextMeshProUGUI bossDialogName;
 	public TextMeshProUGUI bossDialogDescription;
 
@@ -31,13 +33,17 @@ public class UI_Dialog : MonoBehaviour
 	public void InitPlayerSpeaker(){
 		dialogRightChar.gameObject.SetActive (false);
 		dialogLeftChar.gameObject.SetActive (false);
+
+        bossInfoPanel.gameObject.SetActive(false);
 	
 		dialogRightChar.gameObject.SetActive (true);	
 		dialogRightChar.sprite = Resources.Load<Sprite> ("Images/DialogCharacters/mainchar");
 	}
 
     public void UpdateBossSpeaker(string speaker){
-        Debug.Log(speaker + "spek");
+        bossInfoPanel.gameObject.SetActive(true);
+        dialogLeftChar.gameObject.SetActive (true);
+
         UI_Dialog dui = Game.control.stageUI.DIALOG;
         string path = "Images/DialogCharacters/";
         string bossPath = "";
@@ -63,14 +69,10 @@ public class UI_Dialog : MonoBehaviour
 	public void UpdateDialog(string speaker, string _content){
         rollDone = false;
         content = _content;
-		//
         StopAllCoroutines();
         rollText = RollDialogText(content);
         StartCoroutine(rollText);
-
-        
 		SetupSpeakers(speaker);
-        
 	}
 
     void SetupSpeakers(string speaker){
@@ -97,7 +99,6 @@ public class UI_Dialog : MonoBehaviour
 			dialogLeftChar.GetComponent<Image> ().color = new Color (1, 1, 1, 1);
 			dialogRightChar.GetComponent<Image> ().color = new Color (1, 1, 1, .3f);
 
-            
 		}
     }
 

@@ -41,7 +41,8 @@ public class Boss4 : Phaser
                 life.SetInvulnerable(true);
                 Game.control.stageUI.BOSS.HideUI();
                 movement.pattern.UpdateDirection("X1");
-                while (Game.control.stageHandler.stageTimer < 14f) yield return null;
+                while (Game.control.stageHandler.stageTimer < 13f) yield return null;
+                while (Game.control.stageHandler.stageTimer < 1f) yield return null;
                 NextPhase();
             break;
             case 1:
@@ -53,44 +54,188 @@ public class Boss4 : Phaser
                 life.SetPhaseHealth(2500);
                 Game.control.stageUI.BOSS.RevealUI();
                 Game.control.stageUI.BOSS.ShowActivatedPhase ("A Stroke of Genius");
-                StartPhaseTimer(13);
+                StartPhaseTimer(11);
 
-                p = new P_MusicalNotes(30);
-                p.BMP = new BMP_Explode(p, 6);
+                p = new P_MusicalNotes(3 * difficulty);
+                p.BMP = new BMP_SlowWaving(p, 4, true);
+                p.coolDown = 1f;
                 p.infinite = true;
-               // p.infinite = true;
                 patterns.Add(p);
 
+                p = new P_Cluster(2 * difficulty);
+                p.coolDown = .2f / difficulty;
+                p.BMP = new BMP_WaitAndExplode(p, 6, 2);
+                p.SetSprite("Circle", "Glow", "Yellow", "Medium");
+                patterns.Add(p);
+
+                p = new P_Cluster(2 * difficulty);
+                p.coolDown = .2f / difficulty;
+                p.BMP = new BMP_WaitAndExplode(p, 6, 2);
+                p.SetSprite("Circle", "Glow", "White", "Medium");
+                patterns.Add(p);
+
+                p = new P_GiantLotus();
+                //p.BMP = new BMP_StopAndRotate(p, 1, 2);
+                p.infinite = false;
+                p.bulletCount = 6 * difficulty;
+                p.SetSprite("Lotus", "Glow", "White", "Huge");
+                p.originMagnitude = 6;
+                patterns.Add(p);
+
+                p = new P_GiantLotus();
+                //p.BMP = new BMP_StopAndRotate(p, 1, 2);
+                p.infinite = false;
+                p.bulletCount = 6 * difficulty;
+                p.SetSprite("Lotus", "Glow", "White", "Small");
+                p.originMagnitude = 2;
+                patterns.Add(p);
                 
+                
+
+                movementPatterns.Add(new EnemyMovementPattern());
+				movementPatterns[0].SetWayPoints(new List<WayPoint>(){new WayPoint("X5", 1), new WayPoint("C4", 1, 1)});
+				movementPatterns[0].centerPoint = vectorLib.GetVector("X3");
+
+                movementPatterns.Add(new EnemyMovementPattern());
+				movementPatterns[1].SetWayPoints(new List<WayPoint>(){new WayPoint("X5", 1), new WayPoint("I4", 1, -1)});
+				movementPatterns[1].centerPoint = vectorLib.GetVector("X3");
                 
                 movement.pattern.UpdateDirection("X3");
 				yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
+                
+                
 
                 while(!endOfPhase){
-                    shooter.BossShoot(patterns[0]);
-                    yield return new WaitForSeconds(1);
+                    
+                    shooter.BossShoot(patterns[3]);
+                    Game.control.sound.PlaySpellSound("Enemy", "SmallLotus");
+                    yield return new WaitForSeconds(2);
+
+                    for(int i = 0; i < 2; i++){
+
+                        //stroke
+                        movement.SetUpPatternAndMove(movementPatterns[1]);
+                        movement.pattern.speed = 6f;
+                        yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
+                        yield return new WaitForSeconds(.5f);
+                        yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
+                        movement.pattern.UpdateDirection("X5");
+                        shooter.BossShoot(patterns[1]);
+                        shooter.BossShoot(patterns[2]);
+                        
+                        yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
+
+                        //stroke
+                        movement.SetUpPatternAndMove(movementPatterns[0]);
+                        movement.pattern.speed = 6f;
+                        yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
+                        yield return new WaitForSeconds(.5f);
+                        yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
+                        movement.pattern.UpdateDirection("X5");
+                        shooter.BossShoot(patterns[1]);
+                        shooter.BossShoot(patterns[2]);
+                        
+                        patterns[0].Stop();
+                        shooter.BossShoot(patterns[0]);
+                        
+                    }
+                    patterns[0].Stop();
+                    movement.CorrectRotation();
+                    movement.pattern.UpdateDirection("X3");
+                    yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
+
+
+
+                    
+                yield return null;
                 }
                 patterns[0].Stop();
               break;
               case 3:
 
                 Game.control.stageUI.BOSS.ShowActivatedPhase ("Avatar: Vidya");
-                StartPhaseTimer(13);
+                StartPhaseTimer(15);
 
                 p = new P_MusicalNotes(30);
                 p.BMP  = new BMP_Explode(p, 6);
                // p.infinite = true;
                 patterns.Add(p);
 
+                p = new P_Shape(40, "Vidya", 3);
+                p.BMP = new BMP_WaitAndExplode(p, 1 * difficulty, 1);
+                p.infinite = false;
+                p.SetSprite("Circle", "Glow", "Blue", "Medium");
+                patterns.Add(p);
+
+                p = new P_Shape(40, "VidyaDrop", 3);
+                p.BMP = new BMP_WaitAndExplode(p, 1 * difficulty, 1);
+                p.infinite = false;
+                p.SetSprite("Circle", "Glow", "Turquoise", "Medium");
+                patterns.Add(p);
+
+                p = new P_GiantLotus();
+                //p.BMP = new BMP_StopAndRotate(p, 1, 2);
+                p.infinite = false;
+                p.bulletCount = 6 * difficulty;
+                p.SetSprite("Lotus", "Glow", "White", "Small");
+                p.originMagnitude = 2;
+                patterns.Add(p);
+
+                Game.control.sound.PlaySpellSound("Enemy", "Lotus");
+
                 yield return new WaitForSeconds(1);
                 
                 movement.pattern.UpdateDirection("X3");
 				yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
 
+                shooter.BossShoot(patterns[1]);
+                yield return new WaitForSeconds(2f);
+              //  shooter.BossShoot(patterns[3]);
+                yield return new WaitForSeconds(1f);
+                shooter.BossShoot(patterns[2]);
+
+                movement.pattern.UpdateDirection("C6");
+                yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
+                shooter.BossShoot(patterns[3]);
+                Game.control.sound.PlaySpellSound("Enemy", "SmallLotus");
+
+                movement.pattern.UpdateDirection("E4");
+                yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
+                shooter.BossShoot(patterns[3]);
+                Game.control.sound.PlaySpellSound("Enemy", "SmallLotus");
+
+                movement.pattern.UpdateDirection("F2");
+                yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
+                shooter.BossShoot(patterns[3]);
+                Game.control.sound.PlaySpellSound("Enemy", "SmallLotus");
+
+                movement.pattern.UpdateDirection("H4");
+                yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
+                shooter.BossShoot(patterns[3]);
+                Game.control.sound.PlaySpellSound("Enemy", "SmallLotus");
+
+                movement.pattern.UpdateDirection("J6");
+                yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
+                shooter.BossShoot(patterns[3]);
+                Game.control.sound.PlaySpellSound("Enemy", "SmallLotus");
+
+
+                movement.pattern.UpdateDirection("B4");
+
+                yield return new WaitForSeconds(2f);
+                shooter.BossShoot(patterns[1]);
+                yield return new WaitForSeconds(1f);
+             //   shooter.BossShoot(patterns[3]);
+
+                movement.pattern.UpdateDirection("J4");
+
+                
+
                 while(!endOfPhase && phaseTimer > 2f){
-                    shooter.BossShoot(patterns[0]);
-                    yield return new WaitForSeconds(.5f);
+                
+                    yield return null;
                 }
+                patterns[0].Stop();
                 movement.pattern.UpdateDirection("X1");
                 yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
                 life.SetInvulnerable(true);
@@ -99,29 +244,70 @@ public class Boss4 : Phaser
               case 4:
                 life.SetInvulnerable(false);
                 life.SetPhaseHealth(2500);
-                StartPhaseTimer(23);
+                StartPhaseTimer(20);
                 movement.pattern.UpdateDirection("X3");
                 Game.control.stageUI.BOSS.ShowActivatedPhase ("A Dream of Avarice");
-                yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
+
+                patterns.Add(new P_Circle(5));
+
+                p = new P_GiantLotus();
+                //p.BMP = new BMP_StopAndRotate(p, 1, 2);
+                p.infinite = false;
+                p.SetSprite("Lotus", "Glow", "Red", "Medium");
+                p.originMagnitude = 2;
+                patterns.Add(p);
+
+                p = new P_Rain(10 * difficulty);
+                p.BMP = new BMP_3DRotation(p, true, true);
+                p.SetSprite("Coin", "Medium");
+                p.BMP.accelMax = 2f;
+                patterns.Add(p);
+
+                
+               yield return new WaitForSeconds(1);
+                
+                movement.pattern.UpdateDirection("X3");
+				yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
 
                
 
                 while(!endOfPhase){
-                    yield return new WaitForSeconds(5);
+
+                    movement.pattern.UpdateDirection("X2");
+                    
+                    yield return new WaitForSeconds(5f);
+                    patterns[2].Stop();
+
+
+                    yield return null;
                 }
 
                 yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
             
               break;
               case 5:
-                StartPhaseTimer(10);
+                StartPhaseTimer(20);
                 movement.pattern.UpdateDirection("X3");
                 Game.control.stageUI.BOSS.ShowActivatedPhase ("Avatar: Gayatri");
                 yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);
 
+                p = new P_Shape(40, "Gayatri", 3);
+                p.BMP = new BMP_WaitAndExplode(p, 2, 2);
+               // p.BMP = new BMP_3DRotation(p, true, false);
+                p.infinite = false;
+                p.SetSprite("Circle", "Glow", "Red", "Medium");
+                patterns.Add(p);
+
+                p = new P_SingleHoming();
+                p.BMP = new BMP_3DRotation(p, false, true);
+                p.SetSprite("Circle", "Glow", "Red", "Huge");
+                patterns.Add(p);
+
+                shooter.BossShoot(patterns[0]);
 
                 while(!endOfPhase && phaseTimer > 2f){
-                    yield return new WaitForSeconds(.5f);
+                   // shooter.BossShoot(patterns[1]);
+                    yield return new WaitForSeconds(2f);
                 }
                 movement.pattern.UpdateDirection("X1");
                 yield return new WaitUntil(() => movement.pattern.HasReachedDestination(movement) == true);

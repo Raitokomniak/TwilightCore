@@ -36,11 +36,12 @@ public class InputHandler : MonoBehaviour
 	}
 
     void LateUpdate(){
+        CheckTutorial();
+        if(!Game.control.inGame) return;
         CheckDialog();
         CheckSkipping();
         CheckStageEnd();
         CheckIntro();
-        CheckTutorial();
         CheckSaveScore();
         //combat
         if(!AllowCombatInput()) return;
@@ -79,6 +80,7 @@ public class InputHandler : MonoBehaviour
 
     /// GAMEOVER ///
     void CheckSaveScore(){
+        if(!Game.control.stageUI) return;
         if(!Game.control.stageUI.GAMEOVER.saveScoreOn) return;
         if(!AllowgGeneralInput()) return;
 		if(Input.GetKeyDown(CONFIRM[1])) Game.control.stageUI.GAMEOVER.SendScore();

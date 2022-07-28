@@ -132,16 +132,6 @@ public class P_Shape : Pattern
                     SpawnBullet ();
                     if(circleDelay > 0) yield return new WaitForSeconds(circleDelay);
 			    }
-                /*for (int i = 0; i > -8; i--) {
-                    float radiusY = i;
-                    spawnPosition = SpawnInCircle (pos + new Vector3(2,0,0), radiusY, GetAng (-i, 45) + startRot);
-                   //bulletRotation = SpawnInCircle (i, startRot);
-
-                    SpawnBullet ();
-                    //BMP.bulletMovement.bulletRot = SpawnInCircle (i, startRot);
-                    if(circleDelay > 0) yield return new WaitForSeconds(circleDelay);
-			    }
-               */
 		    }
         else if(shapeName == "SnowFlake"){
             for(int j = -16; j <= 16; j++){
@@ -150,6 +140,79 @@ public class P_Shape : Pattern
                     spawnPosition = SpawnInCircle (pos - new Vector3(2,0,0), radiusY, GetAng (i, 360, bulletCount) + startRot);
                     SpawnBullet ();
             }
+        }
+        else if(shapeName == "Vidya"){
+            List<Vector3> spawnPositions = Game.control.io.LoadShape("vidya");
+
+            for(int i = 0; i < 47; i++){
+                spawnPosition = spawnPositions[i];
+                bulletRotation = Quaternion.Euler(0,0, Random.Range(0,360));
+                SpawnBullet();
+                
+                spawnPosition = spawnPositions[i + 47];
+                bulletRotation = Quaternion.Euler(0,0, Random.Range(0,360));
+                SpawnBullet();
+
+                if(i + 94 < spawnPositions.Count) {
+                    spawnPosition = spawnPositions[i + 94];
+                    bulletRotation = Quaternion.Euler(0,0, Random.Range(0,360));
+                    SpawnBullet();
+                }
+
+                yield return new WaitForSeconds(0.05f);
+            }
+
+            allBulletsSpawned = true;
+            SetSprite("Circle", "Glow", "BlackBlue", "Medium"); 
+        }
+        else if(shapeName == "VidyaDrop"){
+            List<Vector3> spawnPositions = Game.control.io.LoadShape("vidya");
+            bulletRotation = Quaternion.Euler(0,0,0);
+            for(int i = 0; i < 47; i++){
+                spawnPosition = spawnPositions[i];
+                SpawnBullet();
+                
+                spawnPosition = spawnPositions[i + 47];
+                SpawnBullet();
+
+                if(i + 94 < spawnPositions.Count) {
+                    spawnPosition = spawnPositions[i + 94];
+                    SpawnBullet();
+                }
+
+                yield return new WaitForSeconds(0.05f);
+            }
+
+            allBulletsSpawned = true;
+        }
+
+        else if(shapeName == "Gayatri"){
+            List<Vector3> spawnPositions = Game.control.io.LoadShape("gayatri");
+
+            for(int i = 0; i < 65; i++){
+                spawnPosition = spawnPositions[i];
+                bulletRotation = Quaternion.Euler(0,0, Random.Range(0,360));
+                SpawnBullet();
+                
+                spawnPosition = spawnPositions[i + 65];
+                bulletRotation = Quaternion.Euler(0,0, Random.Range(0,360));
+                SpawnBullet();
+
+                if(i + 130 < spawnPositions.Count) {
+                    spawnPosition = spawnPositions[i + 130];
+                    bulletRotation = Quaternion.Euler(0,0, Random.Range(0,360));
+                    SpawnBullet();
+                }
+
+                yield return new WaitForSeconds(0.02f);
+            }
+            
+            allBulletsSpawned = true;
+            ModifyAllBullets(new BMP_3DRotation(this, false, true));
+            SetSprite("Coin", "Huge"); 
+
+            yield return new WaitForSeconds(2f);
+            ModifyAllBullets("speed", -4);
         }
         
         if(!infinite) break;

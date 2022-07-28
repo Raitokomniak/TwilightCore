@@ -48,14 +48,18 @@ public class P_MusicalNotes : Pattern
         
         Game.control.sound.PlaySound ("Enemy", "Shoot", true);
 		
-        for (int i = 0; i < bulletCount; i++) {
-            
-			spawnPosition = SpawnInCircle (pos, 0f, GetAng (i, 360, bulletCount));
-			SpawnBullet ();
-            int randomSprite = Random.Range(0,21);
-            SetSprite(notesprites[randomSprite][0], notesprites[randomSprite][1], notesprites[randomSprite][2], "Tiny");
-            BMP.SetSpriteRotation(new Vector3(0,0,bullet.transform.rotation.z * -1));
-            BMP.forceSprite = false;
-		}
+        while(!stop){
+            for (int i = 0; i < bulletCount; i++) {
+                
+                spawnPosition = SpawnInCircle (pos, 0f, GetAng (i, 360, bulletCount));
+                SpawnBullet ();
+                int randomSprite = Random.Range(0,21);
+                SetSprite(notesprites[randomSprite][0], notesprites[randomSprite][1], notesprites[randomSprite][2], "Tiny");
+                BMP.SetSpriteRotation(new Vector3(0,0,bullet.transform.rotation.z * -1));
+                BMP.forceSprite = false;
+            }
+            if(!infinite) break;
+            yield return new WaitForSeconds(coolDown);
+        }
     }
 }

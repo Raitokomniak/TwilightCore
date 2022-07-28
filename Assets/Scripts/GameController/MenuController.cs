@@ -116,6 +116,7 @@ public class MenuController : MonoBehaviour
 		difficultyMenuItems.Add("Very Easy");
 		difficultyMenuItems.Add("Easy");
 		difficultyMenuItems.Add("Normal");
+        difficultyMenuItems.Add("Hard");
 		difficultyMenuItems.Add("Nightmare");
 
 		pauseMenuItems = new List<string>();
@@ -198,7 +199,8 @@ public class MenuController : MonoBehaviour
 			if(selectedIndex == 0) Game.control.stageHandler.SetDifficulty(2);
 			if(selectedIndex == 1) Game.control.stageHandler.SetDifficulty(3);
 			if(selectedIndex == 2) Game.control.stageHandler.SetDifficulty(5);
-			if(selectedIndex == 3) Game.control.stageHandler.SetDifficulty(10);
+            if(selectedIndex == 3) Game.control.stageHandler.SetDifficulty(8);
+			if(selectedIndex == 4) Game.control.stageHandler.SetDifficulty(10);
 			menuOn = false;
 			Game.control.StartGame ();
 		}

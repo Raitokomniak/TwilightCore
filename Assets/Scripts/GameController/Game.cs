@@ -36,6 +36,8 @@ public class Game : MonoBehaviour {
 
     public bool loading;
 
+    public bool inGame;
+
 	public void QuitGame(){
 		Application.Quit ();
 	}
@@ -58,6 +60,7 @@ public class Game : MonoBehaviour {
 
 
 	public void MainMenu (){
+        inGame = false;
 		StartCoroutine(LoadMainMenu());
 	}
 
@@ -103,6 +106,7 @@ public class Game : MonoBehaviour {
 		sound.StopMusicAndEffects();
 		stageHandler.enabled = true;
 		stageHandler.StartGame();
+        inGame = true;
 	}
 
 	public string GetCurrentScene (){

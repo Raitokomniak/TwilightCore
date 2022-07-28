@@ -21,16 +21,23 @@ public class BMP_3DRotation : BulletMovementPattern
     public override IEnumerator ExecuteRoutine(){
         bulletMovement = bullet.GetComponent<BulletMovement>();
         movementSpeed = 5f;
+
+        while(true){
+            if(xAxisRotation)  rotation.eulerAngles +=  new Vector3(0.5f, 0, 0); //Quaternion.Euler(Time.deltaTime * movementSpeed * 10, bullet.transform.rotation.y, 0);
+            if(yAxisRotation)  rotation.eulerAngles +=  new Vector3(0, 0.5f, 0); 
+            yield return null;
+        }
+        /*
         SmoothAcceleration ();
         
         yield return new WaitUntil(() => bulletMovement.CheckBounds() == true);
         dontDestroy = false;
 
         if(xAxisRotation)  rotation = Quaternion.Euler(Time.deltaTime * movementSpeed * 10, bullet.transform.rotation.y, 0);
-        if(yAxisRotation)  rotation = Quaternion.Euler(bullet.transform.rotation.x, Time.deltaTime * movementSpeed * 10, 0);
+        //if(yAxisRotation)  rotation = Quaternion.Euler(bullet.transform.rotation.x, Time.deltaTime * movementSpeed * 10, 0);
         
         //rotation = bullet.transform.rotation;
-        
+        */
         yield return null;
     }
 }

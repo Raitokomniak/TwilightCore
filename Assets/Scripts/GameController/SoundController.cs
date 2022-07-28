@@ -25,7 +25,7 @@ public class SoundController : MonoBehaviour {
 	AudioClip SFX_shoot, SFX_enemyDie, SFX_takeHit, SFX_bonus, SFX_pickUp, SFX_extraLife, SFX_bossDie, SFX_bossTimerCountDown, SFX_bossHit, SFX_dialog;
 
 	//SpellSFX
-	AudioClip SFX_Spell_Default, SFX_Spell_NightCore1, SFX_Spell_DayCore1;
+	AudioClip SFX_Spell_Default, SFX_Spell_NightCore1, SFX_Spell_DayCore1, SFX_Spell_Lotus, SFX_Spell_SmallLotus;
 
 	//LoopSFX
 	AudioClip SFX_Loop_River;
@@ -72,7 +72,7 @@ public class SoundController : MonoBehaviour {
 		SFX_enemyDie = Resources.Load ("Sound/SFX/Die") as AudioClip;
 		SFX_bonus = Resources.Load("Sound/SFX/Cancel2") as AudioClip;
 		SFX_pickUp = Resources.Load("Sound/SFX/Coin") as AudioClip;
-		SFX_extraLife = Resources.Load("Sound/SFX/Heal8") as AudioClip; //APPLY WHEN IT IS TIME
+		SFX_extraLife = Resources.Load("Sound/SFX/Heal7") as AudioClip; //APPLY WHEN IT IS TIME
         SFX_bossDie = Resources.Load("Sound/SFX/Up8") as AudioClip;
         SFX_bossTimerCountDown = Resources.Load("Sound/SFX/Shot2") as AudioClip;
         SFX_bossHit = Resources.Load("Sound/SFX/Explosion1") as AudioClip;
@@ -80,6 +80,8 @@ public class SoundController : MonoBehaviour {
 		SFX_Spell_Default = Resources.Load ("Sound/SFX/Magic2") as AudioClip;
 		SFX_Spell_NightCore1 = Resources.Load ("Sound/SFX/Magic11") as AudioClip;
 		SFX_Spell_DayCore1 = Resources.Load ("Sound/SFX/Magic8") as AudioClip;
+        SFX_Spell_Lotus = Resources.Load ("Sound/SFX/Magic13") as AudioClip;
+        SFX_Spell_SmallLotus = Resources.Load("Sound/SFX/Heal8") as AudioClip;
 
 		SFX_cursor = Resources.Load("Sound/SFX/Cursor4") as AudioClip;
 		SFX_selection = Resources.Load("Sound/SFX/Decision1") as AudioClip;
@@ -136,6 +138,8 @@ public class SoundController : MonoBehaviour {
 		if(spell == "Default")	  c = SFX_Spell_Default;
 		if(spell == "NightCore1") c = SFX_Spell_NightCore1;
 		if(spell == "DayCore1")   c = SFX_Spell_DayCore1;
+        if(spell == "Lotus")      c = SFX_Spell_Lotus;
+        if(spell == "SmallLotus") c = SFX_Spell_SmallLotus;
 
 		s.PlayOneShot (c);
 	}

@@ -317,7 +317,8 @@ public class Boss1 : Phaser
 				Game.control.stageUI.BOSS.ShowActivatedPhase ("Hoodwink: Fox Fires");
 				StartPhaseTimer(30);
 				
-				p = new P_FoxFires(difficulty, 40 * difficulty);
+				p = new P_Cluster(40 * difficulty);
+                p.coolDown = .05f / difficulty;
 				p.SetSprite ("Fireball", "Glow", "Orange", "Small");
                 patterns.Add(p);
 

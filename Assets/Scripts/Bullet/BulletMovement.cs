@@ -99,7 +99,8 @@ public class BulletMovement : MonoBehaviour {
         CheckCollider();
 		CheckScale();
         CheckSprite();
-            
+
+        if(BMP == null) return;   
         if(BMP.isMoving){
             if(BMP.accelerating){
                 if(BMP.movementSpeed < BMP.accelIniSpeed)
@@ -123,6 +124,7 @@ public class BulletMovement : MonoBehaviour {
 	}
 
     void CheckSprite(){
+        if(BMP == null) return;
         if(!BMP.forceSprite) return;
        // if(BMP.pattern.patternName == "MusicalNotes") return;
        // if(BMP.name == "TurnToSpears") return;
@@ -139,7 +141,7 @@ public class BulletMovement : MonoBehaviour {
 		/*if(Game.control.stageUI.WORLD.GetBoundaries() != null && bulletBouncer) 
             if ((transform.position - stageBot).magnitude < 1f) canEnable = true; //IF BOUNCER && NEAR BOT WALL*/
 		
-
+        /*
         if(nightCoreField != null && nightCoreField.activeSelf)
             if((transform.position - nightCoreField.transform.position).magnitude < 10f + Game.control.player.special.specialScale)
                  canEnable = true;
@@ -148,6 +150,18 @@ public class BulletMovement : MonoBehaviour {
             if((transform.position - dayCoreField.transform.position).magnitude < 10f + Game.control.player.special.specialScale)
                 canEnable = true;
             else canEnable = false;
+        */
+
+        
+        if(nightCoreField != null && nightCoreField.activeSelf)
+            if((transform.position - nightCoreField.transform.position).magnitude < 2f + Game.control.player.special.specialScale)
+                Game.control.bulletPool.StoreBulletToPool(this);
+            else canEnable = false;
+        if(dayCoreField != null && dayCoreField.activeSelf)
+            if((transform.position - dayCoreField.transform.position).magnitude < 5f + Game.control.player.special.specialScale)
+                Game.control.bulletPool.StoreBulletToPool(this);
+            else canEnable = false;
+        
         
 		ToggleHitBox();
 	}

@@ -36,7 +36,7 @@ public class BMP_StopAndRotate : BulletMovementPattern
 		if (layer == 2) RotateOnAxis (-1, 8f);
 		if (layer == 3) RotateOnAxis (1, 8f);
 
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(rotateTime);
 		
         isMoving = true;
 		movementSpeed = 10f;

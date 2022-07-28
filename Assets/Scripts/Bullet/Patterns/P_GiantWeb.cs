@@ -19,7 +19,8 @@ public class P_GiantWeb : Pattern
 		if(stop) yield return null;
 		pos = enemy.transform.position;
         spawnedBullets = new List<GameObject>();
-		animation = (Resources.Load ("Images/Animations/SmallWeb") as GameObject);
+		
+        animation = (Resources.Load ("Images/Animations/SmallWeb") as GameObject);
 		animation.GetComponent<SpriteAnimationController>().stayTime = 3f;
         animation.GetComponent<SpriteAnimationController>().pattern = this;
         Animate(4.5f, 3, pos);
@@ -33,6 +34,7 @@ public class P_GiantWeb : Pattern
 					spawnPosition = pos + new Vector3 (0f, 0f, 0f);
 					bulletRotation = Quaternion.Euler (0f, 0f, i * (360 / b));
 					BMP = new BMP_StopAndRotate(this, tempLayer, tempMagnitude);
+                    BMP.rotateTime = 1f;
 				    SpawnBullet ();
 					bullet.GetComponent<BulletMovement>().spriteR.sprite = Game.control.spriteLib.SetBulletSprite ("BigCircle", "Big", "Red");
 				}		

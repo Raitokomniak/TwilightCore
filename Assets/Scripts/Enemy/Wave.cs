@@ -159,8 +159,6 @@ public class Wave
 		else if(bossIndex == 2f) bossScript = enemy.AddComponent<Boss2> ();
 		else if(bossIndex == 3f) bossScript = enemy.AddComponent<Boss3> ();
         else if(bossIndex == 4f) bossScript = enemy.AddComponent<Boss4> ();
-        else if(bossIndex == 4.1f) bossScript = enemy.AddComponent<Boss4_1> ();
-        else if(bossIndex == 4.2f) bossScript = enemy.AddComponent<Boss4_2> ();
         else if	(bossIndex == 2.5f) bossScript = enemy.AddComponent<Boss25> ();
 
         bossScript.Init();

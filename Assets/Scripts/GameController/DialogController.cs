@@ -17,7 +17,7 @@ public class DialogController : MonoBehaviour {
 	
 
 	void LateUpdate () {
-        if(!Game.control.stageUI.DIALOG.rollDone) return;
+        if(Game.control.stageUI && !Game.control.stageUI.DIALOG.rollDone) return;
         if(autoScroll){
 			if(autoScrollTimer < autoScrollTime) autoScrollTimer += Time.deltaTime;
 			else AdvanceDialog();
@@ -49,11 +49,7 @@ public class DialogController : MonoBehaviour {
 	{	
         Game.control.inputHandler.skipContext = "Dialog";
 		Game.control.stageUI.DIALOG.ToggleDialog(true);
-		
-		if(_phase.Contains("Soma")) Game.control.stageUI.DIALOG.InitPlayerSpeaker();
-     //   else Game.control.stageUI.DIALOG.InitBossSpeaker(_phase);
-	//	if (_phase.Contains("Boss1")) { Game.control.stageUI.DIALOG.InitBossSpeaker("Boss1"); }
-	//	if (_phase.Contains("Boss2")) { Game.control.stageUI.DIALOG.InitBossSpeaker("Boss2"); }
+		Game.control.stageUI.DIALOG.InitPlayerSpeaker();
 
 		TextAsset dialogueText = Resources.Load<TextAsset> ("DialogText/" + _phase);
 		lineList = new ArrayList ();
