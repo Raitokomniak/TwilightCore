@@ -13,6 +13,7 @@ public class UI_RightSidePanel : MonoBehaviour
 	public TextMeshProUGUI hiScore;
 	public TextMeshProUGUI score;
     
+    public GameObject lifeSpritesContainer;
     public List<GameObject> lifeSprites;
     public Transform livesContainer;
     public Object lifeSpritePrefab;
@@ -41,13 +42,14 @@ public class UI_RightSidePanel : MonoBehaviour
 
 
     public void InitLives(int lives){
-        for(int i = 0; i < lives; i++){
-            GameObject life = Instantiate(lifeSpritePrefab, new Vector3(livesContainer.position.x + (i * 75), livesContainer.position.y, livesContainer.position.z), Quaternion.identity) as GameObject;
-            life.transform.SetParent(livesContainer);
+        for(int i = 0; i < lifeSpritesContainer.transform.childCount; i++){
+            GameObject life = lifeSpritesContainer.transform.GetChild(i).gameObject;
             lifeSprites.Add(life);
+            life.SetActive(false);
         }
-
-        //Game.control.ui.RIGHT_SIDE_PANEL.UpdateLives(lives);
+        for(int i = 0; i < lives; i++){
+            lifeSprites[i].SetActive(true);
+        }
     }
 
     public void UpdateXP(int value, int xpCap){
@@ -83,23 +85,29 @@ public class UI_RightSidePanel : MonoBehaviour
     }
 
     
-	public void ShowActivatedPlayerPhase(string text){
-		StartCoroutine (_ShowActivatedPlayerPhase (text));
+	public void PlayerSpecialToast(bool day, string text){
+        StopAllCoroutines();
+		StartCoroutine (ToastRoutine (day, text));
 	}
 
-	IEnumerator _ShowActivatedPlayerPhase(string text){
+	IEnumerator ToastRoutine(bool day, string text){
 		playerSpecialPanel.SetActive (true);
 		playerSpecialText.text = text;
 
+        if(day) playerSpecialText.color = new Color(1,0.6f,0,1);
+        else playerSpecialText.color = new Color(0.08f, 0, 1,1);
+
 		int dir = -1;
 
+        playerSpecialPanel.transform.position = new Vector3(2163.5f, 82.3f, 0);
+
 		for (int j = 0; j < 2; j++) {
-			for (int i = 0; i < 60; i+=1) {
+			for (int i = 0; i < 90; i+=1) {
 				playerSpecialPanel.transform.position += new Vector3 (dir + (7 * dir), 0, 0);
 				yield return new WaitForSeconds (0.005f);
 			}
 			dir = 1;
-			yield return new WaitForSeconds (5f);
+			yield return new WaitForSeconds (3f);
 		}
 		playerSpecialPanel.SetActive (false);
 	}

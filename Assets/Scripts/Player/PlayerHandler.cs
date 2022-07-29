@@ -29,7 +29,7 @@ public class PlayerStats {
 	public PlayerStats(){
 		damageMin = 1.3f;
 
-		maxLives = 10;
+		maxLives = 9;
 		lives = 5;
 		xpCap = 30;
 		xp = 0;

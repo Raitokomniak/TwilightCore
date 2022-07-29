@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour {
-	ArrayList waves;
 	public int currentWave;
 	public Wave curWave;
 	public Wave midBossWave;
@@ -33,7 +32,7 @@ public class EnemySpawner : MonoBehaviour {
         else return true;
     }
 
-	IEnumerator SpawnerRoutine(){
+	IEnumerator SpawnerRoutine(List<Wave> waves){
 		if(!holdTimer) Game.control.stageHandler.ToggleTimer(true);
 		foreach (Wave wave in waves) {
 			yield return new WaitUntil(() => Game.control.stageHandler.stageTimer >= wave.spawnTime);
@@ -56,12 +55,10 @@ public class EnemySpawner : MonoBehaviour {
 		return true;
 	}
 		
-	public void StartSpawner(int currentStage)
+	public void StartSpawner(List<Wave> waves)
 	{
-		waves = Game.control.stageHandler.InitWaves (currentStage);
 		currentWave = 0;
-		//Game.control.stageHandler.waves;
-		
+
 		if(waves.Count != 0) {
 			foreach (Wave w in waves) {
 				if (w.isMidBoss) {
@@ -72,7 +69,7 @@ public class EnemySpawner : MonoBehaviour {
 				}
 			}
 			spawnerOn = true;
-			spawnerRoutine = SpawnerRoutine();
+			spawnerRoutine = SpawnerRoutine(waves);
 			StartCoroutine(spawnerRoutine);
 		}
 		else {

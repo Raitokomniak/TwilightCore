@@ -11,7 +11,7 @@ public class Boss05 : Phaser
         topLayerWaitTime = 2;
         Game.control.stageHandler.midBossOn = true;
         Game.control.stageHandler.bossScript = this;
-        bossBonus = true;
+        bossSurvivalBonus = true;
 	}
 
     public override void StopCoro(){

@@ -9,7 +9,7 @@ public class Boss2 : Phaser
 		numberOfPhases = 4;
 		Game.control.stageHandler.bossOn = true;
 		Game.control.stageHandler.bossScript = this;
-        bossBonus = true;
+        bossSurvivalBonus = true;
 	}
 
     public override void StopCoro(){

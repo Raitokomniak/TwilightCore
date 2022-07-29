@@ -26,7 +26,8 @@ public class Phaser : MonoBehaviour {
 	public bool routineOver = true;
 	public bool endOfPhase;
 
-    public bool bossBonus = true;
+    public bool bossSurvivalBonus = true;
+    public bool bossTimeBonus = true;
 
 	public bool timerOn;
 	public float phaseTimer;
@@ -85,7 +86,7 @@ public class Phaser : MonoBehaviour {
 
     void TimeOut(){
         if(!Game.control.stageHandler.midBossOn && bossIndex != 4) 
-                Game.control.stageHandler.DenyBossBonus();
+                Game.control.stageHandler.DenyBossTimeBonus();
 		if(!superPhase && bossIndex != 4)  life.SetHealthToThreshold();
 		StopPhaseTimer();
 		NextPhase();
@@ -141,12 +142,17 @@ public class Phaser : MonoBehaviour {
 		else {
 			life.DropLoot("Core"); //
 			life.DropLoot("Core");
-            if(bossPhase >=0 && bossBonus) {
-                Game.control.stageUI.PlayToast("Boss Bonus 3000!");
+            if(bossPhase >=0) {
+                Game.control.stageUI.PlayToast("Time Bonus!");
                 Game.control.player.GainScore(3000);
                 life.DropLoot("ExpPoint");
             }
-			bossBonus = true;
+            if(bossSurvivalBonus) {
+                Game.control.stageUI.PlayToast("Survival Bonus!");
+                Game.control.player.GainScore(3000);
+                life.DropLoot("ExpPoint");
+            }
+			bossSurvivalBonus = true;
 			nextPhaseRoutine = PhasingTime();
 			StartCoroutine(nextPhaseRoutine);
 		}

@@ -6,10 +6,7 @@ using TMPro;
 
 public class UI_Dialog : MonoBehaviour
 {
-    
 	public GameObject dialogPanel;
-	public Image dialogBG;
-	public TextMeshProUGUI dialogName;
 	public TextMeshProUGUI dialogContent;
 	public Image dialogRightChar;
 	public Image dialogLeftChar;
@@ -77,8 +74,6 @@ public class UI_Dialog : MonoBehaviour
 
     void SetupSpeakers(string speaker){
         if (speaker == "Soma") {
-			dialogBG.transform.localScale = new Vector3 (1, 1, 1);
-			
 			if (dialogLeftChar.GetComponent<Image>().color.a != .3f) {
 				dialogLeftChar.transform.position -= new Vector3 (10, 0, 0);
 				dialogRightChar.transform.position -= new Vector3 (10, 0, 0);
@@ -89,8 +84,6 @@ public class UI_Dialog : MonoBehaviour
 		else 
 		{
             UpdateBossSpeaker(speaker);
-
-            dialogBG.transform.localScale = new Vector3 (-1, 1, 1);
 
 			if (dialogRightChar.GetComponent<Image>().color.a != .3f) {
 				dialogRightChar.transform.position += new Vector3 (10, 0, 0);

@@ -7,10 +7,14 @@ using TMPro;
 public class UI_StageToastPanel : MonoBehaviour
 {
     public TextMeshProUGUI stageText;
+    public TextMeshProUGUI stageSubTitle;
+    public TextMeshProUGUI stageBGM;
 
-    public void UpdateStageToastText(int stageID, string stageName, string BGMtext)
+    public void UpdateStageToastText(int stageID, string stageName, string stageSubtitle, string BGMtext)
 	{
-		stageText.text = "Stage " + stageID.ToString() + " - " + stageName + '\n' + "BGM: " + BGMtext;
+		stageText.text = stageName;
+        stageSubTitle.text = stageSubtitle;
+        stageBGM.text = BGMtext;
 	}
 
 	public void Play(){
@@ -20,8 +24,8 @@ public class UI_StageToastPanel : MonoBehaviour
 
 	IEnumerator StageText()
 	{
-		yield return new WaitForSeconds(3);
-		this.gameObject.SetActive(false);
+		yield return new WaitForSeconds(4);
+		gameObject.SetActive(false);
 	}
 
 }

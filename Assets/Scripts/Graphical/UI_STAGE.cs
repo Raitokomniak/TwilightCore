@@ -19,7 +19,7 @@ public class UI_STAGE : UI {
 	//EFFECT OVERLAY
 	public Image EFFECT_OVERLAY;
     public bool fadeOver;
-    public bool fadeFromWhite;
+    public string fadeFrom;
 
     //TOAST
 	public TextMeshProUGUI toast;
@@ -31,9 +31,7 @@ public class UI_STAGE : UI {
 
 
 	public void InitStage(){
-		if(fadeFromWhite) EffectOverlay("White");
-        else EffectOverlay("Black");
-		//LEFT_SIDE_PANEL.EmptyCores();
+       
 		BOSS.HideUI();
 		
 		STAGEEND.Hide();
@@ -49,9 +47,15 @@ public class UI_STAGE : UI {
 		LEFT_SIDE_PANEL.SetSliderMaxValues();
 
 		RIGHT_SIDE_PANEL.UpdateDifficulty(Game.control.stageHandler.difficultyAsString);
-		if(fadeFromWhite) EffectOverlay("White", false, 1);
-        else EffectOverlay("Black", false, 1);
+
+        FadeFrom(fadeFrom, 1.5f);
+    //    if(fadeFromWhite) EffectOverlay("White", false, 1);
+    //    else EffectOverlay("Black", false, 1);
 	}
+
+    public void PrepareForFade(){
+         EffectOverlay("Black");
+    }
 
 	void Awake(){
 		ToggleLoadingScreen(false);
@@ -88,19 +92,26 @@ public class UI_STAGE : UI {
     // FX OVERLAY
     /////////////////////////////////////////
 
-	public void EffectOverlay(string color, bool fadeIn, float fadeTime){
+    public void FadeTo(string color, float fadeTime){
+        fadeOver = false;
+		EFFECT_OVERLAY.gameObject.SetActive(true);
+		EFFECT_OVERLAY.color = new Color(1,1,1,0);
+        IEnumerator animateRoutine = AnimateOverlay(true, fadeTime);
+		StartCoroutine(animateRoutine);
+    }
+
+    public void FadeFrom(string color, float fadeTime){
         fadeOver = false;
 		EFFECT_OVERLAY.gameObject.SetActive(true);
 		if(color == "White") EFFECT_OVERLAY.color = new Color(1,1,1,1);
-		if(color == "Black") EFFECT_OVERLAY.color = new Color(0,0,0,1);
-		//if(color == "NightCore") EFFECT_OVERLAY.color = new Color(0.06f,0.04f,0.01f,0.47f);
-		IEnumerator animateRoutine = AnimateOverlay(fadeIn, fadeTime);
+		else if(color == "Black") EFFECT_OVERLAY.color = new Color(0,0,0,1);
+        IEnumerator animateRoutine = AnimateOverlay(false, fadeTime);
 		StartCoroutine(animateRoutine);
-	}
+    }
 
 	public void EffectOverlay(string color){
 		if(color == "White") EFFECT_OVERLAY.color = new Color(1,1,1,1);
-		if(color == "Black") EFFECT_OVERLAY.color = new Color(0,0,0,1);
+		else if(color == "Black") EFFECT_OVERLAY.color = new Color(0,0,0,1);
 	}
 
 	IEnumerator AnimateOverlay(bool fadeIn, float fadeTime){

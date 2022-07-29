@@ -11,7 +11,7 @@ public class Boss4 : Phaser
 		numberOfPhases = 10;
 		Game.control.stageHandler.bossOn = true;
 		Game.control.stageHandler.bossScript = this;
-        bossBonus = true;
+        bossSurvivalBonus = true;
 	}
 
     public override void StopCoro(){
@@ -41,7 +41,7 @@ public class Boss4 : Phaser
                 life.SetInvulnerable(true);
                 Game.control.stageUI.BOSS.HideUI();
                 movement.pattern.UpdateDirection("X1");
-                while (Game.control.stageHandler.stageTimer < 13f) yield return null;
+                //while (Game.control.stageHandler.stageTimer < 13f) yield return null;
                 while (Game.control.stageHandler.stageTimer < 1f) yield return null;
                 NextPhase();
             break;
@@ -49,7 +49,7 @@ public class Boss4 : Phaser
                 life.SetInvulnerable(true);
                 NextPhase();
                 break;
-			case 2:
+			case 3:
                 life.SetInvulnerable(false);
                 life.SetPhaseHealth(2500);
                 Game.control.stageUI.BOSS.RevealUI();
@@ -151,7 +151,7 @@ public class Boss4 : Phaser
                 }
                 patterns[0].Stop();
               break;
-              case 3:
+              case 2:
 
                 Game.control.stageUI.BOSS.ShowActivatedPhase ("Avatar: Vidya");
                 StartPhaseTimer(15);

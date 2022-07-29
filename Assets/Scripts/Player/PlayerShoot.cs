@@ -113,12 +113,15 @@ public class PlayerShoot : MonoBehaviour {
 		if (GetComponent<PlayerMovement> ().focusMode) 
 			 projectile.GetComponentInChildren<SpriteRenderer>().sprite = focusProjectile;
 		else projectile.GetComponentInChildren<SpriteRenderer>().sprite = normalProjectile;
+
+        if(shootLevel <= 3) projectile.GetComponentInChildren<SpriteRenderer>().color = new Color(1,1,1,0.8f);
+        else if(shootLevel > 3) projectile.GetComponentInChildren<SpriteRenderer>().color = new Color(1,1,1,0.5f);
 	}
 
 	void SetProjectileScale(int i){
 		if(shootLevel == 0) projectile.transform.localScale = new Vector3 (1.5f, 1.5f, 1.5f);
 		if(shootLevel == 1) projectile.transform.localScale = new Vector3 (2f, 2f, 2f);
-		if(shootLevel > 1) projectile.transform.localScale = new Vector3 (2.5f, 2.5f, 2.5f);
+		if(shootLevel > 1)  projectile.transform.localScale = new Vector3 (2.5f, 2.5f, 2.5f);
 		if(shootLevel > 3 ) if(!GetComponent<PlayerMovement> ().focusMode) projectile.transform.localScale = new Vector3 (4f, 4f, 4f);
 	}
 

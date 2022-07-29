@@ -87,7 +87,7 @@ public class BossLife : EnemyLife
         
 
         if(deathFlag) return;
-        PlayFX("Hit");
+        PlayFX("BossHit");
         IEnumerator animateHit = AnimateHit();
         StartCoroutine(animateHit);
 	}

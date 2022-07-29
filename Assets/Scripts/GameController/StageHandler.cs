@@ -2,12 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-using System.IO;
 
 
 public class StageHandler : MonoBehaviour {
 
-    int STARTING_STAGE = 1;
+    int STARTING_STAGE = 4;
 
     AsyncOperation loadScene;
 	public Stage stageScript;
@@ -18,7 +17,7 @@ public class StageHandler : MonoBehaviour {
     public Intro intro;
 
 	SpriteLibrary spriteLib;
-	public ArrayList waves;
+	public List<Wave> waves;
 
 	public PlayerStats stats;
 
@@ -81,12 +80,18 @@ public class StageHandler : MonoBehaviour {
 		else return true;
 	}
 
-    public void DenyBossBonus(){
+    public void DenyBossSurvivalBonus(){
         if(!bossOn && !midBossOn) return;
 
-        if(bossScript.bossBonus)Game.control.stageUI.PlayToast("Boss bonus failed...");
-        bossScript.bossBonus = false;
-        
+        if(bossScript.bossSurvivalBonus)Game.control.stageUI.PlayToast("Survival Bonus Failed...");
+        bossScript.bossSurvivalBonus = false;
+    }
+
+    public void DenyBossTimeBonus(){
+        if(!bossOn && !midBossOn) return;
+
+        if(bossScript.bossTimeBonus)Game.control.stageUI.PlayToast("Time Bonus Failed...");
+        bossScript.bossTimeBonus = false;
     }
 
 	public List<int> CalculateBonuses(){
@@ -105,32 +110,6 @@ public class StageHandler : MonoBehaviour {
 
 		return bonuses;
 	}
-
-	//THERE MUST BE A BETTER WAY
-	public ArrayList InitWaves(int stage){
-		if(stage == 1){
-			gameObject.AddComponent<Stage1>();
-			stageScript = GetComponent<Stage1>();
-			if(GetComponent<Stage2>()!=null) Destroy(GetComponent<Stage2>());
-		}
-		else if(stage == 2){
-			if(GetComponent<Stage1>()!=null) Destroy(GetComponent<Stage1>());
-			gameObject.AddComponent<Stage2>();
-			stageScript = GetComponent<Stage2>();
-		}
-		else if(stage == 3){
-			if(GetComponent<Stage2>()!=null) Destroy(GetComponent<Stage2>());
-			gameObject.AddComponent<Stage3>();
-			stageScript = GetComponent<Stage3>();
-		}
-        else if(stage == 4){
-			if(GetComponent<Stage3>()!=null) Destroy(GetComponent<Stage3>());
-			gameObject.AddComponent<Stage4>();
-			stageScript = GetComponent<Stage4>();
-		}
-        return waves;
-	}
-
 	public void NewWave(Wave w){
 		if (w.isBoss || w.isMidBoss) {
 			w.sprite = spriteLib.SetCharacterSprite ("Boss" + w.bossIndex);
@@ -199,6 +178,29 @@ public class StageHandler : MonoBehaviour {
 		Game.control.enemySpawner.AbortSpawner();
 		Game.control.dialog.EndDialog();
 	}
+
+    void SetStageScript(int stage){
+        if(stage == 1){
+			gameObject.AddComponent<Stage1>();
+			stageScript = GetComponent<Stage1>();
+			if(GetComponent<Stage2>()!=null) Destroy(GetComponent<Stage2>());
+		}
+		else if(stage == 2){
+			if(GetComponent<Stage1>()!=null) Destroy(GetComponent<Stage1>());
+			gameObject.AddComponent<Stage2>();
+			stageScript = GetComponent<Stage2>();
+		}
+		else if(stage == 3){
+			if(GetComponent<Stage2>()!=null) Destroy(GetComponent<Stage2>());
+			gameObject.AddComponent<Stage3>();
+			stageScript = GetComponent<Stage3>();
+		}
+        else if(stage == 4){
+			if(GetComponent<Stage3>()!=null) Destroy(GetComponent<Stage3>());
+			gameObject.AddComponent<Stage4>();
+			stageScript = GetComponent<Stage4>();
+		}
+    }
 
 	IEnumerator StageCompleteHandling ()
 	{	
@@ -284,7 +286,6 @@ public class StageHandler : MonoBehaviour {
         LoadStage();
 		yield return new WaitUntil(() => loadScene.isDone == true);
 		
-        
     
         Game.control.SetUI("Stage");
 		Game.control.stageUI.ToggleLoadingScreen(true);
@@ -299,17 +300,19 @@ public class StageHandler : MonoBehaviour {
         yield return new WaitUntil(() => Game.control.bulletPool.done == true);
 		
 		Game.control.pause.Unpause (false);
+        
 		
+
         //SAFETY MEASURE FOR ENEMYSPAWNER TO TRULY ABORT. THERE MUST BE A BETTER WAY
 		yield return new WaitForSeconds(1f);
 
 		spriteLib = Game.control.spriteLib;
-		waves = new ArrayList();
+		waves = new List<Wave>();
 		
 		Game.control.scene.SetUpEnvironment ();
 		Game.control.io.LoadHiscoreByDifficulty(difficultyAsString);
 		Game.control.dialog.Init();
-		Game.control.stageUI.InitStage ();
+		Game.control.stageUI.PrepareForFade();
 		Game.control.menu.InitMenu();
 		Game.control.player.Init();
 		Game.control.player.gameObject.SetActive (true);
@@ -318,13 +321,15 @@ public class StageHandler : MonoBehaviour {
             Game.control.player.special.GameInit();
             Game.control.stageUI.ToggleLoadingScreen(false);
             intro.Run();
+            Game.control.stageUI.ToggleLoadingScreen(true);
             while(!intro.introDone) yield return null;
         }
         start = false;
 
-
-		
-		Game.control.enemySpawner.StartSpawner (currentStage);
+        SetStageScript(currentStage);
+        Game.control.stageUI.InitStage ();
+        stageScript.InitWaves(difficultyMultiplier);
+		Game.control.enemySpawner.StartSpawner (waves);
 
 		stageScript.StartStageHandler();
 		stageOn = true;

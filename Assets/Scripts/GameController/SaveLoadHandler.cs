@@ -112,10 +112,10 @@ public class SaveLoadHandler : MonoBehaviour {
     public List<Vector3> LoadShape(string shape){
         ShapeVectorSaveData data = new ShapeVectorSaveData();
         List<Vector3> vectors = new List<Vector3>();
-        string path = Application.dataPath + "/Resources/PatternShapeData/shape_" + shape + ".json";
-        if(File.Exists(path)){
-            string rawJson = File.ReadAllText(path);
-            data = JsonUtility.FromJson<ShapeVectorSaveData>(rawJson);
+        TextAsset asset = Resources.Load<TextAsset>("PatternShapeData/shape_" + shape);
+        
+        if(asset != null){
+            data = JsonUtility.FromJson<ShapeVectorSaveData>(asset.text);
             vectors = data.shapeVectors;
             return vectors;
         }

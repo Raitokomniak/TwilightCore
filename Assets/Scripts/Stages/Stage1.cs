@@ -6,14 +6,12 @@ public class Stage1 : Stage
 {
 	void Awake(){
 		stageName = "Asura's Path";
+        stageSubtitle = "~Fields of Astria~";
 		bgmName = "Asura who remain Asura";
 		stageindex = 1;
+        fadeFrom = "Black";
 
-		scene = Game.control.scene;
-		//stageHandler = Game.control.stageHandler;
-        fadeFromWhite = false;
-		UpdateStageInfoToUI();
-		InitWaves(stage.difficultyMultiplier);
+        LateStageInit();
 	}
 
 	public override void StartStageHandler(){
@@ -23,6 +21,8 @@ public class Stage1 : Stage
 
 
 	IEnumerator StageHandlerRoutine(){
+        Game.control.player.DebugFillCores();
+
         Game.control.sound.PlayMusic ("Stage", 1);
 
 		scene.SetPlaneSpeed(50f);
@@ -116,15 +116,6 @@ public class Stage1 : Stage
 		p.SetSprite ("BigCircle", "Big", "Red", "Huge");
 		stage.NewWave (new Wave (3f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "gand_flute"));
 
-
-		mp = new EnemyMovementPattern(lib.GetVector("K3"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 1), new WayPoint("L4")});
-		p = new P_MusicalNotes();
-		p.BMP = new BMP_Explode(p, 7f);
-        p.BMP.retainSpriteRotation = true;
-		p.SetSprite ("Note", "NoStem", "Green", "Small");	 
-		stage.NewWave (new Wave (4f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "gand_horn"));
-
 		mp = new EnemyMovementPattern(lib.GetVector("C1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("R4")});
 		p = new P_SingleHoming();
@@ -165,6 +156,7 @@ public class Stage1 : Stage
 		p.SetSprite ("Note", "NoStem", "Green", "Small");	 
 		stage.NewWave (new Wave (9f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "gand_flute"));
 
+/*
 		mp = new EnemyMovementPattern(lib.GetVector("I1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 4), new WayPoint("L4")});
 		mp.speed = 2f;
@@ -175,6 +167,7 @@ public class Stage1 : Stage
 		p.SetSprite ("Note", "NoStem", "Green", "Small");	  
 		stage.NewWave (new Wave (13f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "gand_horn"));
 
+/*
 		mp = new EnemyMovementPattern(lib.GetVector("I1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("C3"), new WayPoint("I4"), new WayPoint("C5"), new WayPoint("L5")});
 		p = new P_MusicalNotes();
@@ -183,7 +176,7 @@ public class Stage1 : Stage
         p.BMP.retainSpriteRotation = true;
 		p.SetSprite ("Note", "NoStem", "Green", "Small");	 
 		stage.NewWave (new Wave (16f, mp, p, 5, false, 0, 3f / difficultyMultiplier, "gand_sitar"));
-
+*/
 
 		mp = new EnemyMovementPattern(lib.GetVector("C1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("L4")});
@@ -384,7 +377,7 @@ public class Stage1 : Stage
 		p.BMP = new BMP_Explode(p, 11f);
         p.BMP.retainSpriteRotation = true;
 		p.SetSprite ("Note", "NoStem", "Green", "Small");	 
-		stage.NewWave (new Wave (91f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "gand_sitar"));
+		stage.NewWave (new Wave (93f, mp, p, 3, false, 40, 3f / difficultyMultiplier, "gand_sitar"));
 
 		//BOSS 1
 		//mp = new EMP_EnterFromTop();

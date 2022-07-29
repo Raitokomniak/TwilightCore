@@ -8,13 +8,8 @@ public class Stage5 : Stage
 		stageName = "BRAHMA TEMPLE";
 		bgmName = "????";
 		stageindex = 5;
-
-        lib = Game.control.vectorLib;
-		scene = Game.control.scene;
-		stage = Game.control.stageHandler;
-        fadeFromWhite = false;
-		UpdateStageInfoToUI();
-		InitWaves(stage.difficultyMultiplier);
+        fadeFrom = "Black";
+        LateStageInit();
 	}
 	
 	public override void StartStageHandler(){
@@ -26,7 +21,6 @@ public class Stage5 : Stage
       
        // Game.control.player.DebugFillCores();
 
-        Game.control.stageUI.EffectOverlay("Black", false, 2.5f);
 
         scene.SetPlaneSpeed (2f);
         Game.control.stageUI.WORLD.SetTopLayerSpeed(5);

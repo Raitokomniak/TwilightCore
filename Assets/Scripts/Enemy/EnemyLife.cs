@@ -31,7 +31,7 @@ public class EnemyLife : MonoBehaviour {
     
     void CheckHit(){
         if(dead || invulnerable) return;
-        
+        PlayFX("Hit");
         if(hasHealth) TakeHit();
         else Die (false);
     }
@@ -39,7 +39,6 @@ public class EnemyLife : MonoBehaviour {
     void TakeHit(){
         currentHealth -= 1;
         if(currentHealth < 0) Die(false);
-        PlayFX("Hit");
         IEnumerator animateHit = AnimateHit();
         StartCoroutine(animateHit);
     }
@@ -49,10 +48,15 @@ public class EnemyLife : MonoBehaviour {
         var main = hitFXparticles.main;
         var emitter = hitFXparticles.emission;
 
-        if(type == "Hit"){
+        if(type == "BossHit"){
             shape.shapeType = ParticleSystemShapeType.SingleSidedEdge;
             main.startSpeed = 8;
             hitFXparticles.Emit(1);
+        }
+        if(type == "Hit"){
+            shape.shapeType = ParticleSystemShapeType.SingleSidedEdge;
+            main.startSpeed = 8;
+            hitFXparticles.Emit(2);
         }
         if(type == "Death"){
             shape.shapeType = ParticleSystemShapeType.Sphere;
@@ -103,6 +107,7 @@ public class EnemyLife : MonoBehaviour {
             int lootAmount = Random.Range(1,2);
 			for(int i = 0; i < lootAmount; i++){ ////////// MANAGE AMOUNT OF LOOT
                 Vector3 spawnPoint = transform.position + new Vector3(Random.Range(-5, 5), 2f, 0);
+                if(spawnPoint.x < 5) spawnPoint = new Vector3(5, spawnPoint.y, 0);
                 GameObject pickUpPoint = Instantiate(pickUpPointPrefab, spawnPoint, Quaternion.Euler(0,0,0));
 
                     if(Random.Range(0, 2) == 0) 
@@ -116,6 +121,7 @@ public class EnemyLife : MonoBehaviour {
 		if(type == "ExpPoint")
 			for(int i = 0; i < 9; i++) {
                 Vector3 spawnPoint = transform.position + new Vector3(Random.Range(-5, 5), 2f, 0);
+                if(spawnPoint.x < 5) spawnPoint = new Vector3(5, spawnPoint.y, 0);
                 GameObject pickUpPoint = Instantiate(pickUpPointPrefab, spawnPoint, Quaternion.Euler(0,0,0));
 				pickUpPoint.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/" + type);
                 pickUpPoint.tag = type;

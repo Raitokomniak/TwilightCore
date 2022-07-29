@@ -27,7 +27,7 @@ public class Hitbox : MonoBehaviour {
 		player = Game.control.player;
 		if(c.GetComponent<BulletMovement>()) {
             CheckHazard(c.gameObject.tag);
-            if(c.GetComponent<BulletMovement>().BMP != null) Debug.Log(c.GetComponent<BulletMovement>().BMP);
+//            if(c.GetComponent<BulletMovement>().BMP != null) Debug.Log(c.GetComponent<BulletMovement>().BMP);
         }
 		CheckPickUp(c.gameObject); 
 	}

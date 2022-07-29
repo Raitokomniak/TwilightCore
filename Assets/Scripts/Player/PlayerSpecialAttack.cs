@@ -90,7 +90,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 
 	IEnumerator SpecialAttack(string core)
 	{
-        Game.control.stageHandler.DenyBossBonus();
+        Game.control.stageHandler.DenyBossSurvivalBonus();
         
         GetComponent<PlayerLife>().invulnerable = true;
 		specialAttackTime = 3f;
@@ -101,7 +101,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 		if (core == "Day") {
 			Game.control.stageUI.WORLD.ShowFXLayer("Light");
 			Game.control.sound.PlaySpellSound("Player", "DayCore1");
-			Game.control.stageUI.RIGHT_SIDE_PANEL.ShowActivatedPlayerPhase ("Day Core: Dawnbreaker");
+			Game.control.stageUI.RIGHT_SIDE_PANEL.PlayerSpecialToast (true, "Day Core: Dawnbreaker");
 			daySpecial.SetActive (true);
             specialScale = .3f * (dayCoreLevel + 1);
 			dayAnimatedSprite.GetComponent<AnimationController> ().Scale (true, specialScale, true, false);
@@ -139,7 +139,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			Game.control.stageUI.WORLD.ShowFXLayer("Night");
 			//Game.control.ui.EffectOverlay("NightCore", true, 2);
 			Game.control.sound.PlaySpellSound("Player", "NightCore1");
-			Game.control.stageUI.RIGHT_SIDE_PANEL.ShowActivatedPlayerPhase ("Night Core: Trick or Treat");
+			Game.control.stageUI.RIGHT_SIDE_PANEL.PlayerSpecialToast (false, "Night Core: Trick or Treat");
 
             specialScale = .4f * (nightCoreLevel + 1);
 			nightSpecial.SetActive (true);

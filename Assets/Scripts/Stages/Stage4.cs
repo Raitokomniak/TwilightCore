@@ -6,16 +6,14 @@ public class Stage4 : Stage
 {
 	void Awake(){
 		stageName = "Celestial Lotus Garden";
-		bgmName = "????";
+        stageSubtitle = "~Realm of the Deva~";
+		bgmName = "The Three Faces of Divinity";
 		stageindex = 4;
-
-        lib = Game.control.vectorLib;
-		scene = Game.control.scene;
-		stage = Game.control.stageHandler;
-        fadeFromWhite = false;
-		UpdateStageInfoToUI();
+        fadeFrom = "Black";
+        
+        LateStageInit();
+    
         Game.control.enemySpawner.holdTimer = true;
-		InitWaves(stage.difficultyMultiplier);
 	}
 	
 	public override void StartStageHandler(){
@@ -27,7 +25,6 @@ public class Stage4 : Stage
       
        // Game.control.player.DebugFillCores();
 
-        Game.control.stageUI.EffectOverlay("Black", false, 2.5f);
 
         scene.SetPlaneSpeed (2f);
         Game.control.stageUI.WORLD.SetTopLayerSpeed(5);

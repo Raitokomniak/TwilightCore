@@ -8,12 +8,12 @@ public class Stage : MonoBehaviour
     public StageHandler stage = Game.control.stageHandler;
 
     public string stageName;
+    public string stageSubtitle;
+
     public string bgmName;
     public int stageindex;
+    public string fadeFrom;
 
-    public bool fadeFromWhite;
-
-	
     public EnvironmentHandler scene;
 	public IEnumerator stageHandlerRoutine;
     public Wave boss;
@@ -21,14 +21,21 @@ public class Stage : MonoBehaviour
     public VectorLib lib;
 
     public void UpdateStageInfoToUI(){
-        Game.control.stageUI.fadeFromWhite = fadeFromWhite;
+        Game.control.stageUI.fadeFrom = fadeFrom;
         Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateStage(stageName);
-		Game.control.stageUI.STAGETOAST.UpdateStageToastText (stageindex, stageName, bgmName);
+		Game.control.stageUI.STAGETOAST.UpdateStageToastText (stageindex, stageName, stageSubtitle, bgmName);
     }
     
     public virtual void StopStage(){
        if(stageHandlerRoutine != null) StopCoroutine(stageHandlerRoutine);
        Destroy(this);
+    }
+
+    public void LateStageInit(){
+        lib = Game.control.vectorLib;
+		scene = Game.control.scene;
+		stage = Game.control.stageHandler;
+		UpdateStageInfoToUI();
     }
 
     public virtual void StartStageHandler(){}

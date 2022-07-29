@@ -9,7 +9,7 @@ public class Boss3 : Phaser
 		numberOfPhases = 6;
 		Game.control.stageHandler.bossOn = true;
 		Game.control.stageHandler.bossScript = this;
-        bossBonus = true;
+        bossSurvivalBonus = true;
 	}
 
     public override void StopCoro(){
@@ -58,8 +58,7 @@ public class Boss3 : Phaser
                 shooter.BossShoot (patterns[0]);
 
                 while(!endOfPhase){
-                    
-                    shooter.BossShoot (patterns[2]);
+                    if(difficulty > 3) shooter.BossShoot (patterns[2]);
                     yield return new WaitForSeconds(5);
                 }
 

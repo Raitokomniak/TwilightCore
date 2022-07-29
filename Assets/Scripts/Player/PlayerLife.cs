@@ -16,7 +16,7 @@ public class PlayerLife : MonoBehaviour {
 		lives = Game.control.stageHandler.stats.lives;
         xp = Game.control.stageHandler.stats.xp;
         xpCap = Game.control.stageHandler.stats.xpCap;
-		Game.control.stageUI.RIGHT_SIDE_PANEL.InitLives(Game.control.stageHandler.stats.maxLives);
+		Game.control.stageUI.RIGHT_SIDE_PANEL.InitLives(lives);
 		GetComponent<SpriteRenderer> ().enabled = true;
 		invulnerable = false;
 		dead = false;
@@ -71,7 +71,6 @@ public class PlayerLife : MonoBehaviour {
 		lives -= 1;
 		Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateLives(lives);
 
-
 		invulnerabilityRoutine = AnimateInvulnerabilityRoutine();
 		StartCoroutine(invulnerabilityRoutine);
 
@@ -79,11 +78,16 @@ public class PlayerLife : MonoBehaviour {
 		if(GetComponent<PlayerMovement>().focusMode) 
 			 Game.control.player.special.DepleteCore ("Night", false);
 		else Game.control.player.special.DepleteCore ("Day", false);
-		Game.control.stageHandler.DenyBossBonus();
+		
+        Game.control.stageHandler.DenyBossSurvivalBonus();
 	}
 
 	public void GainLife(){
-		lives += 1;
+		if(lives >= 9) {
+            Game.control.stageUI.PlayToast("Already at Max Lives");
+            return;
+        }
+        lives += 1;
 		Game.control.sound.PlaySound("Player", "ExtraLife", false);
 		Game.control.stageUI.PlayToast("New Life!");
 		Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateLives(lives);
