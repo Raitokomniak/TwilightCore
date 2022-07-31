@@ -40,6 +40,7 @@ public class EnemyMovementPattern
 	public bool infinite;
 	public bool hideSpriteOnSpawn;
 	public bool disableHitBox;
+    public bool invulnerabilityShield;
 	public bool force; //if false, lerps
 
 	//make loopdiloops
@@ -66,6 +67,7 @@ public class EnemyMovementPattern
 		centerPoint = _emp.centerPoint;
 		hideSpriteOnSpawn = _emp.hideSpriteOnSpawn;
 		disableHitBox = _emp.disableHitBox;
+        invulnerabilityShield = _emp.invulnerabilityShield;
 		force = _emp.force;
 		previousPoint = _emp.previousPoint;
 		wayPoints = _emp.wayPoints;
@@ -155,6 +157,18 @@ public class EnemyMovementPattern
 			_m.rb.drag = 6f;
 			return false;
 		}
+	}
+    public void UpdateDirection(Vector2 dir){
+		//Vector3 dir = Game.control.vectorLib.GetVector(grid);
+
+		float h = dir.x;
+		float v = dir.y;
+
+		//if(m.moving) m.SmoothAcceleration();
+		if (h < targetPosition.x) goingRight = false;
+		else goingRight = true;
+
+		targetPosition = new Vector3 (h, v, 0f);
 	}
 
 	public void UpdateDirection(string grid){

@@ -1,7 +1,7 @@
-Maaya	Who are you? None may pass into the forest!
-Soma	I'm this world's Chandra, from the village nearby
-Soma	I was following a thieving asura, you might have seen him?
-Maaya	I didn't see anything, now begone!
+Maaya	Hey! None may pass into the forest!
+Maaya	Wait a minute, aren't you the pumpkin farmer girl? I didn't order any!
+Soma	I was following a thieving asura, you might have seen him fly by?
+Maaya	I didn't see anything! Now, buy a ticket to the show or begone!
 Soma	It passed right through here... Don't foxes have good diurnal sight?
 Maaya	I don't know what you're talking about. I'm human!
 Soma	But don't you have a tail?

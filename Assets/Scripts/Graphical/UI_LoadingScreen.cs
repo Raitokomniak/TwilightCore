@@ -21,12 +21,5 @@ public class UI_LoadingScreen : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         loadingText.text = "Loading...";
         yield return new WaitForSeconds(0.3f);
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

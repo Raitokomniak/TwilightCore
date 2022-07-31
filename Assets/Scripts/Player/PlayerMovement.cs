@@ -8,13 +8,9 @@ public class PlayerMovement : MonoBehaviour
 	float movementSpeed;
 	public bool focusMode;
 	public bool forceMoving;
-
 	Vector3 forceMoveTarget;
-
 	public bool atPickUpThreshold;
 
-    float hor = 0;
-    float ver = 0;
 
 	void Update ()
 	{
@@ -46,7 +42,6 @@ public class PlayerMovement : MonoBehaviour
 		GetComponentInChildren<Hitbox>().gameObject.SetActive(false);
 		forceMoveTarget = targetPos;
 		forceMoving = true;
-        Debug.Log("player forcemove");
 	}
 
 	bool CanForceMove(){
@@ -57,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	
-
     public void ShowHitBox(bool toggle){
         float alpha = 0;
         if(toggle) alpha = 1;

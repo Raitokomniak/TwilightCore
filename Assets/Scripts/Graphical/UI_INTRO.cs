@@ -11,8 +11,6 @@ public class UI_INTRO : MonoBehaviour
     public TextMeshProUGUI[] paragraphs;
     int paraIndex = -1;
 
-    public bool fadeOutDone = false;
-
     public void Init(){
         bg.color = new Color (0, 0, 0, 1);
         foreach(TextMeshProUGUI t in paragraphs) t.text = "";

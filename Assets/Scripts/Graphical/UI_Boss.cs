@@ -7,6 +7,7 @@ using TMPro;
 public class UI_Boss : MonoBehaviour
 {
     public Slider bossHealthSlider;
+    // REINSTATE MINI HEALTH BAR
 //	public GameObject bossMiniHealthBar;
 //	GameObject miniHealthBar;
 //	List<GameObject> bars;
@@ -17,7 +18,6 @@ public class UI_Boss : MonoBehaviour
 	public GameObject bossX;
 	public GameObject bossSpellToast;
 	public TextMeshProUGUI bossSpellText;
-	//public TextMeshProUGUI bossTimer;
 	public Text bossTimer;
 
     void Awake(){
@@ -89,25 +89,7 @@ public class UI_Boss : MonoBehaviour
 
 /*
 	public void UpdateBossHealthBars(int h){
-		if (h > 1) {
-			if (miniHealthBar == null)
-				for (int i = 0; i < h - 1; i++) {
-					miniHealthBar = Instantiate (bossMiniHealthBar, Vector3.zero, transform.rotation) as GameObject;
-					miniHealthBar.transform.SetParent (bossHealthSlider.transform);
-					miniHealthBar.transform.position = new Vector3 (130 + i * 20, 630, 0);
-					bars = new List<GameObject> ();
-					bars.Add (miniHealthBar);
-				}
-			else {
-				
-				/*for (int i = 0; i <= h; i++) {
-					Destroy (bars [i]);
-
-				}
-			}
-		} else {
-			Destroy (miniHealthBar);
-		}
+		// activate wanted amount
 	}*/
 
     public void ShowActivatedPhase(string text){
@@ -118,25 +100,4 @@ public class UI_Boss : MonoBehaviour
 	public void HideSpell(){
 		bossSpellToast.SetActive (false);
 	}
-
-
-/*	Removed for being slightly unnecessary for now
-
-	IEnumerator _ShowActivatedBossPhase(string text){
-		bossSpellToast.SetActive (true);
-		bossSpellText.text = text;
-
-		int dir = -1;
-
-		for (int j = 0; j < 2; j++) {
-			for (int i = 0; i < 60; i+=1) {
-				bossSpellToast.transform.position += new Vector3 (dir + (7 * dir), 0, 0);
-				yield return new WaitForSeconds (0.005f);
-			}
-			dir = 1;
-			yield return new WaitForSeconds (5f);
-		}
-		bossSpellToast.SetActive (false);
-	}
-	*/
 }

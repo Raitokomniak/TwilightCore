@@ -73,7 +73,6 @@ public class Pattern
 
     
 
-
 	public Vector3 pos;
 	public Quaternion rot;
 
@@ -212,7 +211,6 @@ public class Pattern
 	}
 
     public void ModifyAllBullets(string modifier, float value){
-        
         foreach(GameObject bullet in spawnedBullets){
             if(bullet != null && bullet.GetComponent<BulletMovement>() != null && bullet.GetComponent<BulletMovement>().BMP != null){
                 if(modifier == "speed") bullet.GetComponent<BulletMovement>().BMP.movementSpeed = value;

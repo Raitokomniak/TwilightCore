@@ -16,8 +16,6 @@ public class EnemySpawner : MonoBehaviour {
 
 	void Awake(){
 		spawnerOn = false;
-		//DestroyAllEnemies ();
-		//DestroyAllProjectiles ();
 	}
 
 	public bool MidBossDead(){
@@ -102,17 +100,23 @@ public class EnemySpawner : MonoBehaviour {
 		GameObject[] enemiesToDestroy = GameObject.FindGameObjectsWithTag("Enemy");
 
 		foreach(GameObject enemy in enemiesToDestroy){
-			//enemy.GetComponent<EnemyLife>().Die();
-            Destroy(enemy);
+            IEnumerator routine = DestroyAllEnemiesRoutine(enemy);
+            StartCoroutine(routine);
 		}
 	}
+
+    IEnumerator DestroyAllEnemiesRoutine(GameObject enemy){
+        enemy.GetComponent<EnemyLife>().PlayFX("Hit");
+        enemy.GetComponent<EnemyLife>().DisableEnemy();
+        yield return new WaitForSeconds(2);
+        Destroy(enemy);
+    }
 	
 	public void DestroyAllProjectiles()
 	{
 		GameObject[] projectilesToDestroy = GameObject.FindGameObjectsWithTag("EnemyProjectile");
 
 		for(int i = 0; i < projectilesToDestroy.Length; i++){
-			//Destroy(projectilesToDestroy[i].gameObject);
             Game.control.bulletPool.StoreBulletToPool(projectilesToDestroy[i]);
 		}
 	}

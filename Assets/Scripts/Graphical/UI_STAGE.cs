@@ -23,6 +23,7 @@ public class UI_STAGE : UI {
 
     //TOAST
 	public TextMeshProUGUI toast;
+    public List<string> toastQue;
     bool toastPlaying;
 
     //PAUSE SCREEN
@@ -31,9 +32,7 @@ public class UI_STAGE : UI {
 
 
 	public void InitStage(){
-       
 		BOSS.HideUI();
-		
 		STAGEEND.Hide();
 		GAMEOVER.saveScoreScreen.SetActive(false);
 		GAMEOVER.gameObject.SetActive(false);
@@ -43,14 +42,9 @@ public class UI_STAGE : UI {
 		
 		WORLD.InitParallaxes();
 		WORLD.ResetTopLayer ();
-
 		LEFT_SIDE_PANEL.SetSliderMaxValues();
-
 		RIGHT_SIDE_PANEL.UpdateDifficulty(Game.control.stageHandler.difficultyAsString);
-
         FadeFrom(fadeFrom, 1.5f);
-    //    if(fadeFromWhite) EffectOverlay("White", false, 1);
-    //    else EffectOverlay("Black", false, 1);
 	}
 
     public void PrepareForFade(){
@@ -63,9 +57,16 @@ public class UI_STAGE : UI {
 		ToggleOptions(false);
 	}
 
+    void Update(){
+        if(toastQue.Count > 0 && !toastPlaying) {
+            ExecuteToast();
+        }
+    }
+
     /////////////////////////////////////////
     // MENUS 
     /////////////////////////////////////////
+
 	public void TogglePauseScreen(bool toggle){
 		pauseScreen.SetActive(toggle);
         TogglePauseMenu(toggle);
@@ -95,7 +96,7 @@ public class UI_STAGE : UI {
     public void FadeTo(string color, float fadeTime){
         fadeOver = false;
 		EFFECT_OVERLAY.gameObject.SetActive(true);
-		EFFECT_OVERLAY.color = new Color(1,1,1,0);
+		EFFECT_OVERLAY.color = new Color(1,1,1,1);
         IEnumerator animateRoutine = AnimateOverlay(true, fadeTime);
 		StartCoroutine(animateRoutine);
     }
@@ -148,13 +149,26 @@ public class UI_STAGE : UI {
 		STAGETOAST.Play();
 	}
 
+
+    //for public reference only
 	public void PlayToast(string text){
-        toast.text = text;
-        IEnumerator toastRoutine = PlayToast();
-        StartCoroutine(toastRoutine);
+        if(toastQue == null) toastQue = new List<string>();
+        if(toastQue.Count > 0 && toastQue[toastQue.Count - 1] == text) return;
+        toastQue.Add(text);
 	}
 
-	IEnumerator PlayToast(){
+    void ExecuteToast(){
+        
+        toastQue.Reverse();
+        string text = toastQue[toastQue.Count - 1];
+        toastQue.RemoveAt(toastQue.Count - 1);
+        toastQue.Reverse();
+        IEnumerator toastRoutine = ToastRoutine(text);
+        StartCoroutine(toastRoutine);
+    }
+
+	IEnumerator ToastRoutine(string text){
+        toast.text = text;
         toastPlaying = true;
         toast.gameObject.SetActive (true);
         yield return new WaitForSeconds (1f);

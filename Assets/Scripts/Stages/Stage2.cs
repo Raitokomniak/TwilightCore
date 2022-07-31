@@ -97,7 +97,6 @@ public class Stage2 : Stage
 		lib = Game.control.vectorLib;
 
 
-
 		//PHASE 1
 
 		mp = new EnemyMovementPattern(lib.GetVector("X1"));
@@ -371,7 +370,7 @@ public class Stage2 : Stage
 		
 		mp = new EnemyMovementPattern(lib.GetVector("X3"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3", 2), new WayPoint("R3")});
-        mp.disableHitBox = true;
+        mp.invulnerabilityShield = true;
 		p = new P_Spiral(6 * (int)difficultyMultiplier, 1);
 		p.loopCircles =  288 * 4;
 		p.executeDelay = 1f;
@@ -433,7 +432,7 @@ public class Stage2 : Stage
 
 		mp = new EnemyMovementPattern(lib.GetVector("X3"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("X3", 2), new WayPoint("L5")});
-		mp.disableHitBox = true;
+		mp.invulnerabilityShield = true;
 		p = new P_Spiral(3 * (int)difficultyMultiplier, 1);
 		p.loopCircles =  288 * 1;
 		p.BMP = new BMP_WaitAndExplode(p, 11f, 0);
@@ -445,7 +444,7 @@ public class Stage2 : Stage
 
 		mp = new EnemyMovementPattern(lib.GetVector("I3"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 2), new WayPoint("R5")});
-		mp.disableHitBox = true;
+		mp.invulnerabilityShield = true;
 		p = new P_Spiral(3 * (int)difficultyMultiplier, 1);
 		p.loopCircles =  288 * 1;
 		p.BMP = new BMP_WaitAndExplode(p, 11f, 0);
@@ -457,7 +456,7 @@ public class Stage2 : Stage
 
 		mp = new EnemyMovementPattern(lib.GetVector("C3"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("C3", 2), new WayPoint("L5")});
-		mp.disableHitBox = true;
+		mp.invulnerabilityShield = true;
 		p = new P_Spiral(3 * (int)difficultyMultiplier, 1);
 		p.loopCircles =  288 * 1;
 		p.BMP = new BMP_WaitAndExplode(p, 11f, 0);

@@ -15,8 +15,9 @@ public class BulletPooler : MonoBehaviour
 
     void Awake(){
         bulletsInPool = new List<GameObject>();
-
     }
+
+
     // AT START OF STAGE/GAME, INSTANTIATE BULLETS TO POOL 
 	public void InstantiateBulletsToPool (int amount)
 	{
@@ -38,7 +39,6 @@ public class BulletPooler : MonoBehaviour
         done = true;
         yield return null;
     }
-
 
 	public void StoreBulletToPool(GameObject bullet){
         StoreBulletToPool(bullet.GetComponent<BulletMovement>());

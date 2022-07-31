@@ -32,6 +32,7 @@ public class UI : MonoBehaviour
             StartCoroutine(wait);
         }
     }
+
     IEnumerator waitTut(){
         yield return new WaitForSecondsRealtime(0.1f);
         tutorial.tutorialOn = false;
@@ -42,6 +43,7 @@ public class UI : MonoBehaviour
 	}
 
     public virtual void UpdateMenu(string context, List<string> items){}
+    
     public void UpdateMenuSelection(string context, int index){
         foreach (TextMeshProUGUI textObject in allMenuSelections) textObject.fontStyle = FontStyles.Normal;
         if(context == "OptionsMenu") foreach (TextMeshProUGUI text in optionsValuesTexts) text.fontStyle = TMPro.FontStyles.Normal;

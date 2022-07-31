@@ -6,9 +6,7 @@ using TMPro;
 
 public class ScorePanel : MonoBehaviour
 {
-    public Object scoreSlotPrefab;
     public List<Transform> scoreSlots;
-    public Transform contentPanel;
 
     public static int CompareScores(ScoreSave x, ScoreSave y){
         return y.score.CompareTo(x.score);

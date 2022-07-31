@@ -11,15 +11,6 @@ public class Intro : MonoBehaviour
     public bool introOn;
     public bool introDone;
 
-    bool skipping;
-
-    float holdTimer;
-    float holdTime = .5f;
-
-    float skipTimer;
-    float skipTime = .1f;
-
- 
     
     public void Run(){
         Game.control.inputHandler.skipContext = "Intro";

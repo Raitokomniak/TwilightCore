@@ -29,7 +29,6 @@ public class BMP_WaitToHome : BulletMovementPattern
         FindPlayer(bullet);
 		yield return new WaitForSeconds (.3f);
         if(waitToTrail) trail = true;
-        if(trail) bullet.GetComponent<BulletMovement>().EnableTrail(pattern.sprite);
         
         startHoming = true;
         accelMax = 25;

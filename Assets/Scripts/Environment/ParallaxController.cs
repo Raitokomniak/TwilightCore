@@ -4,9 +4,7 @@ public class ParallaxController : MonoBehaviour {
 
 	public float scrollSpeed;
 	public float tileSize;
-
 	Vector2 startPosition;
-
 	bool moving;
 
 	void Awake () {

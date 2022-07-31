@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class BulletMovement : MonoBehaviour {
-    TrailMaker trailMaker;
     HomingWarningLine homingWarningLine;
 
     BoxCollider2D boxCollider;
@@ -34,8 +33,6 @@ public class BulletMovement : MonoBehaviour {
         homingWarningLine = GetComponent<HomingWarningLine>();
         boxCollider = GetComponent<BoxCollider2D>();
         circleCollider = GetComponent<CircleCollider2D>();
-        trailMaker = GetComponentInChildren<TrailMaker>();
-        if(trailMaker!=null) trailMaker.gameObject.SetActive(false);
 	}
 
 	public void Init(BulletMovementPattern _BMP, EnemyShoot enemyShoot){
@@ -54,11 +51,6 @@ public class BulletMovement : MonoBehaviour {
         stageBot = new Vector3(0, Game.control.stageUI.WORLD.GetBoundaries()[0],0);
 	}
 
-    public void EnableTrail(Sprite sprite){
-        trailMaker.gameObject.SetActive(true);
-        trailMaker.MakeTrail(gameObject, sprite);
-    }
-
     public void SetUpBulletMovement()
 	{
 		if (BMP.startHoming) BMP.FindPlayer(gameObject);
@@ -68,7 +60,6 @@ public class BulletMovement : MonoBehaviour {
 	}
 
 	public void Pool(){
-        if(trailMaker != null && trailMaker.gameObject != null) trailMaker.gameObject.SetActive(false);
         DisableHitBoxes();
         spriteR.sortingOrder = 4;
         glowRend.sortingOrder = 0;
@@ -117,17 +108,12 @@ public class BulletMovement : MonoBehaviour {
             }
         }
 
-         
-        
-
         CheckBounds(); ////////////////////////////////////////////////////////////
 	}
 
     void CheckSprite(){
         if(BMP == null) return;
         if(!BMP.forceSprite) return;
-       // if(BMP.pattern.patternName == "MusicalNotes") return;
-       // if(BMP.name == "TurnToSpears") return;
         if(spriteR.sprite != BMP.pattern.sprite) spriteR.sprite = BMP.pattern.sprite;
     }
 
@@ -137,21 +123,6 @@ public class BulletMovement : MonoBehaviour {
 
         // IF NEAR PLAYER
 		if((transform.position - findPlayer).magnitude < 1f) canEnable = true; 
-
-		/*if(Game.control.stageUI.WORLD.GetBoundaries() != null && bulletBouncer) 
-            if ((transform.position - stageBot).magnitude < 1f) canEnable = true; //IF BOUNCER && NEAR BOT WALL*/
-		
-        /*
-        if(nightCoreField != null && nightCoreField.activeSelf)
-            if((transform.position - nightCoreField.transform.position).magnitude < 10f + Game.control.player.special.specialScale)
-                 canEnable = true;
-            else canEnable = false;
-        if(dayCoreField != null && dayCoreField.activeSelf)
-            if((transform.position - dayCoreField.transform.position).magnitude < 10f + Game.control.player.special.specialScale)
-                canEnable = true;
-            else canEnable = false;
-        */
-
         
         if(nightCoreField != null && nightCoreField.activeSelf)
             if((transform.position - nightCoreField.transform.position).magnitude < 2f + Game.control.player.special.specialScale)
@@ -188,15 +159,6 @@ public class BulletMovement : MonoBehaviour {
                 hitBoxEnabled =  false;
             }
         }
-/*
-        if(!hitBoxEnabled && canEnable) {
-            
-            //if(!bulletBouncer) Physics2D.IgnoreCollision(boxCollider, bulletCollider, true);
-        }
-		if(hitBoxEnabled && !canEnable) {
-            bulletCollider.enabled = false;
-            hitBoxEnabled =  false;
-        }*/
     }
 
     public void DisableHitBoxes(){
@@ -244,8 +206,6 @@ public class BulletMovement : MonoBehaviour {
 	}
 	
 	void UpdateRotations(){
-        //if(transform.rotation != bulletRot) transform.rotation = bulletRot;
-
 		if(transform.rotation != BMP.rotation) transform.rotation = BMP.rotation;
 		if(transform.GetChild(0).rotation != BMP.spriteRotation) transform.GetChild(0).rotation = BMP.spriteRotation;
 		if(transform.GetChild(1).rotation != BMP.spriteRotation) transform.GetChild(1).rotation = BMP.spriteRotation;
@@ -261,7 +221,6 @@ public class BulletMovement : MonoBehaviour {
 	public void Stop(){
 		if(rb != null) rb.velocity = Vector2.zero;
 	}
-
 
 
     //////////////////////////////

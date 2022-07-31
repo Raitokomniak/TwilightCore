@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Stage : MonoBehaviour
 {
-    public DialogController dialog = Game.control.dialog;
-    public StageHandler stage = Game.control.stageHandler;
+    public DialogController dialog;
+    public StageHandler stage;
 
     public string stageName;
     public string stageSubtitle;
@@ -21,6 +21,8 @@ public class Stage : MonoBehaviour
     public VectorLib lib;
 
     public void UpdateStageInfoToUI(){
+        dialog = Game.control.dialog;
+        stage = Game.control.stageHandler;
         Game.control.stageUI.fadeFrom = fadeFrom;
         Game.control.stageUI.RIGHT_SIDE_PANEL.UpdateStage(stageName);
 		Game.control.stageUI.STAGETOAST.UpdateStageToastText (stageindex, stageName, stageSubtitle, bgmName);

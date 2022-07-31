@@ -19,6 +19,7 @@ TagManager:
   - NightCorePoint
   - CorePoint
   - EnvironmentalHazard
+  - destroyFlag
   layers:
   - Default
   - TransparentFX

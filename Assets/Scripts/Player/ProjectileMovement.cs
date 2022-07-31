@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ProjectileMovement : MonoBehaviour {
 	float movementSpeed = 40f;
-	//public Vector3 targetPos;
+	//public Vector3 targetPos;  // DONT DELET IN CASE YOU WANT TO MAKE A HOMING BULLET
    
 	void Update () {
         if(Game.control.stageUI == null) return;

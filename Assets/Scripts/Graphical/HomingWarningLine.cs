@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class HomingWarningLine : MonoBehaviour
 {
+
+    // THIS IS NOT USED BUT MIGHT BE A COOL IDEA MAYBE
+    // THE BIGGEST PROBLEM WAS THAT THE LINE DOESNT DISAPPEAR WHEN POOLED OR JUST ACTS WONKY
+
     LineRenderer lineRenderer;
     BulletMovement bulletMovement;
 

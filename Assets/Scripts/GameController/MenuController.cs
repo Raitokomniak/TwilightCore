@@ -22,8 +22,6 @@ public class MenuController : MonoBehaviour
         InitMenu();
     }
 
-	
-
     void LateUpdate ()
 	{
 		if (Game.control.inputHandler.AllowMenuInput()) {
@@ -47,8 +45,6 @@ public class MenuController : MonoBehaviour
 			Game.control.pause.HandlePause();
 		}
 	}
-
-
 
 	void ClosePauseMenu(){
 		Game.control.pause.HandlePause();

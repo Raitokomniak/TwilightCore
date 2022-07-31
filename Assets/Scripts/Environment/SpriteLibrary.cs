@@ -25,8 +25,6 @@ public class SpriteLibrary : MonoBehaviour {
 		return sprite;
 	}
 
-
-
     public Color GetColor(string colorName){
         Color color = new Color(0,0,0,0);
         if(colorName == "Red")          color = Color.red;

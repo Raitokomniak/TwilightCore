@@ -142,7 +142,7 @@ public class Phaser : MonoBehaviour {
 		else {
 			life.DropLoot("Core"); //
 			life.DropLoot("Core");
-            if(bossPhase >=0) {
+            if(bossPhase >=0 && bossTimeBonus) {
                 Game.control.stageUI.PlayToast("Time Bonus!");
                 Game.control.player.GainScore(3000);
                 life.DropLoot("ExpPoint");

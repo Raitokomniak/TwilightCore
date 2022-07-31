@@ -85,6 +85,16 @@ public class EnemyMovement : MonoBehaviour {
 		moving = true;
 	}
 
+    public void WaitForFloat(){
+        IEnumerator WaitFloat = WaitFloatRoutine();
+        StartCoroutine(WaitFloat);
+    }
+
+    IEnumerator WaitFloatRoutine(){
+        yield return new WaitUntil(() => pattern.HasReachedDestination(this) == true);
+        BossFloat();
+    }
+
 	public void SmoothAcceleration(float accelTime){
 		StartCoroutine (_SmoothAcceleration (accelTime));
 	}
@@ -97,6 +107,38 @@ public class EnemyMovement : MonoBehaviour {
 			yield return new WaitForSeconds (0.01f * accelTime);
 		}
 	}
+
+    public void BossFloat(){
+        Debug.Log("float");
+        IEnumerator routine = BossFloatRoutine();
+        StartCoroutine(routine);
+    }
+
+    IEnumerator BossFloatRoutine(){
+
+        Transform sprite = enemySprite.gameObject.transform;
+        Vector3 spriteOriginPos = sprite.position;
+
+        while(Game.control.dialog.handlingDialog){
+            bool floating = Game.control.dialog.handlingDialog;
+            for(float i = .1f; i > 0.05; i-=Time.deltaTime){
+                if(!floating) break;
+                sprite.position = new Vector3(sprite.position.x, sprite.position.y - (i * 0.2f), 0);
+                yield return new WaitForSeconds(Time.deltaTime * 20);
+                
+            }
+            for(float i = .1f; i > 0.05f; i-=Time.deltaTime){
+                if(!floating) break;
+                sprite.position = new Vector3(sprite.position.x, sprite.position.y + (i * 0.2f), 0);
+                yield return new WaitForSeconds(Time.deltaTime * 20);
+            }
+
+            yield return null;
+        }
+
+        sprite.localPosition = new Vector3(0,0,0);
+        
+    }
 
 	// sprite 
 
@@ -114,4 +156,5 @@ public class EnemyMovement : MonoBehaviour {
         transform.rotation = Quaternion.Euler(0,0,0);
         enemySprite.transform.rotation = Quaternion.Euler(0,0,0);
     }
+
 }

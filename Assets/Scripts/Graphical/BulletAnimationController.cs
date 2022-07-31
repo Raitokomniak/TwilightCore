@@ -14,7 +14,6 @@ public class BulletAnimationController : MonoBehaviour {
 
 	public bool stop;
 
-	public bool dontDestroy;
 	
 	void Awake(){
 		_renderer = GetComponent<SpriteRenderer>();
@@ -56,9 +55,6 @@ public class BulletAnimationController : MonoBehaviour {
 		_renderer.color = new Color (1, 1, 1, 0);
 		for (int i = 0; i < (10*targetScale); i++) {
 			if(stop) break;
-			//_renderer.color += new Color (1, 1, 1, 0.1f);
-			//transform.localScale += new Vector3 (0.1f, 0.1f, 0.1f);
-			//yield return new WaitForSeconds (0.03f * scalingTime);
 			_renderer.color += new Color (1, 1, 1, 0.1f);
 			transform.localScale += new Vector3 (0.1f, 0.1f, 0.1f);
 			yield return new WaitForSeconds(scalingTime * Time.deltaTime);

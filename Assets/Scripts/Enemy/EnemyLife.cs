@@ -8,6 +8,10 @@ public class EnemyLife : MonoBehaviour {
 	public float currentHealth;
 	public bool invulnerable = false;
 
+    public GameObject invulnerabilityShield;
+    ParticleSystem shieldFX;
+    public bool shield;
+
     public ParticleSystem hitFXparticles;
 
 
@@ -16,6 +20,13 @@ public class EnemyLife : MonoBehaviour {
     void Awake(){
         hitFXparticles = GetComponentInChildren<ParticleSystem>();
         hitFXparticles.Stop();
+        invulnerabilityShield = transform.GetChild(4).gameObject;
+        shieldFX = invulnerabilityShield.GetComponent<ParticleSystem>();
+        shieldFX.Stop();
+        invulnerabilityShield.SetActive(false);
+
+        if(GetComponent<EnemyMovement>().pattern == null) return;
+        if(GetComponent<EnemyMovement>().pattern.invulnerabilityShield) shield = true;
     }
 	public virtual void Init(int setMaxHealth, int _healthBars, Phaser _bossScript){}
 
@@ -31,9 +42,25 @@ public class EnemyLife : MonoBehaviour {
     
     void CheckHit(){
         if(dead || invulnerable) return;
+
+        if(shield) {
+            if(invulnerabilityShield.activeSelf) return;
+            IEnumerator shieldroutine = AnimateInvulnerableShield();
+            StartCoroutine(shieldroutine);
+            return;
+        }
+            
+        
         PlayFX("Hit");
         if(hasHealth) TakeHit();
         else Die (false);
+    }
+
+    IEnumerator AnimateInvulnerableShield(){
+        invulnerabilityShield.SetActive(true);
+        if(!shieldFX.isPlaying) shieldFX.Emit(5);
+        yield return new WaitForSeconds(1f);
+        invulnerabilityShield.SetActive(false);
     }
 
     void TakeHit(){
@@ -90,6 +117,7 @@ public class EnemyLife : MonoBehaviour {
 	}
 
 	public virtual void DisableEnemy(){
+        gameObject.tag = "destroyFlag";
 		spriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
 		GetComponent<EnemyShoot>().StopPattern();
 		transform.GetChild(2).gameObject.SetActive(false);
@@ -119,7 +147,7 @@ public class EnemyLife : MonoBehaviour {
 			}
 		}
 		if(type == "ExpPoint")
-			for(int i = 0; i < 9; i++) {
+			for(int i = 0; i < 4; i++) {
                 Vector3 spawnPoint = transform.position + new Vector3(Random.Range(-5, 5), 2f, 0);
                 if(spawnPoint.x < 5) spawnPoint = new Vector3(5, spawnPoint.y, 0);
                 GameObject pickUpPoint = Instantiate(pickUpPointPrefab, spawnPoint, Quaternion.Euler(0,0,0));

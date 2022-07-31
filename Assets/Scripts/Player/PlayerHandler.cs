@@ -8,7 +8,6 @@ public class PlayerStats {
 	public int xp;
 	public int xpCap;
 	public int level;
-	public int upgradePoints;
 
 	public float movementSpeed;
 	public float damage;
@@ -16,7 +15,6 @@ public class PlayerStats {
 	public float bulletScaleMin;
 	public float dayShootSpeed;
     public float nightShootSpeed;
-	public float bulletScale;
 
     public int dayCorePoints;
 	public int dayCoreLevel;
@@ -35,8 +33,6 @@ public class PlayerStats {
 		xp = 0;
 		level = 1;
 		damage = damageMin;
-		bulletScaleMin = 1f;
-		bulletScale = bulletScaleMin;
 
         dayCorePoints = 0;
 	    dayCoreLevel = 0;
@@ -46,8 +42,6 @@ public class PlayerStats {
 		movementSpeed = 15f;
 		dayShootSpeed = .1f;
         nightShootSpeed = .06f;
-
-		upgradePoints = 0;
 	}
 }
 
@@ -66,8 +60,6 @@ public class PlayerHandler : MonoBehaviour {
 		special = GetComponent<PlayerSpecialAttack>();
         miniToaster = GetComponentInChildren<MiniToast>();
 	}
-
-
 
 	public void Init(){
 		transform.position = Game.control.vectorLib.GetVector("X8");
@@ -91,11 +83,7 @@ public class PlayerHandler : MonoBehaviour {
 		return gainedScore;
 	}
 
-
-
-
 	/////DEBUG
-
 	public void DebugFillCores(){
 		//POWERUP DOESNT TAKE INTO ACCOUNT BIG AMOUNTS OF CORE POINT GAINS
 		for(int i = 0; i < special.coreCap / 2; i++){

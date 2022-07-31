@@ -67,7 +67,7 @@ public class PauseController : MonoBehaviour {
 	public void Unpause(bool resumeMusic){
 		if(resumeMusic) {
             Game.control.sound.ResumeMusic();
-             Game.control.sound.ResumeEffects();
+            Game.control.sound.ResumeEffects();
         }
        
 		paused = false;
@@ -77,10 +77,7 @@ public class PauseController : MonoBehaviour {
 
 	public void SetTimeScale(bool normal)
 	{
-		if (normal) {
-			Time.timeScale = 1;
-		} else {
-			Time.timeScale = 0;
-		}
+		if (normal) Time.timeScale = 1;
+		else        Time.timeScale = 0;
 	}
 }

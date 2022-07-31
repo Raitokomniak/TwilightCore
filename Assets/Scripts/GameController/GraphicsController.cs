@@ -13,7 +13,6 @@ public class GraphicsController : MonoBehaviour
         InitScreen();
     }
 
-    
     void Update(){
         if(Game.control.stageHandler.stageOn && !Application.isFocused && !Game.control.pause.paused) {
             Game.control.menu.Menu("PauseMenu");
@@ -62,9 +61,6 @@ public class GraphicsController : MonoBehaviour
         return FullScreenMode.Windowed;
     }
 
-    public void SetMaxReso(){
-        SetResolution(resolutions.Count - 1);
-    }
     public void SetResolution(int index){
         resolution = index;
         Resolution reso = resolutions[resolution];

@@ -4,18 +4,12 @@ using System.Collections.Generic;
 
 public class PlayerShoot : MonoBehaviour {
 	public bool init;
-
 	public float coolDownTimer;
-
 	public int shootLevel;
-	public int dayShootLevel;
-	public int nightShootLevel;
 
 	GameObject projectile;
 	Sprite normalProjectile;
 	Sprite focusProjectile;
-
-	public float projectileScale;
 
 	public GameObject weapon;
 	public List<GameObject> weapons;
@@ -26,7 +20,6 @@ public class PlayerShoot : MonoBehaviour {
 
 	void Awake () {
 		coolDownTimer = 0f;
-		projectileScale = 1f;
 		shootLevel = 0;
 		projectile = Resources.Load("Prefabs/playerProjectile") as GameObject;
 		normalProjectile = Resources.Load<Sprite>("Sprites/BulletSprites/starLight_bullet");
@@ -40,9 +33,8 @@ public class PlayerShoot : MonoBehaviour {
 		weaponsInUse = new List<GameObject> ();
 		
 		//hidesprites
-		foreach (GameObject w in weapons) {
-			w.GetComponent<SpriteRenderer>().enabled = false;
-		}
+		foreach (GameObject w in weapons) w.GetComponent<SpriteRenderer>().enabled = false;
+
 		weapons[0].GetComponent<SpriteRenderer>().enabled = true;
 		weaponsInUse.Add ((GameObject)weapons [0]);
 		UpdateShootLevel (Game.control.stageHandler.stats.dayCoreLevel,Game.control.stageHandler.stats.nightCoreLevel);

@@ -161,26 +161,10 @@ public class BulletMovementPattern
 		bulletMovement.Stop();
 	}
 
-
-
 	public void StartMoving(float magnitude){
         centerPoint = bullet.transform.position;
 		targetMagnitude = magnitude;
 		isMoving = true;
-	}
-
-
-	public bool HasReachedDestination(Vector3 targetPosition, BulletMovement _m){
-		float x = _m.transform.position.x;
-		float y = _m.transform.position.y;
-		float threshold = 1f;
-
-		if(Mathf.Abs(x-targetPosition.x) <= threshold && Mathf.Abs(y-targetPosition.y) <= threshold) {
-			return true;
-		} 
-		else {
-			return false;
-		} 
 	}
 
     public void SmoothAcceleration(){

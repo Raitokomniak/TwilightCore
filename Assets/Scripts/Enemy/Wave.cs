@@ -111,9 +111,11 @@ public class Wave
 		GameObject enemy = GameObject.Instantiate (Resources.Load ("Prefabs/Enemy"), pat.spawnPosition, Quaternion.Euler (0, 0, 0)) as GameObject;
 		
 		//add and init components
+        enemy.GetComponent<EnemyMovement> ().SetUpPatternAndMove (pat);
+        
 		enemy.AddComponent<EnemyLife> ();
 		enemy.GetComponent<EnemyLife> ().SetHealth (health);
-		enemy.GetComponent<EnemyMovement> ().SetUpPatternAndMove (pat);
+		
 		enemy.GetComponentInChildren<SpriteRenderer> ().sprite = sprite;
 		enemy.GetComponent<EnemyShoot> ().SetUpAndShoot (shootPattern, shootSpeed);
 
@@ -130,6 +132,7 @@ public class Wave
 		//add and init components
 		enemy.AddComponent<BossLife>();
 		enemy.GetComponent<EnemyMovement> ().SetUpPatternAndMove (pat);
+        enemy.GetComponent<EnemyMovement>().WaitForFloat();
 		if(isBoss) 	  enemy.tag = "Boss";
 		if(isMidBoss) enemy.tag = "MidBoss";
 		enemy.GetComponent<EnemyLife>().enabled = false;
@@ -137,6 +140,7 @@ public class Wave
 
 		enemy.GetComponent<BossLife> ().Init (health, healthBars, bossScript);
 		enemy.GetComponentInChildren<SpriteRenderer> ().sprite = sprite;
+        
 
 		GameObject MCspriteAnim = enemy.transform.GetChild(2).gameObject;
 		MCspriteAnim.SetActive(true);
@@ -151,6 +155,7 @@ public class Wave
 		Game.control.enemySpawner.DestroyAllProjectiles();
 		bossScript.NextPhase ();
 		Game.control.stageUI.BOSS.ToggleBossHealthSlider (true, enemy.GetComponent<BossLife> ().maxHealth, bossName);
+
 	}
 
     void GetBossScript(GameObject enemy){

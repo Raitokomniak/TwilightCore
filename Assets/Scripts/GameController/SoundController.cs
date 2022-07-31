@@ -157,7 +157,6 @@ public class SoundController : MonoBehaviour {
 		if(sound == "Cancel") 	 c = SFX_cancel;
 
 		menuSFXSource.PlayOneShot (c);
-
 	}
 	
 	public void PlaySound(string source, string sound, bool oneShot)
@@ -292,7 +291,7 @@ public class SoundController : MonoBehaviour {
 		BGMSource.loop = true;
 
 /*
-        ///DEBUG
+        ///DEBUG BOSS LOOP TIME
         Debug.Log("bossmusicon " + bossMusicOn);
         Debug.Log("loopstartpoint " + loopStartPoint);
         BGMSource.time = BGMSource.clip.length - 3;*/

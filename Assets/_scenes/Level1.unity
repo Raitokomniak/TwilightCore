@@ -15712,8 +15712,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 92, y: -98}
-  m_SizeDelta: {x: 588.7823, y: 46.3086}
+  m_AnchoredPosition: {x: 21.662415, y: -98}
+  m_SizeDelta: {x: 448.1071, y: 46.3086}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1525667135
 MonoBehaviour:
@@ -15770,7 +15770,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -21558,7 +21558,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 427982, guid: 18a95a0d5bb3dd041acc56527828d368, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.07
+      value: 22.4
       objectReference: {fileID: 0}
     - target: {fileID: 427982, guid: 18a95a0d5bb3dd041acc56527828d368, type: 3}
       propertyPath: m_LocalPosition.y
@@ -26462,8 +26462,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogPanel: {fileID: 3939676774758167051}
-  dialogBG: {fileID: 3939676774083541318}
-  dialogName: {fileID: 1870151761}
   dialogContent: {fileID: 1723636427}
   dialogRightChar: {fileID: 3939676775083258600}
   dialogLeftChar: {fileID: 3939676775132728310}
@@ -27055,7 +27053,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -338.88, y: 271}
+  m_AnchoredPosition: {x: -338.88, y: 38.961975}
   m_SizeDelta: {x: -1807.3, y: -813.3131}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3939676775333426461
@@ -27801,6 +27799,7 @@ MonoBehaviour:
   fadeOver: 0
   fadeFrom: 
   toast: {fileID: 1608336244}
+  toastQue: []
   pauseScreen: {fileID: 3939676775667824397}
   pauseMenuOptions: {fileID: 3939676775135301316}
 --- !u!1001 &4717746689158190008

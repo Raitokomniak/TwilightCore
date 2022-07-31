@@ -28,9 +28,10 @@ public class Stage4 : Stage
 
         scene.SetPlaneSpeed (2f);
         Game.control.stageUI.WORLD.SetTopLayerSpeed(5);
-		Game.control.stageUI.PlayStageToast();
+		
 
-       // while (stage.stageTimer < Game.control.enemySpawner.midBossWave.spawnTime - 1) yield return null;
+       
+
       //  while (stage.midBossOn) yield return null;
       
       //
@@ -56,9 +57,16 @@ public class Stage4 : Stage
 			//else 
             yield return null;
 		}
+
+        
 		Game.control.sound.PlayMusic ("Boss", 4);
 
         Game.control.stageHandler.ToggleTimer(true);
+
+        while (stage.stageTimer < 10) yield return null;
+       
+       Game.control.stageUI.PlayStageToast();
+
 
 		
 		while(!Game.control.enemySpawner.bossWave.dead) yield return null;
@@ -113,18 +121,12 @@ public class Stage4 : Stage
 		boss.SetUpBoss (4, "Tridevi of the Lotus Garden", false);
 		stage.NewWave (boss);
 
-/*
+
         mp = new EnemyMovementPattern(lib.GetVector("I1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 1), new WayPoint("L4")});
 		p = new P_SingleHoming();
 		p.SetSprite ("BigCircle", "Big", "Red", "Huge");
 		stage.NewWave (new Wave (1f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "gand_flute"));
-
-        mp = new EnemyMovementPattern(lib.GetVector("A1"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("D3", 1), new WayPoint("R4")});
-		p = new P_SingleHoming();
-		p.SetSprite ("BigCircle", "Big", "Red", "Huge");
-		stage.NewWave (new Wave (3f, mp, p, 3, false, 0, 3f / difficultyMultiplier, "gand_flute"));
 
         mp = new EnemyMovementPattern(lib.GetVector("C1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("C3", 3), new WayPoint("R4")});
@@ -133,16 +135,7 @@ public class Stage4 : Stage
 		p.bulletCount =  Mathf.CeilToInt(4 * difficultyMultiplier);
 		p.BMP = new BMP_Explode(p, 11f);
 		p.SetSprite ("Circle", "Glow", "Purple", "Small");	 
-		stage.NewWave (new Wave (6f, mp, p, 1, false, 40, 3f / difficultyMultiplier, "gand_sitar"));
-
-        mp = new EnemyMovementPattern(lib.GetVector("F1"));
-		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("F3", 3), new WayPoint("L4")});
-		mp.speed = 2f;
-		p = new P_Circle();
-		p.bulletCount =  Mathf.CeilToInt(4 * difficultyMultiplier);
-		p.BMP = new BMP_Explode(p, 11f);
-		p.SetSprite ("Circle", "Glow", "Yellow", "Small");	 
-		stage.NewWave (new Wave (8f, mp, p, 1, false, 40, 3f / difficultyMultiplier, "gand_sitar"));
+		stage.NewWave (new Wave (3f, mp, p, 1, false, 40, 3f / difficultyMultiplier, "gand_sitar"));
 
         mp = new EnemyMovementPattern(lib.GetVector("I1"));
 		mp.SetWayPoints(new List<WayPoint>(){new WayPoint("I3", 3), new WayPoint("R4")});
@@ -151,8 +144,8 @@ public class Stage4 : Stage
 		p.bulletCount =  Mathf.CeilToInt(4 * difficultyMultiplier);
 		p.BMP = new BMP_Explode(p, 11f);
 		p.SetSprite ("Circle", "Glow", "Blue", "Small");	 
-		stage.NewWave (new Wave (10f, mp, p, 1, false, 40, 3f / difficultyMultiplier, "gand_sitar"));
-*/
+		stage.NewWave (new Wave (5f, mp, p, 1, false, 40, 3f / difficultyMultiplier, "gand_sitar"));
+
 
 	}
 }

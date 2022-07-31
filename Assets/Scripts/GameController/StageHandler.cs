@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class StageHandler : MonoBehaviour {
 
-    int STARTING_STAGE = 4;
+    int STARTING_STAGE = 2;
 
     AsyncOperation loadScene;
 	public Stage stageScript;

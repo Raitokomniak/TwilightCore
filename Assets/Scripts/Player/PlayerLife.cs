@@ -23,7 +23,7 @@ public class PlayerLife : MonoBehaviour {
 	}
 
 	void Update(){
-		//DevGodMode(); ///////////////////////////////////////////////////////////////
+		//invulnerable = true; //
 		if(!invulnerable) GetComponent<SpriteRenderer> ().enabled = true;
 	}
 

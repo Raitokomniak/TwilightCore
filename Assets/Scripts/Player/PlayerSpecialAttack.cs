@@ -15,8 +15,6 @@ public class PlayerSpecialAttack : MonoBehaviour {
 	public GameObject nightAnimatedSprite;
 	public GameObject dayAnimatedSprite;
 
-	GameObject starLightBomb;
-
     int dayCoreLevel;
     int dayCorePoints;
     int nightCoreLevel;
@@ -97,6 +95,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 		specialAttack = true;
 
 		DepleteCore (core, true);
+        PowerUpdate (core, false);
 
 		if (core == "Day") {
 			Game.control.stageUI.WORLD.ShowFXLayer("Light");
@@ -153,7 +152,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 			Game.control.stageUI.WORLD.HideFXLayer();
 			
 		}
-        PowerUpdate (core, false);
+        
         GetComponent<PlayerLife>().invulnerable = false;
 		specialAttack = false;
 	}
@@ -228,9 +227,7 @@ public class PlayerSpecialAttack : MonoBehaviour {
 
 		Game.control.stageUI.LEFT_SIDE_PANEL.UpdatePower("Day", dayCoreLevel);
 		Game.control.stageUI.LEFT_SIDE_PANEL.UpdatePower("Night", nightCoreLevel);
-
-		//Debug.Log("day core level " + dayCoreLevel);
-		//Debug.Log("night core level " + nightCoreLevel);
+        
 		shoot.UpdateShootLevel (dayCoreLevel, nightCoreLevel);
 	}
 

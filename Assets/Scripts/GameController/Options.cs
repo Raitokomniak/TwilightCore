@@ -2,16 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [System.Serializable]
 public class OptionsValues {
-        [SerializeField] public int screenMode;
-        [SerializeField] public int resolution;
-        [SerializeField] public bool autoScroll;
-        [SerializeField] public float bgmVolume;
-        [SerializeField] public float sfxVolume;
+    [SerializeField] public int screenMode;
+    [SerializeField] public int resolution;
+    [SerializeField] public bool autoScroll;
+    [SerializeField] public float bgmVolume;
+    [SerializeField] public float sfxVolume;
 
-        public OptionsValues(){}
+    public OptionsValues(){}
 }
 
 public class Options : MonoBehaviour

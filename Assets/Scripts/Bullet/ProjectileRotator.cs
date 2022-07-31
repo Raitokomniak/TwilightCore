@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProjectileRotator : MonoBehaviour
 {
-     public bool rotate = false;
+    public bool rotate = false;
 
     void Update(){
        if(rotate) transform.Rotate (0, 0, Time.deltaTime * 300);

@@ -39,7 +39,6 @@ public class BMP_TurnToSpears : BulletMovementPattern
 		FindPlayer(bullet);
         bullet.transform.GetChild(2).gameObject.SetActive(true);
         //if(bulletHomingWarningLine) bulletHomingWarningLine.ActivateLine();
-        bullet.GetComponent<BulletMovement>().EnableTrail(Game.control.spriteLib.SetBulletSprite ("Spear", "Bevel", "Purple"));
         startHoming = true;
 		yield return new WaitForSeconds (.5f);
 		accelMax = 40;

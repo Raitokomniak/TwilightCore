@@ -15,10 +15,6 @@ public class UI_RightSidePanel : MonoBehaviour
     
     public GameObject lifeSpritesContainer;
     public List<GameObject> lifeSprites;
-    public Transform livesContainer;
-    public Object lifeSpritePrefab;
-
-    
 	public GameObject playerSpecialPanel;
 	public TextMeshProUGUI playerSpecialText;
 

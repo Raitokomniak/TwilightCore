@@ -7,9 +7,7 @@ using System.IO;
 public class ScoreList {
     public List<ScoreSave> allScores;
 
-    public ScoreList(){
-        allScores = new List<ScoreSave>();
-    }
+    public ScoreList(){ allScores = new List<ScoreSave>(); }
 }
 
 [System.Serializable] 
@@ -89,7 +87,6 @@ public class SaveLoadHandler : MonoBehaviour {
         options.screenMode = Game.control.gfx.screenMode;
         options.resolution = Game.control.gfx.resolution;
         string dataString = JsonUtility.ToJson(options);
-        //THIS DATAPATH HAS TO BE CHANGED TO BUILD DATAPATH
         File.WriteAllText(appDataPath + "/options.json", dataString);
         return true;
     }
@@ -101,7 +98,6 @@ public class SaveLoadHandler : MonoBehaviour {
             string rawJson = File.ReadAllText(appDataPath + "/options.json");
             OptionsValues options = JsonUtility.FromJson<OptionsValues>(rawJson);
             Game.control.options.LoadValuesFromFile(options);
-//            Debug.Log("Options loaded");
         }
         else {
             Debug.Log("No options file, default options");

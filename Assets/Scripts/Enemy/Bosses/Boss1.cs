@@ -36,10 +36,8 @@ public class Boss1 : Phaser
 				Game.control.stageUI.BOSS.ShowActivatedPhase ("Daffodil Hypnosis");
                 StartPhaseTimer(30);
 
-
 				//daffodil center
 				p = new P_Circle(10 * difficulty);
-				//p.BMP = new BMP_Explode(p, 2);
                 p.BMP = new BMP_WaitAndExplode(p, 2, 0);
 				p.loopCircles =  100 * difficulty;
 				p.SetSprite ("Circle", "Glow", "Orange", "Small");
